@@ -3,6 +3,9 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 
+// Styles
+import './assets/styles/index.css';
+
 Vue.config.productionTip = false;
 
 new Vue({
