@@ -1,4 +1,4 @@
-package com.envelope;
+package com.fitzcreative.envelope;
 
 import com.facebook.react.ReactActivity;
 

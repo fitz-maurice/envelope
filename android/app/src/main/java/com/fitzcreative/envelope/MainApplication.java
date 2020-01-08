@@ -1,4 +1,4 @@
-package com.envelope;
+package com.fitzcreative.envelope;
 
 import android.app.Application;
 import android.content.Context;
