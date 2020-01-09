@@ -9,8 +9,6 @@ module.exports = {
   resolver:{
     blacklistRE: blacklist([
       /firebase\/.*/,
-      /android\/.*/,
-      /ios\/.*/
     ])
   },
   transformer: {
