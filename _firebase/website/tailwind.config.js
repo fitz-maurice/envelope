@@ -1,6 +1,13 @@
 module.exports = {
   theme: {
-    extend: {},
+    container: {
+      center: true,
+    },
+    extend: {
+      fontFamily: {
+        body: ['Montserrat'],
+      },
+    },
   },
   variants: {},
   plugins: [],

@@ -1,32 +1,30 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+  <div id="app" class="container h-full font-body">
+    <router-link to="/" class="mr-3">Home</router-link>
+    <button @click.prevent="logout" class="mr-3">Logout</button>
+    <router-link to="/account" class="mr-3">Account</router-link>
+    <span v-if="user">{{ user.email }} is logged in</span>
+    <router-view :user="user" />
+    <portal-target name="modal" />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import firebase from 'firebase';
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+export default {
+  props: {
+    user: Object,
+  },
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push('/').catch(err => console.log(err));
+        });
+    },
+  },
+};
+</script>
