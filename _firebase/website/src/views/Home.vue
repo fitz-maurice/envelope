@@ -1,10 +1,11 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <auth-selection v-if="!user" />
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    user: Object,
+  },
+};
 </script>
