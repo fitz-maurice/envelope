@@ -1,6 +1,7 @@
-import React, {useState, useCallback, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Feather';
+import {getVersion, getBuildNumber} from 'react-native-device-info';
 import {useDynamicStyleSheet} from 'react-native-dark-mode';
 import {View, Platform, TouchableOpacity} from 'react-native';
 import {Container, Content, Text, Button, Footer, ListItem, Left, Body, Right, Separator} from 'native-base';
@@ -45,6 +46,19 @@ const Settings = ({navigation}) => {
     navigation.navigate('WebView', {
       name: 'Privacy Policy',
       uri: 'https://www.wofford.edu/',
+    })
+  };
+
+  /**
+   * _helpCenter
+   *
+   * Open the Help Center page on envolope.app
+   */
+  const _helpCenter = () => {
+    context.setLoading(true);
+    navigation.navigate('WebView', {
+      name: 'Help Center',
+      uri: 'https://espn.com',
     })
   };
 
@@ -103,7 +117,7 @@ const Settings = ({navigation}) => {
           <Icon active name="chevron-right" size={15} />
           </Right>
         </ListItem>
-        <ListItem icon last>
+        <ListItem icon last onPress={_helpCenter}>
           <Left>
             <Button>
               <Icon active name="help-circle" color={globals.colors.white} />
@@ -165,7 +179,7 @@ const Settings = ({navigation}) => {
         <Separator bordered>
           <Text>APP</Text>
         </Separator>
-        <ListItem icon>
+        <ListItem icon onPress={() => navigation.navigate('Acknowledgements')}>
           <Left>
             <Button>
               <Icon active name="compass" color={globals.colors.white} />
@@ -188,7 +202,7 @@ const Settings = ({navigation}) => {
             <Text>Version</Text>
           </Body>
           <Right>
-            <Text>1.0.0</Text>
+            <Text>{getVersion()} ({getBuildNumber()})</Text>
           </Right>
         </ListItem>
 
