@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-// import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import {
   Container,
   Content,
@@ -31,16 +31,15 @@ const SignUpEmail = ({navigation}) => {
     context.setLoading(true);
 
     try {
-      // await auth()
-      //   .createUserWithEmailAndPassword(email, password)
-      //   .then(() => {
-      //     context.setLoading(false);
-      //     this.props.navigation.navigate('Hello');
-      //   })
-      //   .catch(error => {
-      //     context.setLoading(false);
-      //     _showErrorToast(errors.signUp[error.code]());
-      //   });
+      await auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          context.setLoading(false);
+        })
+        .catch(error => {
+          context.setLoading(false);
+          _showErrorToast(errors.signUp[error.code]());
+        });
     } catch (error) {
       // Report error here...
     }
@@ -71,7 +70,7 @@ const SignUpEmail = ({navigation}) => {
           <Item stackedLabel>
             <Label>Email</Label>
             <Input
-              placeholder="jane.doe@familystandup.app"
+              placeholder="email@example.com"
               value={email}
               autoCapitalize="none"
               autoCompleteType="email"
@@ -91,7 +90,7 @@ const SignUpEmail = ({navigation}) => {
           <Item stackedLabel last>
             <Label>Password</Label>
             <Input
-              placeholder="Something super secure..."
+              placeholder="password"
               value={password}
               autoCapitalize="none"
               autoCompleteType="password"
@@ -113,6 +112,10 @@ const SignUpEmail = ({navigation}) => {
           style={styles.submit}
           disabled={hasError}>
           <Text>Sign up</Text>
+        </Button>
+
+        <Button block style={{marginTop: 10}} onPress={() => navigation.navigate('SignInEmail')}>
+          <Text>Already have an account? Sign in</Text>
         </Button>
       </Content>
     </Container>

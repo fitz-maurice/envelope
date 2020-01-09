@@ -16,14 +16,21 @@ const Welcome = ({navigation}) => {
 
       {/* Action Buttons */}
       <Content padder scrollEnabled={false} contentContainerStyle={s.container}>
-        <Button style={{marginBottom: 10}}><Text>Email</Text></Button>
-        <Button style={{marginBottom: 10}}><Text>Apple</Text></Button>
-        <Button style={{marginBottom: 10}}><Text>Google</Text></Button>
+        <Button block style={{marginBottom: 10}} onPress={() => navigation.navigate('SignUpEmail')}>
+          <Text>Email</Text>
+        </Button>
+
+        <Button block style={{marginBottom: 10}} onPress={() => alert('Apple')}>
+          <Text>Apple</Text>
+        </Button>
+        <Button block style={{marginBottom: 10}} onPress={() => alert('Google')}>
+          <Text>Google</Text>
+        </Button>
       </Content>
 
       {/* Footer */}
       <Footer style={[s.background, s.footer]}>
-        <Text style={s.footerText}>&copy; Envelope, privacy, etc</Text>
+        <Text style={s.footerText}>&copy; {new Date().getFullYear()} Envelope</Text>
       </Footer>
     </Container>
   );

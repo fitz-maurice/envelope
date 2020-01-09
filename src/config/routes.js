@@ -23,16 +23,48 @@ const AuthStack = createStackNavigator({
     screen: Welcome,
     navigationOptions: {
       headerShown: false,
+      headerBackTitle: null,
+      headerTintColor: globals.colors.blackTrue,
     }
   },
   SignUpEmail: {
     screen: SignUpEmail,
+    navigationOptions: {
+      headerBackTitle: null,
+      headerTintColor: globals.colors.blackTrue, // ! TODO - This needs to by a dynamic color
+      headerTitle: 'Sign Up',
+      headerStyle: {
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0,
+      },
+    }
   },
   SignInEmail: {
     screen: SignInEmail,
+    navigationOptions: {
+      headerBackTitle: null,
+      headerTintColor: globals.colors.blackTrue, // ! TODO - This needs to by a dynamic color
+      headerTitle: 'Sign In',
+      headerStyle: {
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0,
+      },
+    }
   },
   ResetPassword: {
     screen: ResetPassword,
+    navigationOptions: {
+      headerBackTitle: null,
+      headerTintColor: globals.colors.blackTrue, // ! TODO - This needs to by a dynamic color
+      headerTitle: 'Reset Password',
+      headerStyle: {
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0,
+      },
+    }
   },
 });
 

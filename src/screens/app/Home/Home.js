@@ -1,6 +1,7 @@
 import React, {useState, useCallback, useContext} from 'react';
 import {RefreshControl} from 'react-native';
 import {Container, Content, Text, Button} from 'native-base';
+import auth from '@react-native-firebase/auth';
 
 import styles from './styles';
 import globals from '../../../config/globals';
@@ -21,7 +22,12 @@ const Home = ({navigation}) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
+
         <Text>Home Screen</Text>
+
+        <Button block onPress={() => auth().signOut()}>
+          <Text>Log out</Text>
+        </Button>
       </Content>
     </Container>
   );
