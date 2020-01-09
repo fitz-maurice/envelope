@@ -1,28 +1,34 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
+import 'react-native-gesture-handler';
+import { Button, Text, Root } from 'native-base';
+import { useDynamicValue } from 'react-native-dark-mode';
 import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
-import { Button, Text } from 'native-base';
+
+// The Application Container
+import { Envelope } from './src/config/routes';
+
+// React Context & Provider
+import AppProvider from './src/config/provider';
+import AppContext from './src/config/context';
+
+// Loading Indicator
+import Loading from './src/components/Loading';
 
 const App = () => {
+  const barStyle = useDynamicValue('dark-content', 'light-content');
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <Text>Welcome to Envelope!</Text>
-          <Button>
-            <Text>Just to makes sure native base works</Text>
-          </Button>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <AppProvider>
+      <AppContext.Consumer>
+        {({loading}) => (
+          <Root>
+            <StatusBar barStyle={barStyle} />
+            {loading ? <Loading /> : null}
+            <Envelope />
+          </Root>
+        )}
+      </AppContext.Consumer>
+    </AppProvider>
   );
 };
 
