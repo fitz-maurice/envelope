@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
-// import auth from '@react-native-firebase/auth';
-import {Container, Content, Form, Label, Input, Item, Toast, Button} from 'native-base';
+import auth from '@react-native-firebase/auth';
+import {Container, Content, Form, Label, Input, Item, Toast, Button, Text} from 'native-base';
 
 import styles from './styles';
 import errors from '../../../config/errors';
@@ -21,18 +21,16 @@ const SignInEmail = ({navigation}) => {
     context.setLoading(true);
 
     // !ToDo: Android, catch empty string...
-
     try {
-      // await auth()
-      //   .signInWithEmailAndPassword(email, password)
-      //   .then(() => {
-      //     context.setLoading(false);
-      //     navigation.navigate('Hello');
-      //   })
-      //   .catch(error => {
-      //     context.setLoading(false);
-      //     _showErrorToast(errors.signIn[error.code]());
-      //   });
+      await auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          context.setLoading(false);
+        })
+        .catch(error => {
+          context.setLoading(false);
+          _showErrorToast(errors.signIn[error.code]());
+        });
     } catch (error) {
       // Report error here...
     }
@@ -57,13 +55,13 @@ const SignInEmail = ({navigation}) => {
         padder
         scrollEnabled={false}
         contentContainerStyle={styles.container}>
-        {/* Sign Up Form */}
+        {/* Sign In Form */}
         <Form style={styles.form}>
           {/* Email */}
           <Item stackedLabel>
             <Label>Email</Label>
             <Input
-              placeholder="jane.doe@familystandup.app"
+              placeholder="email@example.com"
               value={email}
               autoCapitalize="none"
               autoCompleteType="email"
@@ -83,7 +81,7 @@ const SignInEmail = ({navigation}) => {
           <Item stackedLabel last>
             <Label>Password</Label>
             <Input
-              placeholder="Something super secure..."
+              placeholder="password"
               value={password}
               autoCapitalize="none"
               autoCompleteType="password"
@@ -99,13 +97,13 @@ const SignInEmail = ({navigation}) => {
         </Form>
 
         {/* Submit */}
-        <Button block onPress={_signIn} disabled={hasError}>
-          Sign in
+        <Button block style={{marginTop: 10}} onPress={_signIn} disabled={hasError}>
+          <Text>Sign in</Text>
         </Button>
 
         {/* Forgot Password */}
-        <Button block onPress={() => navigation.navigate('ResetPassword')}>
-          Forgot password?
+        <Button block style={{marginTop: 10}} onPress={() => navigation.navigate('ResetPassword')}>
+          <Text>Forgot password?</Text>
         </Button>
       </Content>
     </Container>
