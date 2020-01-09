@@ -14,10 +14,11 @@ const Welcome = ({navigation}) => {
       {/* Logo */}
       <Text style={s.logo}>Envelope</Text>
 
+      {/* Action Buttons */}
       <Content padder scrollEnabled={false} contentContainerStyle={s.container}>
-        <Button><Text>Email</Text></Button>
-        <Button><Text>Apple</Text></Button>
-        <Button><Text>Google</Text></Button>
+        <Button style={{marginBottom: 10}}><Text>Email</Text></Button>
+        <Button style={{marginBottom: 10}}><Text>Apple</Text></Button>
+        <Button style={{marginBottom: 10}}><Text>Google</Text></Button>
       </Content>
 
       {/* Footer */}

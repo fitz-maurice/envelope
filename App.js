@@ -1,8 +1,8 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import { Button, Text, Root } from 'native-base';
+import { Root } from 'native-base';
+import { StatusBar } from 'react-native';
 import { useDynamicValue } from 'react-native-dark-mode';
-import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
 
 // The Application Container
 import { Envelope } from './src/config/routes';
