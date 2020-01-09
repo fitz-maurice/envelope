@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-// import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import {Container, Spinner, Text} from 'native-base';
 import {useDynamicStyleSheet, useDynamicValue} from 'react-native-dark-mode';
 
@@ -14,12 +14,10 @@ const Bootstrap = ({navigation}) => {
    * Listen for any auth state changes and return correct navigator
    */
   useEffect(() => {
-    // const subscriber = auth().onAuthStateChanged(user => {
-      navigation.navigate('Auth');
-      // navigation.navigate('App');
-      // navigation.navigate(user ? 'App' : 'Auth');
-    // });
-    // return subscriber;
+    const subscriber = auth().onAuthStateChanged(user => {
+      navigation.navigate(user ? 'App' : 'Auth');
+    });
+    return subscriber;
   }, [navigation]);
 
   return (
