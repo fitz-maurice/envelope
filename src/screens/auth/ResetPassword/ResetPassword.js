@@ -1,6 +1,5 @@
 import React, {useState, useContext} from 'react';
-// import auth from '@react-native-firebase/auth';
-// import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import {
   Container,
   Content,
@@ -31,16 +30,15 @@ const ResetPassword = ({navigation}) => {
     context.setLoading(true);
 
     try {
-      // await auth()
-      //   .createUserWithEmailAndPassword(email, password)
-      //   .then(() => {
-      //     context.setLoading(false);
-      //     this.props.navigation.navigate('Hello');
-      //   })
-      //   .catch(error => {
-      //     context.setLoading(false);
-      //     _showErrorToast(errors.signUp[error.code]());
-      //   });
+      await auth()
+        .sendPasswordResetEmail(email)
+        .then(() => {
+          context.setLoading(false);
+        })
+        .catch(error => {
+          context.setLoading(false);
+          _showErrorToast(errors.signUp[error.code]());
+        });
     } catch (error) {
       // Report error here...
     }
@@ -71,7 +69,7 @@ const ResetPassword = ({navigation}) => {
           <Item stackedLabel>
             <Label>Email</Label>
             <Input
-              placeholder="jane.doe@familystandup.app"
+              placeholder="email@example.com"
               value={email}
               autoCapitalize="none"
               autoCompleteType="email"

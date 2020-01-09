@@ -14,10 +14,9 @@ const Bootstrap = ({navigation}) => {
    * Listen for any auth state changes and return correct navigator
    */
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(user => {
+    auth().onAuthStateChanged(user => {
       navigation.navigate(user ? 'App' : 'Auth');
     });
-    return subscriber;
   }, [navigation]);
 
   return (
