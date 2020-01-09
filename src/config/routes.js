@@ -20,6 +20,7 @@ import Home from '../screens/app/Home';
 import Upload from '../screens/app/Upload';
 import WebView from '../screens/app/WebView';
 import Settings from '../screens/app/Settings';
+import Acknowledgements from '../screens/app/Acknowledgements';
 
 /********************************************
  * Auth Stack
@@ -120,6 +121,19 @@ const ApplicationStack = createStackNavigator(
     },
     WebView: {
       screen: WebView,
+      navigationOptions: ({navigation}) => ({
+        headerLeftContainerStyle: {
+          paddingHorizontal: 6,
+        },
+        headerLeft: () =>
+          <Button transparent onPress={() => navigation.goBack()}>
+            <Icon size={24} name="chevron-left" color={globals.colors.blackTrue} />
+          </Button>
+        ,
+      }),
+    },
+    Acknowledgements: {
+      screen: Acknowledgements,
       navigationOptions: ({navigation}) => ({
         headerLeftContainerStyle: {
           paddingHorizontal: 6,
