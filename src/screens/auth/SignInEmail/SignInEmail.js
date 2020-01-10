@@ -5,6 +5,7 @@ import {Container, Content, Form, Label, Input, Item, Toast, Button, Text} from 
 import styles from './styles';
 import errors from '../../../config/errors';
 import AppContext from '../../../config/context';
+import { Alert } from 'react-native';
 
 const SignInEmail = ({navigation}) => {
   const context = useContext(AppContext);
@@ -24,7 +25,10 @@ const SignInEmail = ({navigation}) => {
     try {
       await auth()
         .signInWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((user) => {
+          if (!auth().currentUser.emailVerified) {
+            // Alert...
+          }
           context.setLoading(false);
         })
         .catch(error => {

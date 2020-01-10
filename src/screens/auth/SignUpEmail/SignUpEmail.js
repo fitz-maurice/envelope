@@ -33,7 +33,7 @@ const SignUpEmail = ({navigation}) => {
     try {
       await auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((user) => {
           context.setLoading(false);
         })
         .catch(error => {

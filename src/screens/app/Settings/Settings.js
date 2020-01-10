@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Feather';
-import {getVersion, getBuildNumber} from 'react-native-device-info';
+import firestore from '@react-native-firebase/firestore';
 import {useDynamicStyleSheet} from 'react-native-dark-mode';
 import {View, Platform, TouchableOpacity} from 'react-native';
-import {Container, Content, Text, Button, Footer, ListItem, Left, Body, Right, Separator} from 'native-base';
+import {getVersion, getBuildNumber} from 'react-native-device-info';
+import {Container, Content, Text, Button, Footer, ListItem, Left, Body, Right, Separator, Input, List, Toast} from 'native-base';
 
 import styles from './styles';
 import globals from '../../../config/globals';
@@ -13,6 +14,8 @@ import AppContext from '../../../config/context';
 const Settings = ({navigation}) => {
   const s = useDynamicStyleSheet(styles);
   const context = useContext(AppContext);
+  const [fullName, setFullName] = useState(auth().currentUser.displayName);
+  const [birthday, setBirthday] = useState('');
 
   /**
    * _signOut
@@ -22,6 +25,25 @@ const Settings = ({navigation}) => {
   const _signOut = () => {
     auth().signOut();
   };
+
+const _saveUser = () => {
+  context.setLoading(true);
+  const user = auth().currentUser.updateProfile({
+    displayName: fullName,
+  });
+  const account = firestore().doc(`${auth().currentUser.uid}/account`).set({
+    displayName: fullName,
+    birthday: birthday,
+  });
+
+  Promise.all([user, account]).then(() => {
+    context.setLoading(false);
+    Toast.show({
+      text: 'Account updated',
+      duration: 3000,
+    });
+  });
+};
 
   /**
    * _terms
@@ -65,27 +87,51 @@ const Settings = ({navigation}) => {
   return (
     <Container>
       <Content>
-
         {/* Settings */}
         <Separator bordered>
           <Text>SETTINGS</Text>
         </Separator>
         <ListItem icon>
+          <Left>
+            <Button>
+              <Icon transparent name="user" color={globals.colors.white} />
+            </Button>
+          </Left>
           <Body>
-            <Text>Full Name</Text>
+            <Input
+              placeholder="Full name"
+              value={fullName}
+              autoCapitalize="words"
+              autoCompleteType="name"
+              textContentType="name"
+              autoCorrect={false}
+              onChangeText={_fullName => {
+                setFullName(_fullName);
+              }}
+            />
           </Body>
-          <Right>
-            <Icon active name="chevron-right" size={15} />
-          </Right>
         </ListItem>
         <ListItem icon last>
+          <Left>
+            <Button>
+              <Icon transparent name="calendar" color={globals.colors.white} />
+            </Button>
+          </Left>
           <Body>
-            <Text>Birthday</Text>
+            <Input
+              placeholder="Birthday (mm/dd/yyyy)"
+              value={birthday}
+              textContentType="telephoneNumber"
+              autoCorrect={false}
+              onChangeText={_birthday => {
+                setBirthday(_birthday);
+              }}
+            />
           </Body>
-          <Right>
-            <Icon active name="chevron-right" size={15} />
-          </Right>
         </ListItem>
+        <Button block full onPress={_saveUser}>
+          <Text>Save</Text>
+        </Button>
 
         {/* Support */}
         <Separator bordered>
