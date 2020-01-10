@@ -6,7 +6,7 @@
   >
     <input
       v-model="email"
-      class="border p-2 w-full my-2"
+      class="border border-gray-400 rounded p-2 w-full my-2"
       type="text"
       placeholder="Email"
     />
@@ -14,13 +14,13 @@
       v-model="password"
       type="password"
       placeholder="Password"
-      class="border p-2 w-full my-2"
+      class="border border-gray-400 rounded p-2 w-full my-2"
     />
     <button
       type="submit"
-      class="shadow-md border rounded bg-blue-800 text-white px-3 py-2 my-2 w-1/2"
+      class="shadow-md border rounded bg-blue-800 hover:bg-blue-900 text-white px-3 py-2 my-2 w-1/2"
     >
-      Log In
+      Sign in
     </button>
     <button @click.prevent="$emit('forgot')" class="text-xs text-blue-800 mt-3">
       Forgot password?
@@ -44,7 +44,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.push({name: 'account'}).catch(err => console.log(err));
+          this.$router.push({ name: 'home' }).catch(err => console.log(err));
         })
         .catch(err => {
           this.error = err.message;
