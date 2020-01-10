@@ -18,13 +18,6 @@ const routes = [
       import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
     props: true,
   },
-  {
-    path: '/account',
-    name: 'account',
-    component: () =>
-      import(/* webpackChunkName: "account" */ '@/views/Account.vue'),
-    props: true,
-  },
 ];
 
 const router = new VueRouter({
