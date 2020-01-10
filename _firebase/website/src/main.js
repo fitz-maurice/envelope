@@ -4,7 +4,7 @@ import './registerServiceWorker';
 import router from './router';
 import PortalVue from 'portal-vue';
 import { firestorePlugin } from 'vuefire';
-import firebase from '@/firebase';
+import fire from '@/firebase';
 
 // Styles
 import './assets/styles/index.css';
@@ -35,17 +35,19 @@ new Vue({
   data() {
     return {
       user: null,
+      socialLogin: JSON.parse(localStorage.getItem('social-login')),
       loggedIn: JSON.parse(localStorage.getItem('logged-in')),
     };
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged(user => {
+  async beforeCreate() {
+    fire.auth().onAuthStateChanged(user => {
       this.user = user;
       if (user) {
         this.loggedIn = true;
         localStorage.setItem('logged-in', true);
       } else {
         this.loggedIn = false;
+        this.socialLogin = false;
         localStorage.removeItem('logged-in');
       }
     });
@@ -54,7 +56,7 @@ new Vue({
     return createElement(App, {
       props: {
         user: this.user,
-        loggedIn: this.loggedIn,
+        loggedIn: this.loggedIn || this.socialLogin,
       },
     });
   },

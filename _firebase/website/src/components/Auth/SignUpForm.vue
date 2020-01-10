@@ -22,8 +22,16 @@
       type="password"
       placeholder="Password"
     />
+    <span
+      v-if="error"
+      class="w-full bg-red-400 text-red-900 rounded text-sm text-center font-semibold p-2"
+    >
+      {{ error }}
+    </span>
     <button
       type="submit"
+      :disabled="!valid"
+      :class="{ 'opacity-75 cursor-default': !valid }"
       class="shadow-md border rounded bg-blue-800 hover:bg-blue-900 text-white tracking-widest px-3 py-2 my-2 w-3/4"
     >
       Sign up
@@ -32,7 +40,7 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+import fire from 'firebase';
 
 export default {
   data() {
@@ -40,19 +48,25 @@ export default {
       name: '',
       email: '',
       password: '',
+      error: '',
     };
+  },
+  computed: {
+    valid() {
+      return this.name !== '' && this.email !== '' && this.password !== '';
+    },
   },
   methods: {
     submit() {
-      firebase
+      fire
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(data => {
-          data.user
-            .updateProfile({
-              displayName: this.name,
-            })
-            .then(() => {});
+          data.user.updateProfile({
+            displayName: this.name,
+          });
+
+          data.user.sendEmailVerification();
         })
         .catch(err => {
           this.error = err.message;
