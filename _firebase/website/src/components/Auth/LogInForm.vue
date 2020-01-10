@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+import fire from 'firebase';
 
 export default {
   data() {
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     submit() {
-      firebase
+      fire
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {

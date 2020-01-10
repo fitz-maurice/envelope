@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import firebase from '@/firebase';
+import fire from '@/firebase';
 
 export default {
   props: {
@@ -20,7 +20,7 @@ export default {
       handler(user) {
         this.$bind(
           'cards',
-          firebase.firestore().collection(`${user.uid}/account/cards`),
+          fire.firestore().collection(`${user.uid}/account/cards`),
         );
       },
     },
