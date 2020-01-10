@@ -131,8 +131,13 @@ android {
         applicationId "com.fitzcreative.envelope"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+
+        // Build number and app version
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
+
+        // Camera package
+        vectorDrawables.useSupportLibrary = true
     }
     splits {
         abi {
