@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import App from './App.vue';
-import './registerServiceWorker';
 import router from './router';
 import PortalVue from 'portal-vue';
 import { firestorePlugin } from 'vuefire';
