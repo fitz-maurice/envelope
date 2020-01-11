@@ -28,7 +28,10 @@
 
     <portal to="modal" v-if="settings">
       <div
-        @click="settings = false"
+        @click="
+          settings = false;
+          success = false;
+        "
         class="absolute inset-0 flex items-center justify-center w-screen h-screen bg-modal"
       >
         <div
@@ -98,7 +101,7 @@ export default {
   },
   data() {
     return {
-      settings: true,
+      settings: false,
       name: this.user.displayName,
       account: [],
       success: false,
