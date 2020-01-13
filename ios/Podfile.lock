@@ -467,6 +467,8 @@ PODS:
     - React-RCTImage
   - react-native-safe-area-context (0.6.2):
     - React
+  - react-native-splash-screen (3.2.0):
+    - React
   - react-native-webview (8.0.3):
     - React
   - React-RCTActionSheet (0.61.5):
@@ -565,6 +567,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - "react-native-image-editor (from `../node_modules/@react-native-community/image-editor`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -652,6 +655,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/image-editor"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -743,6 +748,7 @@ SPEC CHECKSUMS:
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-image-editor: 2a796811bc48babcf2f1594b15d6bfe6968e7e63
   react-native-safe-area-context: 25260c5d0b9c53fd7aa88e569e2edae72af1f6a3
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-webview: 57cdcf9981594a1a7de36ecfe7f079379543ef1f
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
