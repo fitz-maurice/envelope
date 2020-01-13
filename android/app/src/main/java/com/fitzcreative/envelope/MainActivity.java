@@ -1,10 +1,15 @@
 package com.fitzcreative.envelope;
 
 import com.facebook.react.ReactActivity;
+import android.os.Bundle;
+import android.content.res.Configuration;
+
 // React Navigation
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+// SplashScreen
+import org.devio.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {
 
@@ -15,6 +20,23 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "envelope";
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+      case Configuration.UI_MODE_NIGHT_YES:
+        setTheme(R.style.DarkTheme);
+        break;
+      case Configuration.UI_MODE_NIGHT_NO:
+        setTheme(R.style.LightTheme);
+        break;
+      default:
+        setTheme(R.style.LightTheme);
+    }
+
+    SplashScreen.show(this, true);
+    super.onCreate(savedInstanceState);
   }
 
   /**
