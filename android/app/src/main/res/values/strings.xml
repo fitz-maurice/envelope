@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">envelope</string>
+    <string name="app_name">Envelope</string>
+    <string name="app_logo_description">Envelope Logo</string>
 </resources>

@@ -13,6 +13,8 @@
 
 // Firebase
 @import Firebase;
+// SplashScreen
+#import "SplashScreen.h"
 
 @implementation AppDelegate
 
@@ -35,6 +37,9 @@
   if ([FIRApp defaultApp] == nil) {
     [FIRApp configure];
   }
+
+  // SplashScreen
+  [SplashScreen show];
 
   return YES;
 }

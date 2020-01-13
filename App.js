@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 import { Root } from 'native-base';
 import { StatusBar } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import { useDynamicValue } from 'react-native-dark-mode';
 
 // The Application Container
@@ -16,6 +17,13 @@ import Loading from './src/components/Loading';
 
 const App = () => {
   const barStyle = useDynamicValue('dark-content', 'light-content');
+
+  /**
+   * Listen for bootup, hide Splashscreen
+   */
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   return (
     <AppProvider>
