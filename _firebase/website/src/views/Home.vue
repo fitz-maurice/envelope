@@ -2,9 +2,9 @@
   <div class="h-full">
     <auth-selection v-if="!loggedIn" />
     <card-list v-if="user" :user="user" />
-    <span v-if="user && !user.emailVerified"
-      >Email address is not verified</span
-    >
+    <span v-if="user && !user.emailVerified">
+      Email address is not verified
+    </span>
   </div>
 </template>
 
