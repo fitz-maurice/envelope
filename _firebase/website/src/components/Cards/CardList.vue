@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="">
+    <no-cards v-if="cards.length === 0" />
+  </div>
 </template>
 
 <script>

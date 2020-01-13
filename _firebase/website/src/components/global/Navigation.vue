@@ -68,9 +68,11 @@
               Birthday
             </label>
             <input
-              v-model="account.birthday"
+              v-model="birthday"
+              @keypress="isNumber"
+              @keyup="formatDate"
               type="text"
-              placeholder="Birthday (mm/dd/yyyy)"
+              placeholder="Birthday (MM/DD/YYYY)"
               class="border border-gray-400 rounded p-2 w-full my-2"
             />
             <span
@@ -105,9 +107,13 @@ export default {
       name: this.user.displayName,
       account: [],
       success: false,
+      birthday: null,
     };
   },
   watch: {
+    account() {
+      this.birthday = this.account?.birthday;
+    },
     user: {
       immediate: true,
       handler(user) {
@@ -122,6 +128,25 @@ export default {
     },
   },
   methods: {
+    formatDate(event) {
+      if (event.key !== 'Backspace') {
+        if (this.birthday.length === 2) this.birthday = `${this.birthday}/`;
+        if (this.birthday.length === 5) this.birthday = `${this.birthday}/`;
+      }
+    },
+    isNumber(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        charCode !== 46
+      ) {
+        evt.preventDefault();
+      } else {
+        return true;
+      }
+    },
     logout() {
       fire
         .auth()
@@ -135,13 +160,27 @@ export default {
         })
         .then(() => {
           this.user.reload();
-          this.$firestoreRefs.account
-            .update({
-              birthday: this.account.birthday,
-            })
-            .then(() => {
-              this.success = true;
-            });
+          this.account ? this.updateCollection() : this.newCollection();
+        });
+    },
+    // When a collection for the users UID exists
+    updateCollection() {
+      this.$firestoreRefs.account
+        .update({
+          birthday: this.birthday,
+        })
+        .then(() => {
+          this.success = true;
+        });
+    },
+    // When a collection for the users uid does not exist
+    newCollection() {
+      fire
+        .firestore()
+        .collection(`${this.user.uid}`)
+        .doc('account')
+        .set({
+          birthday: this.birthday,
         });
     },
   },
