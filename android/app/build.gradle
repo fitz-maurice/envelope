@@ -137,6 +137,7 @@ android {
         versionName "1.0.0"
 
         // Camera package
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
     splits {

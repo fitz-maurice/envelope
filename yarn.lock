@@ -949,6 +949,11 @@
     eslint-plugin-react-native "3.8.1"
     prettier "1.17.0"
 
+"@react-native-community/image-editor@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/image-editor/-/image-editor-2.2.0.tgz#484d0a935d0c9120a81aac2bad58fc92e0a86352"
+  integrity sha512-cMCbGJBe/D5WqRqFkLmkPcotOx2FXFrA7/UoVzTWC0nBmtqqEa36Rpax2jTJkJrqNMqmbbuXPQiwKXBny0gMPw==
+
 "@react-native-community/masked-view@^0.1.5":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.5.tgz#25421be6cd943a4b1660b62cfbcd45be8891462c"
@@ -5347,6 +5352,13 @@ react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
+react-native-amazing-cropper@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-amazing-cropper/-/react-native-amazing-cropper-0.1.0.tgz#5028683169d1f9b9b4ab594f9d33ecb96187b463"
+  integrity sha512-pcHb/V3vUO7lVpONFgGR/biv9q/DJEP5GQyU2XFIKMIFm3wm3BHTBUYpOKJKyqf4PI2P2njbNHOFJziK/p5AKQ==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-dark-mode@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/react-native-dark-mode/-/react-native-dark-mode-0.2.1.tgz#10e74ec213c896c7f0a74c37670214a6c24a6623"
@@ -5392,6 +5404,11 @@ react-native-image-crop-picker@^0.26.2:
   version "0.26.2"
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.26.2.tgz#c70985ff6740e63569f90b185be0516d83f5933b"
   integrity sha512-KnPtSJklwXr/BNdcyAlDp9xkDCQyJ5ZA4dM10elBc2aIXac/4CndbiPFZrwu4GlAYYYKlkiTTwTYW+h4RyGLaw==
+
+react-native-image-rotate@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-rotate/-/react-native-image-rotate-2.1.0.tgz#6275a294d9fafb86f7c82f43b26f04d95ede4b1f"
+  integrity sha512-TN0nk4xF/UmwCO2mcq7cA2kLki7Q9MLhCqamF/PvoLnLwvdgmkeh59o2B+YkvpJ6pADa4qjOxXZ5eFEYjLkJZA==
 
 react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
