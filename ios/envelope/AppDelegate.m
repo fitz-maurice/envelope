@@ -14,7 +14,7 @@
 // Firebase
 @import Firebase;
 // SplashScreen
-#import "SplashScreen.h"
+#import "RNSplashScreen.h"
 
 @implementation AppDelegate
 
@@ -39,7 +39,7 @@
   }
 
   // SplashScreen
-  [SplashScreen show];
+  [RNSplashScreen show];
 
   return YES;
 }
