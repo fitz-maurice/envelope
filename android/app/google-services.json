@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "911292377774-6ehc1593ppjknq9keege7mooouibo1ac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitzcreative.envelope",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "911292377774-3s32ibqei7tt5afpddohp7v93p69o58a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitzcreative.envelope",
+            "certificate_hash": "5bf508d9f0abf158f894190e0f7f7f0a1a69b372"
+          }
+        },
+        {
+          "client_id": "911292377774-d30gcs6p27ojvpcolc5ocrgcem69j0ck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitzcreative.envelope",
+            "certificate_hash": "b64371183caba635b9ff0953eea8d2b85eca0353"
+          }
+        },
+        {
           "client_id": "911292377774-kn9frgr857ngk7u9eha5rns4vtmqmpn8.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -35,7 +59,8 @@
               "client_id": "911292377774-vfmrl4c5q04u490sk0altlh3p0s7ju40.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.fitzcreative.envelope"
+                "bundle_id": "com.fitzcreative.envelope",
+                "app_store_id": "1494081818"
               }
             }
           ]

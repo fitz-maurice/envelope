@@ -36,7 +36,10 @@ const Settings = ({ navigation }) => {
       const querySnapshot = await firestore()
         .doc(`${auth().currentUser.uid}/account`)
         .get();
-      setBirthday(querySnapshot._data.birthday);
+
+      if (typeof querySnapshot._data !== 'undefined') {
+        setBirthday(querySnapshot._data.birthday);
+      }
     };
 
     fetchUserDocument();

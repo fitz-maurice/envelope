@@ -6,6 +6,8 @@ buildscript {
         minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 28
+        // Sign in with Google
+        googlePlayServicesAuthVersion = "16.0.1"
     }
     repositories {
         google()
@@ -17,7 +19,7 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
-        // Firebase
+        // Firebase & Sign in with Google
         classpath("com.google.gms:google-services:4.2.0")
     }
 }
