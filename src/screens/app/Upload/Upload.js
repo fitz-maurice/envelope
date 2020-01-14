@@ -12,6 +12,7 @@ import AppContext from '../../../config/context';
 const Upload = ({navigation}) => {
   const context = useContext(AppContext);
   const [image, setImagePath] = useState(null);
+  const pageName = `${navigation.getParam('name')} card`;
 
 
   /**
@@ -95,7 +96,7 @@ const Upload = ({navigation}) => {
       <Container style={styles.container}>
         <Header noLeft hasText>
           <Body>
-            <Title>Upload</Title>
+            <Title>{pageName}</Title>
           </Body>
           <Button transparent onPress={_cancel}>
             <Icon name='x' size={24} />
