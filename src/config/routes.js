@@ -90,17 +90,19 @@ const ApplicationStack = createStackNavigator({
   Settings: {
     screen: Settings,
     navigationOptions: ({ navigation }) => ({
+      title: 'Account',
       headerLeftContainerStyle: {
         paddingHorizontal: 6,
       },
-      title: 'Account',
+      headerTitleStyle: {
+        color: globals.colors.white,
+      },
+      headerStyle: {
+        backgroundColor: globals.colors.envelopeRed,
+      },
       headerLeft: () => (
         <Button transparent onPress={() => navigation.goBack()}>
-          <Icon
-            size={24}
-            name="chevron-left"
-            color={globals.colors.blackTrue}
-          />
+          <Icon size={24} name="chevron-left" color={globals.colors.white} />
         </Button>
       ),
     }),

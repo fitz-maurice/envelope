@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import AppContext from './context';
 
-const AppProvider = ({children}) => {
+const AppProvider = ({ children }) => {
   // Application loading state
   const [loading, _setLoading] = useState(false);
+  // Home page layout state, grid vs. single
+  const [layout, _setLayout] = useState(false);
 
   return (
     <AppContext.Provider
@@ -17,6 +19,9 @@ const AppProvider = ({children}) => {
         // Loading
         loading: loading,
         setLoading: _loading => _setLoading(_loading),
+        // Layout
+        layout: layout,
+        setLayout: _layout => _setLayout(_layout),
       }}>
       {children}
     </AppContext.Provider>

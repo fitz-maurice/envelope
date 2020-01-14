@@ -1,26 +1,27 @@
-import {StyleSheet} from 'react-native';
+import { DynamicStyleSheet, DynamicValue } from 'react-native-dark-mode';
 import globals from '../../config/globals';
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    width: globals.window.width,
-    height: globals.window.height,
-    zIndex: 9,
+const styles = new DynamicStyleSheet({
+  header: {
+    backgroundColor: globals.colors.envelopeRed,
   },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  headerTitle: {
+    color: globals.colors.white,
   },
-  spinner: {
-    width: 60,
-    height: 60,
+  iconColor: {
+    color: globals.colors.white,
   },
-  square: {
-    backgroundColor: 'white',
-    borderRadius: 8,
+  iconColorSearch: {
+    marginTop: 2,
+    marginLeft: 6,
+    color: globals.colors.blackTrue,
+  },
+  leftLayout: {
+    flexDirection: 'row',
+    marginLeft: 6,
+  },
+  searchLayout: {
+    marginLeft: 4,
   },
 });
 

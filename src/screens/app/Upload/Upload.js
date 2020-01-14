@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useContext } from 'react';
-import { Alert, View, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-// import storage from '@react-native-firebase/storage';
+// import storage from '@react-native-firebase/storage'
 import ImagePicker from 'react-native-image-crop-picker';
 import AmazingCropper from 'react-native-amazing-cropper';
+import { Alert, View, Image, StatusBar } from 'react-native';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import {
   Container,
@@ -118,9 +118,11 @@ const Upload = ({ navigation }) => {
     return (
       <Container style={styles.container}>
         {/* Header */}
-        <Header>
+        <Header style={{ backgroundColor: globals.colors.envelopeRed }}>
+          <StatusBar barStyle="light-content" />
+
           <Body>
-            <Title>{pageName}</Title>
+            <Title style={{ color: globals.colors.white }}>{pageName}</Title>
           </Body>
         </Header>
 
