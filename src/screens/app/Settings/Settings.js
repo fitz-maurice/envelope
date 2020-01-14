@@ -1,21 +1,46 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Feather';
 import firestore from '@react-native-firebase/firestore';
-import {useDynamicStyleSheet} from 'react-native-dark-mode';
-import {View, Platform, TouchableOpacity} from 'react-native';
-import {getVersion, getBuildNumber} from 'react-native-device-info';
-import {Container, Content, Text, Button, Footer, ListItem, Left, Body, Right, Separator, Input, List, Toast} from 'native-base';
+import { useDynamicStyleSheet } from 'react-native-dark-mode';
+import { View, Platform, TouchableOpacity } from 'react-native';
+import { getVersion, getBuildNumber } from 'react-native-device-info';
+import {
+  Container,
+  Content,
+  Text,
+  Button,
+  Footer,
+  ListItem,
+  Left,
+  Body,
+  Right,
+  Separator,
+  Input,
+  List,
+  Toast,
+} from 'native-base';
 
 import styles from './styles';
 import globals from '../../../config/globals';
 import AppContext from '../../../config/context';
 
-const Settings = ({navigation}) => {
+const Settings = ({ navigation }) => {
   const s = useDynamicStyleSheet(styles);
   const context = useContext(AppContext);
   const [fullName, setFullName] = useState(auth().currentUser.displayName);
-  const [birthday, setBirthday] = useState('');
+  const [birthday, setBirthday] = useState();
+
+  useEffect(() => {
+    const fetchUserDocument = async () => {
+      const querySnapshot = await firestore()
+        .doc(`${auth().currentUser.uid}/account`)
+        .get();
+      setBirthday(querySnapshot._data.birthday);
+    };
+
+    fetchUserDocument();
+  }, []);
 
   /**
    * _signOut
@@ -26,24 +51,26 @@ const Settings = ({navigation}) => {
     auth().signOut();
   };
 
-const _saveUser = () => {
-  context.setLoading(true);
-  const user = auth().currentUser.updateProfile({
-    displayName: fullName,
-  });
-  const account = firestore().doc(`${auth().currentUser.uid}/account`).set({
-    displayName: fullName,
-    birthday: birthday,
-  });
-
-  Promise.all([user, account]).then(() => {
-    context.setLoading(false);
-    Toast.show({
-      text: 'Account updated',
-      duration: 3000,
+  const _saveUser = () => {
+    context.setLoading(true);
+    const user = auth().currentUser.updateProfile({
+      displayName: fullName,
     });
-  });
-};
+    const account = firestore()
+      .doc(`${auth().currentUser.uid}/account`)
+      .set({
+        displayName: fullName,
+        birthday: birthday,
+      });
+
+    Promise.all([user, account]).then(() => {
+      context.setLoading(false);
+      Toast.show({
+        text: 'Account updated',
+        duration: 3000,
+      });
+    });
+  };
 
   /**
    * _terms
@@ -55,7 +82,7 @@ const _saveUser = () => {
     navigation.navigate('WebView', {
       name: 'Terms & Conditions',
       uri: 'https://jmu.edu/',
-    })
+    });
   };
 
   /**
@@ -68,7 +95,7 @@ const _saveUser = () => {
     navigation.navigate('WebView', {
       name: 'Privacy Policy',
       uri: 'https://www.wofford.edu/',
-    })
+    });
   };
 
   /**
@@ -81,7 +108,7 @@ const _saveUser = () => {
     navigation.navigate('WebView', {
       name: 'Help Center',
       uri: 'https://espn.com',
-    })
+    });
   };
 
   return (
@@ -160,7 +187,7 @@ const _saveUser = () => {
             <Text>Advanced</Text>
           </Body>
           <Right>
-          <Icon active name="chevron-right" size={15} />
+            <Icon active name="chevron-right" size={15} />
           </Right>
         </ListItem>
         <ListItem icon last onPress={_helpCenter}>
@@ -173,7 +200,7 @@ const _saveUser = () => {
             <Text>Help Center</Text>
           </Body>
           <Right>
-          <Icon active name="chevron-right" size={15} />
+            <Icon active name="chevron-right" size={15} />
           </Right>
         </ListItem>
 
@@ -201,10 +228,13 @@ const _saveUser = () => {
             </Button>
           </Left>
           <Body>
-            <Text>Rate in the {Platform.OS === 'ios' ? 'App Store' : 'Google Play Store'}</Text>
+            <Text>
+              Rate in the{' '}
+              {Platform.OS === 'ios' ? 'App Store' : 'Google Play Store'}
+            </Text>
           </Body>
           <Right>
-          <Icon active name="chevron-right" size={15} />
+            <Icon active name="chevron-right" size={15} />
           </Right>
         </ListItem>
         <ListItem icon last>
@@ -217,7 +247,7 @@ const _saveUser = () => {
             <Text>Follow Envelope</Text>
           </Body>
           <Right>
-          <Icon active name="chevron-right" size={15} />
+            <Icon active name="chevron-right" size={15} />
           </Right>
         </ListItem>
 
@@ -248,7 +278,9 @@ const _saveUser = () => {
             <Text>Version</Text>
           </Body>
           <Right>
-            <Text>{getVersion()} ({getBuildNumber()})</Text>
+            <Text>
+              {getVersion()} ({getBuildNumber()})
+            </Text>
           </Right>
         </ListItem>
 
@@ -258,12 +290,22 @@ const _saveUser = () => {
           <Text>Sign out</Text>
         </Button>
 
-        <View style={{marginTop: 25}}>
-          <Text style={s.footerText}>&copy; {new Date().getFullYear()} Envelope</Text>
+        <View style={{ marginTop: 25 }}>
           <Text style={s.footerText}>
-            <Text onPress={_terms} style={{color: 'blue', marginHorizontal: 10}}>Terms</Text>
+            &copy; {new Date().getFullYear()} Envelope
+          </Text>
+          <Text style={s.footerText}>
+            <Text
+              onPress={_terms}
+              style={{ color: 'blue', marginHorizontal: 10 }}>
+              Terms
+            </Text>
             {' & '}
-            <Text onPress={_privacy} style={{color: 'blue', marginHorizontal: 10}}>Privacy Policy</Text>
+            <Text
+              onPress={_privacy}
+              style={{ color: 'blue', marginHorizontal: 10 }}>
+              Privacy Policy
+            </Text>
           </Text>
         </View>
       </Content>

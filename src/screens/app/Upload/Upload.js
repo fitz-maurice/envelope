@@ -1,19 +1,33 @@
-import React, {useState, useCallback, useContext} from 'react';
-import {Alert} from 'react-native';
+import React, { useState, useCallback, useContext } from 'react';
+import { Alert, View, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import storage from '@react-native-firebase/storage';
+// import storage from '@react-native-firebase/storage';
 import ImagePicker from 'react-native-image-crop-picker';
 import AmazingCropper from 'react-native-amazing-cropper';
-import {Container, Content, Text, Header, Left, Right, Button, Body, Title} from 'native-base';
+import { useDynamicStyleSheet } from 'react-native-dark-mode';
+import {
+  Container,
+  Content,
+  Text,
+  Header,
+  Button,
+  Body,
+  Title,
+  Footer,
+} from 'native-base';
 
 import styles from './styles';
+import globals from '../../../config/globals';
 import AppContext from '../../../config/context';
 
-const Upload = ({navigation}) => {
+const Upload = ({ navigation }) => {
+  const s = useDynamicStyleSheet(styles);
   const context = useContext(AppContext);
-  const [image, setImagePath] = useState(null);
+  const [mode, setMode] = useState(false);
+  const [front, setFront] = useState(null);
+  const [frontFinal, setFrontFinal] = useState(null);
+  const [back, setBack] = useState(null);
   const pageName = `${navigation.getParam('name')} card`;
-
 
   /**
    * _takePicture
@@ -21,11 +35,14 @@ const Upload = ({navigation}) => {
    * Open the camera to take a picture
    */
   const _takePicture = () => {
-    ImagePicker.openCamera({
-      cropping: false,
-    }).then(image => {
-      setImagePath(image.path);
-    });
+    ImagePicker.openCamera({ cropping: false })
+      .then(image => {
+        setFront(image.path);
+        setMode(true);
+        console.log(image.path);
+        console.log(front);
+      })
+      .catch(() => console.log('Canceling the order picker...'));
   };
 
   /**
@@ -34,11 +51,18 @@ const Upload = ({navigation}) => {
    * Open the photo library to take a picture
    */
   const _selectPicture = () => {
-    ImagePicker.openPicker({
-      cropping: false,
-    }).then(image => {
-      setImagePath(image.path);
-    });
+    ImagePicker.openPicker({ cropping: false })
+      .then(image => {
+        setFront(image.path);
+        setMode(true);
+        console.log(image.path);
+        console.log(front);
+      })
+      .catch(() => console.log('Canceling the order picker...'));
+  };
+
+  const _finishCropping = croppedImageUri => {
+    console.log(`THE NEW URL: ${croppedImageUri}`);
   };
 
   /**
@@ -72,19 +96,18 @@ const Upload = ({navigation}) => {
     return (
       <Container style={styles.container}>
         <AmazingCropper
-          style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
-          onDone={(croppedImageUri) => console.log('croppedImageUri = ', croppedImageUri)}
-          onCancel={() => console.log('cancel')}
-          imageUri={image}
+          style={s.cropper}
+          imageUri={front}
+          onDone={_finishCropping}
           imageWidth={1600}
           imageHeight={2396}
-          NOT_SELECTED_AREA_OPACITY={0.3}
           BORDER_WIDTH={20}
+          NOT_SELECTED_AREA_OPACITY={0.3}
+          onCancel={() => console.log('Cancelling Image Crop')}
         />
       </Container>
     );
-  }
-
+  };
 
   /**
    * _renderUploadUI
@@ -94,28 +117,56 @@ const Upload = ({navigation}) => {
   const _renderUploadUI = () => {
     return (
       <Container style={styles.container}>
-        <Header noLeft hasText>
+        {/* Header */}
+        <Header>
           <Body>
             <Title>{pageName}</Title>
           </Body>
-          <Button transparent onPress={_cancel}>
-            <Icon name='x' size={24} />
-          </Button>
         </Header>
+
+        {/* Body */}
         <Content padder>
-          <Button block onPress={_takePicture}>
+          <View style={s.uploadImageBlock}>
+            {front ? (
+              <Image source={{ uri: front }} />
+            ) : (
+              <Icon name="image" size={50} color={globals.colors.blackTrue} />
+            )}
+          </View>
+
+          {/* Take a picture */}
+          <Button block light onPress={_takePicture}>
             <Text>Take picture</Text>
           </Button>
 
-          <Button block onPress={_selectPicture} style={{marginTop: 10}}>
+          {/* Select a Picture */}
+          <Button
+            block
+            light
+            onPress={_selectPicture}
+            style={{ marginTop: 10 }}>
             <Text>Select picture</Text>
           </Button>
         </Content>
+
+        <Footer>
+          <Button rounded danger onPress={_cancel} style={{ marginTop: 10 }}>
+            <Text>Cancel</Text>
+          </Button>
+
+          <Button
+            rounded
+            onPress={() => alert('Uploading...')}
+            style={{ marginTop: 10 }}>
+            <Text>Upload</Text>
+          </Button>
+        </Footer>
       </Container>
     );
-  }
+  };
 
-  return image ? _renderCropper() : _renderUploadUI();
+  // Render the proper screen...
+  return mode ? _renderCropper() : _renderUploadUI();
 };
 
 export default Upload;
