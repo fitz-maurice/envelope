@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useContext} from 'react';
 import {RefreshControl} from 'react-native';
 import {Image, TouchableOpacity} from 'react-native';
-import {Container, Content, Text, Button, Fab, Grid, Col, Row} from 'native-base';
+import {Container, Content, Text, Button, Fab, Grid, Col, Row, ActionSheet} from 'native-base';
 
 import styles from './styles';
 import AppContext from '../../../config/context';
@@ -15,6 +15,25 @@ const Home = ({navigation}) => {
     setRefreshing(true);
     context.wait(2000).then(() => setRefreshing(false));
   }, [context]);
+
+  /**
+   * _openCardTypeActionSheet
+   *
+   *
+   */
+  const _openCardTypeActionSheet = () => {
+    const BUTTONS = ['Single sided', 'Double sided', 'Book style', 'Cancel'];
+    ActionSheet.show({
+      options: BUTTONS,
+      cancelButtonIndex: 3,
+      title: 'Select a card type.',
+    }, (index) => {
+      // Switch statement...
+      console.log(`The index: ${index}`);
+
+      navigation.navigate('Upload', { name: BUTTONS[index] });
+    });
+  };
 
   return (
     <Container>
@@ -60,18 +79,9 @@ const Home = ({navigation}) => {
           containerStyle={{ }}
           style={{backgroundColor: '#5067FF'}}
           position="bottomRight"
-          onPress={() => toggleFab(!fab)}
+          onPress={_openCardTypeActionSheet}
         >
           <Icon name={fab ? 'x' : 'image'} size={20} />
-          <Button style={{ backgroundColor: '#34A34F' }} onPress={() => navigation.navigate('Upload')}>
-            <Text>1</Text>
-          </Button>
-          <Button style={{ backgroundColor: '#3B5998' }} onPress={() => navigation.navigate('Upload')}>
-            <Text>2</Text>
-          </Button>
-          <Button style={{ backgroundColor: '#DD5144' }} onPress={() => navigation.navigate('Upload')}>
-            <Text>3</Text>
-          </Button>
         </Fab>
       </Content>
     </Container>
