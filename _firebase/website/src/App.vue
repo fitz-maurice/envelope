@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="h-full font-body" :class="{ bg: !loggedIn }">
     <navigation v-if="user" :user="user" />
-    <router-view :user="user" :logged-in="loggedIn" class="container" />
+    <router-view :user="user" :logged-in="loggedIn" class="container pt-24" />
     <portal-target name="modal" :transition="fade" slim />
   </div>
 </template>

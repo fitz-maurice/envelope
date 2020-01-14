@@ -4,6 +4,7 @@ import router from './router';
 import PortalVue from 'portal-vue';
 import { firestorePlugin } from 'vuefire';
 import fire from '@/firebase';
+import moment from 'moment';
 
 // Styles
 import './assets/styles/index.css';
@@ -16,6 +17,37 @@ Vue.use(firestorePlugin);
 // Vue Portal
 Vue.use(PortalVue);
 
+// Click Outside Directive
+let handleOutsideClick;
+
+Vue.directive('closable', {
+  bind(el, binding, vnode) {
+    handleOutsideClick = e => {
+      e.stopPropagation();
+      const { handler, exclude } = binding.value;
+
+      let clickedOnExcludedEl = false;
+      exclude.forEach(refName => {
+        if (!clickedOnExcludedEl) {
+          const excludedEl = vnode.context.$refs[refName];
+          clickedOnExcludedEl = excludedEl.contains(e.target);
+        }
+      });
+
+      if (!el.contains(e.target) && !clickedOnExcludedEl) {
+        vnode.context[handler]();
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('touchstart', handleOutsideClick);
+  },
+
+  unbind() {
+    document.removeEventListener('click', handleOutsideClick);
+    document.removeEventListener('touchstart', handleOutsideClick);
+  },
+});
+
 // Auto require all single file components
 const files = require.context('./', true, /\.vue|.svg$/i);
 files.keys().map(key =>
@@ -27,6 +59,13 @@ files.keys().map(key =>
     files(key).default,
   ),
 );
+
+// Data Formatter
+Vue.filter('date', value => {
+  if (!value) return '';
+  value = value.seconds;
+  return moment.unix(value).format('MMM Do, YYYY');
+});
 
 new Vue({
   el: '#app',

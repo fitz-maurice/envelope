@@ -1,5 +1,5 @@
 <template>
-  <nav class="p-3 mb-10 border-b shadow-md bg-white">
+  <nav class="absolute w-full p-3 mb-10 border-b shadow-md bg-white">
     <div class="container flex justify-between">
       <!-- Logo -->
       <router-link to="/" class="mr-3 flex flex-row items-center">
@@ -11,12 +11,11 @@
 
       <!-- Right Side -->
       <div class="flex items-center font-semibold">
-        <search class="mr-5 cursor-pointer fill-current hover:text-blue-800" />
+        {{ user.displayName }}
         <cog
           @click="settings = true"
-          class="mr-5 cursor-pointer fill-current hover:text-blue-800"
+          class="ml-5 cursor-pointer fill-current hover:text-blue-800"
         />
-        {{ user.displayName }}
         <button
           @click.prevent="logout"
           class="cursor-pointer fill-current hover:text-blue-800 ml-5 text-sm"
