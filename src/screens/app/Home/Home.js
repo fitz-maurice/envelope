@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useContext } from 'react';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import {
   Container,
   Content,
@@ -15,8 +16,8 @@ import {
 } from 'native-base';
 
 import styles from './styles';
+import globals from '../../../config/globals';
 import AppContext from '../../../config/context';
-import Icon from 'react-native-vector-icons/Feather';
 
 const Home = ({ navigation }) => {
   const context = useContext(AppContext);
@@ -55,6 +56,8 @@ const Home = ({ navigation }) => {
 
   return (
     <Container>
+      {/* Header */}
+
       <Content
         padder
         // contentContainerStyle={{}}

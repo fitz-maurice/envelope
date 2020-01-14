@@ -1,12 +1,13 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Button} from 'native-base';
+import { View } from 'react-native';
+import { Button } from 'native-base';
 import Icon from 'react-native-vector-icons/Feather';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 // Globals & Components
 import globals from './globals';
+import EHeader from '../components/Header';
 
 // Auth screens
 import Welcome from '../screens/auth/Welcome';
@@ -32,7 +33,7 @@ const AuthStack = createStackNavigator({
       headerShown: false,
       headerBackTitle: null,
       headerTintColor: globals.colors.blackTrue,
-    }
+    },
   },
   SignUpEmail: {
     screen: SignUpEmail,
@@ -45,7 +46,7 @@ const AuthStack = createStackNavigator({
         shadowOpacity: 0,
         borderBottomWidth: 0,
       },
-    }
+    },
   },
   SignInEmail: {
     screen: SignInEmail,
@@ -58,7 +59,7 @@ const AuthStack = createStackNavigator({
         shadowOpacity: 0,
         borderBottomWidth: 0,
       },
-    }
+    },
   },
   ResetPassword: {
     screen: ResetPassword,
@@ -71,82 +72,74 @@ const AuthStack = createStackNavigator({
         shadowOpacity: 0,
         borderBottomWidth: 0,
       },
-    }
+    },
   },
 });
 
 /********************************************
  * Application Stack
  *******************************************/
-const ApplicationStack = createStackNavigator(
-  {
-    Home: {
-      screen: Home,
-      navigationOptions: ({navigation}) => ({
-        headerTitle: 'Envelope',
-        headerLeftContainerStyle: {
-          paddingHorizontal: 12,
-        },
-        headerRightContainerStyle: {
-          paddingHorizontal: 12,
-        },
-        headerLeft: () =>
-          <View style={{flexDirection: 'row'}}>
-            <Button transparent onPress={() => alert('Change view!')}>
-              <Icon name="grid" size={20} color={globals.colors.blackTrue} />
-            </Button>
-            <Button transparent onPress={() => alert('Searching...')} style={{marginLeft: 12}}>
-              <Icon name="search" size={20} color={globals.colors.blackTrue} />
-            </Button>
-          </View>,
-        headerRight: () =>
-          <Button transparent onPress={() => navigation.navigate('Settings')}>
-            <Icon name="settings" size={20} color={globals.colors.blackTrue} />
-          </Button>,
-      }),
+const ApplicationStack = createStackNavigator({
+  Home: {
+    screen: Home,
+    headerMode: 'none',
+    navigationOptions: {
+      header: EHeader,
     },
-    Settings: {
-      screen: Settings,
-      navigationOptions: ({navigation}) => ({
-        headerLeftContainerStyle: {
-          paddingHorizontal: 6,
-        },
-        title: 'Account',
-        headerLeft: () =>
-          <Button transparent onPress={() => navigation.goBack()}>
-            <Icon size={24} name="chevron-left" color={globals.colors.blackTrue} />
-          </Button>
-        ,
-      }),
-    },
-    WebView: {
-      screen: WebView,
-      navigationOptions: ({navigation}) => ({
-        headerLeftContainerStyle: {
-          paddingHorizontal: 6,
-        },
-        headerLeft: () =>
-          <Button transparent onPress={() => navigation.goBack()}>
-            <Icon size={24} name="chevron-left" color={globals.colors.blackTrue} />
-          </Button>
-        ,
-      }),
-    },
-    Acknowledgements: {
-      screen: Acknowledgements,
-      navigationOptions: ({navigation}) => ({
-        headerLeftContainerStyle: {
-          paddingHorizontal: 6,
-        },
-        headerLeft: () =>
-          <Button transparent onPress={() => navigation.goBack()}>
-            <Icon size={24} name="chevron-left" color={globals.colors.blackTrue} />
-          </Button>
-        ,
-      }),
-    },
-  }
-);
+  },
+  Settings: {
+    screen: Settings,
+    navigationOptions: ({ navigation }) => ({
+      headerLeftContainerStyle: {
+        paddingHorizontal: 6,
+      },
+      title: 'Account',
+      headerLeft: () => (
+        <Button transparent onPress={() => navigation.goBack()}>
+          <Icon
+            size={24}
+            name="chevron-left"
+            color={globals.colors.blackTrue}
+          />
+        </Button>
+      ),
+    }),
+  },
+  WebView: {
+    screen: WebView,
+    navigationOptions: ({ navigation }) => ({
+      headerLeftContainerStyle: {
+        paddingHorizontal: 6,
+      },
+      headerLeft: () => (
+        <Button transparent onPress={() => navigation.goBack()}>
+          <Icon
+            size={24}
+            name="chevron-left"
+            color={globals.colors.blackTrue}
+          />
+        </Button>
+      ),
+    }),
+  },
+  Acknowledgements: {
+    screen: Acknowledgements,
+    navigationOptions: ({ navigation }) => ({
+      headerLeftContainerStyle: {
+        paddingHorizontal: 6,
+      },
+      headerLeft: () => (
+        <Button transparent onPress={() => navigation.goBack()}>
+          <Icon
+            size={24}
+            name="chevron-left"
+            color={globals.colors.blackTrue}
+          />
+        </Button>
+      ),
+    }),
+  },
+});
 
 /********************************************
  * Camera Modal Stack
