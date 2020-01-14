@@ -22,7 +22,28 @@ const routes = [
     path: '/auth/action',
     name: 'actions',
     component: () =>
-      import(/* webpackChunkName: "login" */ '@/views/Auth/Actions.vue'),
+      import(/* webpackChunkName: "actions" */ '@/views/Auth/Actions.vue'),
+    props: true,
+  },
+  {
+    path: '/privacy',
+    name: 'actions',
+    component: () =>
+      import(/* webpackChunkName: "privacy" */ '@/views/Static/Privacy.vue'),
+    props: true,
+  },
+  {
+    path: '/terms',
+    name: 'actions',
+    component: () =>
+      import(/* webpackChunkName: "terms" */ '@/views/Static/Terms.vue'),
+    props: true,
+  },
+  {
+    path: '/help-center',
+    name: 'actions',
+    component: () =>
+      import(/* webpackChunkName: "help" */ '@/views/Static/HelpCenter.vue'),
     props: true,
   },
 ];
