@@ -27,21 +27,21 @@ const routes = [
   },
   {
     path: '/privacy',
-    name: 'actions',
+    name: 'privacy',
     component: () =>
       import(/* webpackChunkName: "privacy" */ '@/views/Static/Privacy.vue'),
     props: true,
   },
   {
     path: '/terms',
-    name: 'actions',
+    name: 'terms',
     component: () =>
       import(/* webpackChunkName: "terms" */ '@/views/Static/Terms.vue'),
     props: true,
   },
   {
     path: '/help-center',
-    name: 'actions',
+    name: 'help',
     component: () =>
       import(/* webpackChunkName: "help" */ '@/views/Static/HelpCenter.vue'),
     props: true,
