@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="flex items-baseline justify-between">
+    <div class="flex items-baseline">
       <h1 class="font-semibold text-3xl tracking-widest mx-5">
         Your Cards
       </h1>
@@ -9,12 +9,14 @@
           ref="filter"
           @click="showFilters = !showFilters"
           :disabled="cards.length === 0 && !loading"
-          class="outline-none"
+          class="outline-none mr-5"
           :class="{
             'opacity-50 cursor-default': cards.length === 0 && !loading,
           }"
         >
-          <icon-filter class="hover:text-blue-800 h-6 w-6" />
+          <icon-filter
+            class="hover:text-envelope-red focus:outline-none fill-current h-6 w-6"
+          />
         </button>
         <div
           v-show="showFilters"
@@ -22,7 +24,7 @@
             exclude: ['filter'],
             handler: 'onClose',
           }"
-          class="caret absolute rounded-lg border border-gray-700 shadow-lg bg-white p-3 mt-10 -mr-3 right-0 w-64"
+          class="caret absolute rounded-lg border border-gray-700 shadow-lg bg-white p-3 mt-10 mr-2 right-0 w-64 z-10"
         >
           <filters @update="update" @clear="clear" :people="people" />
         </div>
@@ -62,14 +64,20 @@ export default {
       handler(user) {
         this.$bind(
           'cards',
-          fire.firestore().collection(`${user.uid}/account/cards`),
+          fire
+            .firestore()
+            .collection(`${user.uid}/account/cards`)
+            .limit(12),
         ).then(() => (this.loading = false));
       },
     },
   },
   computed: {
     people() {
-      return this.cards.map(card => card.from).sort();
+      return [...new Set(this.cards.map(card => card.from).sort())];
+    },
+    last() {
+      return this.cards[this.cards.length - 1];
     },
   },
   methods: {
@@ -77,6 +85,13 @@ export default {
       this.showFilters = false;
     },
     clear() {
+      this.loading = true;
+      this.$bind(
+        'cards',
+        fire.firestore().collection(`${this.user.uid}/account/cards`),
+      ).then(() => (this.loading = false));
+    },
+    loadMore() {
       this.loading = true;
       this.$bind(
         'cards',

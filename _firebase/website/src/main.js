@@ -5,6 +5,8 @@ import PortalVue from 'portal-vue';
 import { firestorePlugin } from 'vuefire';
 import fire from '@/firebase';
 import moment from 'moment';
+import VModal from 'vue-js-modal';
+import VueProgressiveImage from 'vue-progressive-image';
 
 // Styles
 import './assets/styles/index.css';
@@ -15,7 +17,16 @@ Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
 
 // Vue Portal
+// https://github.com/linusborg/portal-vue
 Vue.use(PortalVue);
+
+// Vue JS Modal
+// https://github.com/euvl/vue-js-modal
+Vue.use(VModal);
+
+// Vue Progressive Image
+// https://github.com/MatteoGabriele/vue-progressive-image
+Vue.use(VueProgressiveImage);
 
 // Click Outside Directive
 let handleOutsideClick;

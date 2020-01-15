@@ -1,5 +1,5 @@
 <template>
-  <nav class="absolute w-full p-3 mb-10 border-b shadow-md bg-white">
+  <nav class="fixed z-20 top-0 w-full p-3 mb-10 border-b shadow-md bg-white">
     <div class="container flex justify-between">
       <!-- Logo -->
       <router-link to="/" class="mr-3 flex flex-row items-center">
@@ -13,30 +13,21 @@
       <div class="flex items-center font-semibold">
         {{ user.displayName }}
         <cog
-          @click="settings = true"
-          class="ml-5 cursor-pointer fill-current hover:text-blue-800"
+          @click="toggle"
+          class="ml-5 cursor-pointer fill-current hover:text-envelope-red"
         />
         <button
           @click.prevent="logout"
-          class="cursor-pointer fill-current hover:text-blue-800 ml-5 text-sm"
+          class="cursor-pointer fill-current hover:text-envelope-red ml-5 text-sm"
         >
           Logout
         </button>
       </div>
     </div>
 
-    <portal to="modal" v-if="settings">
-      <div
-        @click="
-          settings = false;
-          success = false;
-        "
-        class="absolute inset-0 flex items-center justify-center w-screen h-screen bg-modal"
-      >
-        <div
-          @click.stop
-          class="w-1/3 rounded bg-white p-5 text-center opacity-100"
-        >
+    <portal to="modal" v-if="show">
+      <modal name="settings" height="auto" @before-close="show = false">
+        <div class="rounded bg-white p-5 text-center">
           <h2
             class="tracking-widest text-2xl font-semibold pb-3 mb-8 border-b border-gray-400"
           >
@@ -88,7 +79,7 @@
             </button>
           </form>
         </div>
-      </div>
+      </modal>
     </portal>
   </nav>
 </template>
@@ -102,11 +93,11 @@ export default {
   },
   data() {
     return {
-      settings: false,
       name: this.user.displayName,
       account: [],
       success: false,
       birthday: null,
+      show: false,
     };
   },
   watch: {
@@ -127,6 +118,12 @@ export default {
     },
   },
   methods: {
+    toggle() {
+      this.show = true;
+      this.$nextTick(() => {
+        this.$modal.show('settings');
+      });
+    },
     formatDate(event) {
       if (event.key !== 'Backspace') {
         if (this.birthday.length === 2) this.birthday = `${this.birthday}/`;
