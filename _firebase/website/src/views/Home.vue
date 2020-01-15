@@ -9,8 +9,6 @@
 </template>
 
 <script>
-// import fire from '@/firebase';
-
 export default {
   props: {
     user: Object,
