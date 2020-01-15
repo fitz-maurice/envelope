@@ -1,11 +1,12 @@
 <template>
-  <div
-    id="app"
-    class="h-full font-body"
-    :class="{ bg: !loggedIn, 'stop-scroll': modalOpen }"
-  >
-    <navigation v-if="user" :user="user" />
-    <router-view :user="user" :logged-in="loggedIn" class="container pt-24" />
+  <div id="app" class="h-full font-body" :class="{ 'stop-scroll': modalOpen }">
+    <navigation v-if="showNav" :user="user" />
+    <!-- Transition -->
+    <fade>
+      <router-view :user="user" :logged-in="loggedIn" class="container pt-24" />
+    </fade>
+
+    <!-- Modal Portal Target -->
     <portal-target
       @change="modalOpen = !modalOpen"
       name="modal"
@@ -25,6 +26,17 @@ export default {
     return {
       modalOpen: false,
     };
+  },
+  computed: {
+    showNav() {
+      return this.$route.query.m
+        ? false
+        : this.$route.name === 'home'
+        ? this.user
+          ? true
+          : false
+        : true;
+    },
   },
 };
 </script>
