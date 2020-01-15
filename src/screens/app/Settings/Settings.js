@@ -84,7 +84,7 @@ const Settings = ({ navigation }) => {
     context.setLoading(true);
     navigation.navigate('WebView', {
       name: 'Terms & Conditions',
-      uri: 'https://jmu.edu/',
+      uri: 'https://envelope.app/terms',
     });
   };
 
@@ -97,7 +97,7 @@ const Settings = ({ navigation }) => {
     context.setLoading(true);
     navigation.navigate('WebView', {
       name: 'Privacy Policy',
-      uri: 'https://www.wofford.edu/',
+      uri: 'https://envelope.app/privacy',
     });
   };
 
@@ -110,7 +110,7 @@ const Settings = ({ navigation }) => {
     context.setLoading(true);
     navigation.navigate('WebView', {
       name: 'Help Center',
-      uri: 'https://espn.com',
+      uri: 'https://envelope.app/help-center',
     });
   };
 
