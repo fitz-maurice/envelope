@@ -524,6 +524,8 @@ PODS:
     - ReactCommon/jscallinvoker (= 0.61.5)
   - ReactNativeDarkMode (0.2.1):
     - React
+  - RNAppleAuthentication (0.1.1):
+    - React
   - RNCMaskedView (0.1.6):
     - React
   - RNDeviceInfo (5.4.1):
@@ -600,6 +602,7 @@ DEPENDENCIES:
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeDarkMode (from `../node_modules/react-native-dark-mode`)
+  - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -704,6 +707,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   ReactNativeDarkMode:
     :path: "../node_modules/react-native-dark-mode"
+  RNAppleAuthentication:
+    :path: "../node_modules/@invertase/react-native-apple-authentication"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
   RNDeviceInfo:
@@ -789,6 +794,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   ReactNativeDarkMode: 0e6e7bdbd387eb949fa7ff238a48f6d6431a428d
+  RNAppleAuthentication: 9cca53676f5f010ffbf33eb99604383bfe0eb020
   RNCMaskedView: a88953beefbd347a29072d9eba90e42945fe291e
   RNDeviceInfo: 0e40d9a9031252d2525d8b69a4b3fa8689efcea4
   RNFBApp: 5b215aacc09105a1761de31b9a0eb2abcce06253

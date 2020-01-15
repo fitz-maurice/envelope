@@ -32,6 +32,7 @@
 		1DBB0F3E6F2EACEDBFB30FEB /* Pods-envelope-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-envelope-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-envelope-tvOSTests/Pods-envelope-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2CE49283CFDA115EA0C1DE85 /* Pods-envelope-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-envelope-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-envelope-tvOSTests/Pods-envelope-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		3B5A670123C63FD400DBD7FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3B84B07623CECDBF00FE47BC /* Envelope.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Envelope.entitlements; path = envelope/Envelope.entitlements; sourceTree = "<group>"; };
 		65D5C53012643696A46AA56F /* libPods-envelope-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-envelope-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		863EFB3537A0BAAE1DC3B01A /* Pods-envelope.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-envelope.debug.xcconfig"; path = "Target Support Files/Pods-envelope/Pods-envelope.debug.xcconfig"; sourceTree = "<group>"; };
 		9048B08AA65F0732A5F7FDA4 /* Pods-envelope-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-envelope-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-envelope-tvOS/Pods-envelope-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -75,6 +76,7 @@
 		13B07FAE1A68108700A75B9A /* envelope */ = {
 			isa = PBXGroup;
 			children = (
+				3B84B07623CECDBF00FE47BC /* Envelope.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -378,6 +380,7 @@
 			baseConfigurationReference = 863EFB3537A0BAAE1DC3B01A /* Pods-envelope.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = envelope/Envelope.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -404,6 +407,7 @@
 			baseConfigurationReference = 02D3A49549DD7EE59E13A221 /* Pods-envelope.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = envelope/Envelope.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
