@@ -4,6 +4,11 @@ import { firebase } from '@react-native-firebase/auth';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import { GoogleSignin } from '@react-native-community/google-signin';
 import { Container, Content, Footer, Button, Text } from 'native-base';
+import AppleAuth, {
+  AppleButton,
+  AppleAuthRequestScope,
+  AppleAuthRequestOperation,
+} from '@invertase/react-native-apple-authentication';
 
 // Styles
 import styles from './styles';
@@ -34,6 +39,39 @@ const Welcome = ({ navigation }) => {
     }
   };
 
+  /**
+   * _signInWithApple
+   *
+   * Sign in or create an account using apple
+   */
+  const _signInWithApple = async () => {
+    try {
+      const appleAuthRequestResponse = await AppleAuth.performRequest({
+        requestedOperation: AppleAuthRequestOperation.LOGIN,
+        requestedScopes: [
+          AppleAuthRequestScope.EMAIL,
+          AppleAuthRequestScope.FULL_NAME,
+        ],
+      });
+
+      const { identityToken, nonce } = appleAuthRequestResponse;
+
+      let appleCredential = null;
+      if (identityToken) {
+        appleCredential = firebase.auth.AppleAuthProvider.credential(
+          identityToken,
+          nonce,
+        );
+      }
+
+      const userCredential = await firebase
+        .auth()
+        .signInWithCredential(appleCredential);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <Container style={s.background}>
       {/* Logo */}
@@ -41,21 +79,19 @@ const Welcome = ({ navigation }) => {
 
       {/* Action Buttons */}
       <Content padder scrollEnabled={false} contentContainerStyle={s.container}>
-        <Button
-          block
-          style={{ marginBottom: 10 }}
-          onPress={() => navigation.navigate('SignUpEmail')}>
-          <Text>Email</Text>
+        <Button block style={{ marginBottom: 10 }} onPress={_signInWithApple}>
+          <Text>Continue with Apple</Text>
+        </Button>
+
+        <Button block style={{ marginBottom: 10 }} onPress={_signInWithGoogle}>
+          <Text>Continue with Google</Text>
         </Button>
 
         <Button
           block
           style={{ marginBottom: 10 }}
-          onPress={() => alert('Apple')}>
-          <Text>Apple</Text>
-        </Button>
-        <Button block style={{ marginBottom: 10 }} onPress={_signInWithGoogle}>
-          <Text>Google</Text>
+          onPress={() => navigation.navigate('SignUpEmail')}>
+          <Text>Sign up with Email</Text>
         </Button>
       </Content>
 
