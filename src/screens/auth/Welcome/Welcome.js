@@ -79,9 +79,11 @@ const Welcome = ({ navigation }) => {
 
       {/* Action Buttons */}
       <Content padder scrollEnabled={false} contentContainerStyle={s.container}>
-        <Button block style={{ marginBottom: 10 }} onPress={_signInWithApple}>
-          <Text>Continue with Apple</Text>
-        </Button>
+        {AppleAuth.isSupported ? (
+          <Button block style={{ marginBottom: 10 }} onPress={_signInWithApple}>
+            <Text>Continue with Apple</Text>
+          </Button>
+        ) : null}
 
         <Button block style={{ marginBottom: 10 }} onPress={_signInWithGoogle}>
           <Text>Continue with Google</Text>
