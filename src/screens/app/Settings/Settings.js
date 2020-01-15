@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Feather';
+import Rate, { AndroidMarket } from 'react-native-rate';
 import firestore from '@react-native-firebase/firestore';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import { View, Platform, TouchableOpacity } from 'react-native';
@@ -54,6 +55,30 @@ const Settings = ({ navigation }) => {
     auth().signOut();
   };
 
+  /**
+   * _rateApp
+   *
+   * Open the iOS or Android rating modal
+   */
+  const _rateApp = () => {
+    Rate.rate(
+      {
+        AppleAppID: '1494081818',
+        GooglePackageName: 'com.fitzcreative.envelope',
+        preferredAndroidMarket: AndroidMarket.Google,
+        preferInApp: true,
+        openAppStoreIfInAppFails: true,
+      },
+      success => {
+        if (success) {
+          // this technically only tells us if the user successfully went to the Review Page.
+          // Whether they actually did anything, we do not know.
+          console.log('Here');
+        }
+      },
+    );
+  };
+
   const _saveUser = () => {
     context.setLoading(true);
     const user = auth().currentUser.updateProfile({
@@ -84,7 +109,7 @@ const Settings = ({ navigation }) => {
     context.setLoading(true);
     navigation.navigate('WebView', {
       name: 'Terms & Conditions',
-      uri: 'https://envelope.app/terms',
+      uri: 'https://envelope.app/terms?m=true',
     });
   };
 
@@ -97,7 +122,7 @@ const Settings = ({ navigation }) => {
     context.setLoading(true);
     navigation.navigate('WebView', {
       name: 'Privacy Policy',
-      uri: 'https://envelope.app/privacy',
+      uri: 'https://envelope.app/privacy?m=true',
     });
   };
 
@@ -110,7 +135,7 @@ const Settings = ({ navigation }) => {
     context.setLoading(true);
     navigation.navigate('WebView', {
       name: 'Help Center',
-      uri: 'https://envelope.app/help-center',
+      uri: 'https://envelope.app/help-center?m=true',
     });
   };
 
@@ -224,7 +249,7 @@ const Settings = ({ navigation }) => {
             <Icon active name="chevron-right" size={15} />
           </Right>
         </ListItem>
-        <ListItem icon>
+        <ListItem icon onPress={_rateApp}>
           <Left>
             <Button>
               <Icon active name="star" color={globals.colors.white} />
