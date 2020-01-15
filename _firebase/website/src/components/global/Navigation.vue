@@ -10,8 +10,8 @@
       </router-link>
 
       <!-- Right Side -->
-      <div class="flex items-center font-semibold">
-        {{ user.displayName }}
+      <div v-if="user" class="flex items-center font-semibold">
+        {{ name }}
         <cog
           @click="toggle"
           class="ml-5 cursor-pointer fill-current hover:text-envelope-red"
@@ -93,7 +93,7 @@ export default {
   },
   data() {
     return {
-      name: this.user.displayName,
+      name: this.user?.displayName,
       account: [],
       success: false,
       birthday: null,
@@ -107,13 +107,15 @@ export default {
     user: {
       immediate: true,
       handler(user) {
-        this.$bind(
-          'account',
-          fire
-            .firestore()
-            .collection(`${user.uid}`)
-            .doc('account'),
-        );
+        if (user) {
+          this.$bind(
+            'account',
+            fire
+              .firestore()
+              .collection(`${user.uid}`)
+              .doc('account'),
+          );
+        }
       },
     },
   },
