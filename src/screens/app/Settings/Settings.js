@@ -1,30 +1,30 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { View, Platform } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Feather';
 import Rate, { AndroidMarket } from 'react-native-rate';
 import firestore from '@react-native-firebase/firestore';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
-import { View, Platform, TouchableOpacity } from 'react-native';
 import { getVersion, getBuildNumber } from 'react-native-device-info';
 import {
   Container,
   Content,
   Text,
   Button,
-  Footer,
   ListItem,
   Left,
   Body,
   Right,
   Separator,
   Input,
-  List,
   Toast,
 } from 'native-base';
 
 import styles from './styles';
 import globals from '../../../config/globals';
 import AppContext from '../../../config/context';
+import HeaderTitle from '../../../components/HeaderTitle';
+import HeaderButton from '../../../components/HeaderButton';
 
 const Settings = ({ navigation }) => {
   const s = useDynamicStyleSheet(styles);
@@ -110,6 +110,7 @@ const Settings = ({ navigation }) => {
     navigation.navigate('WebView', {
       name: 'Terms & Conditions',
       uri: 'https://envelope.app/terms?m=true',
+      backgroundColor: s.header.backgroundColor,
     });
   };
 
@@ -123,6 +124,7 @@ const Settings = ({ navigation }) => {
     navigation.navigate('WebView', {
       name: 'Privacy Policy',
       uri: 'https://envelope.app/privacy?m=true',
+      backgroundColor: s.header.backgroundColor,
     });
   };
 
@@ -136,6 +138,7 @@ const Settings = ({ navigation }) => {
     navigation.navigate('WebView', {
       name: 'Help Center',
       uri: 'https://envelope.app/help-center?m=true',
+      backgroundColor: s.header.backgroundColor,
     });
   };
 
@@ -283,7 +286,13 @@ const Settings = ({ navigation }) => {
         <Separator bordered>
           <Text>APP</Text>
         </Separator>
-        <ListItem icon onPress={() => navigation.navigate('Acknowledgements')}>
+        <ListItem
+          icon
+          onPress={() =>
+            navigation.navigate('Acknowledgements', {
+              backgroundColor: s.header.backgroundColor,
+            })
+          }>
           <Left>
             <Button>
               <Icon active name="compass" color={globals.colors.white} />

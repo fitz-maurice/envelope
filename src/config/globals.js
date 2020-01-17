@@ -1,6 +1,5 @@
 import { Dimensions } from 'react-native';
-import { iOSUIKit } from 'react-native-typography';
-import { material } from 'react-native-typography';
+import { iOSUIKit, material } from 'react-native-typography';
 
 export const globals = {
   // Window dimensions

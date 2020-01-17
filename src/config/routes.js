@@ -1,13 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Button } from 'native-base';
-import Icon from 'react-native-vector-icons/Feather';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 // Globals & Components
 import globals from './globals';
-import EHeader from '../components/Header';
+import HeaderHome from '../components/HeaderHome';
+import HeaderTitle from '../components/HeaderTitle';
+import HeaderButton from '../components/HeaderButton';
 
 // Auth screens
 import Welcome from '../screens/auth/Welcome';
@@ -84,60 +83,51 @@ const ApplicationStack = createStackNavigator({
     screen: Home,
     headerMode: 'none',
     navigationOptions: {
-      header: EHeader,
+      header: HeaderHome,
     },
   },
   Settings: {
     screen: Settings,
     navigationOptions: ({ navigation }) => ({
-      title: 'Account',
+      title: <HeaderTitle>Account</HeaderTitle>,
       headerLeftContainerStyle: {
         paddingHorizontal: 6,
       },
-      headerTitleStyle: {
-        color: globals.colors.white,
-      },
       headerStyle: {
-        backgroundColor: globals.colors.envelopeRed,
+        backgroundColor: navigation.getParam('backgroundColor'),
       },
       headerLeft: () => (
-        <Button transparent onPress={() => navigation.goBack()}>
-          <Icon size={24} name="chevron-left" color={globals.colors.white} />
-        </Button>
+        <HeaderButton icon="chevron-left" navigation={navigation} />
       ),
     }),
   },
   WebView: {
     screen: WebView,
     navigationOptions: ({ navigation }) => ({
+      title: <HeaderTitle>{navigation.getParam('name')}</HeaderTitle>,
       headerLeftContainerStyle: {
         paddingHorizontal: 6,
       },
+      headerStyle: {
+        backgroundColor: navigation.getParam('backgroundColor'),
+      },
       headerLeft: () => (
-        <Button transparent onPress={() => navigation.goBack()}>
-          <Icon
-            size={24}
-            name="chevron-left"
-            color={globals.colors.blackTrue}
-          />
-        </Button>
+        <HeaderButton icon="chevron-left" navigation={navigation} />
       ),
     }),
   },
   Acknowledgements: {
     screen: Acknowledgements,
     navigationOptions: ({ navigation }) => ({
+      title: <HeaderTitle>Acknowledgements</HeaderTitle>,
       headerLeftContainerStyle: {
         paddingHorizontal: 6,
       },
+      headerStyle: {
+        backgroundColor: navigation.getParam('backgroundColor'),
+      },
       headerLeft: () => (
-        <Button transparent onPress={() => navigation.goBack()}>
-          <Icon
-            size={24}
-            name="chevron-left"
-            color={globals.colors.blackTrue}
-          />
-        </Button>
+        <HeaderButton icon="chevron-left" navigation={navigation} />
       ),
     }),
   },

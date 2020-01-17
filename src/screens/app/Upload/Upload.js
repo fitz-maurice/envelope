@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Feather';
 // import storage from '@react-native-firebase/storage'
 import ImagePicker from 'react-native-image-crop-picker';
 import AmazingCropper from 'react-native-amazing-cropper';
-import { Alert, View, Image, StatusBar } from 'react-native';
+import { Alert, View, Image } from 'react-native';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import {
   Container,
@@ -19,6 +19,7 @@ import {
 import styles from './styles';
 import globals from '../../../config/globals';
 import AppContext from '../../../config/context';
+import HeaderTitle from '../../../components/HeaderTitle';
 
 const Upload = ({ navigation }) => {
   const s = useDynamicStyleSheet(styles);
@@ -118,11 +119,9 @@ const Upload = ({ navigation }) => {
     return (
       <Container style={styles.container}>
         {/* Header */}
-        <Header style={{ backgroundColor: globals.colors.envelopeRed }}>
-          <StatusBar barStyle="light-content" />
-
+        <Header style={s.header}>
           <Body>
-            <Title style={{ color: globals.colors.white }}>{pageName}</Title>
+            <HeaderTitle>{pageName}</HeaderTitle>
           </Body>
         </Header>
 

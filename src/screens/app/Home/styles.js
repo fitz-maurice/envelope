@@ -1,7 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { DynamicStyleSheet, DynamicValue } from 'react-native-dark-mode';
 import globals from '../../../config/globals';
 
-const styles = StyleSheet.create({
+const styles = new DynamicStyleSheet({
+  header: {
+    backgroundColor: new DynamicValue(
+      globals.colors.white,
+      globals.colors.blackDark,
+    ),
+  },
   container: {
     // flex: 1,
     backgroundColor: 'white',

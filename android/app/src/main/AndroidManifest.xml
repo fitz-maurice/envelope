@@ -34,10 +34,10 @@
         <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" />
 
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>

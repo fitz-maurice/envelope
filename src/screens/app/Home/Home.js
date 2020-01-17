@@ -1,5 +1,6 @@
 import React, { useContext, useState, useCallback } from 'react';
 import { RefreshControl, TouchableOpacity } from 'react-native';
+import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import Icon from 'react-native-vector-icons/Feather';
 import {
   Container,
@@ -20,6 +21,7 @@ import Single from '../../../components/Single';
 
 const Home = ({ navigation }) => {
   const context = useContext(AppContext);
+  const s = useDynamicStyleSheet(styles);
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -47,6 +49,7 @@ const Home = ({ navigation }) => {
         navigation.navigate('Upload', {
           name: BUTTONS[index],
           images: index + 1,
+          backgroundColor: s.header.backgroundColor,
         });
       },
     );
