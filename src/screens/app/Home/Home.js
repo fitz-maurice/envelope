@@ -11,6 +11,7 @@ import {
   Grid,
   Col,
 } from 'native-base';
+import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 
 import styles from './styles';
 import globals from '../../../config/globals';
@@ -61,7 +62,7 @@ const Home = ({ navigation }) => {
    * Render a scrolling list of single column cards
    */
   const _renderSingleLayout = () => {
-    const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     const list = cards.map(info => <Single key={info}></Single>);
     return list;
   };
@@ -84,21 +85,37 @@ const Home = ({ navigation }) => {
     <Container>
       <Content
         padder
-        contentContainerStyle={{ flex: 1 }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         {/* Layout */}
         {context.layout ? _renderGridLayout() : _renderSingleLayout()}
-
-        {/* Floating Action Button */}
-        <Fab
-          position="bottomRight"
-          style={{ backgroundColor: globals.colors.envelopeRed }}
-          onPress={_openCardTypeActionSheet}>
-          <Icon name="image" size={20} />
-        </Fab>
       </Content>
+
+      {/* Floating Action Button */}
+      <Fab
+        position="bottomRight"
+        style={{
+          backgroundColor: globals.colors.envelopeRed,
+          marginBottom: 50,
+        }}
+        onPress={_openCardTypeActionSheet}>
+        <Icon name="image" size={20} />
+      </Fab>
+
+      {/* ADDDSSSSS BABY */}
+      <BannerAd
+        unitId={TestIds.BANNER}
+        size={BannerAdSize.FULL_BANNER}
+        onAdLoaded={() => {
+          console.log('Advert loaded');
+        }}
+        onAdFailedToLoad={error => {
+          console.log('Advert failed to load: ', error);
+        }}
+        // Android: ca-app-pub-5831491795997988/7970207715
+        // unitId="ca-app-pub-5831491795997988/7495564994"
+      />
     </Container>
   );
 };

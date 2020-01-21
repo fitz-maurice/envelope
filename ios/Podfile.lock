@@ -179,6 +179,11 @@ PODS:
     - React-Core (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/turbomodule/core (= 0.61.5)
+  - Firebase/AdMob (6.13.0):
+    - Firebase/CoreOnly
+    - Google-Mobile-Ads-SDK (~> 7.50)
+  - Firebase/Analytics (6.13.0):
+    - Firebase/Core
   - Firebase/Auth (6.13.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.4.0)
@@ -252,6 +257,8 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - Google-Mobile-Ads-SDK (7.53.1):
+    - GoogleAppMeasurement (~> 6.0)
   - GoogleAppMeasurement (6.1.6):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -314,6 +321,7 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - PersonalizedAdConsent (1.0.4)
   - QBImagePickerController (3.4.0)
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
@@ -530,6 +538,13 @@ PODS:
     - React
   - RNDeviceInfo (5.4.1):
     - React
+  - RNFBAdMob (6.2.0):
+    - Firebase/AdMob (~> 6.13.0)
+    - Firebase/Analytics (~> 6.13.0)
+    - Firebase/Core (~> 6.13.0)
+    - PersonalizedAdConsent
+    - React
+    - RNFBApp
   - RNFBApp (6.2.0):
     - Firebase/Core (~> 6.13.0)
     - React
@@ -607,6 +622,7 @@ DEPENDENCIES:
   - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - "RNFBAdMob (from `../node_modules/@react-native-firebase/admob`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
@@ -637,6 +653,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseInstanceID
     - FirebaseStorage
+    - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -648,6 +665,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - PersonalizedAdConsent
     - QBImagePickerController
     - RSKImageCropper
 
@@ -716,6 +734,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNFBAdMob:
+    :path: "../node_modules/@react-native-firebase/admob"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
@@ -763,6 +783,7 @@ SPEC CHECKSUMS:
   FirebaseStorage: 93fe2f8190a01bfb2b2c4932df7d679744c4ef1d
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  Google-Mobile-Ads-SDK: fac081606dbd438d8db57198b83ba8b5f875a601
   GoogleAppMeasurement: dfe55efa543e899d906309eaaac6ca26d249862f
   GoogleDataTransport: 8e9b210c97d55fbff306cc5468ff91b9cb32dcf5
   GoogleDataTransportCCTSupport: 202d7cdf9c4a7d81a2bb7f7e7e1ba6faa421b1f2
@@ -774,6 +795,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  PersonalizedAdConsent: 4b87320b7a0f22576bec530ae3b7adba88a24c78
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
@@ -802,6 +824,7 @@ SPEC CHECKSUMS:
   RNAppleAuthentication: 9cca53676f5f010ffbf33eb99604383bfe0eb020
   RNCMaskedView: a88953beefbd347a29072d9eba90e42945fe291e
   RNDeviceInfo: 0e40d9a9031252d2525d8b69a4b3fa8689efcea4
+  RNFBAdMob: 6bd7b601928d23a0b454252172fedbe746b0f7cc
   RNFBApp: 5b215aacc09105a1761de31b9a0eb2abcce06253
   RNFBAuth: 61673c0d38ce225c315e7be13a1b494904baedd2
   RNFBFirestore: 5de4ae898df51a3ecc16a45db15019836c5cec87
