@@ -106,6 +106,8 @@ const Home = ({ navigation }) => {
       {/* ADDDSSSSS BABY */}
       <BannerAd
         unitId={TestIds.BANNER}
+        // unitId="ca-app-pub-5831491795997988/7970207715" -- ANDROID
+        // unitId="ca-app-pub-5831491795997988/7495564994"
         size={BannerAdSize.FULL_BANNER}
         onAdLoaded={() => {
           console.log('Advert loaded');
@@ -113,8 +115,6 @@ const Home = ({ navigation }) => {
         onAdFailedToLoad={error => {
           console.log('Advert failed to load: ', error);
         }}
-        // Android: ca-app-pub-5831491795997988/7970207715
-        // unitId="ca-app-pub-5831491795997988/7495564994"
       />
     </Container>
   );
