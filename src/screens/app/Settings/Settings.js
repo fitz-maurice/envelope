@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, Share, Linking } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Feather';
 import Rate, { AndroidMarket } from 'react-native-rate';
@@ -137,9 +137,66 @@ const Settings = ({ navigation }) => {
     context.setLoading(true);
     navigation.navigate('WebView', {
       name: 'Help Center',
-      uri: 'https://envelope.app/help-center?m=true',
+      uri: 'https://envelope.app/help?m=true',
       backgroundColor: s.header.backgroundColor,
     });
+  };
+
+  /**
+   * _share
+   *
+   * Open native share center
+   * TODO: Update the messages copy
+   */
+  const _share = async () =>
+    Share.share(
+      {
+        subject: 'Envelope App',
+        title: 'Envelope App',
+        message: 'Envelope App',
+        url: 'https://envelope.app',
+      },
+      {
+        // Android only:
+        dialogTitle: 'Share Envelope App',
+        // iOS only:
+        excludedActivityTypes: [],
+      },
+    )
+      .then(({ action, activityType }) => {
+        if (
+          (action === 'sharedAction' &&
+            activityType !== 'com.apple.UIKit.activity.CopyToPasteboard') ||
+          activityType !== 'com.apple.UIKit.activity.AddToReadingList'
+        ) {
+          Toast.show({
+            text: 'Thank you for sharing!',
+            duration: 3000,
+          });
+        }
+      })
+      .catch(error => console.log(error));
+
+  /**
+   * _twitter
+   *
+   * Open Twitter
+   */
+  const _twitter = () =>
+    Linking.canOpenURL('twitter://user?screen_name=envelope_app')
+      .then(result => {
+        if (result) Linking.openURL('twitter://user?screen_name=envelope_app');
+        else Linking.openURL('https://twitter.com/envelope_app');
+      })
+      .catch(error => console.log(error));
+
+  /**
+   * _emailSupport
+   *
+   * Open native email application
+   */
+  const _emailSupport = () => {
+    Linking.openURL('mailto:admin@envelope.app?subject=Support Ticket');
   };
 
   return (
@@ -195,7 +252,7 @@ const Settings = ({ navigation }) => {
         <Separator bordered>
           <Text>SUPPORT</Text>
         </Separator>
-        <ListItem icon>
+        <ListItem icon onPress={_emailSupport}>
           <Left>
             <Button>
               <Icon active name="mail" color={globals.colors.white} />
@@ -204,9 +261,6 @@ const Settings = ({ navigation }) => {
           <Body>
             <Text>Email Support</Text>
           </Body>
-          <Right>
-            <Icon active name="chevron-right" size={15} />
-          </Right>
         </ListItem>
         <ListItem icon>
           <Left>
@@ -239,7 +293,7 @@ const Settings = ({ navigation }) => {
         <Separator bordered>
           <Text>ABOUT</Text>
         </Separator>
-        <ListItem icon>
+        <ListItem icon onPress={_share}>
           <Left>
             <Button>
               <Icon active name="thumbs-up" color={globals.colors.white} />
@@ -248,9 +302,6 @@ const Settings = ({ navigation }) => {
           <Body>
             <Text>Refer a Friend</Text>
           </Body>
-          <Right>
-            <Icon active name="chevron-right" size={15} />
-          </Right>
         </ListItem>
         <ListItem icon onPress={_rateApp}>
           <Left>
@@ -264,11 +315,8 @@ const Settings = ({ navigation }) => {
               {Platform.OS === 'ios' ? 'App Store' : 'Google Play Store'}
             </Text>
           </Body>
-          <Right>
-            <Icon active name="chevron-right" size={15} />
-          </Right>
         </ListItem>
-        <ListItem icon last>
+        <ListItem icon last onPress={_twitter}>
           <Left>
             <Button>
               <Icon active name="twitter" color={globals.colors.white} />
@@ -277,9 +325,6 @@ const Settings = ({ navigation }) => {
           <Body>
             <Text>Follow Envelope</Text>
           </Body>
-          <Right>
-            <Icon active name="chevron-right" size={15} />
-          </Right>
         </ListItem>
 
         {/* App */}
