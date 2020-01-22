@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import { DynamicStyleSheet, DynamicValue } from 'react-native-dark-mode';
 import globals from '../../config/globals';
 
-const styles = StyleSheet.create({
+const styles = new DynamicStyleSheet({
   container: {
     position: 'absolute',
     backgroundColor: 'rgba(255, 255, 255, 0.9)',

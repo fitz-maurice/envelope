@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState, useCallback, useEffect } from 'react';
 import { RefreshControl, TouchableOpacity } from 'react-native';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import Icon from 'react-native-vector-icons/Feather';
@@ -12,6 +12,8 @@ import {
   Col,
 } from 'native-base';
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 import styles from './styles';
 import globals from '../../../config/globals';
@@ -21,6 +23,7 @@ import AppContext from '../../../config/context';
 import Single from '../../../components/Single';
 
 const Home = ({ navigation }) => {
+  const [cards, setCards] = useState([]);
   const context = useContext(AppContext);
   const s = useDynamicStyleSheet(styles);
   const [refreshing, setRefreshing] = useState(false);
@@ -28,6 +31,28 @@ const Home = ({ navigation }) => {
     setRefreshing(true);
     context.wait(2000).then(() => setRefreshing(false));
   }, [context]);
+
+  useEffect(() => {
+    const unsubscribe = firestore()
+      .collection(`${auth().currentUser.uid}/account/cards`)
+      .get()
+      .then(querySnapshot => {
+        const cards = querySnapshot.docs.map(documentSnapshot => {
+          return {
+            ...documentSnapshot.data(),
+            key: documentSnapshot.id,
+          };
+        });
+
+        setCards(cards);
+
+        if (refreshing) {
+          setRefreshing(false);
+        }
+      });
+
+    return () => unsubscribe;
+  }, []);
 
   /**
    * _openCardTypeActionSheet
@@ -62,8 +87,9 @@ const Home = ({ navigation }) => {
    * Render a scrolling list of single column cards
    */
   const _renderSingleLayout = () => {
-    const cards = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    const list = cards.map(info => <Single key={info}></Single>);
+    const list = cards.map(card => (
+      <Single card={card} key={card.key}></Single>
+    ));
     return list;
   };
 

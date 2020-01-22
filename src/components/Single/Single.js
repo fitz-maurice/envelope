@@ -1,39 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import { useDynamicStyleSheet, useDynamicValue } from 'react-native-dark-mode';
 import { Image } from 'react-native';
 import { Card, CardItem, Left, Button, Body, Text, Right } from 'native-base';
+import storage from '@react-native-firebase/storage';
 
-// import styles from './styles';
+import styles from './styles';
 
-const Single = () => {
+const Single = props => {
+  const s = useDynamicStyleSheet(styles);
+  const [uri, setUri] = useState();
+
+  useEffect(() => {
+    const getDownloadURL = storage()
+      .refFromURL(props.card.front)
+      .getDownloadURL()
+      .then(url => setUri(url));
+
+    return () => getDownloadURL;
+  }, []);
+
   return (
     <Card>
-      <CardItem cardBody>
-        <Image
-          source={{ uri: 'https://placeimg.com/500/500' }}
-          style={{ height: 300, width: null, flex: 1 }}
-        />
-      </CardItem>
-
-      <CardItem>
+      <CardItem header>
         <Left>
-          <Button transparent>
-            <Icon active name="heart" />
-            <Text>12 Likes</Text>
-          </Button>
+          <Text>{props.card.from}</Text>
+          <Icon active name="user" />
         </Left>
 
-        <Body>
-          <Button transparent>
-            <Icon active name="heart" />
-            <Text>4 Comments</Text>
-          </Button>
-        </Body>
-
         <Right>
+          <Text>{props.card.date.toDate().toDateString()}</Text>
           <Icon active name="calendar" />
-          <Text>11h ago</Text>
         </Right>
+      </CardItem>
+
+      <CardItem cardBody>
+        <Image source={{ uri }} style={{ height: 300, width: null, flex: 1 }} />
       </CardItem>
     </Card>
   );
