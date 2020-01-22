@@ -1,5 +1,5 @@
 import React, { useContext, useState, useCallback } from 'react';
-import { RefreshControl, TouchableOpacity } from 'react-native';
+import { RefreshControl, Platform } from 'react-native';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import Icon from 'react-native-vector-icons/Feather';
 import {
@@ -105,9 +105,11 @@ const Home = ({ navigation }) => {
 
       {/* ADDDSSSSS BABY */}
       <BannerAd
-        unitId={TestIds.BANNER}
-        // unitId="ca-app-pub-5831491795997988/7970207715" -- ANDROID
-        // unitId="ca-app-pub-5831491795997988/7495564994"
+        unitId={
+          Platform.OS === 'ios'
+            ? 'ca-app-pub-5831491795997988/7495564994'
+            : 'ca-app-pub-5831491795997988/7970207715'
+        }
         size={BannerAdSize.FULL_BANNER}
         onAdLoaded={() => {
           console.log('Advert loaded');
