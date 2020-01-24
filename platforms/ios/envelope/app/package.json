@@ -1,0 +1,9 @@
+{
+    "discardUncaughtJsExceptions": false,
+    "main": "bundle",
+    "name": "Envelope",
+    "android": {
+        "v8Flags": "--expose_gc",
+        "markingMode": "none"
+    }
+}

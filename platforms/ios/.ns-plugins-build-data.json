@@ -1,0 +1,41 @@
+{
+	"@nativescript/core": {
+		"/Users/drew.fitzmaurice/envelope/node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.h": "61d5332c711cc0ac62e0194e18077d2ff5293b11",
+		"/Users/drew.fitzmaurice/envelope/node_modules/@nativescript/core/platforms/ios/Podfile": "32c7118af05cda2870d9693d93b4c9376840221e",
+		"/Users/drew.fitzmaurice/envelope/node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.m": "177d5673fac79dff28d09182eaef20778f66e787",
+		"/Users/drew.fitzmaurice/envelope/node_modules/@nativescript/core/platforms/ios/src/module.modulemap": "e3696280d924e540c4525889e025e1314ec183b9",
+		"/Users/drew.fitzmaurice/envelope/node_modules/@nativescript/core/platforms/ios/typings/objc!MaterialComponents.d.ts": "6e22ade7ce74eea47dc88478166c1fa7a4b2d3a0"
+	},
+	"tns-core-modules-widgets": {
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/Headers/NSData+Async.h": "4eae4f66d67dc99a53dbbb7c2d8cf1b3df7eb487",
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/Headers/NSString+Async.h": "a3cdfaeb2f7360c395c8e6c2defb4a2b2ffc8f10",
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/Headers/TNSLabel.h": "c7c5788d3ea834d96cf8a137cbf0c4ea28fd7829",
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/Headers/TNSProcess.h": "787f09c57ede174d6323990e6d6e9eaf134da6f0",
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/Headers/TNSWidgets.h": "814beee5b8d98390227b9889d64af11660eb1f09",
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/Headers/UIImage+TNSBlocks.h": "3b31a5be818e25c142e99f98479c538632d350ae",
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/Headers/UIView+PassThroughParent.h": "cddc4157f40983b34fcb1d3846666b5ecc5b1ca5",
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/Info.plist": "a4a930fc63184d81a6b05b81bc432b1a82d0c515",
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/Modules/module.modulemap": "00d2220e76eb098f1808eb4e9b5c43ad4cadf1da",
+		"/Users/drew.fitzmaurice/envelope/node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework/TNSWidgets": "b0f99b9b94900045c88587866a9297d5f783fb5a"
+	},
+	"nativescript-plugin-firebase": {
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/Podfile": "53aa5141edbcda4a7d543d92a965c4e6087f5898",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/Info.plist": "52368d781d8c6dc3498bfadd4b59790b4cbe2aaa",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSCrashlyticsLogger.framework-disabled/Headers/TNSCrashlyticsLogger.h": "5018cdbf78957b475d01e617e240debaf8310b53",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSCrashlyticsLogger.framework-disabled/Info.plist": "80f7ea9052045100d02c82667abcef6722b1fa72",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSCrashlyticsLogger.framework-disabled/Headers/TNSCrashlyticsLoggerWrapper.h": "274baa9f00a34ab70bf651d10cd37b857bcb6d58",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSCrashlyticsLogger.framework-disabled/Modules/module.modulemap": "edf7a712a23e415884ac6444185bfb62aa3a89c8",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSMLKitCamera.framework-disabled/Headers/TNSMLKitCameraViewDelegate.h": "b3296ea9a63cc873bdf7def8836795049e598ec5",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSMLKitCamera.framework-disabled/Headers/TNSMLKitCamera.h": "78ea6480dd4f5bbce5b2d49221c43a3f10737f81",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSMLKitCamera.framework-disabled/Headers/TNSMLKitCameraView.h": "6463ba0cae804c84eb87373abda07cdb214d2e2d",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSMLKitCamera.framework-disabled/Info.plist": "c8e012468aceb390d0d746386b639be7aae2461a",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSMLKitCamera.framework-disabled/Modules/module.modulemap": "22d675cfcdcd0abd299e79c602de3eb9553de68c",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/build.xcconfig": "aa1b078da3b7e00f79fe499c04ca4f3e8b50fdc2",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSMLKitCamera.framework-disabled/beep.caf": "9f5c25a7e9f3d08c887fe8a35b9b4ff75508fb1d",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSMLKitCamera.framework-disabled/TNSMLKitCamera": "34dd2c88baa6ce46695cfb29c4beb5b2a9fbe5f5",
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-plugin-firebase/platforms/ios/TNSCrashlyticsLogger.framework-disabled/TNSCrashlyticsLogger": "d7275db8ad30a82844642689c0337cb86d2dbd44"
+	},
+	"nativescript-camera": {
+		"/Users/drew.fitzmaurice/envelope/node_modules/nativescript-camera/platforms/ios/Info.plist": "7ac0e3ce185cd23c52d97becfdfdee212d2290c0"
+	}
+}
