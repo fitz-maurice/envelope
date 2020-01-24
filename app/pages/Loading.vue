@@ -39,6 +39,19 @@ export default {
     },
 
     pageLoaded() {
+      var listener = {
+        onAuthStateChanged: function(data) {
+          console.log(
+            data.loggedIn
+              ? 'Logged in to firebase'
+              : 'Logged out from firebase',
+          );
+          if (data.loggedIn) {
+            console.log('User info', data.user);
+          }
+        },
+        thisArg: this,
+      };
       if (this.initDone) {
         console.log('>> not initing again!');
         this.goToNexPage();
@@ -49,8 +62,10 @@ export default {
       firebase.init().then(instance => {
         console.log('>> firebase initialized');
         this.initDone = true;
-        this.$navigateTo(routes.login);
       });
+
+      firebase.addAuthStateListener(listener);
+      this.$navigateTo(routes.login);
 
       //     application.on(application.suspendEvent, () => {
       //       // if (this.$authService.isLoggedIn()) {
