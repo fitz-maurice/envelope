@@ -1,14 +1,6 @@
 <template>
   <Page>
-    <ActionBar title="asf">
-      <ActionItem
-        @tap="onTapShare"
-        ios.systemIcon="12"
-        ios.position="right"
-        android.systemIcon="ic_menu_share"
-        android.position="actionBar"
-      />
-    </ActionBar>
+    <ActionBar title="Envelope" flat="true"> </ActionBar>
 
     <GridLayout>
       <Label class="info">
@@ -17,27 +9,72 @@
           <Span :text="message" />
         </FormattedString>
       </Label>
-      <Button text="Launch Camera" @tap="launch()" class="btn btn-primary m-t-20"></Button>
+      <Image :src="image" />
+      <Button
+        text="Launch Camera"
+        @tap="launch()"
+        class="btn btn-primary m-t-20"
+      ></Button>
+      <!-- <Button
+        text="Back to login"
+        @tap="login()"
+        class="btn btn-primary m-t-20"
+      ></Button> -->
     </GridLayout>
   </Page>
 </template>
 
 <script>
 const camera = require('nativescript-camera');
-const imageModule = require('tns-core-modules/ui/image');
+const { ImageCropper } = require('nativescript-imagecropper');
+const { ImageSource } = require('tns-core-modules/image-source');
+import routes from '~/router';
 
 export default {
+  data() {
+    return {
+      image: '',
+    };
+  },
   computed: {
     message() {
       return 'Blank {N}-Vue app';
     },
   },
   methods: {
-    launch() {
+    login() {
+      this.$navigateTo(routes.loading).catch(err => console.log(err));
+    },
+    async launch() {
+      const imageCropper = new ImageCropper();
+      let source = new ImageSource();
+      const _this = this;
+
       camera.requestPermissions().then(
         function success() {
-          const image = new imageModule.Image();
-          image.src = imageAsset;
+          camera
+            .takePicture()
+            .then(function(imageAsset) {
+              source.fromAsset(imageAsset).then(source => {
+                setTimeout(async () => {
+                  await imageCropper
+                    .show(source, { width: 300, height: 300 })
+                    .then(({ image }) => {
+                      if (image !== '') {
+                        console.log('IMAGE:', image.ios);
+                        console.log(_this);
+                        _this.image = image.ios;
+                      }
+                    })
+                    .catch(function(e) {
+                      console.log('ERROR', e);
+                    });
+                }, 1000);
+              });
+            })
+            .catch(function(err) {
+              console.log('Error -> ' + err.message);
+            });
         },
         function failure() {
           // permission request rejected
