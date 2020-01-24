@@ -1,6 +1,14 @@
 <template>
   <Page>
-    <ActionBar title="Envelope" flat="true"> </ActionBar>
+    <ActionBar title="asf">
+      <ActionItem
+        @tap="onTapShare"
+        ios.systemIcon="12"
+        ios.position="right"
+        android.systemIcon="ic_menu_share"
+        android.position="actionBar"
+      />
+    </ActionBar>
 
     <GridLayout>
       <Label class="info">
@@ -9,11 +17,7 @@
           <Span :text="message" />
         </FormattedString>
       </Label>
-      <Button
-        text="Launch Camera"
-        @tap="launch()"
-        class="btn btn-primary m-t-20"
-      ></Button>
+      <Button text="Launch Camera" @tap="launch()" class="btn btn-primary m-t-20"></Button>
     </GridLayout>
   </Page>
 </template>
