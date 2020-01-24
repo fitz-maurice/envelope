@@ -2,7 +2,7 @@
   <Page actionBarHidden="true">
     <FlexboxLayout class="page">
       <StackLayout class="form">
-        <!-- <Image class="logo" src="~/assets/images/NativeScript-Vue.png"></Image> -->
+        <Image class="logo" src="~/assets/envelope.png"></Image>
         <Label class="header" text="Envelope"></Label>
 
         <GridLayout rows="auto, auto, auto">
@@ -133,7 +133,33 @@ export default {
       this.$authService.loginWithApple().then(user => this.goHome(user));
     },
     register() {},
-    forgotPassword() {},
+    forgotPassword() {
+      console.log('test');
+      prompt({
+        title: 'Forgot Password',
+        message:
+          'Enter the email address you used to register for Envelope to reset your password.',
+        inputType: 'email',
+        defaultText: '',
+        okButtonText: 'Ok',
+        cancelButtonText: 'Cancel',
+      }).then(data => {
+        if (data.result) {
+          this.$backendService
+            .resetPassword(data.text.trim())
+            .then(() => {
+              this.alert(
+                'Your password was successfully reset. Please check your email for instructions on choosing a new password.',
+              );
+            })
+            .catch(() => {
+              this.alert(
+                'Unfortunately, an error occurred resetting your password.',
+              );
+            });
+        }
+      });
+    },
     focusPassword() {
       this.$refs.password.nativeView.focus();
     },
