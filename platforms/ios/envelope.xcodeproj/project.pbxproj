@@ -7,18 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0FE4C39C315D4E09ABE38285 /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF898E7FDF48408CB2165B46 /* TNSWidgets.framework */; };
-		1D6743FF6B2B45C7B75E1160 /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF898E7FDF48408CB2165B46 /* TNSWidgets.framework */; };
-		534CBEEDD8CE45FA811F1B55 /* Envelope.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = EAC892B7BC7644CE868DF958 /* Envelope.entitlements */; };
-		638E376D1AE647E08F1FBB69 /* NativeScriptEmbedder.m in Sources */ = {isa = PBXBuildFile; fileRef = B88ED20A86B44018A4E899F3 /* NativeScriptEmbedder.m */; };
 		858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 858B833A18CA111C00AB12DE /* InfoPlist.strings */; };
-		8C953DB19C9D433B80FC692B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8595DFF7F14F4CFF8263141A /* LaunchScreen.storyboard */; };
-		AF342FADDFEA43059E76FF91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F645F8793844516A5A824B2 /* Assets.xcassets */; };
 		CD45EE7C18DC2D5800FB50C0 /* app in Resources */ = {isa = PBXBuildFile; fileRef = CD45EE7A18DC2D5800FB50C0 /* app */; };
 		CD62955D1BB2678900AE3A93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD62955C1BB2678900AE3A93 /* main.m */; };
-		E1B7C866C2DE4D68AEC92268 /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 63FA1EFA9EDD4594A0538289 /* build.xcconfig */; };
-		F5EAF745D57C4F9797C7B8F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AA68C4E9D514F2A9CB678A8 /* GoogleService-Info.plist */; };
-		F9B8ECE3A469D23C278A8CBF /* Pods_envelope.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BAED13113C076B07F4A122 /* Pods_envelope.framework */; };
+		3CA22424A5954922B217E9B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86C5A7172B484041A2A50210 /* Assets.xcassets */; };
+		4070D8B014E64161947CBD07 /* Envelope.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5744C612B70C486FA0EEF8CE /* Envelope.entitlements */; };
+		2C39F754917D4F939044C8E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E591C6E51ABC4E0795EDB70C /* GoogleService-Info.plist */; };
+		F11E010F0B24444CADBC260F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 961F89941AF54DA8A414B184 /* LaunchScreen.storyboard */; };
+		7B4AA4617658470AB2A70226 /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4D72C465939E4169AB8C3370 /* build.xcconfig */; };
+		FB284181C97F44F7A6012CEE /* NativeScriptEmbedder.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C86F07A7534E49AAE0A4DF /* NativeScriptEmbedder.m */; };
+		31776FEC523049F8818E355B /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A563338DE9D74795BED3B87B /* TNSWidgets.framework */; };
+		1203842F09384345A3103FCA /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A563338DE9D74795BED3B87B /* TNSWidgets.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,7 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1D6743FF6B2B45C7B75E1160 /* TNSWidgets.framework in Embed Frameworks */,
+				1203842F09384345A3103FCA /* TNSWidgets.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,8 +35,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0A195598782044DBA82E60DC /* module.modulemap */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = "../../node_modules/@nativescript/core/platforms/ios/src/module.modulemap"; sourceTree = "<group>"; };
-		226387B7006F4E4192D904C2 /* NativeScriptEmbedder.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = NativeScriptEmbedder.h; path = "../../node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.h"; sourceTree = "<group>"; };
 		391174B321F1CBD300BA2583 /* TNSDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNSDebugging.h; path = internal/TNSDebugging.h; sourceTree = SOURCE_ROOT; };
 		391174B421F1CBD300BA2583 /* TNSExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNSExceptionHandler.h; path = internal/TNSExceptionHandler.h; sourceTree = SOURCE_ROOT; };
 		391174B521F1D7BF00BA2583 /* nativescript-build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "nativescript-build.xcconfig"; path = "internal/nativescript-build.xcconfig"; sourceTree = SOURCE_ROOT; };
@@ -48,27 +45,26 @@
 		42C751E4232B769100186695 /* nsld.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = nsld.sh; path = internal/nsld.sh; sourceTree = SOURCE_ROOT; };
 		42C751E5232B769100186695 /* nativescript-post-build */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "nativescript-post-build"; path = "internal/nativescript-post-build"; sourceTree = SOURCE_ROOT; };
 		42C751E6232B769100186695 /* nativescript-pre-build */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "nativescript-pre-build"; path = "internal/nativescript-pre-build"; sourceTree = SOURCE_ROOT; };
-		60E61CBBBE28C59623C0DA3B /* Pods-envelope.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-envelope.release.xcconfig"; path = "Target Support Files/Pods-envelope/Pods-envelope.release.xcconfig"; sourceTree = "<group>"; };
-		63FA1EFA9EDD4594A0538289 /* build.xcconfig */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.xcconfig; name = build.xcconfig; path = envelope/Resources/build.xcconfig; sourceTree = "<group>"; };
-		67BAED13113C076B07F4A122 /* Pods_envelope.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_envelope.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AA68C4E9D514F2A9CB678A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "envelope/Resources/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6F645F8793844516A5A824B2 /* Assets.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = envelope/Resources/Assets.xcassets; sourceTree = "<group>"; };
 		858B832E18CA111C00AB12DE /* envelope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = envelope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		858B833918CA111C00AB12DE /* envelope-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "envelope-Info.plist"; sourceTree = "<group>"; };
 		858B833B18CA111C00AB12DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		858B833F18CA111C00AB12DE /* envelope-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "envelope-Prefix.pch"; sourceTree = "<group>"; };
 		858B843318CA22B800AB12DE /* envelope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = envelope.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8595DFF7F14F4CFF8263141A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = LaunchScreen.storyboard; path = envelope/Resources/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		930F05DB22671AE300D269DC /* Swift-ObjC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Swift-ObjC-Bridging-Header.h"; path = "internal/Swift-ObjC-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
-		AF898E7FDF48408CB2165B46 /* TNSWidgets.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TNSWidgets.framework; path = "$(SRCROOT)/../../node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework"; sourceTree = "<group>"; };
-		B88ED20A86B44018A4E899F3 /* NativeScriptEmbedder.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = NativeScriptEmbedder.m; path = "../../node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.m"; sourceTree = "<group>"; };
 		CD45EE7A18DC2D5800FB50C0 /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; path = app; sourceTree = "<group>"; };
 		CD62955C1BB2678900AE3A93 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = internal/main.m; sourceTree = SOURCE_ROOT; };
 		CDD59A261BB43B5D00EC2671 /* build-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-debug.xcconfig"; sourceTree = "<group>"; };
 		CDD59A271BB43B5D00EC2671 /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-release.xcconfig"; sourceTree = "<group>"; };
 		CDF4743E1BA4855C0087EA85 /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = build.xcconfig; sourceTree = "<group>"; };
-		EAC892B7BC7644CE868DF958 /* Envelope.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = text.plist.entitlements; name = Envelope.entitlements; path = envelope/Resources/Envelope.entitlements; sourceTree = "<group>"; };
-		F8BC510CF5E0A0309EAF87B8 /* Pods-envelope.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-envelope.debug.xcconfig"; path = "Target Support Files/Pods-envelope/Pods-envelope.debug.xcconfig"; sourceTree = "<group>"; };
+		86C5A7172B484041A2A50210 /* Assets.xcassets */ = {isa = PBXFileReference; name = Assets.xcassets; path = "envelope/Resources/Assets.xcassets"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = folder.assetcatalog; explicitFileType = undefined; includeInIndex = 0; };
+		5744C612B70C486FA0EEF8CE /* Envelope.entitlements */ = {isa = PBXFileReference; name = Envelope.entitlements; path = "envelope/Resources/Envelope.entitlements"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = text.plist.entitlements; explicitFileType = undefined; includeInIndex = 0; };
+		E591C6E51ABC4E0795EDB70C /* GoogleService-Info.plist */ = {isa = PBXFileReference; name = "GoogleService-Info.plist"; path = "envelope/Resources/GoogleService-Info.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
+		961F89941AF54DA8A414B184 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; name = LaunchScreen.storyboard; path = "envelope/Resources/LaunchScreen.storyboard"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4D72C465939E4169AB8C3370 /* build.xcconfig */ = {isa = PBXFileReference; name = build.xcconfig; path = "envelope/Resources/build.xcconfig"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.xcconfig; explicitFileType = undefined; includeInIndex = 0; };
+		1A5D59A6134947E698DA4034 /* NativeScriptEmbedder.h */ = {isa = PBXFileReference; name = NativeScriptEmbedder.h; path = "../../node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		49C86F07A7534E49AAE0A4DF /* NativeScriptEmbedder.m */ = {isa = PBXFileReference; name = NativeScriptEmbedder.m; path = "../../node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		B29F91474B1040EF8615483A /* module.modulemap */ = {isa = PBXFileReference; name = module.modulemap; path = "../../node_modules/@nativescript/core/platforms/ios/src/module.modulemap"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = sourcecode.module-map; explicitFileType = undefined; includeInIndex = 0; };
+		A563338DE9D74795BED3B87B /* TNSWidgets.framework */ = {isa = PBXFileReference; name = TNSWidgets.framework; path = "$(SRCROOT)/../../node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FE4C39C315D4E09ABE38285 /* TNSWidgets.framework in Frameworks */,
-				F9B8ECE3A469D23C278A8CBF /* Pods_envelope.framework in Frameworks */,
+				31776FEC523049F8818E355B /* TNSWidgets.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,16 +91,6 @@
 			name = "Build Scripts";
 			sourceTree = "<group>";
 		};
-		4F8EC903C61B440433E89F2E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F8BC510CF5E0A0309EAF87B8 /* Pods-envelope.debug.xcconfig */,
-				60E61CBBBE28C59623C0DA3B /* Pods-envelope.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		858B832518CA111C00AB12DE = {
 			isa = PBXGroup;
 			children = (
@@ -113,9 +98,8 @@
 				858B833718CA111C00AB12DE /* envelope */,
 				858B833018CA111C00AB12DE /* Frameworks */,
 				858B832F18CA111C00AB12DE /* Products */,
-				C8CC7BF9FD2C46F3B46CDC8C /* @nativescript/core */,
-				4F8EC903C61B440433E89F2E /* Pods */,
-				1F3E929D3E17487CA29E2C24 /* TNSNativeSource */,
+				37AE5C91205741DF8A0DEA4E /* TNSNativeSource */,
+				4854392DCC754643AB5AAE32 /* @nativescript/core */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,8 +115,7 @@
 		858B833018CA111C00AB12DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AF898E7FDF48408CB2165B46 /* TNSWidgets.framework */,
-				67BAED13113C076B07F4A122 /* Pods_envelope.framework */,
+				A563338DE9D74795BED3B87B /* TNSWidgets.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -167,33 +150,33 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C8CC7BF9FD2C46F3B46CDC8C /* @nativescript/core */ = {
-			isa = PBXGroup;
-			children = (
-				226387B7006F4E4192D904C2 /* NativeScriptEmbedder.h */,
-				B88ED20A86B44018A4E899F3 /* NativeScriptEmbedder.m */,
-				0A195598782044DBA82E60DC /* module.modulemap */,
-			);
-			name = "@nativescript/core";
-			sourceTree = "<group>";
-		};
 		E070579D1B39A9D000214BF1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6F645F8793844516A5A824B2 /* Assets.xcassets */,
-				EAC892B7BC7644CE868DF958 /* Envelope.entitlements */,
-				6AA68C4E9D514F2A9CB678A8 /* GoogleService-Info.plist */,
-				8595DFF7F14F4CFF8263141A /* LaunchScreen.storyboard */,
-				63FA1EFA9EDD4594A0538289 /* build.xcconfig */,
+				86C5A7172B484041A2A50210 /* Assets.xcassets */,
+				5744C612B70C486FA0EEF8CE /* Envelope.entitlements */,
+				E591C6E51ABC4E0795EDB70C /* GoogleService-Info.plist */,
+				961F89941AF54DA8A414B184 /* LaunchScreen.storyboard */,
+				4D72C465939E4169AB8C3370 /* build.xcconfig */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		1F3E929D3E17487CA29E2C24 /* TNSNativeSource */ = {
+		37AE5C91205741DF8A0DEA4E /* TNSNativeSource */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = TNSNativeSource;
+			sourceTree = "<group>";
+		};
+		4854392DCC754643AB5AAE32 /* @nativescript/core */ = {
+			isa = PBXGroup;
+			children = (
+				1A5D59A6134947E698DA4034 /* NativeScriptEmbedder.h */,
+				49C86F07A7534E49AAE0A4DF /* NativeScriptEmbedder.m */,
+				B29F91474B1040EF8615483A /* module.modulemap */,
+			);
+			name = "@nativescript/core";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,7 +186,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 858B843018CA22B800AB12DE /* Build configuration list for PBXNativeTarget "envelope" */;
 			buildPhases = (
-				04A6D082F41A5BF76D1CAE52 /* [CP] Check Pods Manifest.lock */,
 				C97FD7AC1ADE5369004DB2A4 /* NativeScript PreBuild */,
 				858B83F218CA22B800AB12DE /* Sources */,
 				CD62955B1BB2651D00AE3A93 /* NativeScript PreLink */,
@@ -211,8 +193,6 @@
 				858B842C18CA22B800AB12DE /* Resources */,
 				85F5BDFC1A9363BE006B9701 /* Embed Frameworks */,
 				CD3EAD351B05FF060042DBFC /* NativeScript PostBuild */,
-				72F6134CA72F70255D84B930 /* [CP] Embed Pods Frameworks */,
-				282E29D9369D2017AD6C4D56 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -232,12 +212,6 @@
 				CLASSPREFIX = TNS;
 				LastUpgradeCheck = 500;
 				ORGANIZATIONNAME = Telerik;
-				TargetAttributes = {
-					858B83EF18CA22B800AB12DE = {
-						DevelopmentTeam = 28K7PT56PF;
-						ProvisioningStyle = Automatic;
-					};
-				};
 			};
 			buildConfigurationList = 858B832918CA111C00AB12DE /* Build configuration list for PBXProject "envelope" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -264,97 +238,17 @@
 			files = (
 				CD45EE7C18DC2D5800FB50C0 /* app in Resources */,
 				858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */,
-				AF342FADDFEA43059E76FF91 /* Assets.xcassets in Resources */,
-				534CBEEDD8CE45FA811F1B55 /* Envelope.entitlements in Resources */,
-				F5EAF745D57C4F9797C7B8F3 /* GoogleService-Info.plist in Resources */,
-				8C953DB19C9D433B80FC692B /* LaunchScreen.storyboard in Resources */,
-				E1B7C866C2DE4D68AEC92268 /* build.xcconfig in Resources */,
+				3CA22424A5954922B217E9B3 /* Assets.xcassets in Resources */,
+				4070D8B014E64161947CBD07 /* Envelope.entitlements in Resources */,
+				2C39F754917D4F939044C8E8 /* GoogleService-Info.plist in Resources */,
+				F11E010F0B24444CADBC260F /* LaunchScreen.storyboard in Resources */,
+				7B4AA4617658470AB2A70226 /* build.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		04A6D082F41A5BF76D1CAE52 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-envelope-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		282E29D9369D2017AD6C4D56 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-envelope/Pods-envelope-resources.sh",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-envelope/Pods-envelope-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		72F6134CA72F70255D84B930 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-envelope/Pods-envelope-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
-				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
-				"${BUILT_PRODUCTS_DIR}/abseil/absl.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/absl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-envelope/Pods-envelope-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C97FD7AC1ADE5369004DB2A4 /* NativeScript PreBuild */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -408,7 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD62955D1BB2678900AE3A93 /* main.m in Sources */,
-				638E376D1AE647E08F1FBB69 /* NativeScriptEmbedder.m in Sources */,
+				FB284181C97F44F7A6012CEE /* NativeScriptEmbedder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,13 +401,7 @@
 			baseConfigurationReference = CDD59A261BB43B5D00EC2671 /* build-debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 28K7PT56PF;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../node_modules/tns-core-modules-widgets/platforms/ios\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "envelope/envelope-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -526,16 +414,16 @@
 					"\"$(SRCROOT)/internal\"",
 					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
 					"\"$(SRCROOT)/../../node_modules/@nativescript/core/platforms/ios/src\"",
-					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
-					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
-					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
-					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/envelope/envelope-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.fitzcreative.envelope";
 				PRODUCT_NAME = envelope;
 				WRAPPER_EXTENSION = app;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../node_modules/tns-core-modules-widgets/platforms/ios\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fitzcreative.envelope";
 			};
 			name = Debug;
 		};
@@ -544,13 +432,7 @@
 			baseConfigurationReference = CDD59A271BB43B5D00EC2671 /* build-release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 28K7PT56PF;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../node_modules/tns-core-modules-widgets/platforms/ios\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "envelope/envelope-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -559,16 +441,16 @@
 					"$(SRCROOT)/internal",
 					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
 					"\"$(SRCROOT)/../../node_modules/@nativescript/core/platforms/ios/src\"",
-					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
-					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
-					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
-					"\"$(SRCROOT)/../../app/App_Resources/iOS/src\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/envelope/envelope-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.fitzcreative.envelope";
 				PRODUCT_NAME = envelope;
 				WRAPPER_EXTENSION = app;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../node_modules/tns-core-modules-widgets/platforms/ios\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fitzcreative.envelope";
 			};
 			name = Release;
 		};
