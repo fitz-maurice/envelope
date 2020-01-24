@@ -139,7 +139,12 @@ const ApplicationStack = createStackNavigator({
 const CameraModalStack = createStackNavigator(
   {
     Home: ApplicationStack,
-    Upload: Upload,
+    Upload: {
+      screen: Upload,
+      navigationOptions: {
+        gestureEnabled: false,
+      },
+    },
   },
   {
     mode: 'modal',

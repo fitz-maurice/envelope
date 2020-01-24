@@ -493,7 +493,7 @@ PODS:
     - React
   - react-native-splash-screen (3.2.0):
     - React
-  - react-native-webview (8.0.3):
+  - react-native-webview (8.0.4):
     - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
@@ -568,7 +568,7 @@ PODS:
   - RNGoogleSignin (3.0.4):
     - GoogleSignIn (~> 5.0.0)
     - React
-  - RNImageCropPicker (0.26.2):
+  - RNImageCropPicker (0.27.0):
     - QBImagePickerController
     - React-Core
     - React-RCTImage
@@ -577,9 +577,9 @@ PODS:
     - React
   - RNRate (1.1.10):
     - React
-  - RNReanimated (1.4.0):
+  - RNReanimated (1.7.0):
     - React
-  - RNScreens (2.0.0-alpha.23):
+  - RNScreens (2.0.0-alpha.26):
     - React
   - RNVectorIcons (6.6.0):
     - React
@@ -592,6 +592,7 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - QBImagePickerController (from `../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -666,7 +667,6 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PersonalizedAdConsent
-    - QBImagePickerController
     - RSKImageCropper
 
 EXTERNAL SOURCES:
@@ -680,6 +680,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  QBImagePickerController:
+    :path: "../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -809,7 +811,7 @@ SPEC CHECKSUMS:
   react-native-image-editor: 2a796811bc48babcf2f1594b15d6bfe6968e7e63
   react-native-safe-area-context: 25260c5d0b9c53fd7aa88e569e2edae72af1f6a3
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
-  react-native-webview: 57cdcf9981594a1a7de36ecfe7f079379543ef1f
+  react-native-webview: 3f5aa91c3cb083ea4762e006b9653291a96a777a
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -831,15 +833,15 @@ SPEC CHECKSUMS:
   RNFBStorage: 336c47daa7ba460fcac8b61054f68130c618cfaa
   RNGestureHandler: 02905abe54e1f6e59c081a10b4bd689721e17aa6
   RNGoogleSignin: a00f87261ea13df9a5cea8deafa6927d6f2c3562
-  RNImageCropPicker: 9d1a7eea4f8368fc479cbd2bf26459bd3c74d9aa
+  RNImageCropPicker: fcdbbbef2f0ea869c6d9ce39b8e4fd67e94009f4
   RNImageRotate: 61c62c5a907405821e28dc8c0e04e4fdc909b1fa
   RNRate: 832f7e4da1b043bda1a138e20afdb75c42a530e9
-  RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
-  RNScreens: 55c735f525774e894be67848c250c95a9c3194c0
+  RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
+  RNScreens: 91109500eb09891f41239eadf8e7fd4aa6372369
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 5b8ef22c68b6c8109273952aefd79b38eb8cb8e6
+PODFILE CHECKSUM: 9253c2801f33f662e235dcd6a2ae344f93144f7a
 
 COCOAPODS: 1.8.4

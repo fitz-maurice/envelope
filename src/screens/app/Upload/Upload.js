@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useContext } from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+import { Alert, View, Image } from 'react-native';
 // import storage from '@react-native-firebase/storage'
+import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-crop-picker';
 import AmazingCropper from 'react-native-amazing-cropper';
-import { Alert, View, Image } from 'react-native';
+import useStateWithCallback from 'use-state-with-callback';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
 import {
   Container,
@@ -24,11 +25,43 @@ import HeaderTitle from '../../../components/HeaderTitle';
 const Upload = ({ navigation }) => {
   const s = useDynamicStyleSheet(styles);
   const context = useContext(AppContext);
-  const [mode, setMode] = useState(false);
-  const [front, setFront] = useState(null);
-  const [frontFinal, setFrontFinal] = useState(null);
-  const [back, setBack] = useState(null);
   const pageName = `${navigation.getParam('name')} card`;
+  //
+  //
+  //
+  const [isCroppingMode, setCroppingMode] = useState(false);
+  //
+  //
+  //
+  const [images, setImages] = useStateWithCallback([], images => {
+    console.log('The Images---------------------------');
+    console.log(images);
+    console.log('The Images---------------------------');
+    if (images.length > 0) {
+      console.log('Here...');
+      setCroppingMode(false);
+      console.log('Here...');
+    }
+  });
+  //
+  //
+  //
+  const [scratchImage, setScratchImage] = useStateWithCallback(
+    {},
+    scratchImage => {
+      if (scratchImage.path) {
+        setCroppingMode(true);
+      }
+    },
+  );
+
+  const _aaa = image => {
+    setScratchImage({
+      width: image.width,
+      height: image.height,
+      path: image.path,
+    });
+  };
 
   /**
    * _takePicture
@@ -37,12 +70,7 @@ const Upload = ({ navigation }) => {
    */
   const _takePicture = () => {
     ImagePicker.openCamera({ cropping: false })
-      .then(image => {
-        setFront(image.path);
-        setMode(true);
-        console.log(image.path);
-        console.log(front);
-      })
+      .then(_aaa)
       .catch(() => console.log('Canceling the order picker...'));
   };
 
@@ -53,17 +81,17 @@ const Upload = ({ navigation }) => {
    */
   const _selectPicture = () => {
     ImagePicker.openPicker({ cropping: false })
-      .then(image => {
-        setFront(image.path);
-        setMode(true);
-        console.log(image.path);
-        console.log(front);
-      })
+      .then(_aaa)
       .catch(() => console.log('Canceling the order picker...'));
   };
 
-  const _finishCropping = croppedImageUri => {
-    console.log(`THE NEW URL: ${croppedImageUri}`);
+  /**
+   * _finishCropping
+   *
+   * Finish cropping an image and save it to the images array
+   */
+  const _finishCropping = croppedImageUrl => {
+    setImages([...images, croppedImageUrl]);
   };
 
   /**
@@ -81,7 +109,10 @@ const Upload = ({ navigation }) => {
         },
         {
           text: 'Discard',
-          onPress: () => navigation.goBack(),
+          onPress: () => {
+            navigation.goBack();
+            setImages([]);
+          },
           style: 'cancel',
         },
       ],
@@ -98,13 +129,16 @@ const Upload = ({ navigation }) => {
       <Container style={styles.container}>
         <AmazingCropper
           style={s.cropper}
-          imageUri={front}
           onDone={_finishCropping}
-          imageWidth={1600}
-          imageHeight={2396}
-          BORDER_WIDTH={20}
+          imageUri={scratchImage.path}
+          imageWidth={scratchImage.width}
+          imageHeight={scratchImage.height}
+          BORDER_WIDTH={9}
           NOT_SELECTED_AREA_OPACITY={0.3}
-          onCancel={() => console.log('Cancelling Image Crop')}
+          onCancel={() => {
+            console.log('Cancelling Image Crop');
+            setCroppingMode(false);
+          }}
         />
       </Container>
     );
@@ -128,8 +162,11 @@ const Upload = ({ navigation }) => {
         {/* Body */}
         <Content padder>
           <View style={s.uploadImageBlock}>
-            {front ? (
-              <Image source={{ uri: front }} />
+            {images.length > 0 ? (
+              <Image
+                source={{ uri: images[0] }}
+                style={{ width: 100, height: 100 }}
+              />
             ) : (
               <Icon name="image" size={50} color={globals.colors.blackTrue} />
             )}
@@ -150,7 +187,12 @@ const Upload = ({ navigation }) => {
           </Button>
         </Content>
 
-        <Footer>
+        <Footer
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 20,
+          }}>
           <Button rounded danger onPress={_cancel} style={{ marginTop: 10 }}>
             <Text>Cancel</Text>
           </Button>
@@ -167,7 +209,7 @@ const Upload = ({ navigation }) => {
   };
 
   // Render the proper screen...
-  return mode ? _renderCropper() : _renderUploadUI();
+  return isCroppingMode ? _renderCropper() : _renderUploadUI();
 };
 
 export default Upload;
