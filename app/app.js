@@ -6,8 +6,8 @@ import AuthService from './services/authService';
 export const authService = new AuthService();
 Vue.prototype.$authService = authService;
 
-Vue.config.silent = false;
+Vue.config.silent = true;
 
 new Vue({
-  render: h => h(routes.loading),
+  render: h => h('frame', [h(routes.loading)]),
 }).$start();

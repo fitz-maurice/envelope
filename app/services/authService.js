@@ -3,7 +3,10 @@ import { getString } from 'tns-core-modules/application-settings';
 
 export default class AuthService {
   constructor() {
-    this.cache = null;
+    this.auth = null;
+    this.user = {
+      displayName: '',
+    };
   }
 
   isLoggedIn() {
@@ -11,35 +14,42 @@ export default class AuthService {
   }
 
   async register(creds) {
-    return firebase.createUser({
+    this.user = await firebase.createUser({
       email,
       password,
     });
+    return this.user;
   }
 
   async login(creds) {
-    return firebase.login({
-      type: firebase.LoginType.PASSWORD,
-      passwordOptions: {
-        email: creds.email,
-        password: creds.password,
-      },
-    });
+    this.auth = await firebase
+      .login({
+        type: firebase.LoginType.PASSWORD,
+        passwordOptions: {
+          email: creds.email,
+          password: creds.password,
+        },
+      })
+      .then(() => this.getUserDocument());
   }
 
   async loginWithGoogle() {
-    return firebase.login({
-      type: firebase.LoginType.GOOGLE,
-    });
+    this.auth = await firebase
+      .login({
+        type: firebase.LoginType.GOOGLE,
+      })
+      .then(() => this.getUserDocument());
   }
 
   async loginWithApple() {
-    return firebase.login({
-      type: firebase.LoginType.APPLE,
-      appleOptions: {
-        locale: 'nl', // for Android
-      },
-    });
+    this.auth = await firebase
+      .login({
+        type: firebase.LoginType.APPLE,
+        appleOptions: {
+          locale: 'nl', // for Android
+        },
+      })
+      .then(() => this.getUserDocument());
   }
 
   async refresh() {
@@ -51,8 +61,18 @@ export default class AuthService {
     return JSON.stringify(result);
   }
 
-  async logout() {
-    this.user = null;
+  async getUserDocument() {
+    return firebase.firestore
+      .collection(`${this.auth.uid}`)
+      .doc('account')
+      .get()
+      .then(doc => {
+        const data = doc.data();
+        this.user = data;
+      });
+  }
+
+  logout() {
     return firebase.logout();
   }
 }
