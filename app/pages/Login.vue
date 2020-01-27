@@ -117,17 +117,17 @@ export default {
 
     // Log in with Email
     loginWithEmail() {
-      this.$authService.login(this.user).then(user => this.goHome(user));
+      this.$authService.login(this.user);
     },
 
     // Log in with Google
     loginWithGoogle() {
-      this.$authService.loginWithGoogle().then(user => this.goHome(user));
+      this.$authService.loginWithGoogle();
     },
 
     // Log in with Apple
     loginWithApple() {
-      this.$authService.loginWithApple().then(user => this.goHome(user));
+      this.$authService.loginWithApple();
     },
 
     // Register a new User
