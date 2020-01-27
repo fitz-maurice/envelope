@@ -1,5 +1,8 @@
 <template>
-  <Page @loaded="$adService.banner()">
+  <Page
+    @loaded="$adService.showBanner()"
+    @navigatedFrom="$adService.hideBanner()"
+  >
     <ActionBar>
       <StackLayout orientation="horizontal" horizonalAlignment="stretch">
         <Label
