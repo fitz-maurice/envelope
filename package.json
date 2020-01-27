@@ -17,12 +17,15 @@
     "android": "tns run android --bundle",
     "android.release": "tns build android --bundle --release --for-device --key-store-path ./keystore-footplr.jks --key-store-password xs4all --key-store-alias footplr --key-store-alias-password xs4all"
   },
-  "repository": "<fill-your-repository-here>",
   "dependencies": {
     "@nativescript/theme": "~2.2.1",
     "nativescript-camera": "^4.5.0",
+    "nativescript-email": "^1.5.5",
     "nativescript-imagecropper": "^3.0.0",
+    "nativescript-open-app": "^0.3.0",
     "nativescript-plugin-firebase": "^10.3.3",
+    "nativescript-rater": "^2.1.1",
+    "nativescript-social-share": "^1.6.0",
     "nativescript-vue": "^v2.5.0-alpha.3",
     "tns-core-modules": "~6.3.2"
   },

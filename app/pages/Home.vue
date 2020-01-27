@@ -1,18 +1,53 @@
 <template>
   <Page>
-    <ActionBar title="Envelope" flat="true"> </ActionBar>
-    <StackLayout>
+    <ActionBar>
+      <StackLayout orientation="horizontal" horizonalAlignment="stretch">
+        <Label
+          text.decode="&#xf019;"
+          class="far"
+          textWrap="true"
+          paddingLeft="30px"
+          fontSize="10"
+        />
+        <StackLayout orientation="horizontal">
+          <Image
+            src="~/assets/envelope.png"
+            width="20"
+            height="20"
+            verticalAlignment="center"
+          />
+          <Label
+            text="Envelope"
+            fontSize="24"
+            verticalAlignment="center"
+            class="ml-2"
+          />
+        </StackLayout>
+        <Label
+          class="fas"
+          text.decode="&#xf0ca;"
+          color="white"
+          horizonatalAlignment="right"
+          width="10"
+          @tap="goToSettings"
+        />
+      </StackLayout>
+    </ActionBar>
+
+    <GridLayout>
+      <Label class="info">
+        <FormattedString>
+          <Span class="fas" text.decode="&#xf135; " />
+          <Span :text="message" />
+        </FormattedString>
+      </Label>
+      <Image :src="image" />
       <Button
         text="Launch Camera"
         @tap="launch()"
         class="btn btn-primary m-t-20"
       ></Button>
-      <Button
-        @tap="$authService.logout"
-        :text="`Log out ${$authService.user.displayName}`"
-        class="btn btn-primary m-t-0"
-      ></Button>
-    </StackLayout>
+    </GridLayout>
   </Page>
 </template>
 
@@ -29,6 +64,9 @@ export default {
     };
   },
   methods: {
+    goToSettings() {
+      this.$navigateTo(routes.settings).catch(e => console.log(e));
+    },
     async launch() {
       const imageCropper = new ImageCropper();
       let source = new ImageSource();
