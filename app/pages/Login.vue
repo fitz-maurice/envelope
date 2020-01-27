@@ -16,7 +16,7 @@
               autocapitalizationType="none"
               v-model="user.email"
               returnKeyType="next"
-              @returnPress="focusPassword"
+              @returnPress="$refs.password.nativeView.focus()"
             ></TextField>
             <StackLayout class="hr-light"></StackLayout>
           </StackLayout>
@@ -30,50 +30,35 @@
               secure="true"
               v-model="user.password"
               :returnKeyType="isLoggingIn ? 'done' : 'next'"
-              @returnPress="focusConfirmPassword"
             ></TextField>
             <StackLayout class="hr-light"></StackLayout>
           </StackLayout>
 
-          <StackLayout row="2" v-show="!isLoggingIn" class="input-field">
-            <TextField
-              class="input"
-              ref="confirmPassword"
-              :isEnabled="!processing"
-              hint="Confirm password"
-              secure="true"
-              v-model="user.confirmPassword"
-              returnKeyType="done"
-            ></TextField>
-            <StackLayout class="hr-light"></StackLayout>
-          </StackLayout>
-
-          <ActivityIndicator rowSpan="3" :busy="processing"></ActivityIndicator>
+          <Loader v-show="processing" />
         </GridLayout>
 
         <Button
-          :text="isLoggingIn ? 'Log In' : 'Sign Up'"
-          :isEnabled="!processing"
           @tap="submit"
+          :text="isLoggingIn ? 'Sign In' : 'Sign Up'"
+          :isEnabled="!processing"
           class="btn btn-primary m-t-20"
         ></Button>
         <Label
-          v-show="isLoggingIn"
+          @tap="forgotPassword()"
           text="Forgot your password?"
           class="login-label"
-          @tap="forgotPassword()"
         ></Label>
       </StackLayout>
 
       <Button
-        text="Login With Google"
+        text="Continue with Google"
         :isEnabled="!processing"
         @tap="loginWithGoogle()"
         class="btn btn-primary m-t-20"
       ></Button>
 
       <Button
-        text="Login With Apple"
+        text="Continue with Apple"
         :isEnabled="!processing"
         @tap="loginWithApple()"
         class="btn btn-primary m-t-20"
@@ -93,8 +78,12 @@
 
 <script>
 import routes from '~/router';
+import Loader from '~/components/Loader';
 
 export default {
+  components: {
+    Loader,
+  },
   data() {
     return {
       isLoggingIn: true,
@@ -102,14 +91,16 @@ export default {
       user: {
         email: 'dpfitzmaurice@gmail.com',
         password: 'baseball',
-        confirmPassword: 'vue',
       },
     };
   },
   methods: {
+    // Switch between Logging In & Signing UP
     toggleForm() {
       this.isLoggingIn = !this.isLoggingIn;
     },
+
+    // Login in or Sign Up
     submit() {
       if (!this.user.email || !this.user.password) {
         this.alert('Please provide both an email address and password.');
@@ -123,20 +114,31 @@ export default {
         this.register();
       }
     },
+
+    // Log in with Email
     loginWithEmail() {
       this.$authService.login(this.user).then(user => this.goHome(user));
     },
+
+    // Log in with Google
     loginWithGoogle() {
       this.$authService.loginWithGoogle().then(user => this.goHome(user));
     },
+
+    // Log in with Apple
     loginWithApple() {
       this.$authService.loginWithApple().then(user => this.goHome(user));
     },
-    register() {},
+
+    // Register a new User
+    register() {
+      this.$authService.register(this.user).then(user => this.goHome(user));
+    },
+
+    // Prompt the User with a Forgot Password dialog
     forgotPassword() {
-      console.log('test');
       prompt({
-        title: 'Forgot Password',
+        title: 'Forgot Password?',
         message:
           'Enter the email address you used to register for Envelope to reset your password.',
         inputType: 'email',
@@ -160,28 +162,20 @@ export default {
         }
       });
     },
-    focusPassword() {
-      this.$refs.password.nativeView.focus();
-    },
-    focusConfirmPassword() {
-      if (!this.isLoggingIn) {
-        this.$refs.confirmPassword.nativeView.focus();
-      }
-    },
+
+    // Show an Alert dialog
     alert(message) {
       return alert({
-        title: 'APP NAME',
+        title: 'Envelope',
         okButtonText: 'OK',
         message: message,
       });
     },
+
+    // Proceed to the Home Screen after authentication
     goHome(user) {
       this.$navigateTo(routes.home, {
-        animated: true,
-        transition: {
-          name: 'slide',
-          curve: 'ease',
-        },
+        animated: false,
         clearHistory: true,
         props: {
           user,

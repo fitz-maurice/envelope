@@ -1,11 +1,11 @@
-import Loading from '../pages/Loading';
+import Bootstrap from '../pages/Bootstrap';
 import Login from '../pages/Login';
 import Home from '../pages/Home';
 
 const routes = {
-    loading: Loading,
-    login: Login,
-    home: Home,
+  loading: Bootstrap,
+  login: Login,
+  home: Home,
 };
 
 export default routes;

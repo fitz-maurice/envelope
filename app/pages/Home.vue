@@ -1,34 +1,26 @@
 <template>
   <Page>
     <ActionBar title="Envelope" flat="true"> </ActionBar>
-
-    <GridLayout>
-      <Label class="info">
-        <FormattedString>
-          <Span class="fas" text.decode="&#xf135; " />
-          <Span :text="message" />
-        </FormattedString>
-      </Label>
-      <Image :src="image" />
+    <StackLayout>
       <Button
         text="Launch Camera"
         @tap="launch()"
         class="btn btn-primary m-t-20"
       ></Button>
-      <!-- <Button
-        text="Back to login"
-        @tap="login()"
-        class="btn btn-primary m-t-20"
-      ></Button> -->
-    </GridLayout>
+      <Button
+        @tap="$authService.logout"
+        :text="`Log out ${$authService.user.displayName}`"
+        class="btn btn-primary m-t-0"
+      ></Button>
+    </StackLayout>
   </Page>
 </template>
 
 <script>
+import routes from '~/router';
 const camera = require('nativescript-camera');
 const { ImageCropper } = require('nativescript-imagecropper');
 const { ImageSource } = require('tns-core-modules/image-source');
-import routes from '~/router';
 
 export default {
   data() {
@@ -36,15 +28,7 @@ export default {
       image: '',
     };
   },
-  computed: {
-    message() {
-      return 'Blank {N}-Vue app';
-    },
-  },
   methods: {
-    login() {
-      this.$navigateTo(routes.loading).catch(err => console.log(err));
-    },
     async launch() {
       const imageCropper = new ImageCropper();
       let source = new ImageSource();
