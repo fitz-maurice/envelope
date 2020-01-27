@@ -65,7 +65,9 @@
 		<key>twitter</key>
 		<string>UISupportedInterfaceOrientations~ipad</string>
 		<key>UISupportedInterfaceOrientations</key>
-		<array/>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+		</array>
 		<key>UISupportedInterfaceOrientations~ipad</key>
 		<array/>
 	</dict>
