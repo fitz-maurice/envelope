@@ -19,9 +19,13 @@
   },
   "dependencies": {
     "@nativescript/theme": "~2.2.1",
+    "moment": "^2.24.0",
+    "nativescript-appversion": "^1.4.4",
     "nativescript-camera": "^4.5.0",
+    "nativescript-datetimepicker": "^1.2.2",
     "nativescript-email": "^1.5.5",
     "nativescript-imagecropper": "^3.0.0",
+    "nativescript-inappbrowser": "^2.2.0",
     "nativescript-open-app": "^0.3.0",
     "nativescript-plugin-firebase": "^10.3.3",
     "nativescript-rater": "^2.1.1",

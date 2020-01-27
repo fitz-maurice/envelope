@@ -15,14 +15,13 @@
           >
             <Label text.decode="&#xf007;" class="far icon" />
             <TextField
-              v-model="user.name"
+              v-model="$userService.user.displayName"
               class="input"
               hint="Full name"
               autocorrect="false"
-              returnKeyType="next"
+              returnKeyType="done"
               horizontalAlignment="stretch"
               width="100%"
-              @returnPress="focusBirthday"
             >
             </TextField>
           </StackLayout>
@@ -34,26 +33,25 @@
             class="input-wrapper"
           >
             <Label text.decode="&#xf133;" class="far icon" />
-            <TextField
-              ref="birthday"
-              class="input"
-              autocorrect="false"
-              v-model="user.birthday"
-              returnKeyType="next"
-              @returnPress="focusBirthday"
-              horizontalAlignment="stretch"
+            <DatePickerField
+              v-model="$userService.user.birthday"
+              :maxDate="today"
+              hint="Birthday"
+              dateFormat="MM/dd/yyyy"
               width="100%"
-            >
-            </TextField>
+              borderBottomWidth="0"
+            />
           </StackLayout>
 
           <!-- Save -->
           <Button
+            :isEnabled="!updating"
             text="Save"
             color="white"
             backgroundColor="#2f7cf6"
             horizontalAlignment="stretch"
             margin="0"
+            @tap="updateUser"
           />
 
           <!-- Support -->
@@ -92,6 +90,7 @@
             orientation="horizontal"
             horizontalAlignment="stretch"
             class="input-wrapper"
+            @tap="help"
           >
             <Label text.decode="&#xf059;" class="far icon" />
             <Label class="label" text="Help Center" />
@@ -143,18 +142,21 @@
               <Label class="label" text="Acknowledgements" />
             </StackLayout>
 
-            <Label text.decode="&#xf105;" class="far m-r-5" fontSize="20" />
+            <Label text.decode="&#xf105;" class="far m-r-15" fontSize="20" />
           </FlexboxLayout>
           <!-- Version -->
-          <StackLayout
-            orientation="horizontal"
-            horizontalAlignment="stretch"
+          <FlexboxLayout
+            justifyContent="space-between"
             class="input-wrapper"
+            width="100%"
           >
-            <Label text.decode="&#xf126;" class="far icon" />
-            <Label class="label" text="Version" />
-            <Label text="version" />
-          </StackLayout>
+            <StackLayout orientation="horizontal" horizontalAlignment="stretch">
+              <Label text.decode="&#xf126;" class="far icon" />
+              <Label class="label" text="Version" width="75%" />
+            </StackLayout>
+
+            <Label :text="version" class="m-r-5" />
+          </FlexboxLayout>
         </StackLayout>
 
         <Button
@@ -163,6 +165,7 @@
           text="Sign Out"
           horizontalAlignment="stretch"
           margin="0"
+          @tap="$authService.logout()"
         />
         <FlexboxLayout justifyContent="center" class="m-t-25">
           <Label text.decode="&#xf1f9;" class="far" />
@@ -181,78 +184,64 @@
 <script>
 const SocialShare = require('nativescript-social-share');
 const platform = require('tns-core-modules/platform');
-const application = require('tns-core-modules/application');
-const utils = require('tns-core-modules/utils/utils');
 const email = require('nativescript-email');
-import { firestore } from 'nativescript-plugin-firebase';
-import * as firebase from 'nativescript-plugin-firebase';
+const appversion = require('nativescript-appversion');
 import { appRater } from 'nativescript-rater';
 import { openApp } from 'nativescript-open-app';
+import InAppBrowser from 'nativescript-inappbrowser';
 import routes from '~/router';
 
 export default {
   data() {
     return {
-      user: {
-        name: '',
-        birthday: '',
-      },
+      updating: false,
+      version: appversion.getVersionCodeSync(),
     };
   },
   computed: {
     copyright() {
       return ` ${new Date().getFullYear()} Envelope`;
     },
-    // version() {
-    //   if (platform.isAndroid) {
-    //     const PackageManager = android.content.pm.PackageManager;
-    //     const pkg = application.android.context
-    //       .getPackageManager()
-    //       .getPackageInfo(
-    //         application.android.context.getPackageName(),
-    //         PackageManager.GET_META_DATA,
-    //       );
-    //     return pkg.versionCode;
-    //   } else {
-    //     return NSBundle.mainBundle().objectForInfoDictionaryKey(
-    //       'CFBundleShortVersionString',
-    //     );
-    //   }
-    // },
+    today() {
+      return new Date();
+    },
   },
   methods: {
-    loaded() {
-      firebase.getCurrentUser().then(user => {
-        firestore
-          .collection(`${user.uid}`)
-          .doc('account')
-          .get()
-          .then(doc => {
-            const data = doc.data();
-            this.user.name = data.displayName;
-            this.user.birthday = data.birthday;
-          });
+    // Update the user
+    updateUser() {
+      this.updating = true;
+      this.$userService.updateUser().then(() => {
+        this.updating = false;
+        alert({
+          title: 'Account has been updated!',
+          okButtonText: 'Dismiss',
+        });
       });
     },
-    focusBirthday() {
-      this.$refs.birthday.nativeView.focus();
-    },
+
+    // Rate the application
     rate() {
       appRater.showRateDialog();
     },
+
+    // Share the application
     share() {
       // Third param is Android only
       SocialShare.shareUrl(
         'https:envelope.app/',
         'Envelope',
-        'How would you like to share this url?',
+        'How would you like to share Envelope?',
       );
     },
+
+    // Follow on Twitter
     follow() {
       platform.isIOS
-        ? openApp('twitter://user?screen_name=envelope_app')
-        : openApp('com.twitter.android/envelope_app');
+        ? openApp('twitter://user?screen_name=envelope_app', true, '333903271')
+        : openApp('com.twitter.android://user?screen_name=envelope_app');
     },
+
+    // Email Support
     emailSupport() {
       email
         .available()
@@ -264,22 +253,48 @@ export default {
         )
         .then(() => alert('Support has been contacted.'));
     },
-    terms() {
-      this.$showModal(routes.web, {
-        props: {
-          url: 'https://envelope.app/terms?m=true',
-        },
-      });
-    },
-    privacy() {
-      this.$showModal(routes.web, {
-        props: {
-          url: 'https://envelope.app/privacy?m=true',
-        },
-      });
-    },
+
+    // Navigate to the acknowledgements page
     ack() {
       this.$navigateTo(routes.acknowledgements);
+    },
+
+    // Open the help page in InAppBrowser
+    help() {
+      this.openInAppBrowser('https://envelope.app/help?m=true');
+    },
+
+    // Open the terms page in InAppBrowser
+    terms() {
+      this.openInAppBrowser('https://envelope.app/terms?m=true');
+    },
+
+    // Open the privacy page in InAppBrowser
+    privacy() {
+      this.openInAppBrowser('https://envelope.app/privacy?m=true');
+    },
+
+    // Open url in InAppBrowser
+    openInAppBrowser(url) {
+      InAppBrowser.open(url, {
+        // iOS Properties
+        dismissButtonStyle: 'Back',
+        preferredBarTintColor: '#590404',
+        preferredControlTintColor: 'white',
+        readerMode: false,
+        animated: false,
+        modalPresentationStyle: 'fullScreen',
+        modalTransitionStyle: 'coverVertical',
+        modalEnabled: true,
+        enableBarCollapsing: false,
+        // Android Properties
+        showTitle: true,
+        toolbarColor: '#590404',
+        secondaryToolbarColor: 'white',
+        enableUrlBarHiding: true,
+        enableDefaultShare: false,
+        forceCloseOnRedirection: false,
+      });
     },
   },
 };

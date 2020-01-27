@@ -27,7 +27,8 @@ export default {
         onAuthStateChanged: data => {
           if (data.loggedIn) {
             this.$authService.auth = data.user;
-            this.$authService.getUserDocument();
+            this.$userService.auth = data.user;
+            this.$userService.getUserDocument();
             this.$navigateTo(routes.home, {
               animated: false,
               clearHistory: true,
