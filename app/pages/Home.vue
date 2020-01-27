@@ -1,7 +1,7 @@
 <template>
   <Page
     @loaded="$adService.showBanner()"
-    @navigatedFrom="$adService.hideBanner()"
+    @navigatingFrom="$adService.hideBanner()"
   >
     <ActionBar>
       <StackLayout orientation="horizontal" horizonalAlignment="stretch">
