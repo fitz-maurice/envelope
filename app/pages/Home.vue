@@ -1,5 +1,5 @@
 <template>
-  <Page>
+  <Page @loaded="$adService.banner()">
     <ActionBar>
       <StackLayout orientation="horizontal" horizonalAlignment="stretch">
         <Label
