@@ -47,7 +47,11 @@
 
         <!-- From -->
         <StackLayout>
-          <Label text="Who was the card from?" class="label" />
+          <Label
+            text="Who was the card from?"
+            class="label"
+            :class="{ 'input-error': showErrors && !fromValid }"
+          />
           <TextField
             v-model="card.from"
             @returnPress="$refs.tag.nativeView.focus()"
@@ -60,7 +64,11 @@
 
         <!-- Tag type -->
         <StackLayout class="m-t-15">
-          <Label text="What was the occassion?" class="label" />
+          <Label
+            text="What was the occassion?"
+            class="label"
+            :class="{ 'input-error': showErrors && !tagValid }"
+          />
           <TextField
             ref="tag"
             v-model="card.tag"
@@ -74,27 +82,26 @@
 
         <!-- Date -->
         <StackLayout class="m-t-15">
-          <Label text="When did you receive the card?" class="label" />
+          <Label
+            text="When did you receive the card?"
+            class="label"
+            :class="{ 'input-error': showErrors && !dateValid }"
+          />
           <DatePickerField
             v-model="card.date"
             @dateChange="dateChange"
-            v-shadow="2"
             hint="Date Received"
             dateFormat="MM/dd/yyyy"
-            borderBottomWidth="0"
             class="input"
           />
         </StackLayout>
 
         <!-- Notes -->
         <StackLayout class="m-t-15">
-          <Label text="Notes" class="label" />
-          <TextField
+          <Label text="Notes (optional)" class="label" />
+          <TextView
             v-model="card.notes"
-            @returnPress="doneTap"
             v-shadow="2"
-            returnKeyType="done"
-            textWrap="true"
             class="input"
             hint="Any special notes about the card"
             height="75%"
@@ -111,14 +118,14 @@
       >
         <!-- Buttons -->
         <FlexboxLayout justifyContent="space-around" class="p-x-25">
-          <Button
+          <Label
             @tap="selectPicture"
             text="Select Picture"
             v-shadow="10"
             class="button"
           />
 
-          <Button
+          <Label
             @tap="takePicture"
             text="Take Picture"
             v-shadow="10"
@@ -173,13 +180,14 @@ export default {
       card: {
         from: '',
         tag: '',
-        date: null,
+        date: undefined,
         notes: '',
         images: [],
       },
       images: [],
       creating: false,
       keySet: true,
+      showErrors: false,
     };
   },
   computed: {
@@ -189,10 +197,27 @@ export default {
     hasPermissions() {
       return hasCameraPermissions() && hasFilePermissions();
     },
+    fromValid() {
+      return this.card.from !== '';
+    },
+    tagValid() {
+      return this.card.tag !== '';
+    },
+    dateValid() {
+      return this.card.date !== undefined;
+    },
+    imagesValid() {
+      return this.images.length > 0 && this.images.length <= 5;
+    },
+    formValid() {
+      return (
+        this.fromValid && this.tagValid && this.dateValid && this.imagesValid
+      );
+    },
   },
   methods: {
     // Bootstrap the page
-    loaded() {
+    loaded(args) {
       const keySet = appSettings.hasKey('firstTimePermissions');
       this.keySet = keySet;
 
@@ -226,8 +251,24 @@ export default {
     },
 
     // Create the new card
-    async save() {
+    save() {
+      if (this.creating === true) return;
+
       this.creating = true;
+
+      if (!this.formValid) {
+        this.showErrors = true;
+        this.creating = false;
+
+        alert({
+          title: 'Missing information!',
+          message:
+            'Please fill out all fields and have at least 1 image attached.',
+          okButtonText: 'Ok',
+        });
+
+        return;
+      }
 
       this.card.images = this.images.map((image, index) => {
         const name = `${moment(new Date()).unix()}_${index}.jpeg`;
@@ -267,27 +308,36 @@ export default {
     },
 
     // Take picture and pass to cropper
-    async takePicture() {
+    takePicture() {
       let source = new ImageSource();
 
-      camera
-        .takePicture()
-        .then(imageAsset => {
-          source.fromAsset(imageAsset).then(source => {
-            this.editPicture(source);
-          });
-        })
-        .catch(function(err) {
-          console.log('Error -> ' + err.message);
-        });
+      camera.requestPermissions().then(
+        () => {
+          camera
+            .takePicture()
+            .then(imageAsset => {
+              source.fromAsset(imageAsset).then(source => {
+                this.editPicture(source);
+              });
+            })
+            .catch(function(err) {
+              console.log('Error -> ' + err.message);
+            });
+        },
+        () => {
+          console.log('No permissions for camera');
+        },
+      );
     },
 
     // Select picture from phone
-    async selectPicture() {
+    selectPicture() {
       let image;
       let source = new ImageSource();
       let context = imagepicker.create({
         mode: 'single',
+        mediaType: 'image',
+        minimumNumberOfSelection: '1',
       });
 
       context
@@ -366,9 +416,11 @@ export default {
   background-color: #0f6ca6;
   font-weight: 500;
   font-size: 12;
-  padding: 20px;
+  height: 125px;
+  font-size: 13;
   border-radius: 25px;
   width: 33%;
+  text-align: center;
 }
 
 .label {
@@ -390,6 +442,10 @@ export default {
   padding: 20px;
   font-size: 15px;
   width: 85%;
+}
+
+.input-error {
+  color: red;
 }
 
 .img {
