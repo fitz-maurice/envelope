@@ -1,4 +1,5 @@
 import Vue from 'nativescript-vue';
+import VueDevtools from 'nativescript-vue-devtools';
 import routes from './router';
 import AdService from './services/adService';
 import AuthService from './services/authService';
@@ -19,6 +20,9 @@ appRater.init({
 // DateTime Picker
 // https://github.com/NativeScript/nativescript-datetimepicker
 Vue.use(DateTimePicker);
+
+// Vue DevTools
+Vue.use(VueDevtools);
 
 // Services
 export const authService = new AuthService();

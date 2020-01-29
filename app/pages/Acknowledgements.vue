@@ -1,5 +1,8 @@
 <template>
   <Page>
+    <!-- Action Bar -->
+    <ActionBar title="Acknowledgements" />
+
     <Label text="This is the Acknowledgements" textWrap="true" />
   </Page>
 </template>
