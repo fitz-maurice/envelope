@@ -3,7 +3,7 @@
     <!-- Left Layout Grid -->
     <ActionItem
       @tap="changeLayout"
-      v-show="!isGridLayout"
+      v-show="isGridLayout"
       ios.systemIcon="9"
       ios.position="left"
       android.position="actionBar"
@@ -19,7 +19,7 @@
     <!-- Left Layout Row -->
     <ActionItem
       @tap="changeLayout"
-      v-show="isGridLayout"
+      v-show="!isGridLayout"
       ios.systemIcon="10"
       ios.position="left"
       android.position="actionBar"

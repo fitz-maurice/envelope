@@ -30,6 +30,66 @@
         </StackLayout>
       </ScrollView>
 
+    <!-- Main view -->
+    <ScrollView orientation="vertical" scrollBarIndicatorVisible="false">
+      <WrapLayout :orientation="layout.orientation">
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+        <Image
+          :width="layout.width"
+          height="100"
+          src="~/assets/envelope.png"
+        ></Image>
+      </WrapLayout>
+
       <AbsoluteLayout marginTop="94%" marginLeft="80%">
         <FabButton
           @onButtonTap="
@@ -37,7 +97,7 @@
           "
         />
       </AbsoluteLayout>
-    </AbsoluteLayout>
+    </ScrollView>
   </Page>
 </template>
 
@@ -53,21 +113,29 @@ export default {
   },
   data() {
     return {
-      routes,
-      layout: false,
+      layout: {
+        width: '49.9%',
+        orientation: 'horizontal',
+      },
     };
   },
   methods: {
     changeLayout(payload) {
-      this.layout = payload;
+      this.layout = {
+        width: payload ? '100%' : '49.9%',
+        orientation: payload ? 'vertical' : 'horizontal',
+      };
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-label {
-  padding-left: 30px;
-  padding-right: 30px;
+.layout {
+  margin: 0;
+  padding: 0;
+}
+.center {
+  margin: 0 auto;
 }
 </style>
