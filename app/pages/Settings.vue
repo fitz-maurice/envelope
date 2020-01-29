@@ -1,6 +1,9 @@
 <template>
-  <Page @loaded="loaded">
-    <ActionBar title="Account" backgroundColor="#2f7cf6" color="white" />
+  <Page>
+    <!-- Action Bar -->
+    <ActionBar title="Account" />
+
+    <!-- Main Scroll View -->
     <ScrollView orientation="vertical">
       <FlexboxLayout flexDirection="column" justifyContent="space-between">
         <StackLayout>
@@ -279,14 +282,12 @@ export default {
       InAppBrowser.open(url, {
         // iOS Properties
         dismissButtonStyle: 'Back',
-        preferredBarTintColor: '#590404',
-        preferredControlTintColor: 'white',
         readerMode: false,
-        animated: false,
-        modalPresentationStyle: 'fullScreen',
+        animated: true,
+        modalPresentationStyle: 'popover',
         modalTransitionStyle: 'coverVertical',
         modalEnabled: true,
-        enableBarCollapsing: false,
+        enableBarCollapsing: true,
         // Android Properties
         showTitle: true,
         toolbarColor: '#590404',
@@ -294,6 +295,12 @@ export default {
         enableUrlBarHiding: true,
         enableDefaultShare: false,
         forceCloseOnRedirection: false,
+        animations: {
+          startEnter: 'slide_in_right',
+          startExit: 'slide_out_left',
+          endEnter: 'slide_in_left',
+          endExit: 'slide_out_right',
+        },
       });
     },
   },
