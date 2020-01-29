@@ -22,11 +22,13 @@
     "@nativescript/theme": "~2.2.1",
     "@vue/devtools": "^5.3.3",
     "moment": "^2.24.0",
+    "nativescript-advanced-permissions": "^1.2.0",
     "nativescript-appversion": "^1.4.4",
     "nativescript-camera": "^4.5.0",
     "nativescript-datetimepicker": "^1.2.2",
     "nativescript-email": "^1.5.5",
     "nativescript-imagecropper": "^3.0.0",
+    "nativescript-imagepicker": "^7.1.0",
     "nativescript-inappbrowser": "^2.2.0",
     "nativescript-open-app": "^0.3.0",
     "nativescript-plugin-firebase": "^10.3.3",
@@ -36,7 +38,8 @@
     "nativescript-toasty": "^3.0.0-alpha.2",
     "nativescript-vue": "^v2.5.0-alpha.3",
     "nativescript-vue-devtools": "^1.2.0",
-    "tns-core-modules": "~6.3.2"
+    "nativescript-vue-shadow": "^0.1.0",
+    "tns-core-modules": "^6.3.2"
   },
   "devDependencies": {
     "@babel/core": "~7.1.0",
