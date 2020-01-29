@@ -3,6 +3,7 @@ import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Settings from '../pages/Settings';
 import Acknowledgements from '../pages/Acknowledgements';
+import CardCreation from '../pages/CardCreation';
 
 const routes = {
   loading: Bootstrap,
@@ -10,6 +11,7 @@ const routes = {
   home: Home,
   settings: Settings,
   acknowledgements: Acknowledgements,
+  cardCreation: CardCreation,
 };
 
 export default routes;

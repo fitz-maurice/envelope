@@ -28,6 +28,8 @@ export default {
           if (data.loggedIn) {
             this.$authService.auth = data.user;
             this.$userService.auth = data.user;
+            this.$cardService.auth = data.user;
+            this.$storageService.auth = data.user;
             this.$userService.getUserDocument();
             this.$navigateTo(routes.home, {
               animated: false,

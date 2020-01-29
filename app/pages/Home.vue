@@ -29,16 +29,24 @@
         <Label text="Hello World" height="70" />
       </StackLayout>
     </ScrollView>
+
+    <AbsoluteLayout marginTop="87%" marginLeft="80%">
+      <FabButton
+        @onButtonTap="$navigateTo(routes.cardCreation, { clearHistory: true })"
+      />
+    </AbsoluteLayout>
   </Page>
 </template>
 
 <script>
 import routes from '~/router';
 import Header from '~/components/Header';
+import FabButton from '~/components/FabButton';
 
 export default {
   components: {
     Header,
+    FabButton,
   },
   data() {
     return {
