@@ -50,10 +50,10 @@
           <Label text="Who was the card from?" class="label" />
           <TextField
             v-model="card.from"
-            @returnPress="doneTap"
+            @returnPress="$refs.tag.nativeView.focus()"
             v-shadow="2"
             hint="Card giver's name"
-            returnKeyType="done"
+            returnKeyType="next"
             class="input"
           />
         </StackLayout>
@@ -62,6 +62,7 @@
         <StackLayout class="m-t-15">
           <Label text="What was the occassion?" class="label" />
           <TextField
+            ref="tag"
             v-model="card.tag"
             @returnPress="doneTap"
             v-shadow="2"
@@ -84,8 +85,6 @@
             class="input"
           />
         </StackLayout>
-
-        <Label :text="card.date" />
 
         <!-- Notes -->
         <StackLayout class="m-t-15">
@@ -346,6 +345,7 @@ export default {
 
 <style lang="scss" scoped>
 .segmented-bar {
+  width: 90%;
   margin-bottom: 50px;
   color: white;
   background-color: #a0aec0;

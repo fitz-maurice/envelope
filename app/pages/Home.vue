@@ -5,35 +5,38 @@
   >
     <!-- Envelope Header -->
     <Header @changeLayout="changeLayout" />
+    <AbsoluteLayout>
+      <ScrollView orientation="vertical">
+        <StackLayout>
+          <Label v-if="!layout" text="Row" height="70" />
+          <Label v-else text="Grid" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+          <Label text="Hello World" height="70" />
+        </StackLayout>
+      </ScrollView>
 
-    <ScrollView orientation="vertical">
-      <StackLayout>
-        <Label v-if="!layout" text="Row" height="70" />
-        <Label v-else text="Grid" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-        <Label text="Hello World" height="70" />
-      </StackLayout>
-    </ScrollView>
-
-    <AbsoluteLayout marginTop="87%" marginLeft="80%">
-      <FabButton
-        @onButtonTap="$navigateTo(routes.cardCreation, { clearHistory: true })"
-      />
+      <AbsoluteLayout marginTop="94%" marginLeft="80%">
+        <FabButton
+          @onButtonTap="
+            $navigateTo(routes.cardCreation, { clearHistory: true })
+          "
+        />
+      </AbsoluteLayout>
     </AbsoluteLayout>
   </Page>
 </template>
@@ -50,6 +53,7 @@ export default {
   },
   data() {
     return {
+      routes,
       layout: false,
     };
   },
