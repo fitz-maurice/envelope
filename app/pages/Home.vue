@@ -5,99 +5,82 @@
   >
     <!-- Envelope Header -->
     <Header @changeLayout="changeLayout" />
-    <AbsoluteLayout>
-      <ScrollView orientation="vertical">
-        <StackLayout>
-          <Label v-if="!layout" text="Row" height="70" />
-          <Label v-else text="Grid" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-          <Label text="Hello World" height="70" />
-        </StackLayout>
-      </ScrollView>
-
     <!-- Main view -->
-    <ScrollView orientation="vertical" scrollBarIndicatorVisible="false">
-      <WrapLayout :orientation="layout.orientation">
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-        <Image
-          :width="layout.width"
-          height="100"
-          src="~/assets/envelope.png"
-        ></Image>
-      </WrapLayout>
-
-      <AbsoluteLayout marginTop="94%" marginLeft="80%">
-        <FabButton
-          @onButtonTap="
-            $navigateTo(routes.cardCreation, { clearHistory: true })
-          "
-        />
+    <AbsoluteLayout>
+      <ScrollView
+        orientation="vertical"
+        scrollBarIndicatorVisible="false"
+        height="100%"
+        width="100%"
+      >
+        <WrapLayout :orientation="layout.orientation">
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+          <Image
+            :width="layout.width"
+            height="100"
+            src="~/assets/envelope.png"
+          ></Image>
+        </WrapLayout>
+      </ScrollView>
+      <AbsoluteLayout width="100%" marginTop="94%">
+        <FlexboxLayout justifyContent="flex-end" width="94%">
+          <FabButton
+            @onButtonTap="
+              $navigateTo(routes.cardCreation, { clearHistory: true })
+            "
+          />
+        </FlexboxLayout>
       </AbsoluteLayout>
-    </ScrollView>
+    </AbsoluteLayout>
   </Page>
 </template>
 
@@ -113,6 +96,7 @@ export default {
   },
   data() {
     return {
+      routes,
       layout: {
         width: '49.9%',
         orientation: 'horizontal',
