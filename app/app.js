@@ -37,10 +37,12 @@ import './app.scss';
 // Services
 export const authService = new AuthService();
 export const userService = new UserService();
+export const adService = new AdService();
 export const cardService = new CardService();
 export const storageService = new StorageService();
 Vue.prototype.$authService = authService;
 Vue.prototype.$userService = userService;
+Vue.prototype.$adService = adService;
 Vue.prototype.$cardService = cardService;
 Vue.prototype.$storageService = storageService;
 
