@@ -1,9 +1,10 @@
+import Base from './base';
 import * as firebase from 'nativescript-plugin-firebase';
 const fs = require('tns-core-modules/file-system');
 
-export default class StorageService {
+export default class StorageService extends Base {
   constructor() {
-    this.auth = null;
+    super();
     this.storageRef = null;
   }
 

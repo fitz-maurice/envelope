@@ -1,3 +1,4 @@
+import Base from './base';
 import * as purchase from '@proplugins/nativescript-purchase';
 import {
   Transaction,
@@ -7,8 +8,9 @@ import {
 const PREMIUM_MONTHLY = 'com.fitzcreative.envelope.premium.monthly';
 const PREMIUM_ANNUAL = 'com.fitzcreative.envelope.premium.annual';
 
-export default class IAPService {
+export default class IAPService extends Base {
   constructor() {
+    super();
     this.products = null;
     this.transaction = null;
   }

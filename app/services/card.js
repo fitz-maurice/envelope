@@ -1,9 +1,10 @@
+import Base from './base';
 import * as firebase from 'nativescript-plugin-firebase';
 
-export default class CardService {
+export default class CardService extends Base {
   constructor() {
+    super();
     this.collectionRef = null;
-    this.auth = null;
   }
 
   /**

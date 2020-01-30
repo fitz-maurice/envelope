@@ -1,10 +1,11 @@
-import * as firebase from 'nativescript-plugin-firebase';
+import Base from './base';
 import moment from 'moment';
+import * as firebase from 'nativescript-plugin-firebase';
 
-export default class UserService {
+export default class UserService extends Base {
   constructor() {
+    super();
     this.userRef = null;
-    this.auth = null;
     this.user = {
       displayName: null,
       birthday: null,

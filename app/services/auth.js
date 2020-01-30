@@ -1,8 +1,9 @@
+import Base from './base';
 import * as firebase from 'nativescript-plugin-firebase';
 
-export default class AuthService {
+export default class AuthService extends Base {
   constructor() {
-    this.auth = null;
+    super();
   }
 
   isLoggedIn() {

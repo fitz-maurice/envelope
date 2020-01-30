@@ -4,12 +4,13 @@ import NSVueShadow from 'nativescript-vue-shadow';
 import VueDevtools from 'nativescript-vue-devtools';
 import DateTimePicker from 'nativescript-datetimepicker/vue';
 
-// Application Services
-import AdService from './services/adService';
-import AuthService from './services/authService';
-import UserService from './services/userService';
-import CardService from './services/cardService';
-import StorageService from './services/storageService';
+// Application Services;
+import BaseService from './services/base';
+import AdService from './services/ads';
+import AuthService from './services/auth';
+import UserService from './services/user';
+import CardService from './services/card';
+import StorageService from './services/storage';
 import IAPService from './services/iap';
 
 // Styles
@@ -40,12 +41,14 @@ Vue.use(NSVueShadow);
 import './app.scss';
 
 // Services Initialization
+export const baseService = new BaseService();
 export const authService = new AuthService();
 export const userService = new UserService();
 export const adService = new AdService();
 export const cardService = new CardService();
 export const storageService = new StorageService();
 export const iapService = new IAPService();
+Vue.prototype.$baseService = baseService;
 Vue.prototype.$authService = authService;
 Vue.prototype.$userService = userService;
 Vue.prototype.$adService = adService;

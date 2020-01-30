@@ -1,3 +1,4 @@
+import Base from './base';
 import * as firebase from 'nativescript-plugin-firebase';
 
 const BANNER_IOS = 'ca-app-pub-5831491795997988/7495564994';
@@ -5,7 +6,7 @@ const BANNER_ANDROID = 'ca-app-pub-5831491795997988/7970207715';
 
 const KEYWORDS = ['greeting card', 'digital greeting cards', 'anniversary'];
 
-export default class AdService {
+export default class AdService extends Base {
   async showBanner() {
     firebase.admob
       .showBanner({
