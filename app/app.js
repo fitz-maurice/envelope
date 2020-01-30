@@ -1,17 +1,22 @@
 import Vue from 'nativescript-vue';
+import { appRater } from 'nativescript-rater';
+import NSVueShadow from 'nativescript-vue-shadow';
 import VueDevtools from 'nativescript-vue-devtools';
-import routes from './router';
+import DateTimePicker from 'nativescript-datetimepicker/vue';
+
+// Application Services
 import AdService from './services/adService';
 import AuthService from './services/authService';
 import UserService from './services/userService';
 import CardService from './services/cardService';
 import StorageService from './services/storageService';
-import { appRater } from 'nativescript-rater';
-import DateTimePicker from 'nativescript-datetimepicker/vue';
-import NSVueShadow from 'nativescript-vue-shadow';
+import IAPService from './services/iap';
 
 // Styles
 import './app.scss';
+
+// Routes
+import routes from './router';
 
 // App Rater
 // https://github.com/gogoout/nativescript-rater
@@ -34,17 +39,19 @@ Vue.use(NSVueShadow);
 // Styles
 import './app.scss';
 
-// Services
+// Services Initialization
 export const authService = new AuthService();
 export const userService = new UserService();
 export const adService = new AdService();
 export const cardService = new CardService();
 export const storageService = new StorageService();
+export const iapService = new IAPService();
 Vue.prototype.$authService = authService;
 Vue.prototype.$userService = userService;
 Vue.prototype.$adService = adService;
 Vue.prototype.$cardService = cardService;
 Vue.prototype.$storageService = storageService;
+Vue.prototype.$iapService = iapService;
 
 // Configs
 Vue.config.silent = false;

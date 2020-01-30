@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@nativescript/theme": "~2.2.1",
+    "@proplugins/nativescript-purchase": "^4.0.0",
     "@vue/devtools": "^5.3.3",
     "moment": "^2.24.0",
     "nativescript-advanced-permissions": "^1.2.0",

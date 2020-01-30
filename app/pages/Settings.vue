@@ -57,6 +57,21 @@
             @tap="updateUser"
           />
 
+          <!-- Subscriptions -->
+          <Label text="Premium" class="section" />
+          <FlexboxLayout justifyContent="space-between" @tap="subscription">
+            <StackLayout
+              orientation="horizontal"
+              horizontalAlignment="stretch"
+              class="input-wrapper"
+            >
+              <Image width="15" height="15" src="~/assets/envelope.png"></Image>
+              <Label class="label" text="Envelope Premium" />
+            </StackLayout>
+
+            <Label text.decode="&#xf105;" class="far m-r-15" fontSize="20" />
+          </FlexboxLayout>
+
           <!-- Support -->
           <Label text="SUPPORT" class="section" />
           <!-- Email Support -->
@@ -255,6 +270,11 @@ export default {
           }),
         )
         .then(() => alert('Support has been contacted.'));
+    },
+
+    // Navigatio to the Subscriptions page
+    subscription() {
+      this.$navigateTo(routes.subscription);
     },
 
     // Navigate to the acknowledgements page
