@@ -18,7 +18,7 @@ export default class StorageService extends Base {
     if (image.saveToFile(path, 'jpeg')) {
       await firebase.storage
         .uploadFile({
-          remoteFullPath: `${this.auth.uid}/${name}`,
+          remoteFullPath: `${this.uid}/${name}`,
           localFile: fs.File.fromPath(path),
           localFullPath: path,
           metadata,

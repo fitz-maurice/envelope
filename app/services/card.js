@@ -6,22 +6,31 @@ export default class CardService extends Base {
     super();
     this.collectionRef = null;
   }
-
-  /**
-   * Sets a collectionReference to be used later
-   */
-  setCollectionRef() {
-    this.collectionRef = firebase.firestore
-      .collection(this.auth.uid)
-      .doc('account')
-      .collection('cards');
-  }
-
   async createCard(card) {
-    if (this.collectionRef === null) this.setCollectionRef();
-
-    return this.collectionRef.add(card);
+    return firebase.firestore.collection(`${this.uid}/account/cards`).add(card);
   }
 
-  async getCards() {}
+  async getCards() {
+    let cards = [];
+
+    const querySnapshot = await firebase.firestore
+      .collection(`${this.uid}/account/cards`)
+      .get();
+
+    querySnapshot.docSnapshots.map(doc => {
+      const card = doc.data();
+      const temp = card.images.map(image =>
+        firebase.storage.getDownloadUrl({
+          remoteFullPath: `${this.uid}/${image}`,
+        }),
+      );
+
+      Promise.all(temp).then(result => {
+        card.images = result;
+        cards.push(card);
+      });
+    });
+
+    return cards;
+  }
 }

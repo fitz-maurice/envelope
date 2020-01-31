@@ -13,12 +13,14 @@ import routes from '~/router';
 import * as firebase from 'nativescript-plugin-firebase';
 import * as application from 'tns-core-modules/application';
 import Loader from '~/components/Loader';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
     Loader,
   },
   methods: {
+    ...mapActions(['loadCards']),
     // The application has loaded
     loaded() {
       // Initialize Firebae
@@ -26,11 +28,13 @@ export default {
       firebase.addAuthStateListener({
         onAuthStateChanged: data => {
           if (data.loggedIn) {
-            this.$authService.auth = data.user;
-            this.$userService.auth = data.user;
-            this.$cardService.auth = data.user;
-            this.$storageService.auth = data.user;
+            // Assign uid in Base class
+            this.$baseService.uid = data.user.uid;
+            // Load the user's cards through Vuex
+            this.loadCards();
+            // Fetch the user document
             this.$userService.getUserDocument();
+
             this.$navigateTo(routes.home, {
               animated: false,
               clearHistory: true,

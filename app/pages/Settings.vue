@@ -183,7 +183,7 @@
           text="Sign Out"
           horizontalAlignment="stretch"
           margin="0"
-          @tap="$authService.logout()"
+          @tap="logout"
         />
         <FlexboxLayout justifyContent="center" class="m-t-25">
           <Label text.decode="&#xf1f9;" class="far" />
@@ -208,6 +208,7 @@ import { appRater } from 'nativescript-rater';
 import { openApp } from 'nativescript-open-app';
 import InAppBrowser from 'nativescript-inappbrowser';
 import routes from '~/router';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -225,6 +226,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['clearCards']),
+
+    // Log user out and clear cards
+    logout() {
+      this.clearCards();
+      this.$authService.logout();
+    },
+
     // Update the user
     updateUser() {
       this.updating = true;

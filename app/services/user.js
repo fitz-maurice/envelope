@@ -16,9 +16,7 @@ export default class UserService extends Base {
    * Sets a documentReference to be used later
    */
   setUserRef() {
-    this.userRef = firebase.firestore
-      .collection(`${this.auth.uid}`)
-      .doc('account');
+    this.userRef = firebase.firestore.collection(`${this.uid}`).doc('account');
   }
 
   /**
@@ -58,7 +56,7 @@ export default class UserService extends Base {
    */
   async createInitalUser() {
     return this.userRef.set({
-      displayName: this.auth.displayName,
+      displayName: null,
       birthday: null,
     });
   }

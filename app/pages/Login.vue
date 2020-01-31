@@ -89,8 +89,8 @@ export default {
       isLoggingIn: true,
       processing: false,
       user: {
-        email: 'dpfitzmaurice@gmail.com',
-        password: 'baseball',
+        email: 'admin@envelope.app',
+        password: 'Envelope1989',
       },
     };
   },
@@ -117,7 +117,15 @@ export default {
 
     // Log in with Email
     loginWithEmail() {
-      this.$authService.login(this.user);
+      this.$authService.login(this.user).catch(err => {
+        this.processing = false;
+
+        alert({
+          title: 'Something went wrong',
+          message: err,
+          okButtonText: 'Try again',
+        });
+      });
     },
 
     // Log in with Google
@@ -132,7 +140,18 @@ export default {
 
     // Register a new User
     register() {
-      this.$authService.register(this.user).then(user => this.goHome(user));
+      this.$authService
+        .register(this.user)
+        .then(user => this.goHome(user))
+        .catch(err => {
+          this.processing = false;
+
+          alert({
+            title: 'Something went wrong',
+            message: err,
+            okButtonText: 'Try again',
+          });
+        });
     },
 
     // Prompt the User with a Forgot Password dialog

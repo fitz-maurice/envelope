@@ -1,4 +1,3 @@
-import Base from './base';
 import * as firebase from 'nativescript-plugin-firebase';
 
 const BANNER_IOS = 'ca-app-pub-5831491795997988/7495564994';
@@ -6,9 +5,9 @@ const BANNER_ANDROID = 'ca-app-pub-5831491795997988/7970207715';
 
 const KEYWORDS = ['greeting card', 'digital greeting cards', 'anniversary'];
 
-export default class AdService extends Base {
+export default class AdService {
   async showBanner() {
-    firebase.admob
+    return firebase.admob
       .showBanner({
         // when not running in production set this to true, Google doesn't like it any other way
         testing: true,
@@ -32,7 +31,7 @@ export default class AdService extends Base {
           console.log('>> AdMob banner showing!');
         },
         errorMessage => {
-          dialogs.alert({
+          alert({
             title: 'AdMob error',
             message: errorMessage,
             okButtonText: 'Hmmkay',
@@ -42,6 +41,6 @@ export default class AdService extends Base {
   }
 
   async hideBanner() {
-    firebase.admob.hideBanner();
+    return firebase.admob.hideBanner();
   }
 }

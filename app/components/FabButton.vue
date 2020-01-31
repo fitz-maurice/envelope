@@ -1,7 +1,8 @@
 <template>
   <Label
-    text.decode="&#xf067;"
     @tap="$emit('onButtonTap')"
+    text.decode="&#xf067;"
+    v-shadow="15"
     class="far fab-button"
   />
 </template>
