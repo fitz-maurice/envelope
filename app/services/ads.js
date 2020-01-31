@@ -31,11 +31,11 @@ export default class AdService {
           console.log('>> AdMob banner showing!');
         },
         errorMessage => {
-          alert({
-            title: 'AdMob error',
-            message: errorMessage,
-            okButtonText: 'Hmmkay',
-          });
+          // alert({
+          //   title: 'AdMob error',
+          //   message: errorMessage,
+          //   okButtonText: 'Hmmkay',
+          // });
         },
       );
   }
