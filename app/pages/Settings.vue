@@ -57,6 +57,21 @@
             @tap="updateUser"
           />
 
+          <!-- Subscriptions -->
+          <Label text="Premium" class="section" />
+          <FlexboxLayout justifyContent="space-between" @tap="subscription">
+            <StackLayout
+              orientation="horizontal"
+              horizontalAlignment="stretch"
+              class="input-wrapper"
+            >
+              <Image width="15" height="15" src="~/assets/envelope.png"></Image>
+              <Label class="label" text="Envelope Premium" />
+            </StackLayout>
+
+            <Label text.decode="&#xf105;" class="far m-r-15" fontSize="20" />
+          </FlexboxLayout>
+
           <!-- Support -->
           <Label text="SUPPORT" class="section" />
           <!-- Email Support -->
@@ -168,7 +183,7 @@
           text="Sign Out"
           horizontalAlignment="stretch"
           margin="0"
-          @tap="$authService.logout()"
+          @tap="logout"
         />
         <FlexboxLayout justifyContent="center" class="m-t-25">
           <Label text.decode="&#xf1f9;" class="far" />
@@ -193,6 +208,7 @@ import { appRater } from 'nativescript-rater';
 import { openApp } from 'nativescript-open-app';
 import InAppBrowser from 'nativescript-inappbrowser';
 import routes from '~/router';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -210,6 +226,15 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['clearCards']),
+
+    // Log user out and clear cards
+    logout() {
+      this.clearCards();
+      this.$userService.user = null;
+      this.$authService.logout();
+    },
+
     // Update the user
     updateUser() {
       this.updating = true;
@@ -255,6 +280,11 @@ export default {
           }),
         )
         .then(() => alert('Support has been contacted.'));
+    },
+
+    // Navigatio to the Subscriptions page
+    subscription() {
+      this.$navigateTo(routes.subscription);
     },
 
     // Navigate to the acknowledgements page

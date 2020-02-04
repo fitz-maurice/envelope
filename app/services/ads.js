@@ -7,7 +7,7 @@ const KEYWORDS = ['greeting card', 'digital greeting cards', 'anniversary'];
 
 export default class AdService {
   async showBanner() {
-    firebase.admob
+    return firebase.admob
       .showBanner({
         // when not running in production set this to true, Google doesn't like it any other way
         testing: true,
@@ -31,16 +31,16 @@ export default class AdService {
           console.log('>> AdMob banner showing!');
         },
         errorMessage => {
-          dialogs.alert({
-            title: 'AdMob error',
-            message: errorMessage,
-            okButtonText: 'Hmmkay',
-          });
+          // alert({
+          //   title: 'AdMob error',
+          //   message: errorMessage,
+          //   okButtonText: 'Hmmkay',
+          // });
         },
       );
   }
 
   async hideBanner() {
-    firebase.admob.hideBanner();
+    return firebase.admob.hideBanner();
   }
 }

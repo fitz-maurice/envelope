@@ -1,10 +1,11 @@
-import * as firebase from 'nativescript-plugin-firebase';
+import Base from './base';
 import moment from 'moment';
+import * as firebase from 'nativescript-plugin-firebase';
 
-export default class UserService {
+export default class UserService extends Base {
   constructor() {
+    super();
     this.userRef = null;
-    this.auth = null;
     this.user = {
       displayName: null,
       birthday: null,
@@ -15,9 +16,7 @@ export default class UserService {
    * Sets a documentReference to be used later
    */
   setUserRef() {
-    this.userRef = firebase.firestore
-      .collection(`${this.auth.uid}`)
-      .doc('account');
+    this.userRef = firebase.firestore.collection(`${this.uid}`).doc('account');
   }
 
   /**
@@ -57,7 +56,7 @@ export default class UserService {
    */
   async createInitalUser() {
     return this.userRef.set({
-      displayName: this.auth.displayName,
+      displayName: null,
       birthday: null,
     });
   }

@@ -14,61 +14,12 @@
         width="100%"
       >
         <WrapLayout :orientation="layout.orientation">
-          <Image
+          <CardPreview
+            v-for="card in cardList"
+            :key="card.id"
+            :card="card"
             :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
-          <Image
-            :width="layout.width"
-            height="100"
-            src="~/assets/envelope.png"
-          ></Image>
+          />
         </WrapLayout>
       </ScrollView>
       <AbsoluteLayout width="100%" marginTop="94%">
@@ -85,14 +36,17 @@
 </template>
 
 <script>
-import routes from '~/router';
-import Header from '~/components/Header';
-import FabButton from '~/components/FabButton';
+import routes from '@/router';
+import { mapGetters } from 'vuex';
+import Header from '@/components/Header';
+import CardPreview from '@/components/CardPreview';
+import FabButton from '@/components/FabButton';
 
 export default {
   components: {
     Header,
     FabButton,
+    CardPreview,
   },
   data() {
     return {
@@ -102,6 +56,12 @@ export default {
         orientation: 'horizontal',
       },
     };
+  },
+  mounted() {
+    this.$cache.enableDownload();
+  },
+  computed: {
+    ...mapGetters(['cardList']),
   },
   methods: {
     changeLayout(payload) {

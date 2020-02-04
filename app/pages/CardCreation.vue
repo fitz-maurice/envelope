@@ -37,7 +37,7 @@
       </SegmentedBar>
 
       <!-- Card data -->
-      <StackLayout v-if="selectedView === 0" key="data">
+      <StackLayout v-show="selectedView === 0" key="data">
         <!-- Header text -->
         <Label
           text="Tell us a little about the card you received"
@@ -54,10 +54,9 @@
           />
           <TextField
             v-model="card.from"
-            @returnPress="$refs.tag.nativeView.focus()"
             v-shadow="2"
             hint="Card giver's name"
-            returnKeyType="next"
+            returnKeyType="done"
             class="input"
           />
         </StackLayout>
@@ -70,9 +69,7 @@
             :class="{ 'input-error': showErrors && !tagValid }"
           />
           <TextField
-            ref="tag"
             v-model="card.tag"
-            @returnPress="doneTap"
             v-shadow="2"
             returnKeyType="done"
             hint="Type of card"
@@ -103,7 +100,7 @@
             v-model="card.notes"
             v-shadow="2"
             class="input"
-            hint="Any special notes about the card"
+            returnKeyType="done"
             height="75%"
           />
         </StackLayout>
@@ -111,7 +108,7 @@
 
       <!-- Images -->
       <StackLayout
-        v-else
+        v-show="selectedView === 1"
         key="images"
         orientation="vertical"
         horizonalAlignment="center"
@@ -155,7 +152,8 @@
 </template>
 
 <script>
-const appSettings = require('tns-core-modules/application-settings');
+import { hasKey, setBoolean } from 'tns-core-modules/application-settings';
+import CardService from '@/services/card';
 import moment from 'moment';
 import routes from '~/router';
 import * as camera from 'nativescript-camera';
@@ -171,6 +169,8 @@ import {
   hasFilePermissions,
   requestFilePermissions,
 } from 'nativescript-advanced-permissions/files';
+
+const cardService = new CardService();
 
 export default {
   data() {
@@ -218,7 +218,7 @@ export default {
   methods: {
     // Bootstrap the page
     loaded(args) {
-      const keySet = appSettings.hasKey('firstTimePermissions');
+      const keySet = hasKey('firstTimePermissions');
       this.keySet = keySet;
 
       if (!keySet) {
@@ -227,7 +227,7 @@ export default {
       }
 
       if (this.hasPermissions) {
-        appSettings.setBoolean('firstTimePermissions', true);
+        setBoolean('firstTimePermissions', true);
       }
     },
 
@@ -276,7 +276,7 @@ export default {
         return name;
       });
 
-      this.$cardService.createCard(this.card).then(() => {
+      cardService.createCard(this.card).then(() => {
         this.creating = false;
         alert({
           title: 'Your card was created!',

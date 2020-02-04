@@ -1,16 +1,13 @@
+import Base from './base';
 import * as firebase from 'nativescript-plugin-firebase';
 
-export default class AuthService {
+export default class AuthService extends Base {
   constructor() {
-    this.auth = null;
-  }
-
-  isLoggedIn() {
-    // return !!getString(this.userKey);
+    super();
   }
 
   async register(creds) {
-    this.auth = await firebase.createUser({
+    await firebase.createUser({
       email,
       password,
     });
@@ -18,7 +15,7 @@ export default class AuthService {
   }
 
   async login(creds) {
-    this.auth = await firebase.login({
+    await firebase.login({
       type: firebase.LoginType.PASSWORD,
       passwordOptions: {
         email: creds.email,
@@ -28,22 +25,18 @@ export default class AuthService {
   }
 
   async loginWithGoogle() {
-    this.auth = await firebase.login({
+    await firebase.login({
       type: firebase.LoginType.GOOGLE,
     });
   }
 
   async loginWithApple() {
-    this.auth = await firebase.login({
+    await firebase.login({
       type: firebase.LoginType.APPLE,
       appleOptions: {
         locale: 'nl', // for Android
       },
     });
-  }
-
-  async refresh() {
-    // TODO: See if this is needed
   }
 
   async resetPassword(email) {
