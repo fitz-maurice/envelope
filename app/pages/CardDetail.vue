@@ -1,21 +1,21 @@
 <template>
-  <StackLayout>
-    <Label :text="card.from" textWrap="true" />
-    <Label :text="card.tag" textWrap="true" />
-    <Label :text="date" textWrap="true" />
-    <Image @tap="viewDetail" :src="image" width="50%" stretch="aspectFit" />
-  </StackLayout>
+  <Page>
+    <StackLayout>
+      <Label :text="card.from" textWrap="true" />
+      <Label :text="card.tag" textWrap="true" />
+      <Label :text="date" textWrap="true" />
+      <Image :src="image" width="50%" stretch="aspectFit" />
+    </StackLayout>
+  </Page>
 </template>
 
 <script>
 import moment from 'moment';
-import routes from '@/router';
 import * as imageSource from 'tns-core-modules/image-source';
 
 export default {
   props: {
     card: Object,
-    width: String,
   },
   data() {
     return {
@@ -44,15 +44,6 @@ export default {
   computed: {
     date() {
       return moment(this.card.date).format('M/D/YYYY');
-    },
-  },
-  methods: {
-    viewDetail() {
-      this.$navigateTo(routes.detail, {
-        props: {
-          card: this.card,
-        },
-      });
     },
   },
 };
