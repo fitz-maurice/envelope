@@ -61,7 +61,9 @@ export default {
     this.$cache.enableDownload();
   },
   computed: {
-    ...mapGetters(['cardList']),
+    cardList() {
+      return this.$store.state.cards;
+    },
   },
   methods: {
     changeLayout(payload) {
