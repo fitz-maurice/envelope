@@ -231,7 +231,7 @@ export default {
     // Log user out and clear cards
     logout() {
       this.clearCards();
-      this.$userService.user = null;
+      this.$userService.userRef = null;
       this.$authService.logout();
     },
 
