@@ -23,7 +23,7 @@ export default {
     ...mapActions(['loadCards']),
     // The application has loaded
     loaded() {
-      // Initialize Firebae
+      // Initialize Firebase
       firebase.init();
       firebase.addAuthStateListener({
         onAuthStateChanged: data => {

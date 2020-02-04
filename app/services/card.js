@@ -6,6 +6,7 @@ export default class CardService extends Base {
     super();
     this.collectionRef = null;
   }
+
   async createCard(card) {
     return firebase.firestore.collection(`${this.uid}/account/cards`).add(card);
   }
