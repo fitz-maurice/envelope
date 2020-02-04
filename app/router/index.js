@@ -5,6 +5,7 @@ import Settings from '../pages/Settings';
 import Acknowledgements from '../pages/Acknowledgements';
 import CardCreation from '../pages/CardCreation';
 import Subscription from '../pages/Subscription';
+import CardDetail from '../pages/CardDetail';
 
 const routes = {
   loading: Bootstrap,
@@ -14,6 +15,7 @@ const routes = {
   acknowledgements: Acknowledgements,
   cardCreation: CardCreation,
   subscription: Subscription,
+  detail: CardDetail,
 };
 
 export default routes;
