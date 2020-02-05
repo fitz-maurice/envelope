@@ -22,37 +22,17 @@ export default class CardService extends Base {
       snapshot.docChanges().forEach(change => {
         // NEW CARDS ADDED
         if (change.type === 'added') {
-          const card = { id: change.doc.id, ...change.doc.data() };
-          const temp = card.images.map(image =>
-            firebase.storage.getDownloadUrl({
-              remoteFullPath: `${this.uid}/${image}`,
-            }),
-          );
-
-          Promise.all(temp).then(result => {
-            card.images = result;
-            cards.push(card);
-          });
+          cards.push({ id: change.doc.id, ...change.doc.data() });
         }
 
         // CARDS THAT WERE EDITED
         if (change.type === 'modified') {
           const card = { id: change.doc.id, ...change.doc.data() };
-          const temp = card.images.map(image =>
-            firebase.storage.getDownloadUrl({
-              remoteFullPath: `${this.uid}/${image}`,
-            }),
-          );
-
           const oldCard = cards.indexOf(cards.find(old => old.id === card.id));
 
-          Promise.all(temp).then(result => {
-            card.images = result;
-
-            if (~oldCard) {
-              cards.splice(oldCard, 1, card);
-            }
-          });
+          if (~oldCard) {
+            cards.splice(oldCard, 1, card);
+          }
         }
 
         // DELETING A CARD
