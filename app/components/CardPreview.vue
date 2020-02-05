@@ -1,9 +1,9 @@
 <template>
   <StackLayout>
-    <Label :text="card.from" textWrap="true" />
+    <!-- <Label :text="card.from" textWrap="true" />
     <Label :text="card.tag" textWrap="true" />
-    <Label :text="date" textWrap="true" />
-    <Image @tap="viewDetail" :src="image" width="50%" stretch="aspectFit" />
+    <Label :text="date" textWrap="true" /> -->
+    <Image :src="image" stretch="fill" />
   </StackLayout>
 </template>
 
@@ -23,16 +23,6 @@ export default {
     },
     date() {
       return moment(this.card.date).format('M/D/YYYY');
-    },
-  },
-  methods: {
-    viewDetail() {
-      this.$navigateTo(routes.detail, {
-        frame: 'main',
-        props: {
-          card: this.card,
-        },
-      });
     },
   },
 };
