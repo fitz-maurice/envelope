@@ -35,8 +35,9 @@ export default class CardService extends Base {
   async getCards() {
     this.cards = [];
 
-    await firebase.firestore
-      .collection(`${this.uid}/account/cards`)
+    const ref = firebase.firestore.collection(`${this.uid}/account/cards`);
+
+    await ref
       .orderBy('date', 'desc')
       .limit(4)
       .get()
@@ -62,8 +63,9 @@ export default class CardService extends Base {
    * Pagination request to fetch more cards
    */
   async fetchMoreCards() {
-    await firebase.firestore
-      .collection(`${this.uid}/account/cards`)
+    const ref = firebase.firestore.collection(`${this.uid}/account/cards`);
+
+    await ref
       .orderBy('date', 'desc')
       .startAfter(this.end)
       .limit(2)

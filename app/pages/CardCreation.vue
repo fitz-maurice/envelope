@@ -102,6 +102,8 @@ export default {
         date: undefined,
         notes: '',
         images: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       images: [],
       creating: false,
