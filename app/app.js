@@ -3,14 +3,13 @@ import { appRater } from 'nativescript-rater';
 import NSVueShadow from 'nativescript-vue-shadow';
 // import VueDevtools from 'nativescript-vue-devtools';
 import DateTimePicker from 'nativescript-datetimepicker/vue';
-import * as imageCache from 'tns-core-modules/ui/image-cache';
+import RadListView from 'nativescript-ui-listview/vue';
 
 // Application Services;
 import BaseService from './services/base';
 import AdService from './services/ads';
 import AuthService from './services/auth';
 import UserService from './services/user';
-import StorageService from './services/storage';
 import IAPService from './services/iap';
 
 // Styles
@@ -40,21 +39,20 @@ Vue.use(DateTimePicker);
 // https://github.com/jawa-the-hutt/nativescript-vue-shadow
 Vue.use(NSVueShadow);
 
+// RadListView - Core {N} UI Module
+Vue.use(RadListView);
+
 // Services Initialization
 export const baseService = new BaseService();
 export const authService = new AuthService();
 export const userService = new UserService();
 export const adService = new AdService();
-export const storageService = new StorageService();
 export const iapService = new IAPService();
-export const cache = new imageCache.Cache();
 Vue.prototype.$baseService = baseService;
 Vue.prototype.$authService = authService;
 Vue.prototype.$userService = userService;
 Vue.prototype.$adService = adService;
-Vue.prototype.$storageService = storageService;
 Vue.prototype.$iapService = iapService;
-Vue.prototype.$cache = cache;
 
 // Configs
 Vue.config.silent = false;
