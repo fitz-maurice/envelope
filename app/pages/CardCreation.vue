@@ -1,166 +1,73 @@
 <template>
-  <Page @loaded="loaded">
-    <ActionBar title="Create New Card" backgroundColor="#0F6CA6" color="white">
-      <ActionItem text="Cancel" ios.position="left" @tap="cancel" />
-      <ActionItem text="Save" ios.position="right" @tap="save" />
-    </ActionBar>
-
-    <!-- No Permission Access -->
-    <StackLayout v-if="keySet && !hasPermissions">
-      <Label text.decode="&#xf071;" class="far warning-icon" />
-      <Label
-        text="Envelope does not have access to your photos and camera"
-        class="warning-message"
-        textWrap="true"
-      />
-      <Label
-        text="Please enable access so you can continue using Envelope"
-        class="warning-message-sub"
-        textWrap="true"
-      />
-      <Button
-        @tap="goToAppSettings"
-        text="Go To App Settings"
-        class="app-settings"
-      />
-    </StackLayout>
-
-    <!-- Has Permission Access -->
-    <StackLayout v-else key="main" class="p-t-10">
-      <!-- View Selection -->
-      <SegmentedBar
-        @selectedIndexChange="onSelectedIndexChange"
-        v-shadow="3"
-        class="segmented-bar"
+  <Frame id="modal">
+    <Page @loaded="loaded">
+      <ActionBar
+        title="Create New Card"
+        backgroundColor="#0F6CA6"
+        color="white"
       >
-        <SegmentedBarItem v-for="view in views" :title="view" :key="view" />
-      </SegmentedBar>
+        <ActionItem text="Cancel" ios.position="left" @tap="cancel" />
+        <ActionItem text="Save" ios.position="right" @tap="save" />
+      </ActionBar>
 
-      <!-- Card data -->
-      <StackLayout v-show="selectedView === 0" key="data">
-        <!-- Header text -->
+      <!-- No Permission Access -->
+      <StackLayout v-if="keySet && !hasPermissions">
+        <Label text.decode="&#xf071;" class="far warning-icon" />
         <Label
-          text="Tell us a little about the card you received"
+          text="Envelope does not have access to your photos and camera"
+          class="warning-message"
           textWrap="true"
-          class="header"
+        />
+        <Label
+          text="Please enable access so you can continue using Envelope"
+          class="warning-message-sub"
+          textWrap="true"
+        />
+        <Button
+          @tap="goToAppSettings"
+          text="Go To App Settings"
+          class="app-settings"
+        />
+      </StackLayout>
+
+      <!-- Has Permission Access -->
+      <StackLayout v-else key="main" class="p-t-10">
+        <!-- View Selection -->
+        <SegmentedBar
+          v-model="selectedBarIndex"
+          :items="segmentedBarItems"
+          v-shadow="3"
+          class="segmented-bar"
         />
 
-        <!-- From -->
-        <StackLayout>
-          <Label
-            text="Who was the card from?"
-            class="label"
-            :class="{ 'input-error': showErrors && !fromValid }"
-          />
-          <TextField
-            v-model="card.from"
-            v-shadow="2"
-            hint="Card giver's name"
-            returnKeyType="done"
-            class="input"
-          />
-        </StackLayout>
+        <Loader v-show="creating" />
 
-        <!-- Tag type -->
-        <StackLayout class="m-t-15">
-          <Label
-            text="What was the occassion?"
-            class="label"
-            :class="{ 'input-error': showErrors && !tagValid }"
-          />
-          <TextField
-            v-model="card.tag"
-            v-shadow="2"
-            returnKeyType="done"
-            hint="Type of card"
-            class="input"
-          />
-        </StackLayout>
-
-        <!-- Date -->
-        <StackLayout class="m-t-15">
-          <Label
-            text="When did you receive the card?"
-            class="label"
-            :class="{ 'input-error': showErrors && !dateValid }"
-          />
-          <DatePickerField
-            v-model="card.date"
-            @dateChange="dateChange"
-            hint="Date Received"
-            dateFormat="MM/dd/yyyy"
-            class="input"
-          />
-        </StackLayout>
-
-        <!-- Notes -->
-        <StackLayout class="m-t-15">
-          <Label text="Notes (optional)" class="label" />
-          <TextView
-            v-model="card.notes"
-            v-shadow="2"
-            class="input"
-            returnKeyType="done"
-            height="75%"
-          />
-        </StackLayout>
+        <component
+          v-for="(view, index) in ['CardData', 'CardImages']"
+          v-show="index === selectedBarIndex"
+          :key="index"
+          :is="view"
+          :card="card"
+          :images="images"
+          :creating="creating"
+          :showErrors="showErrors"
+          @dateChange="e => (card.date = e)"
+          @image="e => images.push(e)"
+        />
       </StackLayout>
-
-      <!-- Images -->
-      <StackLayout
-        v-show="selectedView === 1"
-        key="images"
-        orientation="vertical"
-        horizonalAlignment="center"
-      >
-        <!-- Buttons -->
-        <FlexboxLayout justifyContent="space-around" class="p-x-25">
-          <Label
-            @tap="selectPicture"
-            text="Select Picture"
-            v-shadow="10"
-            class="button"
-          />
-
-          <Label
-            @tap="takePicture"
-            text="Take Picture"
-            v-shadow="10"
-            class="button"
-          />
-        </FlexboxLayout>
-
-        <GridLayout rows="*, *, *" columns="*, *">
-          <StackLayout
-            v-for="(img, index) in images"
-            :key="index"
-            class="m-t-25"
-            :row="index / 2 < 1 ? 0 : index / 2 <= 2 ? 1 : 2"
-            :column="(index + 1) % 2 == 0 ? 1 : 0"
-          >
-            <Label
-              :text="`Picture ${index + 1}`"
-              textWrap="true"
-              class="label label-img"
-            />
-            <Image :src="img" v-shadow="15" stretch="aspectFit" class="img" />
-          </StackLayout>
-        </GridLayout>
-      </StackLayout>
-    </StackLayout>
-  </Page>
+    </Page>
+  </Frame>
 </template>
 
 <script>
-import { hasKey, setBoolean } from 'tns-core-modules/application-settings';
-import CardService from '@/services/card';
-import moment from 'moment';
 import routes from '~/router';
-import * as camera from 'nativescript-camera';
-import * as imagepicker from 'nativescript-imagepicker';
-import { ImageSource, toBase64String } from 'tns-core-modules/image-source';
-import { ImageCropper } from 'nativescript-imagecropper';
+import Loader from '@/components/Loader';
+import CardService from '@/services/card';
+import CardData from '@/components/CardData';
+import CardImages from '@/components/CardImages';
+import { toBase64String } from 'tns-core-modules/image-source';
 import { openAppSettings } from 'nativescript-advanced-permissions/core';
+import { hasKey, setBoolean } from 'tns-core-modules/application-settings';
 import {
   hasCameraPermissions,
   requestCameraPermissions,
@@ -173,10 +80,22 @@ import {
 const cardService = new CardService();
 
 export default {
+  components: {
+    Loader,
+    CardData,
+    CardImages,
+  },
   data() {
     return {
-      selectedView: 0,
-      views: ['Card Info', 'Images'],
+      segmentedBarItems: (function() {
+        var segmentedBarModule = require('tns-core-modules/ui/segmented-bar');
+        let segmentedBarItem1 = new segmentedBarModule.SegmentedBarItem();
+        segmentedBarItem1.title = 'Card Info';
+        let segmentedBarItem2 = new segmentedBarModule.SegmentedBarItem();
+        segmentedBarItem2.title = 'Card Images';
+        return [segmentedBarItem1, segmentedBarItem2];
+      })(),
+      selectedBarIndex: 0,
       card: {
         from: '',
         tag: '',
@@ -191,9 +110,6 @@ export default {
     };
   },
   computed: {
-    today() {
-      return moment(new Date()).format('MM/DD/YYYY');
-    },
     hasPermissions() {
       return hasCameraPermissions() && hasFilePermissions();
     },
@@ -231,23 +147,9 @@ export default {
       }
     },
 
-    doneTap(args) {
-      args.object.dismissSoftInput();
-    },
-
-    // Update the when it changes
-    dateChange(args) {
-      this.card.date = args.value;
-    },
-
     // Take user to app settings
     goToAppSettings() {
       openAppSettings();
-    },
-
-    // Change the selected view index
-    onSelectedIndexChange(args) {
-      this.selectedView = args.object.selectedIndex;
     },
 
     // Create the new card
@@ -282,10 +184,7 @@ export default {
             title: 'Your card was created!',
             okButtonText: 'Ok',
           }).then(() => {
-            this.$navigateTo(routes.home, {
-              clearHistory: true,
-              animated: false,
-            });
+            this.$modal.close();
           });
         })
         .catch(err => console.log(err));
@@ -300,96 +199,7 @@ export default {
         cancelButtonText: 'Cancel',
       }).then(result => {
         if (result) {
-          this.$navigateTo(routes.home, {
-            clearHistory: true,
-            animated: false,
-          });
-        }
-      });
-    },
-
-    // Take picture and pass to cropper
-    takePicture() {
-      let source = new ImageSource();
-
-      camera.requestPermissions().then(
-        () => {
-          camera
-            .takePicture({
-              width: 300,
-              keepAspectRatio: true,
-            })
-            .then(imageAsset => {
-              source.fromAsset(imageAsset).then(source => {
-                this.editPicture(source);
-              });
-            })
-            .catch(function(err) {
-              console.log('Error -> ' + err.message);
-            });
-        },
-        () => {
-          console.log('No permissions for camera');
-        },
-      );
-    },
-
-    // Select picture from phone
-    selectPicture() {
-      let image;
-      let source = new ImageSource();
-      let context = imagepicker.create({
-        mode: 'single',
-        mediaType: 'image',
-        minimumNumberOfSelection: '1',
-      });
-
-      context
-        .authorize()
-        .then(() => {
-          return context.present();
-        })
-        .then(selection => {
-          selection.forEach(selected => {
-            source.fromAsset(selected).then(source => {
-              setTimeout(async () => {
-                this.editPicture(source);
-              }, 250);
-            });
-          });
-        })
-        .catch(e => {
-          console.log('error in selectPicture', e);
-        });
-    },
-
-    // Edit and crop the picture
-    async editPicture(source) {
-      const imageCropper = new ImageCropper();
-
-      setTimeout(async () => {
-        await imageCropper
-          .show(source, { width: 300, height: 300, keepAspectRatio: true })
-          .then(({ response, image }) => {
-            if (response === 'Success') {
-              this.images.push(image);
-            }
-          })
-          .catch(function(e) {
-            console.log('ERROR', e);
-          });
-      }, 100);
-    },
-
-    async restrictedAccess() {
-      confirm({
-        title: 'Envelope',
-        message: 'Your message',
-        okButtonText: 'Go to settings',
-        cancelButtonText: 'Cancel',
-      }).then(result => {
-        if (result) {
-          utils.openUrl('App-prefs:root=General');
+          this.$modal.close();
         }
       });
     },
@@ -397,7 +207,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .segmented-bar {
   width: 90%;
   margin-bottom: 50px;
@@ -412,7 +222,6 @@ export default {
   font-weight: 700;
   width: 85%;
   margin-bottom: 75px;
-  letter-spacing: 0.075px;
 }
 
 .button {

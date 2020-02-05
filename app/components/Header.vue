@@ -36,7 +36,7 @@
     <ActionItem
       ios.position="right"
       android.position="actionBar"
-      @tap="$navigateTo(routes.settings)"
+      @tap="$navigateTo(routes.settings, { frame: 'main' })"
     >
       <Label
         class="far header-icon m-l-15"

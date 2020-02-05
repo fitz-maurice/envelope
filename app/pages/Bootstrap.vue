@@ -36,11 +36,13 @@ export default {
             this.$userService.getUserDocument();
 
             this.$navigateTo(routes.home, {
+              frame: 'main',
               animated: false,
               clearHistory: true,
             });
           } else
             this.$navigateTo(routes.login, {
+              frame: 'main',
               animated: false,
               clearHistory: true,
             });

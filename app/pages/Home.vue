@@ -25,9 +25,7 @@
       <AbsoluteLayout width="100%" marginTop="94%">
         <FlexboxLayout justifyContent="flex-end" width="94%">
           <FabButton
-            @onButtonTap="
-              $navigateTo(routes.cardCreation, { clearHistory: true })
-            "
+            @onButtonTap="$showModal(routes.cardCreation, { fullscreen: true })"
           />
         </FlexboxLayout>
       </AbsoluteLayout>
@@ -37,7 +35,6 @@
 
 <script>
 import routes from '@/router';
-import { mapGetters } from 'vuex';
 import Header from '@/components/Header';
 import CardPreview from '@/components/CardPreview';
 import FabButton from '@/components/FabButton';
@@ -62,7 +59,7 @@ export default {
   },
   computed: {
     cardList() {
-      return this.$store.state.cards;
+      return this.$store.getters.cardList;
     },
   },
   methods: {
