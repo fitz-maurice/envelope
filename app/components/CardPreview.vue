@@ -10,38 +10,17 @@
 <script>
 import moment from 'moment';
 import routes from '@/router';
-import * as imageSource from 'tns-core-modules/image-source';
+import { fromBase64 } from 'tns-core-modules/image-source';
 
 export default {
   props: {
     card: Object,
     width: String,
   },
-  data() {
-    return {
-      image: '',
-    };
-  },
-  created() {
-    const url = this.card.images[0];
-    const image = this.$cache.get(url);
-
-    if (image) {
-      this.image = imageSource.fromNativeSource(image);
-    } else {
-      this.$cache.push({
-        key: url,
-        url,
-        completed: (image, key) => {
-          this.image = imageSource.fromNativeSource(image);
-        },
-        error: () => {
-          console.log('Error');
-        },
-      });
-    }
-  },
   computed: {
+    image() {
+      return fromBase64(this.card.images[0]);
+    },
     date() {
       return moment(this.card.date).format('M/D/YYYY');
     },

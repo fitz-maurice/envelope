@@ -158,7 +158,7 @@ import moment from 'moment';
 import routes from '~/router';
 import * as camera from 'nativescript-camera';
 import * as imagepicker from 'nativescript-imagepicker';
-import { ImageSource } from 'tns-core-modules/image-source';
+import { ImageSource, toBase64String } from 'tns-core-modules/image-source';
 import { ImageCropper } from 'nativescript-imagecropper';
 import { openAppSettings } from 'nativescript-advanced-permissions/core';
 import {
@@ -270,24 +270,25 @@ export default {
         return;
       }
 
-      this.card.images = this.images.map((image, index) => {
-        const name = `${moment(new Date()).unix()}_${index}.jpeg`;
-        this.$storageService.uploadImage(image, name);
-        return name;
-      });
+      this.card.images = this.images.map(image =>
+        image.toBase64String('jpeg', 85),
+      );
 
-      cardService.createCard(this.card).then(() => {
-        this.creating = false;
-        alert({
-          title: 'Your card was created!',
-          okButtonText: 'Ok',
-        }).then(() => {
-          this.$navigateTo(routes.home, {
-            clearHistory: true,
-            animated: false,
+      cardService
+        .createCard(this.card)
+        .then(() => {
+          this.creating = false;
+          alert({
+            title: 'Your card was created!',
+            okButtonText: 'Ok',
+          }).then(() => {
+            this.$navigateTo(routes.home, {
+              clearHistory: true,
+              animated: false,
+            });
           });
-        });
-      });
+        })
+        .catch(err => console.log(err));
     },
 
     // Cancel card creation
@@ -314,7 +315,10 @@ export default {
       camera.requestPermissions().then(
         () => {
           camera
-            .takePicture()
+            .takePicture({
+              width: 300,
+              keepAspectRatio: true,
+            })
             .then(imageAsset => {
               source.fromAsset(imageAsset).then(source => {
                 this.editPicture(source);
@@ -365,7 +369,7 @@ export default {
 
       setTimeout(async () => {
         await imageCropper
-          .show(source)
+          .show(source, { width: 300, height: 300, keepAspectRatio: true })
           .then(({ response, image }) => {
             if (response === 'Success') {
               this.images.push(image);
