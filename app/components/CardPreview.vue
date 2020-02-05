@@ -28,6 +28,7 @@ export default {
   methods: {
     viewDetail() {
       this.$navigateTo(routes.detail, {
+        frame: 'main',
         props: {
           card: this.card,
         },

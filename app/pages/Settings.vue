@@ -284,12 +284,12 @@ export default {
 
     // Navigatio to the Subscriptions page
     subscription() {
-      this.$navigateTo(routes.subscription);
+      this.$navigateTo(routes.subscription, { frame: 'main' });
     },
 
     // Navigate to the acknowledgements page
     ack() {
-      this.$navigateTo(routes.acknowledgements);
+      this.$navigateTo(routes.acknowledgements, { frame: 'main' });
     },
 
     // Open the help page in InAppBrowser

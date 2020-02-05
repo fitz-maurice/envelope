@@ -61,6 +61,6 @@ Vue.config.silent = false;
 
 // The Vue Application Instance
 new Vue({
-  render: h => h('frame', [h(routes.loading)]),
+  render: h => h('frame', { attrs: { id: 'main' } }, [h(routes.loading)]),
   store,
 }).$start();
