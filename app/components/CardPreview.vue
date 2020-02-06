@@ -3,7 +3,7 @@
     <!-- <Label :text="card.from" textWrap="true" />
     <Label :text="card.tag" textWrap="true" />
     <Label :text="date" textWrap="true" /> -->
-    <Image :src="image" stretch="fill" />
+    <Image :src="image" stretch="fill" @tap="test" />
   </StackLayout>
 </template>
 

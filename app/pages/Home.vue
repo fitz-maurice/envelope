@@ -58,7 +58,7 @@ export default {
   methods: {
     ...mapActions(['loadCards', 'fetchMoreCards']),
     filter() {
-      this.$showBottomSheet(CardPreview, {});
+      this.$showBottomSheet(routes.settings, {});
     },
     onPullToRefresh() {
       this.$nextTick(() => {
@@ -79,7 +79,6 @@ export default {
     },
     cardTapped({ item }) {
       this.$showModal(routes.detail, {
-        cancelable: false,
         props: {
           card: item,
         },

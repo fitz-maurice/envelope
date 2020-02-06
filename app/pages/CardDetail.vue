@@ -1,7 +1,8 @@
 <template>
-  <Frame id="detail">
+  <Frame id="detail" ref="test">
     <Page ref="page">
       <!-- Action Bar -->
+      // TODO: Make action buttons reactive when editing
       <ActionBar :title="`Card from ${card.from}`">
         <ActionItem
           icon=""
@@ -29,6 +30,12 @@
         <Label :text="card.from" textWrap="true" />
         <Label :text="card.tag" textWrap="true" />
         <Label :text="date" textWrap="true" />
+
+        <Button
+          v-if="isEditing"
+          text="Can't drag now. Click to make draggable"
+          @tap="cancelEdit"
+        />
       </StackLayout>
     </Page>
   </Frame>
@@ -39,10 +46,16 @@ import moment from 'moment';
 import routes from '@/router';
 import { mapActions } from 'vuex';
 import { fromBase64 } from 'tns-core-modules/image-source';
+import { Frame } from 'tns-core-modules/ui/frame';
 
 export default {
   props: {
     card: Object,
+  },
+  data() {
+    return {
+      isEditing: false,
+    };
   },
   computed: {
     images() {
@@ -62,9 +75,28 @@ export default {
         if (result === 'Delete') {
           this.delete();
         } else {
-          console.log('CHangeing...', this.$refs.page.nativeView);
-          this.$refs.page.nativeView.set('fullscreen', true);
+          this.edit();
         }
+      });
+    },
+    edit() {
+      this.isEditing = true;
+      this.$nextTick(() => {
+        Frame.topmost().ios.controller.modalInPresentation = true;
+      });
+    },
+    cancelEdit() {
+      // TODO: show prompt that changes will be lost
+      this.isEditing = false;
+      this.$nextTick(() => {
+        Frame.topmost().ios.controller.modalInPresentation = false;
+      });
+    },
+    update() {
+      // TODO: show prompt upon success
+      this.isEditing = false;
+      this.$nextTick(() => {
+        Frame.topmost().ios.controller.modalInPresentation = false;
       });
     },
     delete() {
