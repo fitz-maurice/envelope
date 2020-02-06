@@ -4,41 +4,40 @@
     @navigatingFrom="$adService.hideBanner()"
   >
     <!-- Envelope Header -->
-    <Header @changeLayout="changeLayout" />
-    <!-- Main view -->
+    <Header @filter="filter()" />
+
+    <!-- Card View -->
     <AbsoluteLayout>
       <RadListView
         ref="list"
         for="card in cardList"
         pullToRefresh="true"
-        loadOnDemandMode="Manual"
-        layout="grid"
-        item-height="250"
+        loadOnDemandMode="Auto"
+        layout="staggered"
         @itemTap="cardTapped"
         @pullToRefreshInitiated="onPullToRefresh"
         @loadMoreDataRequested="loadMoreCards"
       >
         <v-template>
-          <CardPreview :card="card" :width="layout.width" />
+          <CardPreview :card="card" width="50%" />
         </v-template>
       </RadListView>
-      <AbsoluteLayout width="100%" marginTop="94%">
-        <FlexboxLayout justifyContent="flex-end" width="94%">
-          <FabButton
-            @onButtonTap="$showModal(routes.cardCreation, { fullscreen: true })"
-          />
-        </FlexboxLayout>
-      </AbsoluteLayout>
+
+      <!-- FAButton -->
+      <FabButton
+        @onButtonTap="$showModal(routes.cardCreation, { fullscreen: true })"
+      />
     </AbsoluteLayout>
   </Page>
 </template>
 
 <script>
 import routes from '@/router';
-import Header from '@/components/Header';
-import CardPreview from '@/components/CardPreview';
-import FabButton from '@/components/FabButton';
 import { mapActions } from 'vuex';
+import Header from '@/components/Header';
+import FabButton from '@/components/FabButton';
+import CardPreview from '@/components/CardPreview';
+import { platform } from 'tns-core-modules/platform';
 
 export default {
   components: {
@@ -49,10 +48,6 @@ export default {
   data() {
     return {
       routes,
-      layout: {
-        width: '49.9%',
-        orientation: 'horizontal',
-      },
     };
   },
   computed: {
@@ -62,6 +57,9 @@ export default {
   },
   methods: {
     ...mapActions(['loadCards', 'fetchMoreCards']),
+    filter() {
+      this.$showBottomSheet(CardPreview, {});
+    },
     onPullToRefresh() {
       this.$nextTick(() => {
         this.loadCards().then(() =>
@@ -70,23 +68,22 @@ export default {
       });
     },
     loadMoreCards() {
+      if (this.cardList.length < 20) {
+        this.$refs.list.nativeView.notifyLoadOnDemandFinished(true);
+        return;
+      }
+
       this.fetchMoreCards().then(() => {
         this.$refs.list.nativeView.notifyLoadOnDemandFinished();
       });
     },
     cardTapped({ item }) {
-      this.$navigateTo(routes.detail, {
-        frame: 'main',
+      this.$showModal(routes.detail, {
+        cancelable: false,
         props: {
           card: item,
         },
       });
-    },
-    changeLayout(payload) {
-      this.layout = {
-        width: payload ? '100%' : '49.9%',
-        orientation: payload ? 'vertical' : 'horizontal',
-      };
     },
   },
 };

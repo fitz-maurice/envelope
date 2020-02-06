@@ -4,6 +4,7 @@ import NSVueShadow from 'nativescript-vue-shadow';
 // import VueDevtools from 'nativescript-vue-devtools';
 import DateTimePicker from 'nativescript-datetimepicker/vue';
 import RadListView from 'nativescript-ui-listview/vue';
+import BottomSheetPlugin from 'nativescript-material-bottomsheet/vue';
 
 // Application Services;
 import BaseService from './services/base';
@@ -41,6 +42,10 @@ Vue.use(NSVueShadow);
 
 // RadListView - Core {N} UI Module
 Vue.use(RadListView);
+
+// Vue
+// https://market.nativescript.org/plugins/nativescript-material-bottomsheet
+Vue.use(BottomSheetPlugin);
 
 // Services Initialization
 export const baseService = new BaseService();

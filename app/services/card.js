@@ -39,7 +39,7 @@ export default class CardService extends Base {
 
     await ref
       .orderBy('date', 'desc')
-      .limit(4)
+      .limit(20)
       .get()
       .then(snapshots => {
         this.start = snapshots.docs[0];
@@ -68,7 +68,7 @@ export default class CardService extends Base {
     await ref
       .orderBy('date', 'desc')
       .startAfter(this.end)
-      .limit(2)
+      .limit(10)
       .get()
       .then(snapshots => {
         this.start = this.end;

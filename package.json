@@ -32,6 +32,7 @@
     "nativescript-imagepicker": "^7.1.0",
     "nativescript-inappbrowser": "^2.2.0",
     "nativescript-iqkeyboardmanager": "^1.5.1",
+    "nativescript-material-bottomsheet": "^3.1.5",
     "nativescript-open-app": "^0.3.0",
     "nativescript-plugin-firebase": "^10.3.3",
     "nativescript-rater": "^2.1.1",

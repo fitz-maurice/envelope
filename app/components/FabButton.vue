@@ -1,10 +1,13 @@
 <template>
-  <Label
-    @tap="$emit('onButtonTap')"
-    text.decode="&#xf067;"
-    v-shadow="15"
-    class="far fab-button"
-  />
+  <AbsoluteLayout marginTop="86%">
+    <Label
+      left="300"
+      v-shadow="15"
+      text.decode="&#xf067;"
+      class="far fab-button"
+      @tap="$emit('onButtonTap')"
+    />
+  </AbsoluteLayout>
 </template>
 
 <script>

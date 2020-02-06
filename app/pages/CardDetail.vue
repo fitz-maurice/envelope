@@ -1,35 +1,44 @@
 <template>
-  <Page>
-    <ActionBar :title="`Card from ${card.from}`">
-      <NavigationButton android.systemIcon="ic_menu_back" />
-      <ActionItem
-        icon=""
-        ios.systemIcon="2"
-        ios.position="right"
-        @tap="editPrompt"
-      />
-    </ActionBar>
+  <Frame id="detail">
+    <Page ref="page">
+      <!-- Action Bar -->
+      <ActionBar :title="`Card from ${card.from}`">
+        <ActionItem
+          icon=""
+          ios.systemIcon="2"
+          ios.position="left"
+          @tap="editPrompt"
+        />
+        <ActionItem
+          icon=""
+          ios.systemIcon="0"
+          ios.position="right"
+          @tap="goHome"
+        />
+      </ActionBar>
 
-    <StackLayout>
-      <Label :text="card.from" textWrap="true" />
-      <Label :text="card.tag" textWrap="true" />
-      <Label :text="date" textWrap="true" />
-      <Image
-        v-for="(image, index) in images"
-        :key="index"
-        :src="image"
-        width="auto"
-        stretch="aspectFit"
-      />
-    </StackLayout>
-  </Page>
+      <!-- Main Layout -->
+      <StackLayout>
+        <Image
+          v-for="(image, index) in images"
+          :key="index"
+          :src="image"
+          width="auto"
+          stretch="aspectFit"
+        />
+        <Label :text="card.from" textWrap="true" />
+        <Label :text="card.tag" textWrap="true" />
+        <Label :text="date" textWrap="true" />
+      </StackLayout>
+    </Page>
+  </Frame>
 </template>
 
 <script>
 import moment from 'moment';
-import { fromBase64 } from 'tns-core-modules/image-source';
-import { mapActions } from 'vuex';
 import routes from '@/router';
+import { mapActions } from 'vuex';
+import { fromBase64 } from 'tns-core-modules/image-source';
 
 export default {
   props: {
@@ -45,12 +54,16 @@ export default {
   },
   methods: {
     ...mapActions(['deleteCard']),
+    goHome() {
+      this.$modal.close();
+    },
     editPrompt() {
       action('Select option', 'Cancel', ['Edit', 'Delete']).then(result => {
         if (result === 'Delete') {
           this.delete();
         } else {
-          console.log(result);
+          console.log('CHangeing...', this.$refs.page.nativeView);
+          this.$refs.page.nativeView.set('fullscreen', true);
         }
       });
     },
@@ -69,10 +82,7 @@ export default {
               message: 'Card was successfully deleted',
               okButtonText: 'Ok',
             }).then(() => {
-              this.$navigateTo(routes.home, {
-                frame: 'main',
-                clearHistory: true,
-              });
+              this.goHome();
             });
           });
         }
