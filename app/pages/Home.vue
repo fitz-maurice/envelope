@@ -58,7 +58,7 @@ export default {
   methods: {
     ...mapActions(['loadCards', 'fetchMoreCards']),
     filter() {
-      this.$showBottomSheet(routes.settings, {});
+      this.$showBottomSheet(routes.filters, {});
     },
     onPullToRefresh() {
       this.$nextTick(() => {

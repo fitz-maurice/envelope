@@ -6,6 +6,7 @@ import Acknowledgements from '../pages/Acknowledgements';
 import CardCreation from '../pages/CardCreation';
 import Subscription from '../pages/Subscription';
 import CardDetail from '../pages/CardDetail';
+import Filters from '../pages/Filters';
 
 const routes = {
   loading: Bootstrap,
@@ -16,6 +17,7 @@ const routes = {
   cardCreation: CardCreation,
   subscription: Subscription,
   detail: CardDetail,
+  filters: Filters,
 };
 
 export default routes;

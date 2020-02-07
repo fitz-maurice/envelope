@@ -2,40 +2,79 @@
   <Frame id="detail" ref="test">
     <Page ref="page">
       <!-- Action Bar -->
-      // TODO: Make action buttons reactive when editing
       <ActionBar :title="`Card from ${card.from}`">
+        <!-- Left Side - Edit & Cancel -->
         <ActionItem
           icon=""
           ios.systemIcon="2"
           ios.position="left"
           @tap="editPrompt"
+          :visibility="hideButtons"
         />
+        <ActionItem
+          icon=""
+          ios.systemIcon="1"
+          ios.position="left"
+          @tap="cancelEdit"
+          :visibility="showButtons"
+        />
+        <!-- Right Side - Done & Save -->
         <ActionItem
           icon=""
           ios.systemIcon="0"
           ios.position="right"
           @tap="goHome"
+          :visibility="hideButtons"
+        />
+        <ActionItem
+          icon=""
+          ios.systemIcon="3"
+          ios.position="right"
+          @tap="inEditing"
+          :visibility="showButtons"
         />
       </ActionBar>
 
       <!-- Main Layout -->
       <StackLayout>
-        <Image
-          v-for="(image, index) in images"
-          :key="index"
-          :src="image"
-          width="auto"
-          stretch="aspectFit"
-        />
-        <Label :text="card.from" textWrap="true" />
-        <Label :text="card.tag" textWrap="true" />
-        <Label :text="date" textWrap="true" />
+        <!-- Cards -->
+        <GridLayout height="350">
+          <Carousel
+            ref="myCarousel"
+            height="100%"
+            width="100%"
+            color="white"
+            android:indicatorAnimation="slide"
+            indicatorColor="#fff"
+            indicatorOffset="0, -10"
+            showIndicator="true"
+          >
+            <CarouselItem
+              v-for="(image, index) in images"
+              :key="index"
+              verticalAlignment="middle"
+            >
+              <GridLayout>
+                <Image :src="image" stretch="aspectFill" />
+              </GridLayout>
+            </CarouselItem>
+          </Carousel>
+        </GridLayout>
 
-        <Button
-          v-if="isEditing"
-          text="Can't drag now. Click to make draggable"
-          @tap="cancelEdit"
-        />
+        <StackLayout v-if="!isEditing">
+          <Label :text="card.from" textWrap="true" />
+          <Label :text="card.tag" textWrap="true" />
+          <Label :text="date" textWrap="true" />
+        </StackLayout>
+
+        <!-- Editing -->
+        <StackLayout v-else>
+          <Button
+            v-if="isEditing"
+            text="Can't drag now. Click to make draggable"
+            @tap="cancelEdit"
+          />
+        </StackLayout>
       </StackLayout>
     </Page>
   </Frame>
@@ -45,8 +84,8 @@
 import moment from 'moment';
 import routes from '@/router';
 import { mapActions } from 'vuex';
-import { fromBase64 } from 'tns-core-modules/image-source';
 import { Frame } from 'tns-core-modules/ui/frame';
+import { fromBase64 } from 'tns-core-modules/image-source';
 
 export default {
   props: {
@@ -64,40 +103,60 @@ export default {
     date() {
       return moment(this.card.date).format('M/D/YYYY');
     },
+    hideButtons() {
+      return this.isEditing ? 'collapse' : 'visible';
+    },
+    showButtons() {
+      return this.isEditing ? 'visible' : 'collapse';
+    },
   },
   methods: {
     ...mapActions(['deleteCard']),
     goHome() {
+      this.isEditing = false;
       this.$modal.close();
     },
     editPrompt() {
-      action('Select option', 'Cancel', ['Edit', 'Delete']).then(result => {
-        if (result === 'Delete') {
-          this.delete();
-        } else {
-          this.edit();
-        }
-      });
+      action('Select option', 'Cancel', ['Edit', 'Delete']).then(
+        async result => {
+          if (result === 'Delete') {
+            await this.delete();
+          } else {
+            this.isEditing = true;
+            await this.edit();
+          }
+        },
+      );
     },
-    edit() {
-      this.isEditing = true;
-      this.$nextTick(() => {
+    async edit() {
+      await this.$nextTick(() => {
         Frame.topmost().ios.controller.modalInPresentation = true;
       });
     },
-    cancelEdit() {
-      // TODO: show prompt that changes will be lost
+    async cancelEdit() {
+      await confirm({
+        title: 'Discard edits',
+        message: 'Are you sure? Edits will be lost.',
+        okButtonText: 'Discard',
+        cancelButtonText: 'Cancel',
+      }).then(async result => {
+        if (result) {
+          this.isEditing = false;
+          await this.$nextTick(() => {
+            Frame.topmost().ios.controller.modalInPresentation = false;
+          });
+        }
+      });
+    },
+    async update() {
+      // TODO: show prompt upon success
       this.isEditing = false;
-      this.$nextTick(() => {
+      await this.$nextTick(() => {
         Frame.topmost().ios.controller.modalInPresentation = false;
       });
     },
-    update() {
-      // TODO: show prompt upon success
-      this.isEditing = false;
-      this.$nextTick(() => {
-        Frame.topmost().ios.controller.modalInPresentation = false;
-      });
+    inEditing() {
+      alert('In editing mode...');
     },
     delete() {
       confirm({

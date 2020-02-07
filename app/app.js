@@ -44,10 +44,20 @@ Vue.use(NSVueShadow);
 // RadListView - Core {N} UI Module
 Vue.use(RadListView);
 
-// Vue
+// Vue Material Bottomsheet
 // https://market.nativescript.org/plugins/nativescript-material-bottomsheet
 install();
 Vue.use(BottomSheetPlugin);
+
+// https://github.com/manijak/nativescript-carousel/tree/master/demo-vue
+Vue.registerElement(
+  'Carousel',
+  () => require('nativescript-carousel').Carousel,
+);
+Vue.registerElement(
+  'CarouselItem',
+  () => require('nativescript-carousel').CarouselItem,
+);
 
 // Services Initialization
 export const baseService = new BaseService();

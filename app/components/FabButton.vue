@@ -1,13 +1,13 @@
 <template>
-  <AbsoluteLayout marginTop="86%">
+  <DockLayout marginTop="86%">
     <Label
-      left="300"
+      dock="bottom"
       v-shadow="15"
       text.decode="&#xf067;"
       class="far fab-button"
       @tap="$emit('onButtonTap')"
     />
-  </AbsoluteLayout>
+  </DockLayout>
 </template>
 
 <script>
