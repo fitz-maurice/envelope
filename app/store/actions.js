@@ -1,5 +1,6 @@
 import * as types from './types';
 import CardService from '@/services/card';
+import { fetchHolidays } from '~/services/holidays';
 
 const cardService = new CardService();
 
@@ -60,4 +61,20 @@ export const clearCards = ({ commit }) => {
         reject(error);
       });
   });
+};
+
+export const setSort = ({ commit }, sort) => {
+  commit(types.SET_SORT, sort);
+};
+
+export const setTag = ({ commit }, tag) => {
+  commit(types.SET_TAG, tag);
+};
+
+export const setPerson = ({ commit }, person) => {
+  commit(types.SET_PERSON, person);
+};
+
+export const setHolidays = async ({ commit }) => {
+  commit(types.SET_HOLIDAYS, await fetchHolidays());
 };

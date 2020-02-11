@@ -20,9 +20,11 @@ export default {
     Loader,
   },
   methods: {
-    ...mapActions(['loadCards']),
+    ...mapActions(['loadCards', 'setHolidays']),
     // The application has loaded
     loaded() {
+      this.setHolidays();
+
       // Initialize Firebase
       firebase.init();
       firebase.addAuthStateListener({
