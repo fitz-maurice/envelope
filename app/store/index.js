@@ -10,6 +10,10 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     cards: [],
+    holidays: [],
+    currentSort: 'date',
+    personFilter: 0,
+    tagFilter: 0,
   },
   mutations,
   actions,

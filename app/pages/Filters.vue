@@ -1,47 +1,64 @@
 <template>
   <Page ref="page">
-    <!-- Action Bar -->
-    <ActionBar title="Filter" class="title" />
-
     <!-- Main Layout -->
     <StackLayout>
-      <Label text="Hello World!" textWrap="true" />
-      <Label text="Hello World!" textWrap="true" />
-      <Label text="Hello World!" textWrap="true" />
-      <Label text="Hello World!" textWrap="true" />
-      <Label text="Hello World!" textWrap="true" />
+      <Label
+        v-for="(sort, index) in sorts"
+        :class="{ selected: sort.value === $store.state.currentSort }"
+        :key="index"
+        :text="sort.name"
+        @tap="setSort(sort.value)"
+        textWrap="true"
+      />
+
+      <ListPicker
+        :items="$store.state.holidays"
+        :selectedIndex="$store.state.tagFilter"
+        @selectedIndexChange="setTag($event.value)"
+      />
+
+      <ListPicker
+        :items="peopleList"
+        :selectedIndex="$store.state.personFilter"
+        @selectedIndexChange="setPerson($event.value)"
+      />
     </StackLayout>
   </Page>
 </template>
 
 <script>
-// import moment from 'moment';
-// import routes from '@/router';
-// import { mapActions } from 'vuex';
-// import { Frame } from 'tns-core-modules/ui/frame';
+import { mapActions } from 'vuex';
+import { getString } from 'tns-core-modules/application-settings';
 
 export default {
   data() {
     return {
-      foo: 'bar',
+      sorts: [
+        {
+          name: 'Date Received',
+          value: 'date',
+        },
+        {
+          name: 'Creation Date',
+          value: 'createdAt',
+        },
+      ],
     };
   },
-  methods: {
-    // ...mapActions(['deleteCard']),
-    hello() {
-      alert('In editing mode...');
+  computed: {
+    peopleList() {
+      return this.$store.getters.people(this);
     },
+  },
+  methods: {
+    ...mapActions(['setSort', 'setTag', 'setPerson']),
   },
 };
 </script>
 
 <style scoped>
-.title {
-  background-color: #590404;
-  border-radius: 9999px;
-  vertical-align: center;
-  color: white;
-  text-align: center;
-  font-size: 18;
+.selected {
+  color: #590404;
+  font-weight: 600;
 }
 </style>

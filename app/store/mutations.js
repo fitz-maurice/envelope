@@ -7,6 +7,18 @@ const mutations = {
   [types.CLEAR_CARDS](state) {
     state.cards = [];
   },
+  [types.SET_SORT](state, sort) {
+    state.currentSort = sort;
+  },
+  [types.SET_TAG](state, tag) {
+    state.tagFilter = tag;
+  },
+  [types.SET_HOLIDAYS](state, holidays) {
+    state.holidays = holidays.sort();
+  },
+  [types.SET_PERSON](state, person) {
+    state.personFilter = person;
+  },
 };
 
 export default mutations;
