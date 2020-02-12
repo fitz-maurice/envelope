@@ -19,6 +19,7 @@ const mutations = {
   [types.SET_PERSON](state, person) {
     state.personFilter = person;
   },
+  [types.FILTER](state) {},
 };
 
 export default mutations;

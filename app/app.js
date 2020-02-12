@@ -72,7 +72,7 @@ Vue.prototype.$adService = adService;
 Vue.prototype.$iapService = iapService;
 
 // Configs
-Vue.config.silent = false;
+Vue.config.silent = true;
 
 // The Vue Application Instance
 new Vue({

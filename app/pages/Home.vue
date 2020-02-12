@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     cardList() {
-      return this.$store.getters.cardList(this);
+      return this.$store.state.cards;
     },
   },
   methods: {

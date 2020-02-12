@@ -1,4 +1,5 @@
 import Base from './base';
+import { cond } from '~/services/chain';
 import * as firebase from 'nativescript-plugin-firebase';
 
 export default class CardService extends Base {
@@ -32,29 +33,33 @@ export default class CardService extends Base {
   /**
    * Inital request to hydrate Vuex
    */
-  async getCards() {
+  async getCards({ tagFilter, personFilter, currentSort }) {
+    this.detachListeners();
     this.cards = [];
 
     const ref = firebase.firestore.collection(`${this.uid}/account/cards`);
 
-    await ref
-      .orderBy('date', 'desc')
-      .limit(20)
-      .get()
-      .then(snapshots => {
-        this.start = snapshots.docs[0];
-        this.end = snapshots.docs[snapshots.docs.length - 1];
+    const condRef = cond(ref.orderBy(currentSort, 'desc').limit(20))
+      .if(tagFilter !== 'All', condRef => condRef.where('tag', '==', tagFilter))
+      .if(personFilter !== 'All', condRef =>
+        condRef.where('from', '==', personFilter),
+      )
+      .end();
 
-        const listener = ref
-          .orderBy('date', 'desc')
-          .startAt(this.start)
-          .endAt(this.end)
-          .onSnapshot(snapshot =>
-            snapshot.docChanges().forEach(change => this.handleChange(change)),
-          );
+    await condRef.get().then(snapshots => {
+      this.start = snapshots.docs[0];
+      this.end = snapshots.docs[snapshots.docs.length - 1];
 
-        this.listeners.push(listener);
-      });
+      const listener = condRef
+        .orderBy(currentSort, 'desc')
+        .startAt(this.start)
+        .endAt(this.end)
+        .onSnapshot(snapshot =>
+          snapshot.docChanges().forEach(change => this.handleChange(change)),
+        );
+
+      this.listeners.push(listener);
+    });
 
     return this.cards;
   }
@@ -62,28 +67,35 @@ export default class CardService extends Base {
   /**
    * Pagination request to fetch more cards
    */
-  async fetchMoreCards() {
+  async fetchMoreCards({ tagFilter, personFilter, currentSort }) {
     const ref = firebase.firestore.collection(`${this.uid}/account/cards`);
 
-    await ref
-      .orderBy('date', 'desc')
-      .startAfter(this.end)
-      .limit(10)
-      .get()
-      .then(snapshots => {
-        this.start = this.end;
-        this.end = snapshots.docs[snapshots.docs.length - 1];
+    const condRef = cond(
+      ref
+        .orderBy(currentSort, 'desc')
+        .startAfter(this.end)
+        .limit(10),
+    )
+      .if(tagFilter !== 'All', condRef => condRef.where('tag', '==', tagFilter))
+      .if(personFilter !== 'All', condRef =>
+        condRef.where('from', '==', personFilter),
+      )
+      .end();
 
-        const listener = ref
-          .orderBy('date', 'desc')
-          .startAfter(this.start)
-          .endAt(this.end)
-          .onSnapshot(snapshot =>
-            snapshot.docChanges().forEach(change => this.handleChange(change)),
-          );
+    await condRef.get().then(snapshots => {
+      this.start = this.end;
+      this.end = snapshots.docs[snapshots.docs.length - 1];
 
-        this.listeners.push(listener);
-      });
+      const listener = ref
+        .orderBy(currentSort, 'desc')
+        .startAfter(this.start)
+        .endAt(this.end)
+        .onSnapshot(snapshot =>
+          snapshot.docChanges().forEach(change => this.handleChange(change)),
+        );
+
+      this.listeners.push(listener);
+    });
 
     return this.cards;
   }
@@ -131,6 +143,9 @@ export default class CardService extends Base {
    */
   detachListeners() {
     this.cards = [];
+    this.start = null;
+    this.stop = null;
     this.listeners.forEach(listener => listener());
+    this.listeners = [];
   }
 }

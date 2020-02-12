@@ -4,10 +4,10 @@ import { fetchHolidays } from '~/services/holidays';
 
 const cardService = new CardService();
 
-export const loadCards = async ({ commit }) => {
+export const loadCards = async ({ state, commit }) => {
   return new Promise((resolve, reject) => {
     cardService
-      .getCards()
+      .getCards(state)
       .then(cards => {
         commit(types.SET_CARDS, cards);
         resolve();
@@ -19,10 +19,10 @@ export const loadCards = async ({ commit }) => {
   });
 };
 
-export const fetchMoreCards = async ({ commit }) => {
+export const fetchMoreCards = async ({ state, commit }) => {
   return new Promise((resolve, reject) => {
     cardService
-      .fetchMoreCards()
+      .fetchMoreCards(state)
       .then(cards => {
         commit(types.SET_CARDS, cards);
         resolve();
@@ -77,4 +77,8 @@ export const setPerson = ({ commit }, person) => {
 
 export const setHolidays = async ({ commit }) => {
   commit(types.SET_HOLIDAYS, await fetchHolidays());
+};
+
+export const filter = async ({ commit }) => {
+  commit(types.FILTER);
 };
