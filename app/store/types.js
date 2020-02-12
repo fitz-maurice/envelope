@@ -5,3 +5,4 @@ export const SET_SORT = 'SET_SORT';
 export const SET_TAG = 'SET_TAG';
 export const SET_HOLIDAYS = 'SET_HOLIDAYS';
 export const SET_PERSON = 'SET_PERSON';
+export const FILTER = 'FILTER';
