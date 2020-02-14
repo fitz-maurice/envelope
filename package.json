@@ -19,7 +19,7 @@
     "colin": "tns run ios --bundle --device 'iPhone 11 Pro"
   },
   "dependencies": {
-    "@nativescript/theme": "~2.2.1",
+    "@nativescript/theme": "~2.3.0",
     "@proplugins/nativescript-purchase": "^4.0.0",
     "@vue/devtools": "^5.3.3",
     "moment": "^2.24.0",
@@ -35,7 +35,7 @@
     "nativescript-iqkeyboardmanager": "^1.5.1",
     "nativescript-material-bottomsheet": "^2.5.4",
     "nativescript-open-app": "^0.3.0",
-    "nativescript-plugin-firebase": "^10.3.3",
+    "nativescript-plugin-firebase": "~10.4.0",
     "nativescript-rater": "^2.1.1",
     "nativescript-social-share": "^1.6.0",
     "nativescript-socketio": "^3.3.1",
@@ -44,17 +44,17 @@
     "nativescript-vue": "^v2.5.0-alpha.3",
     "nativescript-vue-devtools": "^1.2.0",
     "nativescript-vue-shadow": "^0.1.0",
-    "tns-core-modules": "^6.3.2",
+    "tns-core-modules": "~6.4.0",
     "vuex": "^3.1.2"
   },
   "devDependencies": {
-    "@babel/core": "~7.1.0",
-    "@babel/preset-env": "~7.1.0",
+    "@babel/core": "~7.8.0",
+    "@babel/preset-env": "~7.8.0",
     "babel-loader": "~8.0.0",
-    "nativescript-dev-webpack": "~1.4.0",
+    "nativescript-dev-webpack": "~1.5.0",
     "nativescript-vue-template-compiler": "~2.4.0",
     "node-sass": "^4.7.1",
-    "vue-loader": "~15.4.0"
+    "vue-loader": "~15.9.0"
   },
   "description": "Store your holiday cards forever, without taking up any space on the fridge.",
   "author": "Fitz Creative"
