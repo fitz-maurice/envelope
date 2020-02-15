@@ -34,6 +34,20 @@ export const fetchMoreCards = async ({ state, commit }) => {
   });
 };
 
+export const updateCard = async (context, card) => {
+  return new Promise((resolve, reject) => {
+    cardService
+      .updateCard(card)
+      .then(() => {
+        resolve();
+      })
+      .catch(error => {
+        console.log(`Error updating card: ${error}`);
+        reject(error);
+      });
+  });
+};
+
 export const deleteCard = async (context, cardID) => {
   return new Promise((resolve, reject) => {
     cardService

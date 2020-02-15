@@ -31,6 +31,21 @@ export default class CardService extends Base {
   }
 
   /**
+   * Update card based off the doc id
+   * @param {Object} card
+   */
+  async updateCard(card) {
+    firebase.firestore
+      .collection(`${this.uid}/account/cards`)
+      .doc(card.id)
+      .update({
+        from: card.from,
+        tag: card.tag,
+        date: card.date,
+      });
+  }
+
+  /**
    * Inital request to hydrate Vuex
    */
   async getCards({ tagFilter, personFilter, currentSort }) {

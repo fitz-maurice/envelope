@@ -30,7 +30,7 @@
           icon=""
           ios.systemIcon="3"
           ios.position="right"
-          @tap="inEditing"
+          @tap="update"
           :visibility="showButtons"
         />
       </ActionBar>
@@ -61,18 +61,20 @@
           </Carousel>
         </GridLayout>
 
-        <StackLayout v-if="!isEditing">
-          <Label :text="card.from" textWrap="true" />
-          <Label :text="card.tag" textWrap="true" />
-          <Label :text="date" textWrap="true" />
-        </StackLayout>
-
-        <!-- Editing -->
-        <StackLayout v-else>
-          <Button
-            v-if="isEditing"
-            text="Can't drag now. Click to make draggable"
-            @tap="cancelEdit"
+        <StackLayout>
+          <TextField
+            :editable="isEditing"
+            v-model="card.from"
+            textWrap="true"
+          />
+          <TextField :editable="isEditing" v-model="card.tag" textWrap="true" />
+          <Label v-if="!isEditing" :text="date" textWrap="true" />
+          <DatePickerField
+            v-else
+            :date="card.date"
+            @dateChange="args => (card.date = args.value)"
+            dateFormat="MM/dd/yyyy"
+            class="input"
           />
         </StackLayout>
       </StackLayout>
@@ -111,7 +113,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['deleteCard']),
+    ...mapActions(['deleteCard', 'updateCard']),
     goHome() {
       this.isEditing = false;
       this.$modal.close();
@@ -121,7 +123,7 @@ export default {
         async result => {
           if (result === 'Delete') {
             await this.delete();
-          } else {
+          } else if (result === 'Edit') {
             this.isEditing = true;
             await this.edit();
           }
@@ -149,14 +151,18 @@ export default {
       });
     },
     async update() {
-      // TODO: show prompt upon success
-      this.isEditing = false;
       await this.$nextTick(() => {
-        Frame.topmost().ios.controller.modalInPresentation = false;
+        this.updateCard(this.card).then(() => {
+          this.isEditing = false;
+          Frame.topmost().ios.controller.modalInPresentation = false;
+
+          alert({
+            title: 'Card saved!',
+            message: 'Card was successfully updated.',
+            okButtonText: 'Dismiss',
+          });
+        });
       });
-    },
-    inEditing() {
-      alert('In editing mode...');
     },
     delete() {
       confirm({
