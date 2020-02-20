@@ -1,60 +1,60 @@
 <template>
-  <Page actionBarHidden="true">
-    <FlexboxLayout class="page">
-      <StackLayout class="form">
+  <Page @navigatedTo="loaded" actionBarHidden="true">
+    <FlexboxLayout
+      class="page"
+      flexDirection="column"
+      justifyContent="space-between"
+    >
+      <StackLayout class="logo-container">
+        <!-- <Image class="logo" v-shadow="12" src="~/assets/envelope.png"></Image> -->
         <Image class="logo" src="~/assets/envelope.png"></Image>
-        <Label class="header" text="Envelope"></Label>
-
-        <GridLayout rows="auto, auto, auto">
-          <StackLayout row="0" class="input-field">
-            <TextField
-              class="input"
-              hint="Email"
-              :isEnabled="!processing"
-              keyboardType="email"
-              autocorrect="false"
-              autocapitalizationType="none"
-              v-model="user.email"
-              returnKeyType="next"
-              @returnPress="$refs.password.nativeView.focus()"
-            ></TextField>
-            <StackLayout class="hr-light"></StackLayout>
-          </StackLayout>
-
-          <StackLayout row="1" class="input-field">
-            <TextField
-              class="input"
-              ref="password"
-              :isEnabled="!processing"
-              hint="Password"
-              secure="true"
-              v-model="user.password"
-              :returnKeyType="isLoggingIn ? 'done' : 'next'"
-            ></TextField>
-            <StackLayout class="hr-light"></StackLayout>
-          </StackLayout>
-
-          <Loader v-show="processing" />
-        </GridLayout>
-
-        <Button
-          @tap="submit"
-          :text="isLoggingIn ? 'Sign In' : 'Sign Up'"
-          :isEnabled="!processing"
-          class="btn btn-primary m-t-20"
-        ></Button>
-        <Label
-          @tap="forgotPassword()"
-          text="Forgot your password?"
-          class="login-label"
-        ></Label>
       </StackLayout>
+      <Label class="header" text="Envelope"></Label>
+
+      <TextField
+        class="input"
+        hint="Email"
+        :isEnabled="!processing"
+        keyboardType="email"
+        autocorrect="false"
+        autocapitalizationType="none"
+        v-model="user.email"
+        returnKeyType="next"
+        @returnPress="$refs.password.nativeView.focus()"
+      ></TextField>
+
+      <TextField
+        class="input"
+        ref="password"
+        :isEnabled="!processing"
+        hint="Password"
+        secure="true"
+        v-model="user.password"
+        autocorrect="false"
+        autocapitalizationType="none"
+        :returnKeyType="isSigningIn ? 'done' : 'next'"
+      ></TextField>
+
+      <Loader v-show="processing" />
+
+      <Button
+        @tap="submit"
+        :text="isSigningIn ? 'Sign in' : 'Sign up'"
+        :isEnabled="!processing"
+        class="button-action"
+      ></Button>
+
+      <Label
+        @tap="forgotPassword()"
+        text="Forgot your password?"
+        class="forgot-password"
+      ></Label>
 
       <Button
         text="Continue with Google"
         :isEnabled="!processing"
         @tap="loginWithGoogle()"
-        class="btn btn-primary m-t-20"
+        class=""
       ></Button>
 
       <Button
@@ -67,9 +67,9 @@
       <Label class="login-label sign-up-label" @tap="toggleForm">
         <FormattedString>
           <Span
-            :text="isLoggingIn ? 'Don’t have an account? ' : 'Back to Login'"
+            :text="isSigningIn ? 'Don’t have an account? ' : 'Back to sign in '"
           ></Span>
-          <Span :text="isLoggingIn ? 'Sign up' : ''" class="bold"></Span>
+          <Span :text="isSigningIn ? 'Sign up' : ''" class="bold"></Span>
         </FormattedString>
       </Label>
     </FlexboxLayout>
@@ -79,6 +79,8 @@
 <script>
 import routes from '~/router';
 import Loader from '~/components/Loader';
+import { Frame } from 'tns-core-modules/ui/frame';
+import { isIOS } from 'tns-core-modules/platform';
 
 export default {
   components: {
@@ -86,21 +88,27 @@ export default {
   },
   data() {
     return {
-      isLoggingIn: true,
+      isSigningIn: true,
       processing: false,
       user: {
-        email: 'admin@envelope.app',
-        password: 'Envelope1989',
+        // email: 'admin@envelope.app',
+        // password: 'Envelope1989',
+        email: null,
+        password: null,
       },
     };
   },
   methods: {
-    // Switch between Logging In & Signing UP
+    /**
+     * Switch between Logging In & Signing UP
+     */
     toggleForm() {
-      this.isLoggingIn = !this.isLoggingIn;
+      this.isSigningIn = !this.isSigningIn;
     },
 
-    // Login in or Sign Up
+    /**
+     * Sign in or Sign up
+     */
     submit() {
       if (!this.user.email || !this.user.password) {
         this.alert('Please provide both an email address and password.');
@@ -108,15 +116,19 @@ export default {
       }
 
       this.processing = true;
-      if (this.isLoggingIn) {
-        this.loginWithEmail();
+
+      // Send to sign in or sign up
+      if (this.isSigningIn) {
+        this.signInWithEmail();
       } else {
         this.register();
       }
     },
 
-    // Log in with Email
-    loginWithEmail() {
+    /**
+     * Sign in with Email
+     */
+    signInWithEmail() {
       this.$authService.login(this.user).catch(err => {
         this.processing = false;
 
@@ -128,17 +140,23 @@ export default {
       });
     },
 
-    // Log in with Google
+    /**
+     * Sign in with Google
+     */
     loginWithGoogle() {
       this.$authService.loginWithGoogle();
     },
 
-    // Log in with Apple
+    /**
+     * Sign in with Apple
+     */
     loginWithApple() {
       this.$authService.loginWithApple();
     },
 
-    // Register a new User
+    /**
+     * Register a new User
+     */
     register() {
       this.$authService
         .register(this.user)
@@ -154,7 +172,9 @@ export default {
         });
     },
 
-    // Prompt the User with a Forgot Password dialog
+    /**
+     * Prompt the User with a forgot password dialog
+     */
     forgotPassword() {
       prompt({
         title: 'Forgot Password?',
@@ -182,7 +202,9 @@ export default {
       });
     },
 
-    // Show an Alert dialog
+    /**
+     * Show an alert dialog
+     */
     alert(message) {
       return alert({
         title: 'Envelope',
@@ -191,7 +213,10 @@ export default {
       });
     },
 
-    // Proceed to the Home Screen after authentication
+    /**
+     * Proceed to the Home Screen after authentication
+     * - Clear history so user cannot go back
+     */
     goHome(user) {
       this.$navigateTo(routes.home, {
         animated: false,
@@ -201,40 +226,43 @@ export default {
         },
       }).catch(err => console.log(err));
     },
+
+    /**
+     * Make sure the sign in screen has white header text
+     */
+    loaded(args) {
+      if (isIOS) {
+        Frame.topmost().ios.controller.navigationBar.barStyle = 1;
+      }
+    },
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .page {
+  padding: 15px;
   align-items: center;
-  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('~/assets/background.png');
 }
 
-.form {
-  margin-left: 30;
-  margin-right: 30;
-  flex-grow: 2;
-  vertical-align: middle;
+.logo-container {
+  flex: 2;
 }
 
 .logo {
-  margin-bottom: 12;
-  height: 90;
-  font-weight: bold;
+  width: 40%;
 }
 
 .header {
-  horizontal-align: center;
-  font-size: 25;
+  color: #fff;
+  font-size: 45;
   font-weight: 600;
   margin-bottom: 70;
   text-align: center;
-  color: #fff;
-}
-
-.input-field {
-  margin-bottom: 25;
 }
 
 .input {
@@ -247,14 +275,16 @@ export default {
   opacity: 0.5;
 }
 
-.btn-primary {
-  margin: 30 5 15 5;
+.button-action {
+  width: 100%;
+  color: #fff;
+  border-radius: 15px;
+  background-color: #590404;
 }
 
-.login-label {
-  horizontal-align: center;
-  color: #a8a8a8;
+.forgot-password {
   font-size: 16;
+  color: #fff;
 }
 
 .sign-up-label {
