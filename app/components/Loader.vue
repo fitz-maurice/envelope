@@ -1,7 +1,5 @@
 <template>
-  <GridLayout rows="*" columns="*">
-    <ActivityIndicator :busy="true" class="loader" />
-  </GridLayout>
+  <ActivityIndicator :busy="true" class="loader" />
 </template>
 
 <style scoped>

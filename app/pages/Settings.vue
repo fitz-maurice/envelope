@@ -19,7 +19,7 @@
             <Label text.decode="&#xf007;" class="far icon" />
             <TextField
               v-model="$userService.user.displayName"
-              class="input"
+              class="name-input"
               hint="Full name"
               autocorrect="false"
               returnKeyType="done"
@@ -49,23 +49,29 @@
           <!-- Save -->
           <Button
             :isEnabled="!updating"
+            class="action"
             text="Save"
             color="white"
-            backgroundColor="#2f7cf6"
+            backgroundColor="#590404"
             horizontalAlignment="stretch"
             margin="0"
             @tap="updateUser"
           />
 
           <!-- Subscriptions -->
-          <Label text="Premium" class="section" />
+          <Label text="PREMIUM" class="section" />
           <FlexboxLayout justifyContent="space-between" @tap="subscription">
             <StackLayout
               orientation="horizontal"
               horizontalAlignment="stretch"
               class="input-wrapper"
             >
-              <Image width="15" height="15" src="~/assets/envelope.png"></Image>
+              <Image
+                width="25"
+                height="25"
+                class="m-l-2"
+                src="~/assets/envelope.png"
+              ></Image>
               <Label class="label" text="Envelope Premium" />
             </StackLayout>
 
@@ -178,8 +184,9 @@
         </StackLayout>
 
         <Button
+          class="action"
           color="white"
-          backgroundColor="#2f7cf6"
+          backgroundColor="#590404"
           text="Sign Out"
           horizontalAlignment="stretch"
           margin="0"
@@ -190,9 +197,9 @@
           <Label :text="copyright" />
         </FlexboxLayout>
         <FlexboxLayout justifyContent="center">
-          <Label text="Terms" color="blue" @tap="terms" />
+          <Label text="Terms" color="#590404" @tap="terms" />
           <Label text=" & " />
-          <Label text="Privacy Policy" color="blue" @tap="privacy" />
+          <Label text="Privacy Policy" color="#590404" @tap="privacy" />
         </FlexboxLayout>
       </FlexboxLayout>
     </ScrollView>
@@ -338,7 +345,7 @@ export default {
 </script>
 
 <style scoped>
-.input {
+.name-input {
   border-bottom-width: 0;
 }
 
@@ -348,6 +355,7 @@ export default {
   border-bottom-width: 2px;
   padding: 30px;
   font-size: 10;
+  font-weight: 700;
 }
 
 .section-text {
@@ -360,7 +368,11 @@ export default {
   width: 90px;
   border-radius: 15px;
   color: #fff;
-  background-color: #2f7cf6;
+  background-color: #590404;
+}
+
+.action {
+  font-weight: 700;
 }
 
 .label {

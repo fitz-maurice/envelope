@@ -5,71 +5,106 @@
       flexDirection="column"
       justifyContent="space-between"
     >
-      <StackLayout class="logo-container">
-        <!-- <Image class="logo" v-shadow="12" src="~/assets/envelope.png"></Image> -->
+      <!-- LOGO -->
+      <StackLayout v-shadow="150" class="logo-container">
         <Image class="logo" src="~/assets/envelope.png"></Image>
       </StackLayout>
+
+      <!-- HEADER -->
       <Label class="header" text="Envelope"></Label>
 
-      <TextField
-        class="input"
-        hint="Email"
-        :isEnabled="!processing"
-        keyboardType="email"
-        autocorrect="false"
-        autocapitalizationType="none"
-        v-model="user.email"
-        returnKeyType="next"
-        @returnPress="$refs.password.nativeView.focus()"
-      ></TextField>
+      <GridLayout rows="auto, auto, auto, auto">
+        <!-- Email input -->
+        <TextField
+          row="0"
+          class="input"
+          hint="Email"
+          :isEnabled="!processing"
+          keyboardType="email"
+          autocorrect="false"
+          autocapitalizationType="none"
+          v-model="user.email"
+          returnKeyType="next"
+          @returnPress="$refs.password.nativeView.focus()"
+        ></TextField>
 
-      <TextField
-        class="input"
-        ref="password"
-        :isEnabled="!processing"
-        hint="Password"
-        secure="true"
-        v-model="user.password"
-        autocorrect="false"
-        autocapitalizationType="none"
-        :returnKeyType="isSigningIn ? 'done' : 'next'"
-      ></TextField>
+        <!-- Password Input -->
+        <TextField
+          row="1"
+          class="input"
+          ref="password"
+          :isEnabled="!processing"
+          hint="Password"
+          secure="true"
+          v-model="user.password"
+          autocorrect="false"
+          autocapitalizationType="none"
+          :returnKeyType="isSigningIn ? 'done' : 'next'"
+        ></TextField>
 
-      <Loader v-show="processing" />
+        <!-- Login Button -->
+        <Button
+          row="2"
+          @tap="submit"
+          :text="isSigningIn ? 'Sign in' : 'Sign up'"
+          :isEnabled="!processing"
+          class="button-action"
+        ></Button>
 
-      <Button
-        @tap="submit"
-        :text="isSigningIn ? 'Sign in' : 'Sign up'"
-        :isEnabled="!processing"
-        class="button-action"
-      ></Button>
+        <!-- Forgot Password -->
+        <Label
+          row="3"
+          v-show="isSigningIn"
+          @tap="forgotPassword()"
+          text="Forgot your password?"
+          class="forgot-password"
+          horizontalAlignment="center"
+        ></Label>
 
-      <Label
-        @tap="forgotPassword()"
-        text="Forgot your password?"
-        class="forgot-password"
-      ></Label>
+        <!-- ActivityIndicator -->
+        <Loader rowSpan="4" v-show="processing" />
+      </GridLayout>
 
-      <Button
-        text="Continue with Google"
-        :isEnabled="!processing"
-        @tap="loginWithGoogle()"
-        class=""
-      ></Button>
+      <Label text="OR" class="or" />
 
-      <Button
-        text="Continue with Apple"
-        :isEnabled="!processing"
-        @tap="loginWithApple()"
-        class="btn btn-primary m-t-20"
-      ></Button>
+      <StackLayout>
+        <!-- Apple -->
+        <Button
+          :isEnabled="!processing"
+          @tap="loginWithApple()"
+          class="social-login"
+          v-shadow="20"
+        >
+          <FormattedString>
+            <Span text.decode="&#xf179;" class="fab" />
+            <Span text="    " />
+            <Span text="Continue with Apple" />
+          </FormattedString>
+        </Button>
+
+        <!-- Google -->
+        <Button
+          :isEnabled="!processing"
+          @tap="loginWithGoogle()"
+          class="social-login"
+          v-shadow="20"
+        >
+          <FormattedString>
+            <Span text.decode="&#xf1a0;" class="fab" />
+            <Span text="  " />
+            <Span text="Continue with Google" />
+          </FormattedString>
+        </Button>
+      </StackLayout>
 
       <Label class="login-label sign-up-label" @tap="toggleForm">
         <FormattedString>
           <Span
-            :text="isSigningIn ? 'Don’t have an account? ' : 'Back to sign in '"
+            :text="
+              isSigningIn ? 'Don’t have an account? ' : 'Back to sign in '
+            "
           ></Span>
-          <Span :text="isSigningIn ? 'Sign up' : ''" class="bold"></Span>
+          <Span :text="isSigningIn ? 'Sign up' : ''"></Span>
         </FormattedString>
       </Label>
     </FlexboxLayout>
@@ -91,10 +126,10 @@ export default {
       isSigningIn: true,
       processing: false,
       user: {
-        // email: 'admin@envelope.app',
-        // password: 'Envelope1989',
-        email: null,
-        password: null,
+        email: 'admin@envelope.app',
+        password: 'Envelope1989',
+        // email: null,
+        // password: null,
       },
     };
   },
@@ -129,15 +164,18 @@ export default {
      * Sign in with Email
      */
     signInWithEmail() {
-      this.$authService.login(this.user).catch(err => {
-        this.processing = false;
+      this.$authService
+        .login(this.user)
+        .then(() => (this.processing = false))
+        .catch(err => {
+          this.processing = false;
 
-        alert({
-          title: 'Something went wrong',
-          message: err,
-          okButtonText: 'Try again',
+          alert({
+            title: 'Something went wrong',
+            message: err,
+            okButtonText: 'Try again',
+          });
         });
-      });
     },
 
     /**
@@ -249,19 +287,14 @@ export default {
   background-image: url('~/assets/background.png');
 }
 
-.logo-container {
-  flex: 2;
-}
-
 .logo {
-  width: 40%;
+  width: 35%;
 }
 
 .header {
   color: #fff;
   font-size: 45;
   font-weight: 600;
-  margin-bottom: 70;
   text-align: center;
 }
 
@@ -276,10 +309,25 @@ export default {
 }
 
 .button-action {
-  width: 100%;
+  width: 85%;
+  font-weight: 700;
   color: #fff;
-  border-radius: 15px;
+  border-radius: 10;
   background-color: #590404;
+}
+
+.or {
+  color: white;
+  font-weight: 700;
+  font-size: 18;
+}
+
+.social-login {
+  color: black;
+  background-color: white;
+  border-radius: 9999;
+  width: 60%;
+  font-weight: 600;
 }
 
 .forgot-password {
@@ -288,10 +336,8 @@ export default {
 }
 
 .sign-up-label {
-  margin-bottom: 20;
-}
-
-.bold {
-  color: #000000;
+  font-size: 16;
+  font-weight: 600;
+  color: white;
 }
 </style>
