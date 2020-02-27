@@ -51,12 +51,14 @@
             :suggestMode="suggestMode"
             :completionMode="completionMode"
             :displayMode="displayMode"
+            @textChanged="onTextChanged"
+            @tap="closePicker"
             hint="Card giver's name"
           >
             <SuggestionView ~suggestionView>
               <StackLayout v-suggestionItemTemplate orientation="vertical">
                 <v-template scope="item">
-                  <Label col="1" :text="item.text" class="p-l-5" />
+                  <Label ref="person" col="1" :text="item.text" class="p-l-5" />
                 </v-template>
               </StackLayout>
             </SuggestionView>
@@ -109,6 +111,7 @@
             <Label text="Notes (optional)" class="label" />
             <TextView
               v-model="card.notes"
+              @tap="closePicker"
               class="input"
               returnKeyType="done"
               height="75%"
@@ -205,8 +208,12 @@ export default {
       }
     },
 
+    onTextChanged({ text }) {
+      this.card.from = text;
+    },
+
     tagChange(e) {
-      this.card.tag = this.$store.state.holidays[e.value];
+      this.card.tag = this.$store.state.holidays[e.value + 1];
     },
 
     next() {
