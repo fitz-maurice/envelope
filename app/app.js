@@ -6,6 +6,7 @@ import DateTimePicker from 'nativescript-datetimepicker/vue';
 import RadListView from 'nativescript-ui-listview/vue';
 import BottomSheetPlugin from 'nativescript-material-bottomsheet/vue';
 import { install } from 'nativescript-material-bottomsheet';
+import RadAutoComplete from 'nativescript-ui-autocomplete/vue';
 
 // Application Services;
 import BaseService from './services/base';
@@ -58,6 +59,8 @@ Vue.registerElement(
   'CarouselItem',
   () => require('nativescript-carousel').CarouselItem,
 );
+
+Vue.use(RadAutoComplete);
 
 // Services Initialization
 export const baseService = new BaseService();

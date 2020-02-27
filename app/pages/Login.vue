@@ -299,8 +299,13 @@ export default {
 }
 
 .input {
-  font-size: 18;
-  placeholder-color: #a8a8a8;
+  placeholder-color: #a0aec0;
+  border-bottom-width: 0;
+  background-color: #edf2f7;
+  border-radius: 25px;
+  padding: 20px;
+  font-size: 15px;
+  width: 85%;
 }
 
 .input:disabled {

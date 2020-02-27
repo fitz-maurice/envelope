@@ -1,13 +1,13 @@
 <template>
   <Frame id="modal">
-    <Page @loaded="loaded">
+    <Page ref="page" @loaded="loaded">
       <ActionBar
         title="Create New Card"
-        backgroundColor="#0F6CA6"
+        backgroundColor="#590404"
         color="white"
       >
         <ActionItem text="Cancel" ios.position="left" @tap="cancel" />
-        <ActionItem text="Save" ios.position="right" @tap="save" />
+        <ActionItem text="Next" ios.position="right" @tap="next" />
       </ActionBar>
 
       <!-- No Permission Access -->
@@ -32,28 +32,89 @@
 
       <!-- Has Permission Access -->
       <StackLayout v-else key="main" class="p-t-10">
-        <!-- View Selection -->
-        <SegmentedBar
-          v-model="selectedBarIndex"
-          :items="segmentedBarItems"
-          v-shadow="3"
-          class="segmented-bar"
+        <!-- Header text -->
+        <Label
+          text="Tell us a little about the card you received"
+          textWrap="true"
+          class="header"
         />
 
-        <Loader v-show="creating" />
+        <!-- From -->
+        <StackLayout>
+          <Label
+            text="Who was the card from?"
+            class="label"
+            :class="{ 'input-error': showErrors && !fromValid }"
+          />
+          <RadAutoCompleteTextView
+            :items="peopleList"
+            :suggestMode="suggestMode"
+            :completionMode="completionMode"
+            :displayMode="displayMode"
+            hint="Card giver's name"
+          >
+            <SuggestionView ~suggestionView>
+              <StackLayout v-suggestionItemTemplate orientation="vertical">
+                <v-template scope="item">
+                  <Label col="1" :text="item.text" class="p-l-5" />
+                </v-template>
+              </StackLayout>
+            </SuggestionView>
+          </RadAutoCompleteTextView>
+        </StackLayout>
 
-        <component
-          v-for="(view, index) in ['CardData', 'CardImages']"
-          v-show="index === selectedBarIndex"
-          :key="index"
-          :is="view"
-          :card="card"
-          :images="images"
-          :creating="creating"
-          :showErrors="showErrors"
-          @dateChange="e => (card.date = e)"
-          @image="e => images.push(e)"
-        />
+        <!-- Tag type -->
+        <StackLayout class="m-t-15">
+          <Label
+            text="What was the occassion?"
+            class="label m-b-5"
+            :class="{ 'input-error': showErrors && !tagValid }"
+          />
+          <Label
+            :text="card.tag"
+            class="input"
+            :color="tagValid ? 'black' : '#a0aec0'"
+            @tap="pickerOpen ? closePicker() : showPicker()"
+          />
+          <ListPicker
+            id="tag"
+            class="m-y-5"
+            opacity="0"
+            :items="tagList"
+            :selectedIndex="tagIndex"
+            @selectedIndexChange="tagChange"
+          />
+        </StackLayout>
+
+        <StackLayout id="moveTag">
+          <!-- Date -->
+          <StackLayout class="m-t-15">
+            <Label
+              text="When did you receive the card?"
+              class="label"
+              :class="{ 'input-error': showErrors && !dateValid }"
+            />
+            <DatePickerField
+              :date="card.date"
+              @tap="closePicker"
+              @dateChange="args => (card.date = args.value)"
+              hint="Date Received"
+              dateFormat="MM/dd/yyyy"
+              class="input"
+            />
+          </StackLayout>
+
+          <!-- Notes -->
+          <StackLayout class="m-t-15">
+            <Label text="Notes (optional)" class="label" />
+            <TextView
+              v-model="card.notes"
+              class="input"
+              returnKeyType="done"
+              height="75%"
+            />
+          </StackLayout>
+        </StackLayout>
       </StackLayout>
     </Page>
   </Frame>
@@ -61,13 +122,16 @@
 
 <script>
 import routes from '~/router';
-import Loader from '@/components/Loader';
-import CardService from '@/services/card';
-import CardData from '@/components/CardData';
-import CardImages from '@/components/CardImages';
-import { toBase64String } from 'tns-core-modules/image-source';
 import { openAppSettings } from 'nativescript-advanced-permissions/core';
 import { hasKey, setBoolean } from 'tns-core-modules/application-settings';
+import { Frame } from 'tns-core-modules/ui/frame';
+import { AnimationCurve } from 'tns-core-modules/ui/enums';
+import {
+  TokenModel,
+  AutoCompleteSuggestMode,
+  AutoCompleteCompletionMode,
+  AutoCompleteDisplayMode,
+} from 'nativescript-ui-autocomplete';
 import {
   hasCameraPermissions,
   requestCameraPermissions,
@@ -76,42 +140,39 @@ import {
   hasFilePermissions,
   requestFilePermissions,
 } from 'nativescript-advanced-permissions/files';
-
-const cardService = new CardService();
+import { ObservableArray } from 'tns-core-modules/data/observable-array';
+import { mapGetters } from 'vuex';
 
 export default {
-  components: {
-    Loader,
-    CardData,
-    CardImages,
-  },
   data() {
+    const peopleList = new ObservableArray();
+    const people = this.$userService.user.people.sort();
+    people.forEach(person =>
+      peopleList.push(new TokenModel(person, undefined)),
+    );
+
     return {
-      segmentedBarItems: (function() {
-        var segmentedBarModule = require('tns-core-modules/ui/segmented-bar');
-        let segmentedBarItem1 = new segmentedBarModule.SegmentedBarItem();
-        segmentedBarItem1.title = 'Card Info';
-        let segmentedBarItem2 = new segmentedBarModule.SegmentedBarItem();
-        segmentedBarItem2.title = 'Card Images';
-        return [segmentedBarItem1, segmentedBarItem2];
-      })(),
-      selectedBarIndex: 0,
       card: {
         from: '',
-        tag: '',
+        tag: 'Type of card',
         date: undefined,
         notes: '',
         images: [],
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      images: [],
-      creating: false,
+      pickerOpen: false,
+      tagIndex: 0,
       keySet: true,
       showErrors: false,
+      peopleList: peopleList,
+      suggestMode: AutoCompleteSuggestMode.Append,
+      completionMode: AutoCompleteCompletionMode.StartsWith,
+      displayMode: AutoCompleteDisplayMode.Plain,
     };
   },
   computed: {
+    ...mapGetters(['tagList']),
     hasPermissions() {
       return hasCameraPermissions() && hasFilePermissions();
     },
@@ -119,18 +180,13 @@ export default {
       return this.card.from !== '';
     },
     tagValid() {
-      return this.card.tag !== '';
+      return this.card.tag !== '' && this.card.tag !== 'Type of card';
     },
     dateValid() {
       return this.card.date !== undefined;
     },
-    imagesValid() {
-      return this.images.length > 0 && this.images.length <= 5;
-    },
     formValid() {
-      return (
-        this.fromValid && this.tagValid && this.dateValid && this.imagesValid
-      );
+      return this.fromValid && this.tagValid && this.dateValid;
     },
   },
   methods: {
@@ -149,47 +205,27 @@ export default {
       }
     },
 
-    // Take user to app settings
-    goToAppSettings() {
-      openAppSettings();
+    tagChange(e) {
+      this.card.tag = this.$store.state.holidays[e.value];
     },
 
-    // Create the new card
-    save() {
-      if (this.creating === true) return;
-
-      this.creating = true;
-
+    next() {
       if (!this.formValid) {
         this.showErrors = true;
-        this.creating = false;
-
-        alert({
-          title: 'Missing information!',
-          message:
-            'Please fill out all fields and have at least 1 image attached.',
-          okButtonText: 'Ok',
-        });
-
         return;
       }
 
-      this.card.images = this.images.map(image =>
-        image.toBase64String('jpeg', 85),
-      );
+      this.$navigateTo(routes.cardImages, {
+        frame: 'modal',
+        props: {
+          card: this.card,
+        },
+      }).catch(err => console.log(err));
+    },
 
-      cardService
-        .createCard(this.card)
-        .then(() => {
-          this.creating = false;
-          alert({
-            title: 'Your card was created!',
-            okButtonText: 'Ok',
-          }).then(() => {
-            this.$modal.close();
-          });
-        })
-        .catch(err => console.log(err));
+    // Take user to app settings
+    goToAppSettings() {
+      openAppSettings();
     },
 
     // Cancel card creation
@@ -205,18 +241,72 @@ export default {
         }
       });
     },
+
+    showPicker() {
+      this.pickerOpen = true;
+      const picker = this.$refs.page.nativeView.getViewById('tag');
+      const view = this.$refs.page.nativeView.getViewById('moveTag');
+
+      view.animate({
+        translate: {
+          x: 0,
+          y: 200,
+        },
+        duration: 250,
+        delay: 50,
+        curve: AnimationCurve.easeInOut,
+      });
+
+      picker.animate({
+        opacity: 1,
+        backgroundColor: '#F7FAFC',
+        duration: 275,
+      });
+    },
+
+    closePicker() {
+      this.pickerOpen = false;
+      const picker = this.$refs.page.nativeView.getViewById('tag');
+      const view = this.$refs.page.nativeView.getViewById('moveTag');
+
+      view.animate({
+        translate: {
+          x: 0,
+          y: 0,
+        },
+        duration: 250,
+        delay: 50,
+        curve: AnimationCurve.easeInOut,
+      });
+
+      picker.animate({
+        opacity: 0,
+        duration: 275,
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.segmented-bar {
-  width: 90%;
-  margin-bottom: 50px;
-  color: white;
-  background-color: #a0aec0;
-  selected-background-color: #0e4466;
-  font-size: 13;
+#moveTag {
+  margin-top: -650px;
+}
+
+#tag {
+  border-width: 0.25 0 0.25 0;
+  border-color: #a0aec0;
+  margin: 5 30;
+}
+
+RadAutoCompleteTextView {
+  placeholder-color: #a0aec0;
+  border-bottom-width: 0;
+  background-color: #edf2f7;
+  border-radius: 25px;
+  margin: 5 25 0 25;
+  padding: 5;
+  font-size: 15px;
 }
 
 .header {
@@ -226,27 +316,9 @@ export default {
   margin-bottom: 75px;
 }
 
-.button {
-  color: white;
-  background-color: #0f6ca6;
-  font-weight: 500;
-  font-size: 12;
-  height: 125px;
-  font-size: 13;
-  border-radius: 25px;
-  width: 33%;
-  text-align: center;
-}
-
 .label {
   width: 85%;
   font-size: 12px;
-
-  &-img {
-    text-align: center;
-    font-weight: 700;
-    margin-bottom: 15px;
-  }
 }
 
 .input {
