@@ -1,43 +1,39 @@
 <template>
-  <Frame id="detail" ref="test">
+  <Frame id="detail" ref="detail">
     <Page ref="page">
       <!-- Action Bar -->
       <ActionBar :title="`Card from ${card.from}`">
         <!-- Left Side - Edit & Cancel -->
         <ActionItem
-          icon=""
+          @tap="editPrompt"
           ios.systemIcon="2"
           ios.position="left"
-          @tap="editPrompt"
           :visibility="hideButtons"
         />
         <ActionItem
-          icon=""
+          @tap="cancelEdit"
           ios.systemIcon="1"
           ios.position="left"
-          @tap="cancelEdit"
           :visibility="showButtons"
         />
         <!-- Right Side - Done & Save -->
         <ActionItem
-          icon=""
+          @tap="goHome"
           ios.systemIcon="0"
           ios.position="right"
-          @tap="goHome"
           :visibility="hideButtons"
         />
         <ActionItem
-          icon=""
+          @tap="update"
           ios.systemIcon="3"
           ios.position="right"
-          @tap="update"
           :visibility="showButtons"
         />
       </ActionBar>
 
       <!-- Main Layout -->
       <StackLayout>
-        <!-- Cards -->
+        <!-- The carousel -->
         <GridLayout height="350">
           <Carousel
             ref="myCarousel"
@@ -50,9 +46,9 @@
             showIndicator="true"
           >
             <CarouselItem
+              verticalAlignment="middle"
               v-for="(image, index) in images"
               :key="index"
-              verticalAlignment="middle"
             >
               <GridLayout>
                 <Image :src="image" stretch="aspectFill" />
@@ -61,22 +57,97 @@
           </Carousel>
         </GridLayout>
 
-        <StackLayout>
-          <TextField
-            :editable="isEditing"
-            v-model="card.from"
-            textWrap="true"
-          />
-          <TextField :editable="isEditing" v-model="card.tag" textWrap="true" />
-          <Label v-if="!isEditing" :text="date" textWrap="true" />
-          <DatePickerField
-            v-else
-            :date="card.date"
-            @dateChange="args => (card.date = args.value)"
-            dateFormat="MM/dd/yyyy"
-            class="input"
-          />
-        </StackLayout>
+        <!-- CreatedAt Header -->
+        <Label :text="`Card created on ${createdAt}`" class="section-header" />
+
+        <!-- Detail list ScrollView/ListView -->
+        <ScrollView>
+          <StackLayout orientation="vertical">
+            <!-- FROM: -->
+            <StackLayout
+              class="input-wrapper"
+              orientation="horizontal"
+              horizontalAlignment="stretch"
+            >
+              <Label
+                class="far icon"
+                text.decode="&#xf007;"
+                verticalAlignment="top"
+              />
+              <TextField
+                class="text-field"
+                :editable="isEditing"
+                v-model="card.from"
+                textWrap="true"
+              />
+            </StackLayout>
+
+            <!-- TAG: -->
+            <StackLayout
+              class="input-wrapper"
+              orientation="horizontal"
+              horizontalAlignment="stretch"
+            >
+              <Label
+                class="far icon"
+                text.decode="&#xf79c;"
+                verticalAlignment="top"
+              />
+              <TextField
+                class="text-field"
+                :editable="isEditing"
+                v-model="card.tag"
+                textWrap="true"
+              />
+            </StackLayout>
+
+            <!-- DATE: -->
+            <StackLayout
+              class="input-wrapper"
+              orientation="horizontal"
+              horizontalAlignment="stretch"
+            >
+              <Label
+                class="far icon"
+                text.decode="&#xf073;"
+                verticalAlignment="top"
+              />
+              <TextField
+                v-if="!isEditing"
+                class="text-field"
+                :editable="false"
+                v-model="date"
+                textWrap="true"
+              />
+              <TextField
+                v-else
+                class="text-field"
+                v-model="card.date"
+                textWrap="true"
+              />
+            </StackLayout>
+
+            <!-- NOTES: -->
+            <StackLayout
+              class="input-wrapper"
+              orientation="horizontal"
+              horizontalAlignment="stretch"
+            >
+              <Label
+                class="far icon"
+                text.decode="&#xf249;"
+                verticalAlignment="top"
+              />
+              <TextView
+                class="text-field"
+                :editable="isEditing"
+                v-model="card.notes"
+                textWrap="true"
+                hint="Add a description..."
+              />
+            </StackLayout>
+          </StackLayout>
+        </ScrollView>
       </StackLayout>
     </Page>
   </Frame>
@@ -88,6 +159,7 @@ import routes from '@/router';
 import { mapActions } from 'vuex';
 import { Frame } from 'tns-core-modules/ui/frame';
 import { fromBase64 } from 'tns-core-modules/image-source';
+import { ObservableArray } from 'tns-core-modules/data/observable-array';
 
 export default {
   props: {
@@ -96,28 +168,51 @@ export default {
   data() {
     return {
       isEditing: false,
+      detailsList: new ObservableArray([
+        { name: this.card.from, icon: '&#xf007;' },
+        { name: this.card.tag, icon: '&#xf79c;' },
+        { name: this.card.date, icon: '&#xf133;' },
+        { name: this.card.notes, icon: '&#xf249;' },
+      ]),
     };
   },
   computed: {
+    // Prepare the images from Base64 encoding
     images() {
       return this.card.images.map(image => fromBase64(image));
     },
+    // Format the Date of the card
     date() {
       return moment(this.card.date).format('M/D/YYYY');
     },
-    hideButtons() {
-      return this.isEditing ? 'collapse' : 'visible';
+    // Format the createdAt string
+    createdAt() {
+      return moment(this.card.createdAt).format('MMMM Do, YYYY');
     },
+    // Convert buttons to edit mode
     showButtons() {
       return this.isEditing ? 'visible' : 'collapse';
+    },
+    // Convert buttons back to normal
+    hideButtons() {
+      return this.isEditing ? 'collapse' : 'visible';
     },
   },
   methods: {
     ...mapActions(['deleteCard', 'updateCard']),
+
+    /**
+     * Close the modal and return Home
+     */
     goHome() {
       this.isEditing = false;
+      Frame.topmost().removeEventListener();
       this.$modal.close();
     },
+
+    /**
+     * Present the Edit prompt
+     */
     editPrompt() {
       action('Select option', 'Cancel', ['Edit', 'Delete']).then(
         async result => {
@@ -130,11 +225,19 @@ export default {
         },
       );
     },
+
+    /**
+     * Convert modal to non-draggable
+     */
     async edit() {
       await this.$nextTick(() => {
         Frame.topmost().ios.controller.modalInPresentation = true;
       });
     },
+
+    /**
+     * Cancel the edit and discard
+     */
     async cancelEdit() {
       await confirm({
         title: 'Discard edits',
@@ -150,6 +253,10 @@ export default {
         }
       });
     },
+
+    /**
+     * Update the card on hand
+     */
     async update() {
       await this.$nextTick(() => {
         this.updateCard(this.card).then(() => {
@@ -164,6 +271,10 @@ export default {
         });
       });
     },
+
+    /**
+     * Delete a card with confirmation dialog
+     */
     delete() {
       confirm({
         title: 'Delete Card',
@@ -189,4 +300,37 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.section-header {
+  padding: 30px;
+  font-size: 12;
+  text-align: right;
+  border-bottom-width: 2px;
+  background-color: #f0eff4;
+  border-bottom-color: #dfdfdf;
+}
+
+.input-wrapper {
+  padding: 30px 30px 15px 30px;
+  border-bottom-color: #dfdfdf;
+  border-bottom-width: 2px;
+}
+
+.icon {
+  margin-right: 0;
+  text-align: center;
+  height: 70px;
+  width: 70px;
+  border-radius: 15px;
+  color: #fff;
+  background-color: #590404;
+}
+
+.text-field {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  padding-top: 5px;
+  border-bottom-width: 0;
+}
+</style>
