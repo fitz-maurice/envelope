@@ -193,6 +193,9 @@ export default {
         .createCard(this.card)
         .then(() => {
           this.creating = false;
+          // Refetch user document to refresh people list
+          this.$userService.getUserDocument();
+
           alert({
             title: 'Your card was created!',
             okButtonText: 'Ok',

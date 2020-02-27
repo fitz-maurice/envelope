@@ -209,7 +209,7 @@ export default {
     },
 
     onTextChanged({ text }) {
-      this.card.from = text;
+      this.card.from = text.trim();
     },
 
     tagChange(e) {

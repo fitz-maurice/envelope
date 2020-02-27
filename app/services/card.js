@@ -16,6 +16,15 @@ export default class CardService extends Base {
    * @param {Object} card
    */
   async createCard(card) {
+    // Add person to list only if the aren't
+    // already on the list
+    firebase.firestore
+      .collection(`${this.uid}`)
+      .doc('account')
+      .update({
+        people: firebase.firestore.FieldValue.arrayUnion(card.from),
+      });
+
     return firebase.firestore.collection(`${this.uid}/account/cards`).add(card);
   }
 
