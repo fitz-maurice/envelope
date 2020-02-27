@@ -209,7 +209,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .segmented-bar {
   width: 90%;
   margin-bottom: 50px;
