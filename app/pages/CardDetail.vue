@@ -74,12 +74,28 @@
                 text.decode="&#xf007;"
                 verticalAlignment="top"
               />
-              <TextField
-                class="text-field"
-                :editable="isEditing"
-                v-model="card.from"
-                textWrap="true"
-              />
+              <RadAutoCompleteTextView
+                :items="peopleList"
+                :suggestMode="suggestMode"
+                :completionMode="completionMode"
+                :displayMode="displayMode"
+                @textChanged="onTextChanged"
+                @tap="closePicker"
+                hint="Card giver's name"
+              >
+                <SuggestionView ~suggestionView>
+                  <StackLayout v-suggestionItemTemplate orientation="vertical">
+                    <v-template scope="item">
+                      <Label
+                        col="1"
+                        ref="person"
+                        class="text-field p-l-5"
+                        :text="card.from"
+                      />
+                    </v-template>
+                  </StackLayout>
+                </SuggestionView>
+              </RadAutoCompleteTextView>
             </StackLayout>
 
             <!-- TAG: -->
@@ -160,14 +176,30 @@ import { mapActions } from 'vuex';
 import { Frame } from 'tns-core-modules/ui/frame';
 import { fromBase64 } from 'tns-core-modules/image-source';
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
+import {
+  TokenModel,
+  AutoCompleteSuggestMode,
+  AutoCompleteCompletionMode,
+  AutoCompleteDisplayMode,
+} from 'nativescript-ui-autocomplete';
 
 export default {
   props: {
     card: Object,
   },
   data() {
+    const peopleList = new ObservableArray();
+    const people = this.$userService.user.people.sort();
+    people.forEach(person =>
+      peopleList.push(new TokenModel(person, undefined)),
+    );
+
     return {
       isEditing: false,
+      peopleList: peopleList,
+      suggestMode: AutoCompleteSuggestMode.Append,
+      completionMode: AutoCompleteCompletionMode.StartsWith,
+      displayMode: AutoCompleteDisplayMode.Plain,
       detailsList: new ObservableArray([
         { name: this.card.from, icon: '&#xf007;' },
         { name: this.card.tag, icon: '&#xf79c;' },
@@ -200,6 +232,10 @@ export default {
   },
   methods: {
     ...mapActions(['deleteCard', 'updateCard']),
+
+    onTextChanged({ text }) {
+      this.card.from = text.trim();
+    },
 
     /**
      * Close the modal and return Home

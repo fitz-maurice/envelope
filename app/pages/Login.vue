@@ -100,9 +100,7 @@
       <Label class="login-label sign-up-label" @tap="toggleForm">
         <FormattedString>
           <Span
-            :text="
-              isSigningIn ? 'Don’t have an account? ' : 'Back to sign in '
-            "
+            :text="isSigningIn ? 'Don’t have an account? ' : 'Back to sign in '"
           ></Span>
           <Span :text="isSigningIn ? 'Sign up' : ''"></Span>
         </FormattedString>
@@ -270,7 +268,7 @@ export default {
      */
     loaded(args) {
       if (isIOS) {
-        Frame.topmost().ios.controller.navigationBar.barStyle = 1;
+        // Frame.topmost().ios.controller.navigationBar.barStyle = 1;
       }
     },
   },
