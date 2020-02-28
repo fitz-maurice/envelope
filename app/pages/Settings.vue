@@ -216,7 +216,7 @@ import { mapActions } from 'vuex';
 import * as email from 'nativescript-email';
 import { appRater } from 'nativescript-rater';
 import { openApp } from 'nativescript-open-app';
-import { platform } from 'tns-core-modules/platform';
+import { isIOS } from 'tns-core-modules/platform';
 import InAppBrowser from 'nativescript-inappbrowser';
 import * as appversion from 'nativescript-appversion';
 import * as SocialShare from 'nativescript-social-share';
@@ -285,7 +285,7 @@ export default {
      * Follow on Twitter
      */
     follow() {
-      platform.isIOS
+      isIOS
         ? openApp('twitter://user?screen_name=envelope_app', true, '333903271')
         : openApp('com.twitter.android://user?screen_name=envelope_app');
     },

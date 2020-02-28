@@ -37,7 +37,6 @@ import { mapActions } from 'vuex';
 import Header from '@/components/Header';
 import FabButton from '@/components/FabButton';
 import CardPreview from '@/components/CardPreview';
-import { platform } from 'tns-core-modules/platform';
 
 export default {
   components: {
