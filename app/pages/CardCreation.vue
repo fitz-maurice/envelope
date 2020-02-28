@@ -1,6 +1,6 @@
 <template>
   <Frame id="modal">
-    <Page ref="page" @loaded="loaded">
+    <Page ref="page" @loaded="loaded" @tap="outsideForms">
       <ActionBar
         title="Create New Card"
         backgroundColor="#590404"
@@ -31,14 +31,7 @@
       </StackLayout>
 
       <!-- Has Permission Access -->
-      <StackLayout v-else key="main" class="p-t-10">
-        <!-- Header text -->
-        <Label
-          text="Tell us a little about the card you received"
-          textWrap="true"
-          class="header"
-        />
-
+      <StackLayout v-else key="main" class="m-t-30">
         <!-- From -->
         <StackLayout>
           <Label
@@ -47,6 +40,7 @@
             :class="{ 'input-error': showErrors && !fromValid }"
           />
           <RadAutoCompleteTextView
+            ref="auto"
             :items="peopleList"
             :suggestMode="suggestMode"
             :completionMode="completionMode"
@@ -56,7 +50,7 @@
             hint="Card giver's name"
           >
             <SuggestionView ~suggestionView>
-              <StackLayout v-suggestionItemTemplate orientation="vertical">
+              <StackLayout v-suggestionItemTemplate orientation="horizontal">
                 <v-template scope="item">
                   <Label ref="person" col="1" :text="item.text" class="p-l-5" />
                 </v-template>
@@ -67,30 +61,32 @@
 
         <!-- Tag type -->
         <StackLayout class="m-t-15">
-          <Label
-            text="What was the occassion?"
-            class="label m-b-5"
-            :class="{ 'input-error': showErrors && !tagValid }"
-          />
-          <Label
-            :text="card.tag"
-            class="input"
-            :color="tagValid ? 'black' : '#a0aec0'"
-            @tap="pickerOpen ? closePicker() : showPicker()"
-          />
-          <ListPicker
-            id="tag"
-            class="m-y-5"
-            opacity="0"
-            :items="tagList"
-            :selectedIndex="tagIndex"
-            @selectedIndexChange="tagChange"
-          />
+          <StackLayout>
+            <Label
+              text="What was the occassion?"
+              class="label m-b-5"
+              :class="{ 'input-error': showErrors && !tagValid }"
+            />
+            <Label
+              @tap="pickerOpen ? '' : showPicker()"
+              :text="card.tag"
+              class="input"
+              :color="tagValid ? 'black' : '#a0aec0'"
+            />
+            <ListPicker
+              id="tag"
+              class="m-y-5"
+              opacity="0"
+              :items="tagList"
+              :selectedIndex="tagIndex"
+              @selectedIndexChange="tagChange"
+            />
+          </StackLayout>
         </StackLayout>
 
         <StackLayout id="moveTag">
           <!-- Date -->
-          <StackLayout class="m-t-15">
+          <StackLayout class="m-t-10">
             <Label
               text="When did you receive the card?"
               class="label"
@@ -208,6 +204,10 @@ export default {
       }
     },
 
+    outsideForms() {
+      if (this.pickerOpen) this.closePicker();
+    },
+
     onTextChanged({ text }) {
       this.card.from = text.trim();
     },
@@ -250,7 +250,7 @@ export default {
     },
 
     showPicker() {
-      this.pickerOpen = true;
+      if (this.pickerOpen === true) return;
       const picker = this.$refs.page.nativeView.getViewById('tag');
       const view = this.$refs.page.nativeView.getViewById('moveTag');
 
@@ -269,10 +269,11 @@ export default {
         backgroundColor: '#F7FAFC',
         duration: 275,
       });
+
+      this.pickerOpen = true;
     },
 
     closePicker() {
-      this.pickerOpen = false;
       const picker = this.$refs.page.nativeView.getViewById('tag');
       const view = this.$refs.page.nativeView.getViewById('moveTag');
 
@@ -290,6 +291,10 @@ export default {
         opacity: 0,
         duration: 275,
       });
+
+      setTimeout(() => {
+        this.pickerOpen = false;
+      }, 250);
     },
   },
 };
@@ -307,34 +312,31 @@ export default {
 }
 
 RadAutoCompleteTextView {
-  placeholder-color: #a0aec0;
   border-bottom-width: 0;
   background-color: #edf2f7;
-  border-radius: 25px;
+  border-radius: 5;
   margin: 5 25 0 25;
-  padding: 5;
-  font-size: 15px;
-}
-
-.header {
-  font-size: 20px;
-  font-weight: 700;
-  width: 85%;
-  margin-bottom: 75px;
+  padding: 8;
+  height: 40;
+  font-weight: 500;
+  font-size: 18px;
 }
 
 .label {
   width: 85%;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.025;
 }
 
 .input {
-  placeholder-color: #a0aec0;
   border-bottom-width: 0;
   background-color: #edf2f7;
-  border-radius: 25px;
-  padding: 20px;
-  font-size: 15px;
+  border-radius: 5;
+  padding: 8;
+  height: 40;
+  font-weight: 500;
+  font-size: 18px;
   width: 85%;
 }
 

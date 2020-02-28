@@ -9,6 +9,7 @@ export default class UserService extends Base {
     this.user = {
       displayName: null,
       birthday: null,
+      people: [],
     };
   }
 
@@ -45,7 +46,7 @@ export default class UserService extends Base {
       );
     }
 
-    return this.userRef.set({
+    return this.userRef.update({
       displayName: this.user.displayName,
       birthday: this.user.birthday,
     });
@@ -58,6 +59,7 @@ export default class UserService extends Base {
     return this.userRef.set({
       displayName: null,
       birthday: null,
+      people: [],
     });
   }
 }

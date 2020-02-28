@@ -1,3 +1,5 @@
 export const tagList = state => {
-  return state.holidays.slice(1);
+  const clone = JSON.parse(JSON.stringify(state.holidays));
+  clone.splice(0, 1, '');
+  return clone;
 };

@@ -6,7 +6,7 @@ export default class AuthService extends Base {
     super();
   }
 
-  async register(creds) {
+  async register({ email, password }) {
     await firebase.createUser({
       email,
       password,
