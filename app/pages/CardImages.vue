@@ -9,66 +9,70 @@
       />
       <ActionItem text="Save" ios.position="right" @tap="save" />
     </ActionBar>
-    <ScrollView>
-      <StackLayout>
-        <!-- Header text -->
-        <Label
-          text="Select or take up 5 pictures"
-          textWrap="true"
-          class="header"
-        />
 
-        <!-- Loading icon -->
-        <Loader v-show="creating" />
+    <!-- Main View -->
+    <GridLayout>
+      <ScrollView>
+        <StackLayout>
+          <!-- Header text -->
+          <Label
+            text="Select or take up 5 pictures"
+            textWrap="true"
+            class="header"
+          />
 
-        <!-- Images -->
-        <GridLayout rows="auto, auto, auto" columns="*, *">
-          <StackLayout
-            v-for="(img, index) in images"
-            :key="index"
-            class="m-t-15"
-            :row="index / 2 < 1 ? 0 : index / 2 <= 1.5 ? 1 : 2"
-            :column="(index + 1) % 2 == 0 ? 1 : 0"
-          >
-            <Label
-              :text="`Picture ${index + 1}`"
-              textWrap="true"
-              class="label label-img"
-            />
-            <Image
-              v-if="img !== ''"
-              :src="img"
-              v-shadow="15"
-              stretch="aspectFit"
-              class="img p-x-5"
-            />
-            <Label
-              v-else
-              class="placeholder fas"
-              text.decode="&#xf03e;"
-              @tap="imagePrompt"
-            />
-          </StackLayout>
-        </GridLayout>
-      </StackLayout>
-    </ScrollView>
+          <!-- Images -->
+          <GridLayout rows="auto, auto, auto" columns="*, *">
+            <StackLayout
+              v-for="(img, index) in images"
+              :key="index"
+              class="m-t-15"
+              :row="index / 2 < 1 ? 0 : index / 2 <= 1.5 ? 1 : 2"
+              :column="(index + 1) % 2 == 0 ? 1 : 0"
+            >
+              <Label
+                :text="`Picture ${index + 1}`"
+                textWrap="true"
+                class="label label-img"
+              />
+              <Image
+                v-if="img !== ''"
+                :src="img"
+                v-shadow="15"
+                stretch="aspectFit"
+                class="img p-x-5"
+              />
+              <Label
+                v-else
+                class="placeholder fas"
+                text.decode="&#xf03e;"
+                @tap="imagePrompt"
+              />
+            </StackLayout>
+          </GridLayout>
+        </StackLayout>
+      </ScrollView>
+
+      <!-- Loading icon -->
+      <LoaderCustom v-show="creating" />
+    </GridLayout>
   </Page>
 </template>
 
 <script>
-import Loader from '@/components/Loader';
 import CardService from '@/services/card';
 import * as camera from 'nativescript-camera';
+import LoaderCustom from '@/components/LoaderCustom';
 import * as imagepicker from 'nativescript-imagepicker';
-import { ImageSource } from 'tns-core-modules/image-source';
 import { ImageCropper } from 'nativescript-imagecropper';
+import { ImageSource } from 'tns-core-modules/image-source';
 import { toBase64String } from 'tns-core-modules/image-source';
 
 const cardService = new CardService();
 
 export default {
   components: {
-    Loader,
+    LoaderCustom,
   },
   props: {
     card: Object,

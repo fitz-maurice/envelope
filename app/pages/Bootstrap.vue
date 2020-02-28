@@ -4,20 +4,25 @@
     actionBarHidden="true"
     backgroundSpanUnderStatusBar="false"
   >
-    <Loader />
+    <LoaderCustom :loading="loading" />
   </Page>
 </template>
 
 <script>
 import routes from '~/router';
+import { mapActions } from 'vuex';
+import LoaderCustom from '@/components/LoaderCustom';
 import * as firebase from 'nativescript-plugin-firebase';
 import * as application from 'tns-core-modules/application';
-import Loader from '~/components/Loader';
-import { mapActions } from 'vuex';
 
 export default {
   components: {
-    Loader,
+    LoaderCustom,
+  },
+  data() {
+    return {
+      loading: true,
+    };
   },
   methods: {
     ...mapActions(['loadCards', 'setHolidays']),
@@ -37,17 +42,26 @@ export default {
             // Fetch the user document
             this.$userService.getUserDocument();
 
+            // Finished loading
+            this.loading = false;
+
+            // Navigate to Home
             this.$navigateTo(routes.home, {
               frame: 'main',
               animated: false,
               clearHistory: true,
             });
-          } else
+          } else {
+            // Finished loading
+            this.loading = false;
+
+            // Navigate to Login
             this.$navigateTo(routes.login, {
               frame: 'main',
               animated: false,
               clearHistory: true,
             });
+          }
         },
       });
 

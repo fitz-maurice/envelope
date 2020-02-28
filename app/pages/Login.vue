@@ -1,123 +1,127 @@
 <template>
   <Page @navigatedTo="loaded" actionBarHidden="true">
-    <FlexboxLayout
-      class="page"
-      flexDirection="column"
-      justifyContent="space-between"
-    >
-      <!-- LOGO -->
-      <StackLayout v-shadow="150" class="logo-container">
-        <Image class="logo" src="~/assets/envelope.png"></Image>
-      </StackLayout>
+    <GridLayout>
+      <FlexboxLayout
+        class="page"
+        flexDirection="column"
+        justifyContent="space-between"
+      >
+        <!-- LOGO -->
+        <StackLayout v-shadow="150" class="logo-container">
+          <Image class="logo" src="~/assets/envelope.png"></Image>
+        </StackLayout>
 
-      <!-- HEADER -->
-      <Label class="header" text="Envelope"></Label>
+        <!-- HEADER -->
+        <Label class="header" text="Envelope"></Label>
 
-      <GridLayout rows="auto, auto, auto, auto">
-        <!-- Email input -->
-        <TextField
-          row="0"
-          class="input"
-          hint="Email"
-          :isEnabled="!processing"
-          keyboardType="email"
-          autocorrect="false"
-          autocapitalizationType="none"
-          v-model="user.email"
-          returnKeyType="next"
-          @returnPress="$refs.password.nativeView.focus()"
-        ></TextField>
+        <GridLayout rows="auto, auto, auto, auto">
+          <!-- Email input -->
+          <TextField
+            row="0"
+            class="input"
+            hint="Email"
+            :isEnabled="!processing"
+            keyboardType="email"
+            autocorrect="false"
+            autocapitalizationType="none"
+            v-model="user.email"
+            returnKeyType="next"
+            @returnPress="$refs.password.nativeView.focus()"
+          ></TextField>
 
-        <!-- Password Input -->
-        <TextField
-          row="1"
-          class="input"
-          ref="password"
-          :isEnabled="!processing"
-          hint="Password"
-          secure="true"
-          v-model="user.password"
-          autocorrect="false"
-          autocapitalizationType="none"
-          :returnKeyType="isSigningIn ? 'done' : 'next'"
-        ></TextField>
+          <!-- Password Input -->
+          <TextField
+            row="1"
+            class="input"
+            ref="password"
+            :isEnabled="!processing"
+            hint="Password"
+            secure="true"
+            v-model="user.password"
+            autocorrect="false"
+            autocapitalizationType="none"
+            :returnKeyType="isSigningIn ? 'done' : 'next'"
+          ></TextField>
 
-        <!-- Login Button -->
-        <Button
-          row="2"
-          @tap="submit"
-          :text="isSigningIn ? 'Sign in' : 'Sign up'"
-          :isEnabled="!processing"
-          class="button-action"
-        ></Button>
+          <!-- Login Button -->
+          <Button
+            row="2"
+            @tap="submit"
+            :text="isSigningIn ? 'Sign in' : 'Sign up'"
+            :isEnabled="!processing"
+            class="button-action"
+          ></Button>
 
-        <!-- Forgot Password -->
-        <Label
-          row="3"
-          v-show="isSigningIn"
-          @tap="forgotPassword()"
-          text="Forgot your password?"
-          class="forgot-password"
-          horizontalAlignment="center"
-        ></Label>
+          <!-- Forgot Password -->
+          <Label
+            row="3"
+            v-show="isSigningIn"
+            @tap="forgotPassword()"
+            text="Forgot your password?"
+            class="forgot-password"
+            horizontalAlignment="center"
+          ></Label>
+        </GridLayout>
 
-        <!-- ActivityIndicator -->
-        <Loader rowSpan="4" v-show="processing" />
-      </GridLayout>
+        <Label text="OR" class="or" />
 
-      <Label text="OR" class="or" />
+        <StackLayout>
+          <!-- Apple -->
+          <Button
+            :isEnabled="!processing"
+            @tap="loginWithApple()"
+            class="social-login"
+            v-shadow="20"
+          >
+            <FormattedString>
+              <Span text.decode="&#xf179;" class="fab" />
+              <Span text="    " />
+              <Span text="Continue with Apple" />
+            </FormattedString>
+          </Button>
 
-      <StackLayout>
-        <!-- Apple -->
-        <Button
-          :isEnabled="!processing"
-          @tap="loginWithApple()"
-          class="social-login"
-          v-shadow="20"
-        >
+          <!-- Google -->
+          <Button
+            :isEnabled="!processing"
+            @tap="loginWithGoogle()"
+            class="social-login"
+            v-shadow="20"
+          >
+            <FormattedString>
+              <Span text.decode="&#xf1a0;" class="fab" />
+              <Span text="  " />
+              <Span text="Continue with Google" />
+            </FormattedString>
+          </Button>
+        </StackLayout>
+
+        <Label class="login-label sign-up-label" @tap="toggleForm">
           <FormattedString>
-            <Span text.decode="&#xf179;" class="fab" />
-            <Span text="    " />
-            <Span text="Continue with Apple" />
+            <Span
+              :text="
+                isSigningIn ? 'Don’t have an account? ' : 'Back to sign in '
+              "
+            ></Span>
+            <Span :text="isSigningIn ? 'Sign up' : ''"></Span>
           </FormattedString>
-        </Button>
+        </Label>
+      </FlexboxLayout>
 
-        <!-- Google -->
-        <Button
-          :isEnabled="!processing"
-          @tap="loginWithGoogle()"
-          class="social-login"
-          v-shadow="20"
-        >
-          <FormattedString>
-            <Span text.decode="&#xf1a0;" class="fab" />
-            <Span text="  " />
-            <Span text="Continue with Google" />
-          </FormattedString>
-        </Button>
-      </StackLayout>
-
-      <Label class="login-label sign-up-label" @tap="toggleForm">
-        <FormattedString>
-          <Span
-            :text="isSigningIn ? 'Don’t have an account? ' : 'Back to sign in '"
-          ></Span>
-          <Span :text="isSigningIn ? 'Sign up' : ''"></Span>
-        </FormattedString>
-      </Label>
-    </FlexboxLayout>
+      <!-- Custom loading icon -->
+      <LoaderCustom :loading="processing" />
+    </GridLayout>
   </Page>
 </template>
 
 <script>
 import routes from '~/router';
-import Loader from '~/components/Loader';
+import LoaderCustom from '@/components/LoaderCustom';
 import { Frame } from 'tns-core-modules/ui/frame';
 import { isIOS } from 'tns-core-modules/platform';
 
 export default {
   components: {
-    Loader,
+    LoaderCustom,
   },
   data() {
     return {
