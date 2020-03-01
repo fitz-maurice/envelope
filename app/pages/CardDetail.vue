@@ -189,7 +189,11 @@ export default {
   methods: {
     ...mapActions(['deleteCard', 'updateCard']),
 
+    /**
+     * Present a fullscreen image
+     */
     fullscreen(image) {
+      if (this.isEditing) return;
       const photoviewer = new PhotoViewer();
       let folder = fs.knownFolders.temp();
       let fileName = new Date().getTime() + '.jpg';
@@ -198,6 +202,9 @@ export default {
       photoviewer.showGallery([path]);
     },
 
+    /**
+     * Select a person from the dropdown
+     */
     selectPerson() {
       if (!this.isEditing) return;
       const picker = new Picker('Select or enter new person', {
@@ -221,6 +228,9 @@ export default {
       });
     },
 
+    /**
+     * Edit date received
+     */
     selectDate() {
       if (!this.isEditing) return;
       const picker = new Picker('Select date', {
@@ -231,6 +241,9 @@ export default {
       });
     },
 
+    /**
+     * Edit a tag for the card
+     */
     selectTag() {
       if (!this.isEditing) return;
       const picker = new Picker('Select an occassion', { items: this.tagList });
