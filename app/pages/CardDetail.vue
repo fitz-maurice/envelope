@@ -51,7 +51,11 @@
               :key="index"
             >
               <GridLayout>
-                <Image :src="image" stretch="aspectFill" />
+                <Image
+                  :src="image"
+                  stretch="aspectFill"
+                  @tap="fullscreen(image)"
+                />
               </GridLayout>
             </CarouselItem>
           </Carousel>
@@ -182,6 +186,9 @@ import {
   AutoCompleteCompletionMode,
   AutoCompleteDisplayMode,
 } from 'nativescript-ui-autocomplete';
+import { PhotoViewer } from 'nativescript-photoviewer';
+import * as fs from 'file-system';
+import * as enums from 'ui/enums';
 
 export default {
   props: {
@@ -232,6 +239,15 @@ export default {
   },
   methods: {
     ...mapActions(['deleteCard', 'updateCard']),
+
+    fullscreen(image) {
+      const photoviewer = new PhotoViewer();
+      let folder = fs.knownFolders.temp();
+      let fileName = new Date().getTime() + '.jpg';
+      let path = fs.path.join(folder.path, fileName);
+      image.saveToFile(path, enums.ImageFormat.jpg);
+      photoviewer.showGallery([path]);
+    },
 
     onTextChanged({ text }) {
       this.card.from = text.trim();
