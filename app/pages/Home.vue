@@ -81,7 +81,7 @@ export default {
         props: {
           card: item,
         },
-      });
+      }).catch(e => console.log(e));
     },
   },
 };

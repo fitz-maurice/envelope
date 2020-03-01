@@ -2,11 +2,9 @@ import Vue from 'nativescript-vue';
 import { appRater } from 'nativescript-rater';
 import NSVueShadow from 'nativescript-vue-shadow';
 // import VueDevtools from 'nativescript-vue-devtools';
-import DateTimePicker from 'nativescript-datetimepicker/vue';
 import RadListView from 'nativescript-ui-listview/vue';
 import BottomSheetPlugin from 'nativescript-material-bottomsheet/vue';
 import { install } from 'nativescript-material-bottomsheet';
-import RadAutoComplete from 'nativescript-ui-autocomplete/vue';
 
 // Application Services;
 import BaseService from './services/base';
@@ -30,10 +28,6 @@ appRater.init({
   showNeverButton: false,
   debugMode: true,
 });
-
-// DateTime Picker
-// https://github.com/NativeScript/nativescript-datetimepicker
-Vue.use(DateTimePicker);
 
 // Vue DevTools
 // Vue.use(VueDevtools);
@@ -59,8 +53,6 @@ Vue.registerElement(
   'CarouselItem',
   () => require('nativescript-carousel').CarouselItem,
 );
-
-Vue.use(RadAutoComplete);
 
 // Services Initialization
 export const baseService = new BaseService();

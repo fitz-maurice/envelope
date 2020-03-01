@@ -35,13 +35,10 @@
             horizontalAlignment="stretch"
           >
             <Label text.decode="&#xf133;" class="far icon" />
-            <DatePickerField
-              v-model="$userService.user.birthday"
-              :maxDate="today"
-              hint="Birthday"
-              class="name-input"
-              borderBottomWidth="0"
-              dateFormat="MM/dd/yyyy"
+            <Label
+              @tap="selectDate"
+              :text="$userService.user.birthday"
+              class="name-input m-l-15"
             />
           </StackLayout>
 
@@ -220,6 +217,8 @@ import { isIOS } from 'tns-core-modules/platform';
 import InAppBrowser from 'nativescript-inappbrowser';
 import * as appversion from 'nativescript-appversion';
 import * as SocialShare from 'nativescript-social-share';
+import Picker from '@/native/picker';
+import moment from 'moment';
 
 export default {
   data() {
@@ -246,6 +245,20 @@ export default {
       this.clearCards();
       this.$userService.userRef = null;
       this.$authService.logout();
+    },
+
+    selectDate() {
+      const picker = new Picker('Select date', {
+        type: 'date',
+      });
+      picker
+        .pick()
+        .then(
+          result =>
+            (this.$userService.user.birthday = moment(result).format(
+              'MM/DD/YYYY',
+            )),
+        );
     },
 
     /**

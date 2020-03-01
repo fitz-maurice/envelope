@@ -78,28 +78,7 @@
                 text.decode="&#xf007;"
                 verticalAlignment="top"
               />
-              <RadAutoCompleteTextView
-                :items="peopleList"
-                :suggestMode="suggestMode"
-                :completionMode="completionMode"
-                :displayMode="displayMode"
-                @textChanged="onTextChanged"
-                @tap="closePicker"
-                hint="Card giver's name"
-              >
-                <SuggestionView ~suggestionView>
-                  <StackLayout v-suggestionItemTemplate orientation="vertical">
-                    <v-template scope="item">
-                      <Label
-                        col="1"
-                        ref="person"
-                        class="text-field p-l-5"
-                        :text="card.from"
-                      />
-                    </v-template>
-                  </StackLayout>
-                </SuggestionView>
-              </RadAutoCompleteTextView>
+              <Label @tap="selectPerson" :text="card.from" class="input" />
             </StackLayout>
 
             <!-- TAG: -->
@@ -113,12 +92,7 @@
                 text.decode="&#xf79c;"
                 verticalAlignment="top"
               />
-              <TextField
-                class="text-field"
-                :editable="isEditing"
-                v-model="card.tag"
-                textWrap="true"
-              />
+              <Label @tap="selectTag" :text="card.tag" class="input" />
             </StackLayout>
 
             <!-- DATE: -->
@@ -132,19 +106,7 @@
                 text.decode="&#xf073;"
                 verticalAlignment="top"
               />
-              <TextField
-                v-if="!isEditing"
-                class="text-field"
-                :editable="false"
-                v-model="date"
-                textWrap="true"
-              />
-              <TextField
-                v-else
-                class="text-field"
-                v-model="card.date"
-                textWrap="true"
-              />
+              <Label @tap="selectDate" :text="date" class="input" />
             </StackLayout>
 
             <!-- NOTES: -->
@@ -180,33 +142,19 @@ import { mapActions } from 'vuex';
 import { Frame } from 'tns-core-modules/ui/frame';
 import { fromBase64 } from 'tns-core-modules/image-source';
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
-import {
-  TokenModel,
-  AutoCompleteSuggestMode,
-  AutoCompleteCompletionMode,
-  AutoCompleteDisplayMode,
-} from 'nativescript-ui-autocomplete';
 import { PhotoViewer } from 'nativescript-photoviewer';
 import * as fs from 'file-system';
 import * as enums from 'ui/enums';
+import Picker from '@/native/picker';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
     card: Object,
   },
   data() {
-    const peopleList = new ObservableArray();
-    const people = this.$userService.user.people.sort();
-    people.forEach(person =>
-      peopleList.push(new TokenModel(person, undefined)),
-    );
-
     return {
       isEditing: false,
-      peopleList: peopleList,
-      suggestMode: AutoCompleteSuggestMode.Append,
-      completionMode: AutoCompleteCompletionMode.StartsWith,
-      displayMode: AutoCompleteDisplayMode.Plain,
       detailsList: new ObservableArray([
         { name: this.card.from, icon: '&#xf007;' },
         { name: this.card.tag, icon: '&#xf79c;' },
@@ -216,6 +164,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['tagList']),
     // Prepare the images from Base64 encoding
     images() {
       return this.card.images.map(image => fromBase64(image));
@@ -249,8 +198,45 @@ export default {
       photoviewer.showGallery([path]);
     },
 
-    onTextChanged({ text }) {
-      this.card.from = text.trim();
+    selectPerson() {
+      if (!this.isEditing) return;
+      const picker = new Picker('Select or enter new person', {
+        items: this.$userService.user.people,
+        fields: 3,
+      });
+
+      picker.pick().then(result => {
+        if (result === 'new') {
+          prompt({
+            title: 'New person',
+            message: "Provide the person's name who gifted you the card",
+            okButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+          }).then(result => {
+            if (result.result) this.card.from = result.text.trim();
+          });
+        } else {
+          if (result) this.card.from = this.$userService.user.people[result];
+        }
+      });
+    },
+
+    selectDate() {
+      if (!this.isEditing) return;
+      const picker = new Picker('Select date', {
+        type: 'date',
+      });
+      picker.pick().then(result => {
+        if (result) this.card.date = moment(result).format('MM/DD/YYYY');
+      });
+    },
+
+    selectTag() {
+      if (!this.isEditing) return;
+      const picker = new Picker('Select an occassion', { items: this.tagList });
+      picker.pick().then(result => {
+        if (result) this.card.tag = this.tagList[result];
+      });
     },
 
     /**
