@@ -34,60 +34,26 @@
       </FlexboxLayout>
 
       <!-- Tag picker -->
-      <StackLayout id="tag" :class="{ border: showTag }">
-        <FlexboxLayout
-          id="tagRow"
-          class="p-15 border"
-          @tap="toggleTag"
-          justifyContent="space-between"
-        >
-          <Label text="Occasion" class="label" />
-          <Label :text="tagLabel" class="value" />
-        </FlexboxLayout>
-        <!-- :visibility="showTag ? 'visible' : 'collapsed'" -->
-        <StackLayout id="tagPicker" opacity="0">
-          <ListPicker
-            ref="tag"
-            :items="$store.state.holidays"
-            :selectedIndex="tagIndex"
-            @selectedIndexChange="tagChange"
-          />
-        </StackLayout>
-      </StackLayout>
+      <FlexboxLayout
+        class="p-15 border"
+        @tap="selectTag"
+        justifyContent="space-between"
+        backgroundColor="white"
+      >
+        <Label text="Occasion" class="label" />
+        <Label :text="selectedTag" class="value" />
+      </FlexboxLayout>
 
       <!-- Person picker -->
-      <StackLayout id="person" :class="{ border: showPerson }">
-        <FlexboxLayout
-          id="personRow"
-          class="p-15 border"
-          @tap="togglePerson"
-          justifyContent="space-between"
-        >
-          <Label text="Person" class="label" />
-          <Label :text="personLabel" class="value" />
-        </FlexboxLayout>
-        <StackLayout id="personPicker" opacity="0">
-          <ListPicker
-            ref="person"
-            :items="peopleList"
-            :selectedIndex="personIndex"
-            @selectedIndexChange="personchange"
-          />
-        </StackLayout>
-      </StackLayout>
-
-      <!-- Cover up -->
-      <StackLayout id="cover">
-        <Label text=" " textWrap="true" />
-        <Label text=" " textWrap="true" />
-        <Label text=" " textWrap="true" />
-        <Label text=" " textWrap="true" />
-        <Label text=" " textWrap="true" />
-        <Label text=" " textWrap="true" />
-        <Label text=" " textWrap="true" />
-        <Label text=" " textWrap="true" />
-        <Label text=" " textWrap="true" />
-      </StackLayout>
+      <FlexboxLayout
+        class="p-15 border"
+        @tap="selectPerson"
+        justifyContent="space-between"
+        backgroundColor="white"
+      >
+        <Label text="Person" class="label" />
+        <Label :text="selectedPerson" class="value" />
+      </FlexboxLayout>
     </StackLayout>
   </Page>
 </template>
@@ -98,12 +64,11 @@ import { getString } from 'tns-core-modules/application-settings';
 import { Frame } from 'tns-core-modules/ui/frame';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
 import { Color } from 'tns-core-modules/color';
+import Picker from '@/native/picker';
 
 export default {
   data() {
     return {
-      showTag: false,
-      showPerson: false,
       sortSelected: null,
       selectedTag: null,
       selectedPerson: null,
@@ -120,188 +85,45 @@ export default {
     };
   },
   created() {
-    this.selectedTag = this.$store.state.holidays.indexOf(
-      this.$store.state.tagFilter,
-    );
-    this.selectedPerson = this.peopleList.indexOf(
-      this.$store.state.personFilter,
-    );
+    this.selectedTag = this.$store.state.tagFilter;
+    this.selectedPerson = this.$store.state.personFilter;
     this.sortSelected = this.$store.state.currentSort;
   },
   computed: {
     peopleList() {
       return ['All'].concat(this.$userService.user.people.sort());
     },
-    personIndex() {
-      return this.peopleList.indexOf(this.$store.state.personFilter);
-    },
-    tagIndex() {
-      return this.$store.state.holidays.indexOf(this.$store.state.tagFilter);
-    },
-    personLabel() {
-      return this.peopleList[this.selectedPerson];
-    },
-    tagLabel() {
-      return this.$store.state.holidays[this.selectedTag];
-    },
   },
   methods: {
     ...mapActions(['setSort', 'setTag', 'setPerson', 'filter']),
-    toggleTag(changeCover = null) {
-      const person = this.$refs.page.nativeView.getViewById('person');
-      const picker = this.$refs.page.nativeView.getViewById('tagPicker');
-      const cover = this.$refs.page.nativeView.getViewById('cover');
-      const row = this.$refs.page.nativeView.getViewById('tagRow');
+    selectTag() {
+      const picker = new Picker('Select an occassion', {
+        items: this.$store.state.holidays,
+      });
 
-      if (this.showPerson) this.togglePerson(false);
-
-      if (this.showTag) {
-        setTimeout(() => {
-          this.showTag = false;
-        }, 275);
-
-        person.animate({
-          translate: {
-            x: 0,
-            y: 0,
-          },
-          duration: 250,
-          curve: AnimationCurve.easeInOut,
-        });
-
-        if (changeCover) {
-          cover.animate({
-            translate: {
-              x: 0,
-              y: 0,
-            },
-            duration: 250,
-            curve: AnimationCurve.easeInOut,
-          });
-        }
-
-        picker.animate({
-          opacity: 0,
-          duration: 225,
-        });
-
-        row.backgroundColor = new Color(100, 89, 4, 4);
-        row.animate({
-          backgroundColor: 'white',
-          duration: 150,
-        });
-      } else {
-        this.showTag = true;
-        person.animate({
-          translate: {
-            x: 0,
-            y: 190,
-          },
-          duration: 250,
-          delay: 50,
-          curve: AnimationCurve.easeInOut,
-        });
-
-        cover.animate({
-          translate: {
-            x: 0,
-            y: 185,
-          },
-          duration: 250,
-          delay: 50,
-          curve: AnimationCurve.easeInOut,
-        });
-
-        picker.animate({
-          opacity: 1,
-          duration: 275,
-        });
-
-        row.backgroundColor = new Color(100, 89, 4, 4);
-        row.animate({
-          backgroundColor: 'white',
-          duration: 150,
-        });
-      }
+      picker.pick().then(result => {
+        if (result) this.selectedTag = this.$store.state.holidays[result];
+      });
     },
-    togglePerson(changeCover = null) {
-      const picker = this.$refs.page.nativeView.getViewById('personPicker');
-      const cover = this.$refs.page.nativeView.getViewById('cover');
-      const row = this.$refs.page.nativeView.getViewById('personRow');
+    selectPerson() {
+      const picker = new Picker('Select or enter new person', {
+        items: this.peopleList,
+      });
 
-      if (this.showTag) this.toggleTag(false);
-
-      if (this.showPerson) {
-        setTimeout(() => {
-          this.showPerson = false;
-        }, 275);
-
-        if (changeCover) {
-          cover.animate({
-            translate: {
-              x: 0,
-              y: 0,
-            },
-            duration: 250,
-            curve: AnimationCurve.easeInOut,
-          });
-        }
-
-        picker.animate({
-          opacity: 0,
-          duration: 225,
-        });
-
-        row.backgroundColor = new Color(100, 89, 4, 4);
-        row.animate({
-          backgroundColor: 'white',
-          duration: 250,
-        });
-      } else {
-        this.showPerson = true;
-        cover.animate({
-          translate: {
-            x: 0,
-            y: 165,
-          },
-          duration: 250,
-          delay: 50,
-          curve: AnimationCurve.easeInOut,
-        });
-
-        picker.animate({
-          opacity: 1,
-          duration: 275,
-          delay: 50,
-        });
-
-        row.backgroundColor = new Color(100, 89, 4, 4);
-        row.animate({
-          backgroundColor: 'white',
-          duration: 250,
-        });
-      }
-    },
-    tagChange(e) {
-      this.selectedTag = e.value;
-    },
-    personchange(e) {
-      this.selectedPerson = e.value;
+      picker.pick().then(result => {
+        if (result) this.selectedPerson = this.peopleList[result];
+      });
     },
     apply() {
-      this.setPerson(
-        this.peopleList[this.$refs.person.nativeView.selectedIndex],
-      );
-      this.setTag(
-        this.$store.state.holidays[this.$refs.tag.nativeView.selectedIndex],
-      );
+      this.setPerson(this.selectedPerson);
+      this.setTag(this.selectedTag);
       this.setSort(this.sortSelected);
       this.filter();
     },
     reset() {
       this.sortSelected = 'date';
-      this.selectedTag = 0;
-      this.selectedPerson = 0;
+      this.selectedTag = 'All';
+      this.selectedPerson = 'All';
       this.setSort('date');
       this.setTag('All');
       this.setPerson('All');
@@ -365,19 +187,5 @@ export default {
   border-radius: 5;
   font-size: 13px;
   font-weight: 700;
-}
-
-#tag {
-  background-color: white;
-}
-
-#person {
-  margin-top: -568px;
-  background-color: white;
-}
-
-#cover {
-  margin-top: -405px;
-  background-color: #f0eff4;
 }
 </style>

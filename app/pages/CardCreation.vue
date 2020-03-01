@@ -112,6 +112,7 @@ import {
 import { mapGetters } from 'vuex';
 import Picker from '@/native/picker';
 import moment from 'moment';
+const dialogs = require('tns-core-modules/ui/dialogs');
 
 export default {
   data() {
@@ -176,6 +177,7 @@ export default {
             message: "Provide the person's name who gifted you the card",
             okButtonText: 'OK',
             cancelButtonText: 'Cancel',
+            inputType: dialogs.inputType.email,
           }).then(result => {
             if (result.result) this.card.from = result.text.trim();
           });

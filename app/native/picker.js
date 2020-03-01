@@ -98,7 +98,7 @@ export default class Picker {
   show(dialog) {
     const currentPage = Frame.topmost();
     let view = currentPage;
-    let viewController = Frame.topmost().ios.controller;
+    let viewController = currentPage.ios.controller;
 
     if (currentPage.modal) {
       view = currentPage.modal;
@@ -123,6 +123,10 @@ export default class Picker {
           1.0,
         );
         dialog.popoverPresentationController.permittedArrowDirections = 0;
+      }
+
+      if (viewController.presentedViewController) {
+        viewController = viewController.presentedViewController;
       }
 
       viewController.presentViewControllerAnimatedCompletion(
