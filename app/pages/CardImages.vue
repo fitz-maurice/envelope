@@ -39,6 +39,7 @@
                 v-if="img !== ''"
                 :src="img"
                 v-shadow="15"
+                @tap="imagePrompt(index)"
                 stretch="aspectFit"
                 class="img p-x-5"
               />
@@ -89,28 +90,31 @@ export default {
     },
   },
   methods: {
-    imagePrompt() {
+    imagePrompt(index = null) {
       action('Select image source', 'Cancel', [
         'Camera',
         'Photo Library',
       ]).then(result =>
-        result === 'Camera' ? this.takePicture() : this.selectPicture(),
+        result === 'Camera'
+          ? this.takePicture(index)
+          : this.selectPicture(index),
       );
     },
     // Take picture and pass to cropper
-    takePicture() {
+    takePicture(index = null) {
       let source = new ImageSource();
 
       camera.requestPermissions().then(
         () => {
           camera
             .takePicture({
-              width: 300,
+              width: 500,
+              height: 700,
               keepAspectRatio: true,
             })
             .then(imageAsset => {
               source.fromAsset(imageAsset).then(source => {
-                this.editPicture(source);
+                this.editPicture(source, index);
               });
             })
             .catch(function(err) {
@@ -124,7 +128,7 @@ export default {
     },
 
     // Select picture from phone
-    selectPicture() {
+    selectPicture(index = null) {
       let image;
       let source = new ImageSource();
       let context = imagepicker.create({
@@ -142,7 +146,7 @@ export default {
           selection.forEach(selected => {
             source.fromAsset(selected).then(source => {
               setTimeout(async () => {
-                this.editPicture(source);
+                this.editPicture(source, index);
               }, 250);
             });
           });
@@ -153,16 +157,17 @@ export default {
     },
 
     // Edit and crop the picture
-    async editPicture(source) {
+    async editPicture(source, index = null) {
       const imageCropper = new ImageCropper();
 
       setTimeout(async () => {
         await imageCropper
-          .show(source, { width: 300, height: 300, keepAspectRatio: true })
+          .show(source, { width: 500, height: 700, keepAspectRatio: true })
           .then(({ response, image }) => {
             if (response === 'Success') {
-              const index = this.images.indexOf('');
-              this.images.splice(index, 1, image);
+              const i =
+                typeof index === 'number' ? index : this.images.indexOf('');
+              this.images.splice(i, 1, image);
             }
           })
           .catch(function(e) {

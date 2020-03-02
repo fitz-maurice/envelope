@@ -36,6 +36,7 @@
           >
             <Label text.decode="&#xf133;" class="far icon" />
             <Label
+              ref="birthday"
               @tap="selectDate"
               :text="$userService.user.birthday"
               class="name-input m-l-15"
@@ -251,14 +252,11 @@ export default {
       const picker = new Picker('Select date', {
         type: 'date',
       });
-      picker
-        .pick()
-        .then(
-          result =>
-            (this.$userService.user.birthday = moment(result).format(
-              'MM/DD/YYYY',
-            )),
-        );
+      picker.pick().then(result => {
+        const date = moment(result).format('MM/DD/YYYY');
+        this.$userService.user.birthday = date;
+        this.$refs.birthday.nativeView.text = date;
+      });
     },
 
     /**

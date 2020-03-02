@@ -76,9 +76,14 @@
               <Label
                 class="far icon"
                 text.decode="&#xf007;"
-                verticalAlignment="top"
+                verticalAlignment="center"
               />
-              <Label @tap="selectPerson" :text="card.from" class="input" />
+              <Label
+                @tap="selectPerson"
+                :text="card.from"
+                class="input"
+                :class="{ edit: isEditing }"
+              />
             </StackLayout>
 
             <!-- TAG: -->
@@ -90,9 +95,14 @@
               <Label
                 class="far icon"
                 text.decode="&#xf79c;"
-                verticalAlignment="top"
+                verticalAlignment="center"
               />
-              <Label @tap="selectTag" :text="card.tag" class="input" />
+              <Label
+                @tap="selectTag"
+                :text="card.tag"
+                class="input"
+                :class="{ edit: isEditing }"
+              />
             </StackLayout>
 
             <!-- DATE: -->
@@ -104,9 +114,14 @@
               <Label
                 class="far icon"
                 text.decode="&#xf073;"
-                verticalAlignment="top"
+                verticalAlignment="center"
               />
-              <Label @tap="selectDate" :text="date" class="input" />
+              <Label
+                @tap="selectDate"
+                :text="date"
+                class="input"
+                :class="{ edit: isEditing }"
+              />
             </StackLayout>
 
             <!-- NOTES: -->
@@ -116,16 +131,19 @@
               horizontalAlignment="stretch"
             >
               <Label
-                class="far icon"
+                class="far icon m-t-8"
                 text.decode="&#xf249;"
                 verticalAlignment="top"
               />
               <TextView
                 class="text-field"
+                :class="{ edit: isEditing }"
                 :editable="isEditing"
                 v-model="card.notes"
                 textWrap="true"
-                hint="Add a description..."
+                :hint="
+                  isEditing ? 'Add a description...' : 'No description provided'
+                "
               />
             </StackLayout>
           </StackLayout>
@@ -362,9 +380,28 @@ export default {
 }
 
 .input-wrapper {
-  padding: 30px 30px 15px 30px;
+  padding: 30px 30px 30px 30px;
   border-bottom-color: #dfdfdf;
   border-bottom-width: 2px;
+}
+
+.input {
+  border-bottom-width: 0;
+  border-radius: 5;
+  margin-left: 10;
+  padding: 8;
+  height: 40;
+  font-weight: 500;
+  font-size: 14;
+  width: 85%;
+}
+
+.input-error {
+  color: red;
+}
+
+.edit {
+  background-color: #edf2f7;
 }
 
 .icon {
@@ -378,10 +415,11 @@ export default {
 }
 
 .text-field {
-  width: 100%;
-  border: 0;
-  padding: 0;
-  padding-top: 5px;
+  width: 85%;
+  margin-left: 10;
+  padding-left: 5;
+  padding-top: 10;
   border-bottom-width: 0;
+  border-bottom-color: transparent;
 }
 </style>

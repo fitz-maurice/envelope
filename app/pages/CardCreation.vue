@@ -64,33 +64,31 @@
           </StackLayout>
         </StackLayout>
 
-        <StackLayout>
-          <!-- Date -->
-          <StackLayout class="m-t-10">
-            <Label
-              text="When did you receive the card?"
-              class="label"
-              :class="{ 'input-error': showErrors && !dateValid }"
-            />
-            <Label
-              @tap="selectDate"
-              :text="card.date"
-              class="input"
-              :color="dateValid ? 'black' : '#a0aec0'"
-            />
-          </StackLayout>
+        <!-- Date -->
+        <StackLayout class="m-t-15">
+          <Label
+            text="When did you receive the card?"
+            class="label"
+            :class="{ 'input-error': showErrors && !dateValid }"
+          />
+          <Label
+            @tap="selectDate"
+            :text="card.date"
+            class="input"
+            :color="dateValid ? 'black' : '#a0aec0'"
+          />
+        </StackLayout>
 
-          <!-- Notes -->
-          <StackLayout class="m-t-15">
-            <Label text="Notes (optional)" class="label" />
-            <TextView
-              v-model="card.notes"
-              @tap="closePicker"
-              class="input"
-              returnKeyType="done"
-              height="75%"
-            />
-          </StackLayout>
+        <!-- Notes -->
+        <StackLayout class="m-t-15">
+          <Label text="Notes (optional)" class="label" />
+          <TextView
+            v-model="card.notes"
+            @tap="closePicker"
+            class="input"
+            returnKeyType="done"
+            height="75%"
+          />
         </StackLayout>
       </StackLayout>
     </Page>
@@ -166,7 +164,7 @@ export default {
 
     selectPerson() {
       const picker = new Picker('Select or enter new person', {
-        items: this.$userService.user.people,
+        items: [''].concat(this.$userService.user.people.sort()),
         fields: 3,
       });
 
@@ -260,11 +258,6 @@ export default {
 
 .input-error {
   color: red;
-}
-
-.img {
-  width: 325;
-  border-radius: 20px;
 }
 
 .warning-icon {

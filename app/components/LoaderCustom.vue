@@ -1,5 +1,5 @@
 <template>
-  <AbsoluteLayout v-if="loading">
+  <AbsoluteLayout width="100%" height="100%" v-if="loading">
     <Image
       :left="width"
       :top="height"

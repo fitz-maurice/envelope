@@ -7,9 +7,13 @@
       <FlexboxLayout class="header p-15 border" justifyContent="space-between">
         <Label text="Filters" class="heading" />
 
-        <FlexboxLayout width="50%" justifyContent="space-between">
-          <Label v-shadow="5" class="reset" text="Reset" @tap="reset" />
-          <Label v-shadow="5" class="apply" text="Apply" @tap="apply" />
+        <FlexboxLayout
+          class="m-r-25"
+          width="50%"
+          justifyContent="space-between"
+        >
+          <Button v-shadow="5" class="reset" text="Reset" @tap="reset" />
+          <Button v-shadow="5" class="apply" text="Apply" @tap="apply" />
         </FlexboxLayout>
       </FlexboxLayout>
 

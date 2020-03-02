@@ -19,7 +19,7 @@
         @loadMoreDataRequested="loadMoreCards"
       >
         <v-template>
-          <CardPreview :card="card" width="50%" />
+          <CardPreview :card="card" />
         </v-template>
       </RadListView>
 
