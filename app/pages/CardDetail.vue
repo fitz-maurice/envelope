@@ -226,7 +226,7 @@ export default {
     selectPerson() {
       if (!this.isEditing) return;
       const picker = new Picker('Select or enter new person', {
-        items: this.$userService.user.people,
+        items: [''].concat(this.$userService.user.people),
         fields: 3,
       });
 
