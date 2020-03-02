@@ -89,7 +89,7 @@ export default {
         },
       })
         .then(data => {
-          if (data) {
+          if (data === 'deleted') {
             this.loadCards();
           }
         })

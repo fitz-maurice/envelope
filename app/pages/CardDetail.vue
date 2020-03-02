@@ -274,10 +274,14 @@ export default {
     /**
      * Close the modal and return Home
      */
-    goHome() {
+    goHome(deleted) {
       this.isEditing = false;
       Frame.topmost().removeEventListener();
-      this.$modal.close('deleted');
+      if (deleted) {
+        this.$modal.close(deleted);
+      } else {
+        this.$modal.close();
+      }
     },
 
     /**
@@ -362,7 +366,7 @@ export default {
               message: 'Card was successfully deleted',
               okButtonText: 'Ok',
             }).then(() => {
-              this.goHome();
+              this.goHome('deleted');
             });
           });
         }
