@@ -159,7 +159,6 @@ import routes from '@/router';
 import { mapActions } from 'vuex';
 import { Frame } from 'tns-core-modules/ui/frame';
 import { fromBase64 } from 'tns-core-modules/image-source';
-import { ObservableArray } from 'tns-core-modules/data/observable-array';
 import { PhotoViewer } from 'nativescript-photoviewer';
 import * as fs from 'file-system';
 import * as enums from 'ui/enums';
@@ -169,16 +168,13 @@ import { mapGetters } from 'vuex';
 export default {
   props: {
     card: Object,
+    editCard: Object,
+    index: Number,
   },
   data() {
     return {
       isEditing: false,
-      detailsList: new ObservableArray([
-        { name: this.card.from, icon: '&#xf007;' },
-        { name: this.card.tag, icon: '&#xf79c;' },
-        { name: this.card.date, icon: '&#xf133;' },
-        { name: this.card.notes, icon: '&#xf249;' },
-      ]),
+      secondary: null,
     };
   },
   computed: {
@@ -205,7 +201,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['deleteCard', 'updateCard']),
+    ...mapActions({
+      deleteCard: 'deleteCard',
+      updateCard: 'updateCard',
+      cancel: 'cancelEdit',
+    }),
 
     /**
      * Present a fullscreen image
@@ -300,6 +300,7 @@ export default {
      * Convert modal to non-draggable
      */
     async edit() {
+      this.secondary = JSON.parse(JSON.stringify(this.editCard));
       await this.$nextTick(() => {
         Frame.topmost().ios.controller.modalInPresentation = true;
       });
@@ -317,6 +318,7 @@ export default {
       }).then(async result => {
         if (result) {
           this.isEditing = false;
+          this.card = this.secondary;
           await this.$nextTick(() => {
             Frame.topmost().ios.controller.modalInPresentation = false;
           });

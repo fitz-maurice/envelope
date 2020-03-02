@@ -80,6 +80,7 @@ export default {
       this.$showModal(routes.detail, {
         props: {
           card: item,
+          editCard: JSON.parse(JSON.stringify(item)),
         },
       }).catch(e => console.log(e));
     },
