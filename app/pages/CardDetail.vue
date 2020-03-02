@@ -241,7 +241,8 @@ export default {
             if (result.result) this.card.from = result.text.trim();
           });
         } else {
-          if (result) this.card.from = this.$userService.user.people[result];
+          if (result)
+            this.card.from = this.$userService.user.people[result - 1];
         }
       });
     },
