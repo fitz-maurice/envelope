@@ -12,7 +12,7 @@
         </StackLayout>
 
         <!-- HEADER -->
-        <Label class="header" text="Envelope"></Label>
+        <Image class="header" src="~/assets/envelope_white.png" />
 
         <GridLayout rows="auto, auto, auto, auto">
           <!-- Email input -->
@@ -294,10 +294,7 @@ export default {
 }
 
 .header {
-  color: #fff;
-  font-size: 45;
-  font-weight: 600;
-  text-align: center;
+  width: 75%;
 }
 
 .input {

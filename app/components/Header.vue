@@ -10,7 +10,7 @@
     </ActionItem>
 
     <!-- Logo -->
-    <Image width="20" height="20" src="~/assets/envelope.png"></Image>
+    <Image src="~/assets/envelope_black.png"></Image>
 
     <!-- Right Settings -->
     <ActionItem
