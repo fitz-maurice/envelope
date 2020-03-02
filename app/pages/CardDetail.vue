@@ -419,6 +419,7 @@ export default {
   margin-left: 10;
   padding-left: 5;
   padding-top: 10;
+  border-radius: 5;
   border-bottom-width: 0;
   border-bottom-color: transparent;
 }

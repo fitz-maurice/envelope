@@ -123,6 +123,7 @@ export default {
       this.setTag(this.selectedTag);
       this.setSort(this.sortSelected);
       this.filter();
+      this.$closeBottomSheet();
     },
     reset() {
       this.sortSelected = 'date';
@@ -132,6 +133,7 @@ export default {
       this.setTag('All');
       this.setPerson('All');
       this.filter();
+      this.$closeBottomSheet();
     },
   },
 };
