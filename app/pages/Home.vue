@@ -24,9 +24,7 @@
       </RadListView>
 
       <!-- FAButton -->
-      <FabButton
-        @onButtonTap="$showModal(routes.cardCreation, { fullscreen: true })"
-      />
+      <FabButton @onButtonTap="createCard" />
     </AbsoluteLayout>
   </Page>
 </template>
@@ -59,6 +57,13 @@ export default {
     filter() {
       this.$showBottomSheet(routes.filters, {});
     },
+    createCard() {
+      this.$showModal(routes.cardCreation, { fullscreen: true }).then(data => {
+        if (data) {
+          this.loadCards();
+        }
+      });
+    },
     onPullToRefresh() {
       this.$nextTick(() => {
         this.loadCards().then(() =>
@@ -82,7 +87,13 @@ export default {
           card: item,
           editCard: JSON.parse(JSON.stringify(item)),
         },
-      }).catch(e => console.log(e));
+      })
+        .then(data => {
+          if (data) {
+            this.loadCards();
+          }
+        })
+        .catch(e => console.log(e));
     },
   },
 };

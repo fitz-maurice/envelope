@@ -209,7 +209,7 @@ export default {
             title: 'Your card was created!',
             okButtonText: 'Ok',
           }).then(() => {
-            this.$modal.close();
+            this.$modal.close('created');
           });
         })
         .catch(err => console.log(err));

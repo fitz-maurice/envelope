@@ -277,7 +277,7 @@ export default {
     goHome() {
       this.isEditing = false;
       Frame.topmost().removeEventListener();
-      this.$modal.close();
+      this.$modal.close('deleted');
     },
 
     /**
