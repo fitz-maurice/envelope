@@ -216,8 +216,10 @@
 </template>
 
 <script>
+import moment from 'moment';
 import routes from '~/router';
 import { mapActions } from 'vuex';
+import Picker from '@/native/picker';
 import * as email from 'nativescript-email';
 import { appRater } from 'nativescript-rater';
 import { openApp } from 'nativescript-open-app';
@@ -225,8 +227,6 @@ import { isIOS } from 'tns-core-modules/platform';
 import InAppBrowser from 'nativescript-inappbrowser';
 import * as appversion from 'nativescript-appversion';
 import * as SocialShare from 'nativescript-social-share';
-import Picker from '@/native/picker';
-import moment from 'moment';
 
 export default {
   data() {

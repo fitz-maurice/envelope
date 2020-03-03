@@ -2,29 +2,25 @@
   <Page ref="page" backgroundColor="#f0eff4">
     <!-- Main Layout -->
     <StackLayout>
-      <Label v-shadow="5" class="bar" />
+      <Label class="bar" />
       <!-- Action buttons -->
-      <FlexboxLayout class="header p-15 border" justifyContent="space-between">
-        <Label text="Filters" class="heading" />
+      <FlexboxLayout class="header" justifyContent="space-between">
+        <Label text="Filters" class="title" />
 
-        <FlexboxLayout
-          class="m-r-25"
-          width="50%"
-          justifyContent="space-between"
-        >
-          <Button v-shadow="5" class="reset" text="Reset" @tap="reset" />
-          <Button v-shadow="5" class="apply" text="Apply" @tap="apply" />
+        <FlexboxLayout flexDirection="row" alignContent="flex-end">
+          <Label v-shadow="2" class="reset" text="Reset" @tap="reset" />
+          <Label v-shadow="2" class="apply" text="Apply" @tap="apply" />
         </FlexboxLayout>
       </FlexboxLayout>
 
       <!-- Sort -->
       <FlexboxLayout
-        class="p-15 sort border"
-        orientation="horizontal"
+        class="input-wrapper input-wrapper-first"
+        backgroundColor="white"
         justifyContent="space-between"
       >
         <Label text="Sort" class="label" />
-        <FlexboxLayout>
+        <FlexboxLayout alignItems="flex-end">
           <Label
             v-for="(sort, index) in sorts"
             :class="{ selected: sort.value === sortSelected }"
@@ -39,10 +35,10 @@
 
       <!-- Tag picker -->
       <FlexboxLayout
-        class="p-15 border"
+        class="input-wrapper"
         @tap="selectTag"
-        justifyContent="space-between"
         backgroundColor="white"
+        justifyContent="space-between"
       >
         <Label text="Occasion" class="label" />
         <Label :text="selectedTag" class="value" />
@@ -50,10 +46,10 @@
 
       <!-- Person picker -->
       <FlexboxLayout
-        class="p-15 border"
+        class="input-wrapper"
         @tap="selectPerson"
-        justifyContent="space-between"
         backgroundColor="white"
+        justifyContent="space-between"
       >
         <Label text="Person" class="label" />
         <Label :text="selectedPerson" class="value" />
@@ -64,11 +60,11 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { getString } from 'tns-core-modules/application-settings';
+import Picker from '@/native/picker';
+import { Color } from 'tns-core-modules/color';
 import { Frame } from 'tns-core-modules/ui/frame';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
-import { Color } from 'tns-core-modules/color';
-import Picker from '@/native/picker';
+import { getString } from 'tns-core-modules/application-settings';
 
 export default {
   data() {
@@ -139,37 +135,42 @@ export default {
 };
 </script>
 
-<style scoped>
-.border {
-  border-width: 0 0 0.25 0;
-  border-color: #590404;
+<style lang="scss" scoped>
+Page {
+  border-top-left-radius: 45px;
+  border-top-right-radius: 45px;
 }
 
 .bar {
-  margin-top: -75px;
-  margin-bottom: 20;
-  background-color: #590404;
-  width: 40%;
-  height: 4;
+  height: 5;
+  width: 95px;
+  margin-top: -100px;
   border-radius: 9999;
+  background-color: #590404;
 }
 
-.heading {
+.header {
+  padding: 30px;
+}
+
+.title {
+  font-size: 18;
   color: #590404;
-  font-size: 25;
-  font-weight: 700;
-}
-
-.sort {
-  background-color: white;
-}
-
-.label {
   font-weight: 600;
 }
 
+.input-wrapper {
+  padding: 30px;
+  border-bottom-width: 2px;
+  border-bottom-color: #dfdfdf;
+}
+.input-wrapper-first {
+  border-top-width: 2px;
+  border-top-color: #dfdfdf;
+}
+
 .value {
-  font-size: 14;
+  font-size: 12;
 }
 
 .selected {
@@ -179,19 +180,18 @@ export default {
 
 .reset {
   color: #590404;
-  background-color: white;
-  padding: 8 20;
+  padding: 8 12;
   border-radius: 5;
-  font-size: 13px;
   font-weight: 700;
+  background-color: white;
 }
 
 .apply {
+  margin-left: 30px;
   color: white;
-  background-color: #590404;
-  padding: 8 20;
+  padding: 8 12;
   border-radius: 5;
-  font-size: 13px;
   font-weight: 700;
+  background-color: #590404;
 }
 </style>
