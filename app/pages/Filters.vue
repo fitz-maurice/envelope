@@ -39,10 +39,10 @@
 
       <!-- Tag picker -->
       <FlexboxLayout
+        v-tapped
         class="p-15 border"
         @tap="selectTag"
         justifyContent="space-between"
-        backgroundColor="white"
       >
         <Label text="Occasion" class="label" />
         <Label :text="selectedTag" class="value" />
@@ -50,10 +50,10 @@
 
       <!-- Person picker -->
       <FlexboxLayout
+        v-tapped
         class="p-15 border"
         @tap="selectPerson"
         justifyContent="space-between"
-        backgroundColor="white"
       >
         <Label text="Person" class="label" />
         <Label :text="selectedPerson" class="value" />
@@ -143,6 +143,7 @@ export default {
 .border {
   border-width: 0 0 0.25 0;
   border-color: #590404;
+  background-color: white;
 }
 
 .bar {

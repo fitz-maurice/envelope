@@ -4,6 +4,7 @@
       <Label text="ADVANCED" class="section-header" />
       <!-- Delete Account -->
       <StackLayout
+        v-tapped
         @tap="deleteAccount"
         class="input-wrapper"
         orientation="horizontal"
@@ -20,6 +21,7 @@
 
       <!-- Download Data -->
       <StackLayout
+        v-tapped
         @tap="exportData"
         class="input-wrapper"
         orientation="horizontal"

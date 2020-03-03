@@ -58,6 +58,7 @@
           <Label text="PREMIUM" class="section-header" />
           <FlexboxLayout justifyContent="space-between" @tap="subscription">
             <StackLayout
+              v-tapped
               class="input-wrapper"
               orientation="horizontal"
               horizontalAlignment="stretch"
@@ -81,6 +82,7 @@
           <Label text="SUPPORT" class="section-header" />
           <!-- Email Support -->
           <StackLayout
+            v-tapped
             @tap="emailSupport"
             class="input-wrapper"
             orientation="horizontal"
@@ -98,6 +100,7 @@
           <!-- Advanced -->
           <FlexboxLayout justifyContent="space-between" @tap="advanced">
             <StackLayout
+              v-tapped
               class="input-wrapper"
               orientation="horizontal"
               horizontalAlignment="stretch"
@@ -117,6 +120,7 @@
           </FlexboxLayout>
           <!-- Help Center -->
           <StackLayout
+            v-tapped
             @tap="help"
             class="input-wrapper"
             orientation="horizontal"
@@ -130,6 +134,7 @@
           <Label text="ABOUT" class="section-header" />
           <!-- Refer a Friend -->
           <StackLayout
+            v-tapped
             @tap="share"
             class="input-wrapper"
             orientation="horizontal"
@@ -138,8 +143,10 @@
             <Label text.decode="&#xf164;" class="far icon" />
             <Label class="label" text="Refer a Friend" />
           </StackLayout>
+
           <!-- Rate -->
           <StackLayout
+            v-tapped
             @tap="rate"
             class="input-wrapper"
             orientation="horizontal"
@@ -148,8 +155,10 @@
             <Label text.decode="&#xf005;" class="far icon" />
             <Label class="label" text="Rate in the App Store" />
           </StackLayout>
+
           <!-- Follow -->
           <StackLayout
+            v-tapped
             @tap="follow"
             class="input-wrapper"
             orientation="horizontal"
@@ -164,6 +173,7 @@
           <!-- Acknowledgements -->
           <FlexboxLayout justifyContent="space-between" @tap="ack">
             <StackLayout
+              v-tapped
               class="input-wrapper"
               orientation="horizontal"
               horizontalAlignment="stretch"
@@ -341,7 +351,9 @@ export default {
      * Navigate to advanced page
      */
     advanced() {
-      this.$navigateTo(routes.advanced, { frame: 'main' });
+      this.$navigateTo(routes.advanced, { frame: 'main' }).catch(e =>
+        console.log(e),
+      );
     },
 
     /**
