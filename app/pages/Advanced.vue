@@ -45,7 +45,7 @@ export default {
       confirm({
         title: 'Delete Account',
         message:
-          'You will be sent an export of your data before account and all of its data is permanently deleted. This action cannot be undone. Are you sure you want to delete your account?',
+          'You will be sent an export of your data before your account and all of its data is permanently deleted. This action cannot be undone. Are you sure you want to delete your account?',
         okButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
       }).then(result => {
