@@ -35,7 +35,7 @@
     "nativescript-material-bottomsheet": "^3.1.9",
     "nativescript-open-app": "^0.3.0",
     "nativescript-photoviewer": "^2.1.5",
-    "nativescript-plugin-firebase": "~10.5.0",
+    "nativescript-plugin-firebase": "^10.5.0",
     "nativescript-rater": "^2.1.1",
     "nativescript-social-share": "^1.6.0",
     "nativescript-socketio": "^3.3.1",

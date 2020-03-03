@@ -96,18 +96,25 @@
           </StackLayout>
 
           <!-- Advanced -->
-          <StackLayout
-            class="input-wrapper"
-            orientation="horizontal"
-            horizontalAlignment="stretch"
-          >
-            <Label text.decode="&#xf013;" class="far icon" />
-            <Label
-              class="label"
-              text="Advanced"
+          <FlexboxLayout justifyContent="space-between" @tap="advanced">
+            <StackLayout
+              class="input-wrapper"
+              orientation="horizontal"
               horizontalAlignment="stretch"
+            >
+              <Label text.decode="&#xf013;" class="far icon" />
+              <Label
+                class="label"
+                text="Advanced"
+                horizontalAlignment="stretch"
+              />
+            </StackLayout>
+
+            <Label
+              text.decode="&#xf105;"
+              class="far m-r-15 input-wrapper caret"
             />
-          </StackLayout>
+          </FlexboxLayout>
           <!-- Help Center -->
           <StackLayout
             @tap="help"
@@ -328,6 +335,13 @@ export default {
      */
     ack() {
       this.$navigateTo(routes.acknowledgements, { frame: 'main' });
+    },
+
+    /**
+     * Navigate to advanced page
+     */
+    advanced() {
+      this.$navigateTo(routes.advanced, { frame: 'main' });
     },
 
     /**

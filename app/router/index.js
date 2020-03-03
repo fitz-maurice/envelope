@@ -8,6 +8,7 @@ import Subscription from '../pages/Subscription';
 import CardDetail from '../pages/CardDetail';
 import Filters from '../pages/Filters';
 import CardImages from '../pages/CardImages';
+import Advanced from '../pages/Advanced';
 
 const routes = {
   loading: Bootstrap,
@@ -20,6 +21,7 @@ const routes = {
   detail: CardDetail,
   filters: Filters,
   cardImages: CardImages,
+  advanced: Advanced,
 };
 
 export default routes;

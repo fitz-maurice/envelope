@@ -6,6 +6,7 @@ export default class UserService extends Base {
   constructor() {
     super();
     this.userRef = null;
+    this.email = null;
     this.user = {
       displayName: null,
       birthday: null,

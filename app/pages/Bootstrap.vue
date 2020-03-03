@@ -37,6 +37,7 @@ export default {
           if (data.loggedIn) {
             // Assign uid in Base class
             this.$baseService.uid = data.user.uid;
+            this.$userService.email = data.user.email;
             // Load the user's cards through Vuex
             this.loadCards();
             // Fetch the user document
