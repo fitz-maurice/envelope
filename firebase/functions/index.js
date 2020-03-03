@@ -11,9 +11,9 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://theenvelopeapp.firebaseio.com',
 });
-// TODO: Configure the email account that will be used.
-// const email = functions.config().email.email
-// const password = functions.config().email.password;
+
+const email = functions.config().email.email;
+const password = functions.config().email.password;
 const mailTransport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
