@@ -9,7 +9,7 @@
         orientation="horizontal"
         horizontalAlignment="stretch"
       >
-        <Label text.decode="&#xf0e0;" class="far icon" />
+        <Label text.decode="&#xf071;" class="far icon" />
         <Label
           class="label"
           text="Delete Account"
@@ -25,7 +25,7 @@
         orientation="horizontal"
         horizontalAlignment="stretch"
       >
-        <Label text.decode="&#xf0e0;" class="far icon" />
+        <Label text.decode="&#xf56d;" class="far icon" />
         <Label class="label" text="Export Data" horizontalAlignment="stretch">
         </Label>
       </StackLayout>
