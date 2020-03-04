@@ -82,6 +82,7 @@ export default {
       this.$showModal(routes.cardCreation, { fullscreen: true }).then(data => {
         if (data) {
           this.loadCards();
+          this.$adService.showInterstitial();
         }
       });
     },

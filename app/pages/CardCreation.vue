@@ -149,6 +149,8 @@ export default {
   methods: {
     // Bootstrap the page
     loaded(args) {
+      this.$adService.preloadInterstitial();
+
       const keySet = hasKey('firstTimePermissions');
       this.keySet = keySet;
 
