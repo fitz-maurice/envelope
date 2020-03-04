@@ -166,13 +166,14 @@ Page {
 }
 
 .title {
-  font-size: 18;
+  font-size: 20;
   color: #590404;
   font-weight: 600;
 }
 
 .input-wrapper {
   padding: 30px;
+  font-size: 14px;
   border-bottom-width: 2px;
   border-bottom-color: #dfdfdf;
   background-color: white;
@@ -183,7 +184,7 @@ Page {
 }
 
 .value {
-  font-size: 12;
+  font-size: 14px;
 }
 
 .selected {
@@ -192,6 +193,7 @@ Page {
 }
 
 .reset {
+  font-size: 14px;
   color: #590404;
   padding: 8 12;
   border-radius: 5;
@@ -200,6 +202,7 @@ Page {
 }
 
 .apply {
+  font-size: 14px;
   margin-left: 30px;
   color: white;
   padding: 8 12;
