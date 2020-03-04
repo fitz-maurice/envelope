@@ -120,10 +120,11 @@ exports.exportUserData = functions
       });
     });
 
-    // generate final zip and save locally
-    zip
-      .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
-      .pipe(fs.createWriteStream('./data.zip'));
+    // create zip attachment
+    const attachment = zip.generateNodeStream({
+      type: 'nodebuffer',
+      streamFiles: true,
+    });
 
     const mailOptions = {
       from: '"Envelope App" <noreply@envelope.app>',
@@ -132,7 +133,7 @@ exports.exportUserData = functions
       attachments: [
         {
           filename: 'data.zip',
-          path: './data.zip',
+          content: attachment,
         },
       ],
       text:
@@ -144,11 +145,4 @@ exports.exportUserData = functions
     } catch (error) {
       console.error('There was an error while sending the email:', error);
     }
-
-    // delete temp zip file
-    fs.unlink('./data.zip', err => {
-      if (err) {
-        console.log('failed to delete local zip:' + err);
-      }
-    });
   });

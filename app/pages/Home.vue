@@ -35,6 +35,7 @@ import { mapActions } from 'vuex';
 import Header from '@/components/Header';
 import FabButton from '@/components/FabButton';
 import CardPreview from '@/components/CardPreview';
+import { TapticEngine } from 'nativescript-taptic-engine';
 
 export default {
   components: {
@@ -65,6 +66,9 @@ export default {
       });
     },
     onPullToRefresh() {
+      const tapticEngine = new TapticEngine();
+      tapticEngine.selection();
+
       this.$nextTick(() => {
         this.loadCards().then(() =>
           this.$refs.list.nativeView.notifyPullToRefreshFinished(),

@@ -45,6 +45,7 @@
 
           <!-- Login Button -->
           <Button
+            v-feedback
             row="2"
             @tap="submit"
             :text="isSigningIn ? 'Sign in' : 'Sign up'"
@@ -68,6 +69,7 @@
         <StackLayout>
           <!-- Apple -->
           <Button
+            v-feedback
             :isEnabled="!processing"
             @tap="loginWithApple()"
             class="social-login"
@@ -82,6 +84,7 @@
 
           <!-- Google -->
           <Button
+            v-feedback
             :isEnabled="!processing"
             @tap="loginWithGoogle()"
             class="social-login"

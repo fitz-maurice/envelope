@@ -54,7 +54,7 @@
                 <Image
                   :src="image"
                   stretch="aspectFill"
-                  @tap="fullscreen(image)"
+                  @tap="fullscreen(images, index)"
                 />
               </GridLayout>
             </CarouselItem>
@@ -210,14 +210,20 @@ export default {
     /**
      * Present a fullscreen image
      */
-    fullscreen(image) {
+    fullscreen(images, index) {
       if (this.isEditing) return;
       const photoviewer = new PhotoViewer();
       let folder = fs.knownFolders.temp();
-      let fileName = new Date().getTime() + '.jpg';
-      let path = fs.path.join(folder.path, fileName);
-      image.saveToFile(path, enums.ImageFormat.jpg);
-      photoviewer.showGallery([path]);
+      const paths = images.map((image, index) => {
+        let fileName = `${index}_${new Date().getTime()}_.jpg`;
+        let path = fs.path.join(folder.path, fileName);
+        image.saveToFile(path, enums.ImageFormat.jpg);
+        return path;
+      });
+
+      photoviewer.showGallery(paths, {
+        startIndex: index,
+      });
     },
 
     /**

@@ -8,8 +8,20 @@
         <Label text="Filters" class="title" />
 
         <FlexboxLayout flexDirection="row" alignContent="flex-end">
-          <Label v-shadow="2" class="reset" text="Reset" @tap="reset" />
-          <Label v-shadow="2" class="apply" text="Apply" @tap="apply" />
+          <Label
+            v-feedback
+            v-shadow="2"
+            class="reset"
+            text="Reset"
+            @tap="reset"
+          />
+          <Label
+            v-feedback
+            v-shadow="2"
+            class="apply"
+            text="Apply"
+            @tap="apply"
+          />
         </FlexboxLayout>
       </FlexboxLayout>
 
@@ -35,8 +47,9 @@
 
       <!-- Tag picker -->
       <FlexboxLayout
-        class="input-wrapper"
+        v-tapped
         @tap="selectTag"
+        class="input-wrapper"
         backgroundColor="white"
         justifyContent="space-between"
       >
@@ -46,8 +59,9 @@
 
       <!-- Person picker -->
       <FlexboxLayout
-        class="input-wrapper"
+        v-tapped
         @tap="selectPerson"
+        class="input-wrapper"
         backgroundColor="white"
         justifyContent="space-between"
       >
