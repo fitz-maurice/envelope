@@ -5,13 +5,12 @@ import { fetchHolidays } from '~/services/holidays';
 const cardService = new CardService();
 
 export const loadCards = async ({ state, commit }) => {
-  commit(types.LOADING, true);
   return new Promise((resolve, reject) => {
     cardService
       .getCards(state)
       .then(cards => {
         commit(types.SET_CARDS, cards);
-        resolve(commit(types.LOADING, false));
+        resolve();
       })
       .catch(error => {
         console.error(`Error fetching cards: ${error}.`);

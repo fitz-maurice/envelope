@@ -23,6 +23,26 @@
         </v-template>
       </RadListView>
 
+      <!-- No cards view -->
+      <StackLayout
+        :visibility="cardList.length === 0 ? 'visible' : 'collapsed'"
+        height="100%"
+        width="100%"
+        horizontalAlignment="center"
+      >
+        <Image
+          src="~/assets/gray.png"
+          height="50%"
+          width="50%"
+          stretch="aspectFit"
+        />
+        <Label
+          class="no-cards"
+          text="No cards to show"
+          horizontalAlignment="center"
+        />
+      </StackLayout>
+
       <!-- FAButton -->
       <FabButton @onButtonTap="createCard" />
     </AbsoluteLayout>
@@ -108,7 +128,11 @@ export default {
   margin: 0;
   padding: 0;
 }
-.center {
-  margin: 0 auto;
+
+.no-cards {
+  color: #cbd5e0;
+  margin-top: 10;
+  font-weight: 600;
+  font-size: 18;
 }
 </style>
