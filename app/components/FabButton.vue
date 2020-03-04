@@ -1,6 +1,7 @@
 <template>
   <AbsoluteLayout marginTop="86%" marginLeft="79%">
     <Button
+      v-feedback
       v-shadow="shadow"
       text.decode="&#xf067;"
       class="far fab-button"

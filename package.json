@@ -39,6 +39,7 @@
     "nativescript-rater": "^2.1.1",
     "nativescript-social-share": "^1.6.0",
     "nativescript-socketio": "^3.3.1",
+    "nativescript-taptic-engine": "^2.1.0",
     "nativescript-toasty": "^3.0.0-alpha.2",
     "nativescript-ui-dataform": "^6.0.0",
     "nativescript-ui-listview": "^8.0.1",

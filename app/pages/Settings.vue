@@ -45,6 +45,7 @@
 
           <!-- Save -->
           <Button
+            v-feedback
             @tap="updateUser"
             :isEnabled="!updating"
             text="Save"
@@ -203,6 +204,7 @@
         </StackLayout>
 
         <Button
+          v-feedback
           @tap="logout"
           color="white"
           class="action"

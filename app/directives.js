@@ -1,4 +1,5 @@
 import Vue from 'nativescript-vue';
+import { TapticEngine } from 'nativescript-taptic-engine';
 
 const onTap = ({ view }) => {
   // Get original backgrounColor of view
@@ -14,8 +15,19 @@ const onTap = ({ view }) => {
   });
 };
 
+const giveFeedback = ({ view }) => {
+  const tapticEngine = new TapticEngine();
+  tapticEngine.selection();
+};
+
 export const tapped = Vue.directive('tapped', {
   bind(el) {
     el.nativeView.addEventListener('tap', onTap, this);
+  },
+});
+
+export const feedback = Vue.directive('feedback', {
+  bind(el) {
+    el.nativeView.addEventListener('tap', giveFeedback, this);
   },
 });

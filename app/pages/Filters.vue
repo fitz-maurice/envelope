@@ -12,8 +12,20 @@
           width="50%"
           justifyContent="space-between"
         >
-          <Button v-shadow="5" class="reset" text="Reset" @tap="reset" />
-          <Button v-shadow="5" class="apply" text="Apply" @tap="apply" />
+          <Button
+            v-feedback
+            v-shadow="5"
+            class="reset"
+            text="Reset"
+            @tap="reset"
+          />
+          <Button
+            v-feedback
+            v-shadow="5"
+            class="apply"
+            text="Apply"
+            @tap="apply"
+          />
         </FlexboxLayout>
       </FlexboxLayout>
 

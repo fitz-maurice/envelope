@@ -14,7 +14,7 @@ import UserService from './services/user';
 import IAPService from './services/iap';
 
 // Directives
-import { tapped } from '@/directives';
+import { tapped, feedback } from '@/directives';
 
 // Styles
 import './app.scss';
@@ -57,7 +57,9 @@ Vue.registerElement(
   () => require('nativescript-carousel').CarouselItem,
 );
 
+// Directives
 Vue.use(tapped);
+Vue.use(feedback);
 
 // Services Initialization
 export const baseService = new BaseService();
