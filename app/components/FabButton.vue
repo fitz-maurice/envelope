@@ -5,6 +5,7 @@
       v-shadow="shadow"
       text.decode="&#xf067;"
       class="far fab-button"
+      :class="darkMode ? 'dark' : 'light'"
       @tap="$emit('onButtonTap')"
     />
   </AbsoluteLayout>
@@ -12,9 +13,15 @@
 
 <script>
 import { isIOS } from 'tns-core-modules/platform';
+import { Frame } from 'tns-core-modules/ui/frame';
 
 export default {
   computed: {
+    darkMode() {
+      return (
+        Frame.topmost().viewController.traitCollection.userInterfaceStyle === 2
+      );
+    },
     shadow() {
       return isIOS
         ? {
@@ -46,11 +53,19 @@ export default {
 .fab-button {
   width: 56;
   height: 56;
-  background-color: #590404;
   border-radius: 9999px;
   vertical-align: center;
-  color: white;
   text-align: center;
   font-size: 18;
+}
+
+.light {
+  background-color: #590404;
+  color: white;
+}
+
+.dark {
+  color: #590404;
+  background-color: white;
 }
 </style>

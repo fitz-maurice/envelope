@@ -11,7 +11,9 @@
     </ActionItem>
 
     <!-- Logo -->
-    <Image src="~/assets/envelope_black.png"></Image>
+    <Image
+      :src="`~/assets/envelope_${darkMode ? 'white' : 'black'}.png`"
+    ></Image>
 
     <!-- Right Settings -->
     <ActionItem
