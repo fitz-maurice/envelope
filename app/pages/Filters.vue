@@ -50,7 +50,6 @@
         v-tapped
         @tap="selectTag"
         class="input-wrapper"
-        backgroundColor="white"
         justifyContent="space-between"
       >
         <Label text="Occasion" class="label" />
@@ -62,7 +61,6 @@
         v-tapped
         @tap="selectPerson"
         class="input-wrapper"
-        backgroundColor="white"
         justifyContent="space-between"
       >
         <Label text="Person" class="label" />
@@ -177,6 +175,7 @@ Page {
   padding: 30px;
   border-bottom-width: 2px;
   border-bottom-color: #dfdfdf;
+  background-color: white;
 }
 .input-wrapper-first {
   border-top-width: 2px;
