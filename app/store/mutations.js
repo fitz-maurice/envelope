@@ -1,8 +1,13 @@
 import * as types from './types';
 
 const mutations = {
-  [types.SET_CARDS](state, cards) {
+  [types.SET_CARDS](state, payload) {
+    const { cards, firstLoad } = payload;
     state.cards = cards;
+    if (firstLoad !== true) {
+      state.firstLoad = false;
+    }
+    state.loading = false;
   },
   [types.CLEAR_CARDS](state) {
     state.cards = [];

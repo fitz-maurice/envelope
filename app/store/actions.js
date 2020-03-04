@@ -4,12 +4,12 @@ import { fetchHolidays } from '~/services/holidays';
 
 const cardService = new CardService();
 
-export const loadCards = async ({ state, commit }) => {
+export const loadCards = async ({ state, commit }, firstLoad) => {
   return new Promise((resolve, reject) => {
     cardService
       .getCards(state)
       .then(cards => {
-        commit(types.SET_CARDS, cards);
+        commit(types.SET_CARDS, { cards, firstLoad });
         resolve();
       })
       .catch(error => {

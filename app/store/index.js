@@ -10,7 +10,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    loading: false,
+    loading: true,
+    firstLoad: true,
     cards: [],
     holidays: [],
     currentSort: 'date',

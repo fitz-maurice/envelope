@@ -118,7 +118,7 @@ export default {
       });
     },
     selectPerson() {
-      const picker = new Picker('Select or enter new person', {
+      const picker = new Picker('Select person', {
         items: this.peopleList,
       });
 
