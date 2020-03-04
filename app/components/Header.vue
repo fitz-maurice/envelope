@@ -4,6 +4,7 @@
     <ActionItem @tap="$emit('filter')">
       <Label
         class="far header-icon"
+        :color="color"
         text.decode="&#xf0b0;"
         horizontalAlignment="left"
       />
@@ -29,12 +30,29 @@
 
 <script>
 import routes from '~/router';
+import { Frame } from 'tns-core-modules/ui/frame';
 
 export default {
   data() {
     return {
       routes,
     };
+  },
+  computed: {
+    isFiltered() {
+      return (
+        this.$store.state.tagFilter !== 'All' ||
+        this.$store.state.personFilter !== 'All'
+      );
+    },
+    color() {
+      return this.isFiltered ? '#590404' : this.darkMode ? 'white' : 'black';
+    },
+    darkMode() {
+      return (
+        Frame.topmost().viewController.traitCollection.userInterfaceStyle === 2
+      );
+    },
   },
 };
 </script>
