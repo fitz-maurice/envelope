@@ -1,71 +1,73 @@
 <template>
   <!-- Main Layout -->
-  <StackLayout class="root">
-    <Label class="bar" />
-    <!-- Action buttons -->
-    <FlexboxLayout class="header" justifyContent="space-between">
-      <Label text="Filters" class="title" />
+  <Page @loaded="loaded">
+    <StackLayout class="root">
+      <Label class="bar" />
+      <!-- Action buttons -->
+      <FlexboxLayout class="header" justifyContent="space-between">
+        <Label text="Filters" class="title" />
 
-      <FlexboxLayout flexDirection="row" alignContent="flex-end">
-        <Button
-          v-feedback
-          v-shadow="2"
-          class="reset"
-          text="Reset"
-          @tap="reset"
-        />
-        <Button
-          v-feedback
-          v-shadow="2"
-          class="apply"
-          text="Apply"
-          @tap="apply"
-        />
+        <FlexboxLayout flexDirection="row" alignContent="flex-end">
+          <Button
+            v-feedback
+            v-shadow="2"
+            class="reset"
+            text="Reset"
+            @tap="reset"
+          />
+          <Button
+            v-feedback
+            v-shadow="2"
+            class="apply"
+            text="Apply"
+            @tap="apply"
+          />
+        </FlexboxLayout>
       </FlexboxLayout>
-    </FlexboxLayout>
 
-    <!-- Sort -->
-    <FlexboxLayout
-      class="input-wrapper input-wrapper-first"
-      backgroundColor="white"
-      justifyContent="space-between"
-    >
-      <Label text="Sort" class="label" />
-      <FlexboxLayout alignItems="flex-end">
-        <Label
-          v-for="(sort, index) in sorts"
-          :class="{ selected: sort.value === sortSelected }"
-          class="m-l-15 value"
-          :key="index"
-          :text="sort.name"
-          @tap="sortSelected = sort.value"
-          textWrap="true"
-        />
+      <!-- Sort -->
+      <FlexboxLayout
+        class="input-wrapper input-wrapper-first"
+        backgroundColor="white"
+        justifyContent="space-between"
+      >
+        <Label text="Sort" class="label" />
+        <FlexboxLayout alignItems="flex-end">
+          <Label
+            v-for="(sort, index) in sorts"
+            :class="{ selected: sort.value === sortSelected }"
+            class="m-l-15 value"
+            :key="index"
+            :text="sort.name"
+            @tap="sortSelected = sort.value"
+            textWrap="true"
+          />
+        </FlexboxLayout>
       </FlexboxLayout>
-    </FlexboxLayout>
 
-    <!-- Tag picker -->
-    <FlexboxLayout
-      v-tapped
-      @tap="selectTag"
-      class="input-wrapper"
-      justifyContent="space-between"
-    >
-      <Label text="Occasion" class="label" />
-      <Label :text="selectedTag" class="value" />
-    </FlexboxLayout>
+      <!-- Tag picker -->
+      <FlexboxLayout
+        v-tapped
+        @tap="selectTag"
+        class="input-wrapper"
+        justifyContent="space-between"
+      >
+        <Label text="Occasion" class="label" />
+        <Label :text="selectedTag" class="value" />
+      </FlexboxLayout>
 
-    <!-- Person picker -->
-    <FlexboxLayout
-      v-tapped
-      @tap="selectPerson"
-      class="input-wrapper"
-      justifyContent="space-between"
-    >
-      <Label text="Person" class="label" />
-      <Label :text="selectedPerson" class="value" />
-    </FlexboxLayout>
-  </StackLayout>
+      <!-- Person picker -->
+      <FlexboxLayout
+        v-tapped
+        @tap="selectPerson"
+        class="input-wrapper"
+        justifyContent="space-between"
+      >
+        <Label text="Person" class="label" />
+        <Label :text="selectedPerson" class="value" />
+      </FlexboxLayout>
+    </StackLayout>
+  </Page>
 </template>
 
 <script>
@@ -75,6 +77,8 @@ import { Color } from 'tns-core-modules/color';
 import { Frame } from 'tns-core-modules/ui/frame';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
 import { getString } from 'tns-core-modules/application-settings';
+import { ios } from 'tns-core-modules/ui/core/view';
+const platformModule = require('tns-core-modules/platform');
 
 export default {
   data() {
@@ -106,6 +110,11 @@ export default {
   },
   methods: {
     ...mapActions(['setSort', 'setTag', 'setPerson', 'filter']),
+    loaded(args) {
+      const parent = ios.getParentWithViewController(args.object);
+      const width = platformModule.screen.mainScreen.widthDIPs;
+      parent.ios.view.superview.frame = CGRectMake(0, 185, width, 300);
+    },
     selectTag() {
       const picker = new Picker('Select an occassion', {
         items: this.$store.state.holidays,
@@ -146,19 +155,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.root {
+Page {
   background-color: #f0eff4;
-  border-top-left-radius: 45px;
-  border-top-right-radius: 45px;
-  height: 350;
-  margin-top: -100;
-  margin-bottom: -25;
+  border-top-left-radius: 20;
+  border-top-right-radius: 20;
 }
 
 .bar {
   height: 5;
   width: 95px;
-  margin-top: 10;
+  margin-top: -25;
   border-radius: 9999;
   background-color: #590404;
 }
