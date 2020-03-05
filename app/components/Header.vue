@@ -1,19 +1,12 @@
 <template>
   <ActionBar>
-    <!-- Left Layout Grid -->
+    <!-- Left Filter -->
     <ActionItem @tap="$emit('filter')">
-      <Label
-        class="far header-icon"
-        :color="color"
-        text.decode="&#xf0b0;"
-        horizontalAlignment="left"
-      />
+      <Label class="far header-icon" text.decode="&#xf0b0;" :color="color" />
     </ActionItem>
 
     <!-- Logo -->
-    <Image
-      :src="`~/assets/envelope_${darkMode ? 'white' : 'black'}.png`"
-    ></Image>
+    <Image :src="`~/assets/envelope_${darkMode ? 'white' : 'black'}.png`" />
 
     <!-- Right Settings -->
     <ActionItem
@@ -22,9 +15,11 @@
       @tap="$navigateTo(routes.settings, { frame: 'main' })"
     >
       <Label
-        class="far header-icon right"
+        class="far header-icon"
         text.decode="&#xf013;"
-        horizontalAlignment="right"
+        borderWidth="1"
+        borderColor="red"
+        textAlignment="right"
       />
     </ActionItem>
   </ActionBar>
@@ -60,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-.right {
-  margin-right: 115px;
+.header-icon {
+  font-size: 18px;
 }
 </style>
