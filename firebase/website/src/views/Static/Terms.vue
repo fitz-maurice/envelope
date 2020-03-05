@@ -1,56 +1,103 @@
 <template>
-  <div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Suscipit tellus mauris a
-    diam maecenas sed enim. Eget aliquet nibh praesent tristique magna sit amet
-    purus gravida. Ultrices neque ornare aenean euismod elementum nisi quis
-    eleifend quam. Quam adipiscing vitae proin sagittis nisl rhoncus mattis
-    rhoncus urna. Egestas diam in arcu cursus. Vitae tortor condimentum lacinia
-    quis. Pretium lectus quam id leo in vitae. Sit amet dictum sit amet justo
-    donec. Velit scelerisque in dictum non. Mi bibendum neque egestas congue.
-    Massa eget egestas purus viverra accumsan in. Sit amet luctus venenatis
-    lectus magna fringilla urna. Nunc sed velit dignissim sodales ut. Aliquam
-    vestibulum morbi blandit cursus risus at ultrices mi. Pretium vulputate
-    sapien nec sagittis aliquam. Consectetur adipiscing elit ut aliquam purus
-    sit amet. Malesuada pellentesque elit eget gravida cum sociis natoque
-    penatibus et. Eget velit aliquet sagittis id consectetur purus. Nisl vel
-    pretium lectus quam id leo in vitae. Sit amet consectetur adipiscing elit
-    duis. Tincidunt arcu non sodales neque sodales ut etiam. Sapien faucibus et
-    molestie ac. Eros in cursus turpis massa. Viverra orci sagittis eu volutpat
-    odio. Sagittis vitae et leo duis ut diam quam nulla. Neque gravida in
-    fermentum et sollicitudin ac orci. Nulla malesuada pellentesque elit eget
-    gravida cum. At volutpat diam ut venenatis tellus. Ultricies lacus sed
-    turpis tincidunt id aliquet risus feugiat. Blandit aliquam etiam erat velit
-    scelerisque in dictum non consectetur. In fermentum posuere urna nec
-    tincidunt praesent. Id faucibus nisl tincidunt eget nullam non nisi est.
-    Tempus iaculis urna id volutpat lacus laoreet. Suscipit tellus mauris a diam
-    maecenas sed enim ut. Lobortis scelerisque fermentum dui faucibus in ornare
-    quam. Convallis convallis tellus id interdum velit laoreet id donec. Nam
-    libero justo laoreet sit amet cursus sit amet. Gravida rutrum quisque non
-    tellus orci ac auctor. Amet luctus venenatis lectus magna. Pulvinar
-    pellentesque habitant morbi tristique senectus et. Porttitor eget dolor
-    morbi non arcu risus. Turpis egestas integer eget aliquet. Nunc sed augue
-    lacus viverra vitae congue eu consequat ac. Viverra maecenas accumsan lacus
-    vel facilisis volutpat est. Ut tellus elementum sagittis vitae et leo. Est
-    ullamcorper eget nulla facilisi etiam dignissim diam. Donec enim diam
-    vulputate ut pharetra sit amet aliquam id. Vel eros donec ac odio tempor. Id
-    diam maecenas ultricies mi eget mauris. Nulla posuere sollicitudin aliquam
-    ultrices sagittis orci a scelerisque purus. Pharetra et ultrices neque
-    ornare aenean. Ipsum faucibus vitae aliquet nec ullamcorper. Montes nascetur
-    ridiculus mus mauris vitae ultricies leo integer malesuada. Ligula
-    ullamcorper malesuada proin libero nunc. Phasellus vestibulum lorem sed
-    risus ultricies. Id venenatis a condimentum vitae sapien. Velit aliquet
-    sagittis id consectetur purus ut. Aliquam malesuada bibendum arcu vitae
-    elementum. Cum sociis natoque penatibus et magnis dis parturient montes. Ut
-    ornare lectus sit amet est placerat in egestas erat. Nullam eget felis eget
-    nunc lobortis. Platea dictumst vestibulum rhoncus est pellentesque elit
-    ullamcorper dignissim. Elementum curabitur vitae nunc sed. Vitae sapien
-    pellentesque habitant morbi tristique senectus et netus. Tellus pellentesque
-    eu tincidunt tortor aliquam. Convallis tellus id interdum velit laoreet id
-    donec. Quis hendrerit dolor magna eget est lorem ipsum dolor. Lectus sit
-    amet est placerat in egestas. Id donec ultrices tincidunt arcu. Lectus quam
-    id leo in vitae. At augue eget arcu dictum varius. Natoque penatibus et
-    magnis dis parturient montes nascetur ridiculus. Augue mauris augue neque
-    gravida in fermentum et sollicitudin.
+  <div class="container px-5 md:px-0">
+    <h2 class="font-semibold">Terms &amp; Conditions</h2>
+    <p>
+      By downloading or using the app, these terms will automatically apply to
+      you – you should make sure therefore that you read them carefully before
+      using the app. You’re not allowed to copy, or modify the app, any part of
+      the app, or our trademarks in any way. You’re not allowed to attempt to
+      extract the source code of the app, and you also shouldn’t try to
+      translate the app into other languages, or make derivative versions. The
+      app itself, and all the trade marks, copyright, database rights and other
+      intellectual property rights related to it, still belong to Fitz Creative.
+    </p>
+    <p>
+      Fitz Creative is committed to ensuring that the app is as useful and
+      efficient as possible. For that reason, we reserve the right to make
+      changes to the app or to charge for its services, at any time and for any
+      reason. We will never charge you for the app or its services without
+      making it very clear to you exactly what you’re paying for.
+    </p>
+    <p>
+      The Envelope app stores and processes personal data that you have provided
+      to us, in order to provide our Service. It’s your responsibility to keep
+      your phone and access to the app secure. We therefore recommend that you
+      do not jailbreak or root your phone, which is the process of removing
+      software restrictions and limitations imposed by the official operating
+      system of your device. It could make your phone vulnerable to
+      malware/viruses/malicious programs, compromise your phone’s security
+      features and it could mean that the Envelope app won’t work properly or at
+      all.
+    </p>
+    <p>
+      You should be aware that there are certain things that Fitz Creative will
+      not take responsibility for. Certain functions of the app will require the
+      app to have an active internet connection. The connection can be Wi-Fi, or
+      provided by your mobile network provider, but Fitz Creative cannot take
+      responsibility for the app not working at full functionality if you don’t
+      have access to Wi-Fi, and you don’t have any of your data allowance left.
+    </p>
+    <p></p>
+    <p>
+      If you’re using the app outside of an area with Wi-Fi, you should remember
+      that your terms of the agreement with your mobile network provider will
+      still apply. As a result, you may be charged by your mobile provider for
+      the cost of data for the duration of the connection while accessing the
+      app, or other third party charges. In using the app, you’re accepting
+      responsibility for any such charges, including roaming data charges if you
+      use the app outside of your home territory (i.e. region or country)
+      without turning off data roaming. If you are not the bill payer for the
+      device on which you’re using the app, please be aware that we assume that
+      you have received permission from the bill payer for using the app.
+    </p>
+    <p>
+      Along the same lines, Fitz Creative cannot always take responsibility for
+      the way you use the app i.e. You need to make sure that your device stays
+      charged – if it runs out of battery and you can’t turn it on to avail the
+      Service, Fitz Creative cannot accept responsibility.
+    </p>
+    <p>
+      With respect to Fitz Creative’s responsibility for your use of the app,
+      when you’re using the app, it’s important to bear in mind that although we
+      endeavour to ensure that it is updated and correct at all times, we do
+      rely on third parties to provide information to us so that we can make it
+      available to you. Fitz Creative accepts no liability for any loss, direct
+      or indirect, you experience as a result of relying wholly on this
+      functionality of the app.
+    </p>
+    <p>
+      At some point, we may wish to update the app. The app is currently
+      available on Android &amp; iOS – the requirements for both systems (and
+      for any additional systems we decide to extend the availability of the app
+      to) may change, and you’ll need to download the updates if you want to
+      keep using the app. Fitz Creative does not promise that it will always
+      update the app so that it is relevant to you and/or works with the Android
+      &amp; iOS version that you have installed on your device. However, you
+      promise to always accept updates to the application when offered to you,
+      We may also wish to stop providing the app, and may terminate use of it at
+      any time without giving notice of termination to you. Unless we tell you
+      otherwise, upon any termination, (a) the rights and licenses granted to
+      you in these terms will end; (b) you must stop using the app, and (if
+      needed) delete it from your device.
+    </p>
+    <p><strong>Changes to This Terms and Conditions</strong></p>
+    <p>
+      We may update our Terms and Conditions from time to time. Thus, you are
+      advised to review this page periodically for any changes. We will notify
+      you of any changes by posting the new Terms and Conditions on this page.
+      These changes are effective immediately after they are posted on this
+      page.
+    </p>
+    <p><strong>Contact Us</strong></p>
+    <p>
+      If you have any questions or suggestions about our Terms and Conditions,
+      do not hesitate to contact us at admin@envelope.app.
+    </p>
   </div>
 </template>
+
+<style lang="scss" scoped>
+p {
+  margin: 15px 0;
+}
+</style>
