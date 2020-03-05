@@ -165,11 +165,12 @@ export default class CardService extends Base {
    * Calling the listener cancels the listeners
    * for Firebase updates.
    */
-  detachListeners() {
+  async detachListeners() {
     this.cards = [];
     this.start = null;
     this.stop = null;
     this.listeners.forEach(listener => listener());
     this.listeners = [];
+    return true;
   }
 }
