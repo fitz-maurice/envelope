@@ -150,8 +150,8 @@ export default {
   background-color: #f0eff4;
   border-top-left-radius: 45px;
   border-top-right-radius: 45px;
-  height: 50;
-  margin-bottom: -100;
+  height: 350;
+  margin-top: -100;
 }
 
 .bar {
