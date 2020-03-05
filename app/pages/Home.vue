@@ -99,7 +99,9 @@ export default {
   methods: {
     ...mapActions(['loadCards', 'fetchMoreCards']),
     filter() {
-      this.$showBottomSheet(routes.filters, {});
+      this.$showBottomSheet(routes.filters, {
+        transparent: true,
+      });
     },
     createCard() {
       this.$showModal(routes.cardCreation, { fullscreen: true }).then(data => {

@@ -40,7 +40,7 @@
                 :src="img"
                 v-shadow="15"
                 @tap="imagePrompt(index)"
-                stretch="aspectFit"
+                stretch="aspectFill"
                 class="img p-x-5"
               />
               <Label
@@ -235,8 +235,8 @@ export default {
 .placeholder {
   background-color: #a7b3c4;
   border-radius: 5;
-  height: 100;
-  width: 100;
+  width: 90%;
+  height: 175;
   font-size: 50;
   text-align: center;
   color: white;
@@ -247,18 +247,6 @@ export default {
   font-weight: 700;
   width: 85%;
   margin-top: 50px;
-  text-align: center;
-}
-
-.button {
-  color: white;
-  background-color: #0f6ca6;
-  font-weight: 500;
-  font-size: 12;
-  height: 125px;
-  font-size: 13;
-  border-radius: 25px;
-  width: 33%;
   text-align: center;
 }
 
@@ -274,6 +262,7 @@ export default {
 }
 
 .img {
-  width: 98%;
+  width: 90%;
+  height: 175;
 }
 </style>

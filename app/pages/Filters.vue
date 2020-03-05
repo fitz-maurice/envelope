@@ -1,73 +1,71 @@
 <template>
-  <Page ref="page" backgroundColor="#f0eff4">
-    <!-- Main Layout -->
-    <StackLayout>
-      <Label class="bar" />
-      <!-- Action buttons -->
-      <FlexboxLayout class="header" justifyContent="space-between">
-        <Label text="Filters" class="title" />
+  <!-- Main Layout -->
+  <StackLayout class="root">
+    <Label class="bar" />
+    <!-- Action buttons -->
+    <FlexboxLayout class="header" justifyContent="space-between">
+      <Label text="Filters" class="title" />
 
-        <FlexboxLayout flexDirection="row" alignContent="flex-end">
-          <Label
-            v-feedback
-            v-shadow="2"
-            class="reset"
-            text="Reset"
-            @tap="reset"
-          />
-          <Label
-            v-feedback
-            v-shadow="2"
-            class="apply"
-            text="Apply"
-            @tap="apply"
-          />
-        </FlexboxLayout>
+      <FlexboxLayout flexDirection="row" alignContent="flex-end">
+        <Button
+          v-feedback
+          v-shadow="2"
+          class="reset"
+          text="Reset"
+          @tap="reset"
+        />
+        <Button
+          v-feedback
+          v-shadow="2"
+          class="apply"
+          text="Apply"
+          @tap="apply"
+        />
       </FlexboxLayout>
+    </FlexboxLayout>
 
-      <!-- Sort -->
-      <FlexboxLayout
-        class="input-wrapper input-wrapper-first"
-        backgroundColor="white"
-        justifyContent="space-between"
-      >
-        <Label text="Sort" class="label" />
-        <FlexboxLayout alignItems="flex-end">
-          <Label
-            v-for="(sort, index) in sorts"
-            :class="{ selected: sort.value === sortSelected }"
-            class="m-l-15 value"
-            :key="index"
-            :text="sort.name"
-            @tap="sortSelected = sort.value"
-            textWrap="true"
-          />
-        </FlexboxLayout>
+    <!-- Sort -->
+    <FlexboxLayout
+      class="input-wrapper input-wrapper-first"
+      backgroundColor="white"
+      justifyContent="space-between"
+    >
+      <Label text="Sort" class="label" />
+      <FlexboxLayout alignItems="flex-end">
+        <Label
+          v-for="(sort, index) in sorts"
+          :class="{ selected: sort.value === sortSelected }"
+          class="m-l-15 value"
+          :key="index"
+          :text="sort.name"
+          @tap="sortSelected = sort.value"
+          textWrap="true"
+        />
       </FlexboxLayout>
+    </FlexboxLayout>
 
-      <!-- Tag picker -->
-      <FlexboxLayout
-        v-tapped
-        @tap="selectTag"
-        class="input-wrapper"
-        justifyContent="space-between"
-      >
-        <Label text="Occasion" class="label" />
-        <Label :text="selectedTag" class="value" />
-      </FlexboxLayout>
+    <!-- Tag picker -->
+    <FlexboxLayout
+      v-tapped
+      @tap="selectTag"
+      class="input-wrapper"
+      justifyContent="space-between"
+    >
+      <Label text="Occasion" class="label" />
+      <Label :text="selectedTag" class="value" />
+    </FlexboxLayout>
 
-      <!-- Person picker -->
-      <FlexboxLayout
-        v-tapped
-        @tap="selectPerson"
-        class="input-wrapper"
-        justifyContent="space-between"
-      >
-        <Label text="Person" class="label" />
-        <Label :text="selectedPerson" class="value" />
-      </FlexboxLayout>
-    </StackLayout>
-  </Page>
+    <!-- Person picker -->
+    <FlexboxLayout
+      v-tapped
+      @tap="selectPerson"
+      class="input-wrapper"
+      justifyContent="space-between"
+    >
+      <Label text="Person" class="label" />
+      <Label :text="selectedPerson" class="value" />
+    </FlexboxLayout>
+  </StackLayout>
 </template>
 
 <script>
@@ -148,15 +146,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-Page {
+.root {
+  background-color: #f0eff4;
   border-top-left-radius: 45px;
   border-top-right-radius: 45px;
+  height: 50;
+  margin-bottom: -100;
 }
 
 .bar {
   height: 5;
   width: 95px;
-  margin-top: -100px;
+  margin-top: 10;
   border-radius: 9999;
   background-color: #590404;
 }
@@ -193,7 +194,6 @@ Page {
 }
 
 .reset {
-  font-size: 14px;
   color: #590404;
   padding: 8 12;
   border-radius: 5;
@@ -202,7 +202,6 @@ Page {
 }
 
 .apply {
-  font-size: 14px;
   margin-left: 30px;
   color: white;
   padding: 8 12;

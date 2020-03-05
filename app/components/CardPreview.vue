@@ -1,6 +1,12 @@
 <template>
   <StackLayout>
-    <Image :src="image" stretch="fill" width="98%" class="m-y-2" />
+    <Image
+      :src="image"
+      stretch="aspectFill"
+      height="175"
+      width="98%"
+      class="m-y-2"
+    />
   </StackLayout>
 </template>
 

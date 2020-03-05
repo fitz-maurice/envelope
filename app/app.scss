@@ -1,5 +1,12 @@
+$btn-height: 0;
+$btn-min-width: 0;
+$btn-margin-x: 0;
+$btn-margin-y: 0;
+$btn-padding-y: 8;
+$btn-padding-x: 0;
+
 @import '~@nativescript/theme/core';
-// @import '~@nativescript/theme/blue';
+@import '~@nativescript/theme/index';
 
 // Font icon classes
 .fab {

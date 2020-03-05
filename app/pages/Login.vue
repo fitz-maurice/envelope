@@ -50,7 +50,7 @@
             @tap="submit"
             :text="isSigningIn ? 'Sign in' : 'Sign up'"
             :isEnabled="!processing"
-            class="button-action"
+            class="button-action p-y-10 m-y-8"
           ></Button>
 
           <!-- Forgot Password -->
@@ -72,7 +72,7 @@
             v-feedback
             :isEnabled="!processing"
             @tap="loginWithApple()"
-            class="social-login"
+            class="social-login p-y-10"
             v-shadow="20"
           >
             <FormattedString>
@@ -87,7 +87,7 @@
             v-feedback
             :isEnabled="!processing"
             @tap="loginWithGoogle()"
-            class="social-login"
+            class="social-login m-t-16 p-y-10"
             v-shadow="20"
           >
             <FormattedString>
