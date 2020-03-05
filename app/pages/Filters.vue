@@ -152,6 +152,7 @@ export default {
   border-top-right-radius: 45px;
   height: 350;
   margin-top: -100;
+  margin-bottom: -25;
 }
 
 .bar {
