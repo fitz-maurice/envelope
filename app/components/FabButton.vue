@@ -1,5 +1,5 @@
 <template>
-  <AbsoluteLayout marginTop="86%" marginLeft="79%">
+  <AbsoluteLayout :marginTop="isPaying" marginLeft="79%">
     <Button
       v-feedback
       v-shadow="shadow"
@@ -14,9 +14,13 @@
 <script>
 import { isIOS } from 'tns-core-modules/platform';
 import { Frame } from 'tns-core-modules/ui/frame';
+import { getBoolean } from 'tns-core-modules/application-settings';
 
 export default {
   computed: {
+    isPaying() {
+      return getBoolean('isPaying') ? '92%' : '86%';
+    },
     darkMode() {
       return (
         Frame.topmost().viewController.traitCollection.userInterfaceStyle === 2

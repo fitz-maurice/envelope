@@ -4,65 +4,77 @@ import {
   Transaction,
   TransactionState,
 } from '@proplugins/nativescript-purchase/transaction';
+import { setBoolean, setString } from 'tns-core-modules/application-settings';
 
 const PREMIUM_MONTHLY = 'com.fitzcreative.envelope.premium.monthly';
 const PREMIUM_ANNUAL = 'com.fitzcreative.envelope.premium.annual';
+const UNLIMITED_MONTHLY = 'com.fitzcreative.envelope.unlimited.monthly';
+const UNLIMITED_ANNUAL = 'com.fitzcreative.envelope.unlimited.annual';
 
 export default class IAPService extends Base {
   constructor() {
     super();
-    this.products = null;
     this.transaction = null;
   }
 
-  async initPurchases() {
-    this.transaction = purchase
-      .init([PREMIUM_MONTHLY, PREMIUM_ANNUAL])
-      .then(() => {
-        purchase.getProducts().then(products => {
-          this.products = products;
-          products.forEach(product => {
-            console.log('-----------------------------------------');
-            console.log(product.productIdentifier);
-            console.log(product.localizedTitle);
-            console.log(product.priceFormatted);
-            console.log('-----------------------------------------');
-          });
-        });
-      });
-
+  initPurchases() {
+    // Watch the purchase state
     purchase.on(purchase.transactionUpdatedEvent, transaction => {
+      // Successful Purchase
       if (transaction.transactionState === TransactionState.Purchased) {
-        alert(
-          `Congratulations you just bought ${transaction.productIdentifier}!`,
-        );
         console.log(transaction.transactionDate);
         console.log(transaction.transactionIdentifier);
+        setBoolean('isPaying', true);
+        setString('product', transaction.productIdentifier);
 
-        // TODO - Set a flag on the user...
-        // applicationSettings.setBoolean(transaction.productIdentifier, true);
+        // Restored Purchase
       } else if (transaction.transactionState === TransactionState.Restored) {
-        console.log(
-          `Purchase of ${transaction.originalTransaction.productIdentifier} restored.`,
-        );
-        console.log(transaction.originalTransaction);
-        console.log(transaction.originalTransaction.transactionDate);
+        alert({
+          title: 'Purchase Restored',
+          message: `Thank you for using Envelope!`,
+          okButtonText: 'Dismiss',
+        });
+        setBoolean('isPaying', true);
+        setString('product', transaction.originalTransaction.productIdentifier);
 
-        // TODO - Set a flag on the user...
-        // applicationSettings.setBoolean(
-        //   transaction.originalTransaction.productIdentifier,
-        //   true,
-        // );
+        // Failed Purchase
       } else if (transaction.transactionState === TransactionState.Failed) {
-        alert(`Purchase of ${transaction.productIdentifier} failed!`);
+        alert({
+          title: 'Transaction Failed',
+          message: `Purchase of ${transaction.productIdentifier} failed!`,
+          okButtonText: 'Dismiss',
+        });
       }
     });
+
+    // Return available products
+    return purchase.init([
+      PREMIUM_MONTHLY,
+      PREMIUM_ANNUAL,
+      UNLIMITED_MONTHLY,
+      UNLIMITED_ANNUAL,
+    ]);
+  }
+
+  async getProducts() {
+    return await purchase.getProducts();
+  }
+
+  buyProduct(product) {
+    // Check if user can make payments
+    if (purchase.canMakePayments()) {
+      // Buy the product
+      purchase.buyProduct(product);
+    } else {
+      alert({
+        title: 'Transaction Failed',
+        message: 'Sorry, your account is not eligible to make payments!',
+        okButtonText: 'Dismiss',
+      });
+    }
   }
 
   async restore() {
-    purchase.restorePurchases().then(
-      () => console.log('>>> RESTORING'),
-      () => console.log('Cancelling....'),
-    );
+    purchase.restorePurchases();
   }
 }

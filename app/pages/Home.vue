@@ -1,8 +1,5 @@
 <template>
-  <Page
-    @loaded="$adService.showBanner()"
-    @navigatingFrom="$adService.hideBanner()"
-  >
+  <Page @loaded="loaded()" @navigatingFrom="$adService.hideBanner()">
     <!-- Envelope Header -->
     <Header @filter="filter()" />
 
@@ -58,7 +55,7 @@
       <!-- FAButton -->
       <FabButton
         :visibility="firstLoad ? 'collapsed' : 'visible'"
-        @onButtonTap="createCard"
+        @onButtonTap="cardGaurd"
       />
     </AbsoluteLayout>
   </Page>
@@ -71,6 +68,7 @@ import Header from '@/components/Header';
 import FabButton from '@/components/FabButton';
 import CardPreview from '@/components/CardPreview';
 import { TapticEngine } from 'nativescript-taptic-engine';
+import { getBoolean, getString } from 'tns-core-modules/application-settings';
 
 export default {
   components: {
@@ -84,12 +82,15 @@ export default {
     };
   },
   computed: {
+    // List of cards from VueX
     cardList() {
       return this.$store.state.cards;
     },
+    // Detect first application load
     firstLoad() {
       return this.$store.state.firstLoad && this.cardList.length === 0;
     },
+    // No cards have been uploaded yet
     noCardText() {
       return this.firstLoad
         ? "You haven't uploaded any cards yet"
@@ -98,19 +99,74 @@ export default {
   },
   methods: {
     ...mapActions(['loadCards', 'fetchMoreCards']),
+
+    /**
+     * Page is loading...
+     *
+     * Detect if we should show ads
+     */
+    loaded() {
+      if (!getBoolean('isPaying')) {
+        this.$adService.showBanner();
+      }
+    },
+
+    /**
+     * Filter the cards
+     */
     filter() {
       this.$showBottomSheet(routes.filters, {
         transparent: true,
       });
     },
+
+    /**
+     * Check if they can upload a card
+     */
+    cardGaurd() {
+      const product = getString('product');
+
+      if (this.$store.state.cards.length <= 49) {
+        this.createCard();
+      } else if (
+        (this.$store.state.cards.length >= 50 &&
+          this.$store.state.cards.length <= 99 &&
+          product.includes('premium')) ||
+        product.includes('unlimited')
+      ) {
+        this.createCard();
+      } else if (
+        this.$store.state.cards.length > 100 &&
+        product.includes('unlimited')
+      ) {
+        this.createCard();
+      } else {
+        alert({
+          title: 'Limit exceeded!',
+          message:
+            'You have exceeded your limit on cards. Please purchase a subscription in the settings panel.',
+          okButtonText: 'Dismiss',
+        });
+      }
+    },
+
+    /**
+     * Show the Create Card Modal
+     */
     createCard() {
       this.$showModal(routes.cardCreation, { fullscreen: true }).then(data => {
         if (data) {
           this.loadCards();
-          this.$adService.showInterstitial();
+          if (!getBoolean('isPaying')) {
+            this.$adService.showInterstitial();
+          }
         }
       });
     },
+
+    /**
+     * Refresh the cards
+     */
     onPullToRefresh() {
       const tapticEngine = new TapticEngine();
       tapticEngine.selection();
@@ -121,6 +177,10 @@ export default {
         );
       });
     },
+
+    /**
+     * Load more cards
+     */
     loadMoreCards() {
       if (this.cardList.length < 20) {
         this.$refs.list.nativeView.notifyLoadOnDemandFinished(true);
@@ -131,6 +191,10 @@ export default {
         this.$refs.list.nativeView.notifyLoadOnDemandFinished();
       });
     },
+
+    /**
+     * Tap a card to go into detail view
+     */
     cardTapped({ item }) {
       this.$showModal(routes.detail, {
         props: {
