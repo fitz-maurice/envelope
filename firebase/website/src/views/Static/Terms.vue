@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-5 md:px-0">
+  <div class="container px-5 md:px-0 -mt-16 md:-mt-0">
     <h2 class="font-semibold">Terms &amp; Conditions</h2>
     <p>
       By downloading or using the app, these terms will automatically apply to

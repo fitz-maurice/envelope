@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-5 md:px-0">
+  <div class="container px-5 md:px-0 -mt-16 md:-mt-0">
     <h2 class="font-semibold">Privacy Policy</h2>
     <p>
       Fitz Creative built the Envelope app as a Freemium app. This SERVICE is
