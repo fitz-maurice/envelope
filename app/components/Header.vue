@@ -15,11 +15,10 @@
       @tap="$navigateTo(routes.settings, { frame: 'main' })"
     >
       <Label
-        class="far header-icon"
+        class="far header-icon right"
         text.decode="&#xf013;"
         borderWidth="1"
         borderColor="red"
-        textAlignment="right"
       />
     </ActionItem>
   </ActionBar>
@@ -57,5 +56,9 @@ export default {
 <style scoped>
 .header-icon {
   font-size: 18px;
+}
+.right {
+  padding-left: 30px;
+  padding-right: 0;
 }
 </style>
