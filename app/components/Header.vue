@@ -14,12 +14,7 @@
       android.position="actionBar"
       @tap="$navigateTo(routes.settings, { frame: 'main' })"
     >
-      <Label
-        class="far header-icon right"
-        text.decode="&#xf013;"
-        borderWidth="1"
-        borderColor="red"
-      />
+      <Label class="far header-icon right" text.decode="&#xf013;" />
     </ActionItem>
   </ActionBar>
 </template>
