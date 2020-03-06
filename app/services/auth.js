@@ -1,5 +1,6 @@
 import Base from './base';
 import * as firebase from 'nativescript-plugin-firebase';
+import { clear } from 'tns-core-modules/application-settings';
 
 export default class AuthService extends Base {
   constructor() {
@@ -45,6 +46,8 @@ export default class AuthService extends Base {
   }
 
   logout() {
+    // Clear out Application Settings
+    clear();
     return firebase.logout();
   }
 }
