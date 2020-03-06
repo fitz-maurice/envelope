@@ -62,7 +62,12 @@
         </GridLayout>
 
         <!-- CreatedAt Header -->
-        <Label :text="`Card created on ${createdAt}`" class="section-header" />
+        <Label
+          :text="`Card created on ${createdAt}`"
+          class="section-header"
+          :backgroundColor="$root.darkMode ? '#313131' : '#f0eff4'"
+          :color="$root.darkMode ? 'white' : 'black'"
+        />
 
         <!-- Detail list ScrollView/ListView -->
         <ScrollView>
@@ -82,7 +87,10 @@
                 @tap="selectPerson"
                 :text="card.from"
                 class="input"
-                :class="{ edit: isEditing }"
+                :class="{
+                  'light-edit': isEditing && !$root.darkMode,
+                  'dark-edit': isEditing && $root.darkMode,
+                }"
               />
             </StackLayout>
 
@@ -101,7 +109,10 @@
                 @tap="selectTag"
                 :text="card.tag"
                 class="input"
-                :class="{ edit: isEditing }"
+                :class="{
+                  'light-edit': isEditing && !$root.darkMode,
+                  'dark-edit': isEditing && $root.darkMode,
+                }"
               />
             </StackLayout>
 
@@ -120,7 +131,10 @@
                 @tap="selectDate"
                 :text="date"
                 class="input"
-                :class="{ edit: isEditing }"
+                :class="{
+                  'light-edit': isEditing && !$root.darkMode,
+                  'dark-edit': isEditing && $root.darkMode,
+                }"
               />
             </StackLayout>
 
@@ -137,7 +151,10 @@
               />
               <TextView
                 class="text-field"
-                :class="{ edit: isEditing }"
+                :class="{
+                  'light-edit': isEditing && !$root.darkMode,
+                  'dark-edit': isEditing && $root.darkMode,
+                }"
                 :editable="isEditing"
                 v-model="card.notes"
                 textWrap="true"
@@ -388,7 +405,6 @@ export default {
   font-size: 12;
   text-align: right;
   border-bottom-width: 2px;
-  background-color: #f0eff4;
   border-bottom-color: #dfdfdf;
 }
 
@@ -413,8 +429,12 @@ export default {
   color: red;
 }
 
-.edit {
+.light-edit {
   background-color: #edf2f7;
+}
+
+.dark-edit {
+  background-color: #313131;
 }
 
 .icon {

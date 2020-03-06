@@ -265,9 +265,17 @@
           <Label :text="copyright" />
         </FlexboxLayout>
         <FlexboxLayout justifyContent="center" class="footer">
-          <Label text="Terms" color="#590404" @tap="terms" />
+          <Label
+            text="Terms"
+            :color="$root.darkMode ? 'white' : '#590404'"
+            @tap="terms"
+          />
           <Label text=" & " />
-          <Label text="Privacy Policy" color="#590404" @tap="privacy" />
+          <Label
+            text="Privacy Policy"
+            :color="$root.darkMode ? 'white' : '#590404'"
+            @tap="privacy"
+          />
         </FlexboxLayout>
       </FlexboxLayout>
     </ScrollView>

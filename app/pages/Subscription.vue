@@ -1,5 +1,5 @@
 <template>
-  <Page @navigatingTo="loaded">
+  <Page @navigatingTo="loaded" :class="{ bg: !$root.darkMode }">
     <!-- Action Bar -->
     <ActionBar title="Envelope Premium">
       <!-- Restore -->
@@ -13,12 +13,29 @@
 
     <FlexboxLayout flexDirection="column" justifyContent="space-between">
       <StackLayout v-if="products.length > 0">
-        <Label :text="header" textWrap="true" class="section-header" />
+        <Label
+          :text="header"
+          textWrap="true"
+          class="section-header"
+          :backgroundColor="$root.darkMode ? '#212121' : 'white'"
+          :color="$root.darkMode ? 'white' : '#718096'"
+        />
+
+        <Label
+          :text="premium"
+          textWrap="true"
+          class="section-header m-t-30"
+          :backgroundColor="$root.darkMode ? '#212121' : 'white'"
+          :color="$root.darkMode ? 'white' : '#718096'"
+        />
+
         <FlexboxLayout
           v-tapped
           v-feedback
           class="input-wrapper"
           justifyContent="space-between"
+          :backgroundColor="$root.darkMode ? 'black' : 'white'"
+          :color="$root.darkMode ? 'white' : '#718096'"
           @tap="purchase(products[0])"
         >
           <Label class="label" :text="products[0].localizedTitle" />
@@ -29,19 +46,29 @@
           v-feedback
           class="input-wrapper"
           justifyContent="space-between"
+          :backgroundColor="$root.darkMode ? 'black' : 'white'"
+          :color="$root.darkMode ? 'white' : '#718096'"
           @tap="purchase(products[1])"
         >
           <Label class="label" :text="products[1].localizedTitle" />
           <Label class="label" :text="products[1].priceFormatted" />
         </FlexboxLayout>
 
-        <Label :text="unlimited" textWrap="true" class="section-header" />
+        <Label
+          :text="unlimited"
+          textWrap="true"
+          class="section-header m-t-30"
+          :backgroundColor="$root.darkMode ? '#212121' : 'white'"
+          :color="$root.darkMode ? 'white' : '#718096'"
+        />
 
         <FlexboxLayout
           v-tapped
           v-feedback
           class="input-wrapper"
           justifyContent="space-between"
+          :backgroundColor="$root.darkMode ? 'black' : 'white'"
+          :color="$root.darkMode ? 'white' : '#718096'"
           @tap="purchase(products[2])"
         >
           <Label class="label" :text="products[2].localizedTitle" />
@@ -52,6 +79,8 @@
           v-feedback
           class="input-wrapper"
           justifyContent="space-between"
+          :backgroundColor="$root.darkMode ? 'black' : 'white'"
+          :color="$root.darkMode ? 'white' : '#718096'"
           @tap="purchase(products[3])"
         >
           <Label class="label" :text="products[3].localizedTitle" />
@@ -61,7 +90,11 @@
       <!-- Custom loading icon -->
       <LoaderCustom :loading="products.length === 0" />
 
-      <StackLayout class="footer">
+      <StackLayout
+        class="footer"
+        :backgroundColor="$root.darkMode ? '#212121' : 'white'"
+        :color="$root.darkMode ? 'white' : '#718096'"
+      >
         <Label
           textWrap="true"
           text="• Payment will be charged to iTunes Account at confirmation of purchase."
@@ -91,8 +124,9 @@ export default {
   data() {
     return {
       products: [],
-      header: `Envelope Premium is a subscription to control banner ads on the homepage, more card uploads and support future development.\n\nYou can easily cancel at any time, from here or the App Store, without talking to anyone.\n\n\nPREMIUM\n\nRemove ads, gain access to upload up from 50 to 100 cards.`,
+      header: `Envelope Premium is a subscription to control banner ads on the homepage, more card uploads and support future development.\n\nYou can easily cancel at any time, from here or the App Store, without talking to anyone.`,
       unlimited: `UNLIMITED\n\nRemove ads, gain access to upload unlimited cards.`,
+      premium: `PREMIUM\n\nRemove ads, gain access to upload up from 50 to 100 cards.`,
     };
   },
   methods: {
@@ -122,16 +156,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-Page {
+.bg {
   background-color: #f0eff4;
 }
 
 .section-header {
   font-size: 12;
-  color: #718096;
   padding: 55px 30px 20px 40px;
   border-bottom-width: 1px;
-  background-color: #f0eff4;
   border-bottom-color: #c6c6c8;
 }
 

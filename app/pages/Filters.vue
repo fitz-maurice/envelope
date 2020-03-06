@@ -1,9 +1,6 @@
 <template>
   <!-- Main Layout -->
-  <Page
-    @loaded="loaded"
-    :backgroundColor="$root.darkMode ? 'black' : '#f0eff4'"
-  >
+  <Page @loaded="loaded">
     <StackLayout class="root">
       <Label
         class="bar"
@@ -45,7 +42,12 @@
         <FlexboxLayout alignItems="flex-end">
           <Label
             v-for="(sort, index) in sorts"
-            :class="{ selected: sort.value === sortSelected }"
+            :class="{
+              'light-selected': sort.value === sortSelected,
+              'dark-selected': sort.value === sortSelected && $root.darkMode,
+              'dark-non-selected':
+                sort.value !== sortSelected && $root.darkMode,
+            }"
             class="m-l-15 value"
             :key="index"
             :text="sort.name"
@@ -170,6 +172,7 @@ export default {
 Page {
   border-top-left-radius: 20;
   border-top-right-radius: 20;
+  background-color: #f0eff4;
 }
 
 .bar {
@@ -205,9 +208,18 @@ Page {
   font-size: 14px;
 }
 
-.selected {
+.light-selected {
   color: #590404;
   font-weight: 600;
+}
+
+.dark-selected {
+  color: white;
+  font-weight: 600;
+}
+
+.dark-non-selected {
+  color: #a0aec0;
 }
 
 .reset {
