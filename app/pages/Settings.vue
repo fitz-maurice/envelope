@@ -463,6 +463,7 @@ Page {
 
 .action {
   margin: 0;
+  padding: 30px 0;
   font-weight: 700;
   border-bottom-color: #c6c6c8;
 }
