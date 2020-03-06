@@ -1,3 +1,7 @@
+$bg-light: #f0eff4;
+$bg-dark: black;
+
+// Nativescript theme overrides
 $btn-height: 0;
 $btn-min-width: 0;
 $btn-margin-x: 0;
@@ -7,6 +11,14 @@ $btn-padding-x: 0;
 
 @import '~@nativescript/theme/core';
 @import '~@nativescript/theme/index';
+
+.ns-dark Page {
+  background-color: $bg-dark;
+}
+
+.ns-light Page {
+  background-color: $bg-light;
+}
 
 // Font icon classes
 .fab {

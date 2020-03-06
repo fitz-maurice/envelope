@@ -5,7 +5,12 @@
 
     <!-- Main Scroll View -->
     <StackLayout>
-      <Label text="ADVANCED" class="section-header" />
+      <Label
+        text="ADVANCED"
+        class="section-header"
+        :backgroundColor="$root.darkMode ? 'black' : '#f0eff4'"
+        :color="$root.darkMode ? 'white' : '#718096'"
+      />
 
       <!-- Download Data -->
       <StackLayout
@@ -14,6 +19,7 @@
         class="input-wrapper"
         orientation="horizontal"
         horizontalAlignment="stretch"
+        :backgroundColor="$root.darkMode ? '#212121' : 'white'"
       >
         <Label text.decode="&#xf56d;" class="far icon" />
         <Label class="label" text="Export Data" horizontalAlignment="stretch">
@@ -27,6 +33,7 @@
         class="input-wrapper"
         orientation="horizontal"
         horizontalAlignment="stretch"
+        :backgroundColor="$root.darkMode ? '#212121' : 'white'"
       >
         <Label text.decode="&#xf071;" class="far icon" />
         <Label
@@ -109,16 +116,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-Page {
-  background-color: #f0eff4;
-}
-
 .section-header {
   font-size: 12;
   color: #718096;
   padding: 55px 30px 20px 50px;
   border-bottom-width: 1px;
-  background-color: #f0eff4;
   border-bottom-color: #c6c6c8;
 }
 

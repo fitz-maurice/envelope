@@ -80,4 +80,9 @@ Vue.config.silent = true;
 new Vue({
   render: h => h('frame', { attrs: { id: 'main' } }, [h(routes.loading)]),
   store,
+  data() {
+    return {
+      darkMode: null,
+    };
+  },
 }).$start();

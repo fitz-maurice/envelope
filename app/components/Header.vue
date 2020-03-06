@@ -6,7 +6,9 @@
     </ActionItem>
 
     <!-- Logo -->
-    <Image :src="`~/assets/envelope_${darkMode ? 'white' : 'black'}.png`" />
+    <Image
+      :src="`~/assets/envelope_${$root.darkMode ? 'white' : 'black'}.png`"
+    />
 
     <!-- Right Settings -->
     <ActionItem
@@ -37,12 +39,11 @@ export default {
       );
     },
     color() {
-      return this.isFiltered ? '#590404' : this.darkMode ? 'white' : 'black';
-    },
-    darkMode() {
-      return (
-        Frame.topmost().viewController.traitCollection.userInterfaceStyle === 2
-      );
+      return this.isFiltered
+        ? '#590404'
+        : this.$root.darkMode
+        ? 'white'
+        : 'black';
     },
   },
 };

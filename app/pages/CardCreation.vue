@@ -1,6 +1,10 @@
 <template>
   <Frame id="modal">
-    <Page ref="page" @loaded="loaded">
+    <Page
+      ref="page"
+      @loaded="loaded"
+      :backgroundColor="$root.darkMode ? 'black' : 'white'"
+    >
       <ActionBar
         title="Create New Card"
         backgroundColor="#590404"
@@ -43,7 +47,8 @@
             @tap="selectPerson"
             :text="card.from"
             class="input"
-            :color="fromValid ? 'black' : '#a0aec0'"
+            :color="$root.darkMode ? 'white' : 'black'"
+            :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
           />
         </StackLayout>
 
@@ -59,7 +64,8 @@
               @tap="selectTag"
               :text="card.tag"
               class="input"
-              :color="tagValid ? 'black' : '#a0aec0'"
+              :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
+              :color="$root.darkMode ? 'white' : 'black'"
             />
           </StackLayout>
         </StackLayout>
@@ -75,7 +81,8 @@
             @tap="selectDate"
             :text="card.date"
             class="input"
-            :color="dateValid ? 'black' : '#a0aec0'"
+            :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
+            :color="$root.darkMode ? 'white' : 'black'"
           />
         </StackLayout>
 
@@ -88,6 +95,8 @@
             class="input"
             returnKeyType="done"
             height="75%"
+            :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
+            :color="$root.darkMode ? 'white' : 'black'"
           />
         </StackLayout>
       </StackLayout>

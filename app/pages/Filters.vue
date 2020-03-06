@@ -1,11 +1,21 @@
 <template>
   <!-- Main Layout -->
-  <Page @loaded="loaded">
+  <Page
+    @loaded="loaded"
+    :backgroundColor="$root.darkMode ? 'black' : '#f0eff4'"
+  >
     <StackLayout class="root">
-      <Label class="bar" />
+      <Label
+        class="bar"
+        :backgroundColor="$root.darkMode ? 'white' : '#590404'"
+      />
       <!-- Action buttons -->
       <FlexboxLayout class="header" justifyContent="space-between">
-        <Label text="Filters" class="title" />
+        <Label
+          text="Filters"
+          class="title"
+          :color="$root.darkMode ? 'white' : '#590404'"
+        />
 
         <FlexboxLayout flexDirection="row" alignContent="flex-end">
           <Button
@@ -28,8 +38,8 @@
       <!-- Sort -->
       <FlexboxLayout
         class="input-wrapper input-wrapper-first"
-        backgroundColor="white"
         justifyContent="space-between"
+        :backgroundColor="$root.darkMode ? '#212121' : 'white'"
       >
         <Label text="Sort" class="label" />
         <FlexboxLayout alignItems="flex-end">
@@ -51,6 +61,7 @@
         @tap="selectTag"
         class="input-wrapper"
         justifyContent="space-between"
+        :backgroundColor="$root.darkMode ? '#212121' : 'white'"
       >
         <Label text="Occasion" class="label" />
         <Label :text="selectedTag" class="value" />
@@ -62,6 +73,7 @@
         @tap="selectPerson"
         class="input-wrapper"
         justifyContent="space-between"
+        :backgroundColor="$root.darkMode ? '#212121' : 'white'"
       >
         <Label text="Person" class="label" />
         <Label :text="selectedPerson" class="value" />
@@ -156,7 +168,6 @@ export default {
 
 <style lang="scss" scoped>
 Page {
-  background-color: #f0eff4;
   border-top-left-radius: 20;
   border-top-right-radius: 20;
 }
@@ -166,7 +177,6 @@ Page {
   width: 95px;
   margin-top: -25;
   border-radius: 9999;
-  background-color: #590404;
 }
 
 .header {

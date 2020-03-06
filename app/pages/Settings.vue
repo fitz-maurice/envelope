@@ -8,13 +8,19 @@
       <FlexboxLayout flexDirection="column" justifyContent="space-between">
         <StackLayout>
           <!-- SETTING -->
-          <Label text="SETTINGS" class="section-header" />
+          <Label
+            text="SETTINGS"
+            class="section-header"
+            :backgroundColor="$root.darkMode ? 'black' : '#f0eff4'"
+            :color="$root.darkMode ? 'white' : '#718096'"
+          />
 
           <!-- Full name -->
           <StackLayout
             orientation="horizontal"
             horizontalAlignment="stretch"
             class="input-wrapper personal-info"
+            :backgroundColor="$root.darkMode ? '#212121' : 'white'"
           >
             <Label text.decode="&#xf007;" class="far icon" />
             <TextField
@@ -24,6 +30,8 @@
               autocorrect="false"
               returnKeyType="done"
               horizontalAlignment="stretch"
+              :backgroundColor="$root.darkMode ? '#313131' : '#f0eff4'"
+              :color="$root.darkMode ? 'white' : 'black'"
             >
             </TextField>
           </StackLayout>
@@ -33,6 +41,7 @@
             class="input-wrapper personal-info"
             orientation="horizontal"
             horizontalAlignment="stretch"
+            :backgroundColor="$root.darkMode ? '#212121' : 'white'"
           >
             <Label text.decode="&#xf133;" class="far icon" />
             <Label
@@ -40,6 +49,8 @@
               @tap="selectDate"
               :text="$userService.user.birthday"
               class="name-input m-l-15"
+              :backgroundColor="$root.darkMode ? '#313131' : '#f0eff4'"
+              :color="$root.darkMode ? 'white' : 'black'"
             />
           </StackLayout>
 
@@ -56,13 +67,19 @@
           />
 
           <!-- Subscriptions -->
-          <Label text="PREMIUM" class="section-header" />
+          <Label
+            text="PREMIUM"
+            class="section-header"
+            :backgroundColor="$root.darkMode ? 'black' : '#f0eff4'"
+            :color="$root.darkMode ? 'white' : '#718096'"
+          />
           <FlexboxLayout justifyContent="space-between" @tap="subscription">
             <StackLayout
               v-tapped
               class="input-wrapper"
               orientation="horizontal"
               horizontalAlignment="stretch"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             >
               <Image
                 width="30"
@@ -70,17 +87,27 @@
                 class="m-l-2"
                 src="~/assets/envelope.png"
               ></Image>
-              <Label class="label" text="Envelope Premium" />
+              <Label
+                class="label"
+                text="Envelope Premium"
+                :backgroundColor="$root.darkMode ? '#212121' : 'white'"
+              />
             </StackLayout>
 
             <Label
               text.decode="&#xf105;"
               class="far m-r-15 caret input-wrapper"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             />
           </FlexboxLayout>
 
           <!-- Support -->
-          <Label text="SUPPORT" class="section-header" />
+          <Label
+            text="SUPPORT"
+            class="section-header"
+            :backgroundColor="$root.darkMode ? 'black' : '#f0eff4'"
+            :color="$root.darkMode ? 'white' : '#718096'"
+          />
           <!-- Email Support -->
           <StackLayout
             v-tapped
@@ -88,6 +115,7 @@
             class="input-wrapper"
             orientation="horizontal"
             horizontalAlignment="stretch"
+            :backgroundColor="$root.darkMode ? '#212121' : 'white'"
           >
             <Label text.decode="&#xf0e0;" class="far icon" />
             <Label
@@ -105,6 +133,7 @@
               class="input-wrapper"
               orientation="horizontal"
               horizontalAlignment="stretch"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             >
               <Label text.decode="&#xf013;" class="far icon" />
               <Label
@@ -117,6 +146,7 @@
             <Label
               text.decode="&#xf105;"
               class="far m-r-15 input-wrapper caret"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             />
           </FlexboxLayout>
           <!-- Help Center -->
@@ -126,13 +156,19 @@
             class="input-wrapper"
             orientation="horizontal"
             horizontalAlignment="stretch"
+            :backgroundColor="$root.darkMode ? '#212121' : 'white'"
           >
             <Label text.decode="&#xf059;" class="far icon" />
             <Label class="label" text="Help Center" />
           </StackLayout>
 
           <!-- About -->
-          <Label text="ABOUT" class="section-header" />
+          <Label
+            text="ABOUT"
+            class="section-header"
+            :backgroundColor="$root.darkMode ? 'black' : '#f0eff4'"
+            :color="$root.darkMode ? 'white' : '#718096'"
+          />
           <!-- Refer a Friend -->
           <StackLayout
             v-tapped
@@ -140,6 +176,7 @@
             class="input-wrapper"
             orientation="horizontal"
             horizontalAlignment="stretch"
+            :backgroundColor="$root.darkMode ? '#212121' : 'white'"
           >
             <Label text.decode="&#xf164;" class="far icon" />
             <Label class="label" text="Refer a Friend" />
@@ -152,6 +189,7 @@
             class="input-wrapper"
             orientation="horizontal"
             horizontalAlignment="stretch"
+            :backgroundColor="$root.darkMode ? '#212121' : 'white'"
           >
             <Label text.decode="&#xf005;" class="far icon" />
             <Label class="label" text="Rate in the App Store" />
@@ -164,13 +202,19 @@
             class="input-wrapper"
             orientation="horizontal"
             horizontalAlignment="stretch"
+            :backgroundColor="$root.darkMode ? '#212121' : 'white'"
           >
             <Label text.decode="&#xf099;" class="fab icon" />
             <Label class="label" text="Follow Envelope" />
           </StackLayout>
 
           <!-- APP -->
-          <Label text="APP" class="section-header" />
+          <Label
+            text="APP"
+            class="section-header"
+            :backgroundColor="$root.darkMode ? 'black' : '#f0eff4'"
+            :color="$root.darkMode ? 'white' : '#718096'"
+          />
           <!-- Acknowledgements -->
           <FlexboxLayout justifyContent="space-between" @tap="ack">
             <StackLayout
@@ -178,6 +222,7 @@
               class="input-wrapper"
               orientation="horizontal"
               horizontalAlignment="stretch"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             >
               <Label text.decode="&#xf14e;" class="far icon" />
               <Label class="label" text="Acknowledgements" />
@@ -186,6 +231,7 @@
             <Label
               text.decode="&#xf105;"
               class="far m-r-15 input-wrapper caret"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             />
           </FlexboxLayout>
           <!-- Version -->
@@ -193,6 +239,7 @@
             width="100%"
             class="input-wrapper"
             justifyContent="space-between"
+            :backgroundColor="$root.darkMode ? '#212121' : 'white'"
           >
             <StackLayout orientation="horizontal" horizontalAlignment="stretch">
               <Label text.decode="&#xf126;" class="far icon" />
@@ -412,10 +459,6 @@ export default {
 </script>
 
 <style scoped>
-Page {
-  background-color: #f0eff4;
-}
-
 .name-input {
   width: 80%;
   padding: 20px;
@@ -433,7 +476,6 @@ Page {
   color: #718096;
   padding: 55px 30px 20px 50px;
   border-bottom-width: 1px;
-  background-color: #f0eff4;
   border-bottom-color: #c6c6c8;
 }
 

@@ -28,6 +28,19 @@ export default {
     ...mapActions(['loadCards', 'setHolidays']),
     // The application has loaded
     loaded() {
+      this.$root.darkMode =
+        application.systemAppearance() === 'dark' ? true : false;
+
+      this.$root.nativeView.addEventListener(
+        'traitCollectionColorAppearanceChanged',
+        () => {
+          this.$nextTick(() => {
+            this.$root.darkMode =
+              application.systemAppearance() === 'dark' ? true : false;
+          });
+        },
+      );
+
       this.setHolidays();
 
       // Initialize Firebase
@@ -72,21 +85,7 @@ export default {
       //   }
       // });
 
-      // application.on(application.resumeEvent, () => {
-      //   if (this.$authService.isLoggedIn()) {
-      //     this.$authService.refresh();
-      //     if (
-      //       this.$editingUserService.userWrapper &&
-      //       this.$editingUserService.userWrapper.user
-      //     ) {
-      //       this.$editingUserService.watchUser();
-      //       const player = this.$editingUserService.userWrapper.team
-      //         ? undefined
-      //         : this.$editingUserService.userWrapper.user;
-      //       EventBus.$emit('player-selected', { picked: 'dummy', player });
-      //     }
-      //   }
-      // });
+      // application.on(application.resumeEvent, () => {});
 
       // application.on(application.uncaughtErrorEvent, args => {
       //   if (application.android) {

@@ -5,7 +5,7 @@
       v-shadow="shadow"
       text.decode="&#xf067;"
       class="far fab-button"
-      :class="darkMode ? 'dark' : 'light'"
+      :class="$root.darkMode ? 'dark' : 'light'"
       @tap="$emit('onButtonTap')"
     />
   </AbsoluteLayout>
@@ -13,18 +13,12 @@
 
 <script>
 import { isIOS } from 'tns-core-modules/platform';
-import { Frame } from 'tns-core-modules/ui/frame';
 import { getBoolean } from 'tns-core-modules/application-settings';
 
 export default {
   computed: {
     isPaying() {
       return getBoolean('isPaying') ? '92%' : '86%';
-    },
-    darkMode() {
-      return (
-        Frame.topmost().viewController.traitCollection.userInterfaceStyle === 2
-      );
     },
     shadow() {
       return isIOS
