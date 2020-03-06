@@ -40,7 +40,6 @@ export default class AdService {
    * Preload the Interstitial ad
    */
   async preloadInterstitial() {
-    console.log(`Hello ${TNS_ENV}`);
     return firebase.admob.preloadInterstitial({
       testing: TNS_ENV === 'development' ? true : false,
       iosInterstitialId: CARD_IOS,
