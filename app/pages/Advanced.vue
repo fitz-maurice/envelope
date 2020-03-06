@@ -1,7 +1,25 @@
 <template>
   <Page>
+    <!-- Action Bar -->
+    <ActionBar title="Advanced Options" />
+
+    <!-- Main Scroll View -->
     <StackLayout>
       <Label text="ADVANCED" class="section-header" />
+
+      <!-- Download Data -->
+      <StackLayout
+        v-tapped
+        @tap="exportData"
+        class="input-wrapper"
+        orientation="horizontal"
+        horizontalAlignment="stretch"
+      >
+        <Label text.decode="&#xf56d;" class="far icon" />
+        <Label class="label" text="Export Data" horizontalAlignment="stretch">
+        </Label>
+      </StackLayout>
+
       <!-- Delete Account -->
       <StackLayout
         v-tapped
@@ -18,19 +36,6 @@
         >
         </Label>
       </StackLayout>
-
-      <!-- Download Data -->
-      <StackLayout
-        v-tapped
-        @tap="exportData"
-        class="input-wrapper"
-        orientation="horizontal"
-        horizontalAlignment="stretch"
-      >
-        <Label text.decode="&#xf56d;" class="far icon" />
-        <Label class="label" text="Export Data" horizontalAlignment="stretch">
-        </Label>
-      </StackLayout>
     </StackLayout>
   </Page>
 </template>
@@ -43,6 +48,9 @@ export default {
   methods: {
     ...mapActions(['clearCards']),
 
+    /**
+     * Delete a users account and log them out of the app
+     */
     deleteAccount() {
       confirm({
         title: 'Delete Account',
@@ -70,6 +78,10 @@ export default {
         }
       });
     },
+
+    /**
+     * Export all data in an emailed .zip file
+     */
     exportData() {
       confirm({
         title: 'Export Data',
