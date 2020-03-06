@@ -196,10 +196,10 @@
           >
             <StackLayout orientation="horizontal" horizontalAlignment="stretch">
               <Label text.decode="&#xf126;" class="far icon" />
-              <Label class="label" text="Version" width="75%" />
+              <Label class="label" text="Version" width="70%" />
             </StackLayout>
 
-            <Label :text="version" class="m-r-5" />
+            <Label :text="version" />
           </FlexboxLayout>
         </StackLayout>
 
@@ -244,7 +244,7 @@ export default {
   data() {
     return {
       updating: false,
-      version: appversion.getVersionCodeSync(),
+      version: `${appversion.getVersionNameSync()} (${appversion.getVersionCodeSync()})`,
     };
   },
   computed: {
