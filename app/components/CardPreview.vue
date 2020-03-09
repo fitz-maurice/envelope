@@ -13,7 +13,7 @@
 <script>
 import moment from 'moment';
 import routes from '@/router';
-import { fromBase64 } from 'tns-core-modules/image-source';
+import { ImageSource } from 'tns-core-modules/image-source';
 
 export default {
   props: {
@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     image() {
-      return fromBase64(this.card.images[0]);
+      return ImageSource.fromBase64Sync(this.card.images[0]);
     },
     date() {
       return moment(this.card.date).format('M/D/YYYY');

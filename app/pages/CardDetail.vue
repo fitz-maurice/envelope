@@ -175,7 +175,7 @@ import moment from 'moment';
 import routes from '@/router';
 import { mapActions } from 'vuex';
 import { Frame } from 'tns-core-modules/ui/frame';
-import { fromBase64 } from 'tns-core-modules/image-source';
+import { ImageSource } from 'tns-core-modules/image-source';
 import { PhotoViewer } from 'nativescript-photoviewer';
 import * as fs from 'file-system';
 import * as enums from 'ui/enums';
@@ -198,7 +198,7 @@ export default {
     ...mapGetters(['tagList']),
     // Prepare the images from Base64 encoding
     images() {
-      return this.card.images.map(image => fromBase64(image));
+      return this.card.images.map(image => ImageSource.fromBase64Sync(image));
     },
     // Format the Date of the card
     date() {
