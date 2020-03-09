@@ -131,10 +131,8 @@ export default {
       isSigningIn: true,
       processing: false,
       user: {
-        email: 'admin@envelope.app',
-        password: 'Envelope1989',
-        // email: null,
-        // password: null,
+        email: null,
+        password: null,
       },
     };
   },
