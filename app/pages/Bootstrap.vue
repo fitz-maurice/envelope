@@ -13,7 +13,7 @@ import routes from '~/router';
 import { mapActions } from 'vuex';
 import LoaderCustom from '@/components/LoaderCustom';
 import * as firebase from 'nativescript-plugin-firebase';
-import * as application from 'tns-core-modules/application';
+import { systemAppearance } from 'tns-core-modules/application';
 
 export default {
   components: {
@@ -28,15 +28,13 @@ export default {
     ...mapActions(['loadCards', 'setHolidays']),
     // The application has loaded
     loaded() {
-      this.$root.darkMode =
-        application.systemAppearance() === 'dark' ? true : false;
+      this.$root.darkMode = systemAppearance() === 'dark' ? true : false;
 
       this.$root.nativeView.addEventListener(
         'traitCollectionColorAppearanceChanged',
         () => {
           this.$nextTick(() => {
-            this.$root.darkMode =
-              application.systemAppearance() === 'dark' ? true : false;
+            this.$root.darkMode = systemAppearance() === 'dark' ? true : false;
           });
         },
       );
