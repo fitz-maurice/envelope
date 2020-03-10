@@ -124,7 +124,7 @@ export default {
   data() {
     return {
       products: [],
-      header: `Envelope Premium is a subscription to control banner ads on the homepage, more card uploads and support future development.\n\nYou can easily cancel at any time, from here or the App Store, without talking to anyone.`,
+      header: `Envelope Premium is a subscription to control banner ads on the homepage, gain more card uploads, and support future development.\n\nYou can easily cancel at any time, from here or the App Store, without talking to anyone.`,
       unlimited: `UNLIMITED\n\nRemove ads, gain access to upload unlimited cards.`,
       premium: `PREMIUM\n\nRemove ads, gain access to upload up from 50 to 100 cards.`,
     };
