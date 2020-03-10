@@ -140,7 +140,7 @@
 
             <!-- NOTES: -->
             <StackLayout
-              class="input-wrapper"
+              class="input-wrapper-last"
               orientation="horizontal"
               horizontalAlignment="stretch"
             >
@@ -414,6 +414,10 @@ export default {
   border-bottom-width: 2px;
 }
 
+.input-wrapper-last {
+  padding: 30px 30px 30px 30px;
+}
+
 .input {
   border-bottom-width: 0;
   border-radius: 5;
@@ -430,7 +434,7 @@ export default {
 }
 
 .light-edit {
-  background-color: #edf2f7;
+  background-color: white;
 }
 
 .dark-edit {

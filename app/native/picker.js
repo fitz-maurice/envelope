@@ -1,6 +1,7 @@
 import { ListPicker } from '@nativescript/core/ui/list-picker';
 import { DatePicker } from '@nativescript/core/ui/date-picker';
 import { Frame } from '@nativescript/core/ui/frame';
+const platformModule = require('tns-core-modules/platform');
 
 export default class Picker {
   constructor(title, options) {
@@ -27,8 +28,10 @@ export default class Picker {
   }
 
   createNativeDate() {
+    const width = platformModule.screen.mainScreen.widthDIPs - 16;
+
     const nativeView = UIDatePicker.alloc().initWithFrame(
-      CGRectMake(0, 30, 359, 208),
+      CGRectMake(0, 30, width, 208),
     );
     nativeView.datePickerMode = UIDatePickerMode.Date;
     const picker = new DatePicker();
@@ -41,8 +44,10 @@ export default class Picker {
   }
 
   createNativePicker() {
+    const width = platformModule.screen.mainScreen.widthDIPs - 16;
+
     const nativeView = UIPickerView.alloc().initWithFrame(
-      CGRectMake(0, 30, 359, 208),
+      CGRectMake(0, 30, width, 208),
     );
     const picker = new ListPicker();
     picker.items = this.items;
