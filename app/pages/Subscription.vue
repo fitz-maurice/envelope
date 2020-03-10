@@ -97,15 +97,15 @@
       >
         <Label
           textWrap="true"
-          text="• Payment will be charged to iTunes Account at confirmation of purchase."
+          text="• Payment will be charged to your iTunes Account at confirmation of purchase."
         />
         <Label
           textWrap="true"
-          text="• Subscription automatically renews unless auto-renewal is turned off at least 24-hours before the of the the current period."
+          text="• Subscription automatically renews unless auto-renewal is turned off at least 24-hours before the end of the the current period."
         />
         <Label
           textWrap="true"
-          text="• You can manage your subscriptions, cancel any time or turn off auto-renewal by accessing your iTunes account."
+          text="• You can manage your subscription at any time through your iTunes account."
         />
       </StackLayout>
     </FlexboxLayout>
