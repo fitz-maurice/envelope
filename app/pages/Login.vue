@@ -286,7 +286,7 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-  padding: 15px;
+  padding: 5;
   align-items: center;
   background-size: cover;
   background-position: center;
@@ -306,9 +306,9 @@ export default {
   placeholder-color: #a0aec0;
   border-bottom-width: 0;
   background-color: #edf2f7;
-  border-radius: 25px;
-  padding: 20px;
-  font-size: 15px;
+  border-radius: 5;
+  padding: 5;
+  font-size: 15;
   width: 85%;
 }
 

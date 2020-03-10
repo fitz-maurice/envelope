@@ -253,7 +253,7 @@ export default {
 <style lang="scss" scoped>
 .label {
   width: 85%;
-  font-size: 13px;
+  font-size: 13;
   font-weight: 500;
   letter-spacing: 0.025;
 }
@@ -265,7 +265,7 @@ export default {
   padding: 8;
   height: 40;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 18;
   width: 85%;
 }
 
@@ -285,7 +285,7 @@ export default {
 .warning-message {
   text-align: center;
   width: 85%;
-  font-size: 20px;
+  font-size: 20;
   font-weight: 500;
   color: #718096;
   horizontal-align: center;

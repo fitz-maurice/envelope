@@ -34,7 +34,7 @@
       <!-- Main Layout -->
       <StackLayout>
         <!-- The carousel -->
-        <GridLayout height="350">
+        <GridLayout height="300">
           <Carousel
             ref="myCarousel"
             height="100%"
@@ -401,7 +401,7 @@ export default {
 
 <style scoped>
 .section-header {
-  padding: 30px;
+  padding: 10;
   font-size: 12;
   text-align: right;
   border-bottom-width: 2px;
@@ -409,13 +409,13 @@ export default {
 }
 
 .input-wrapper {
-  padding: 30px 30px 30px 30px;
+  padding: 10;
   border-bottom-color: #dfdfdf;
   border-bottom-width: 2px;
 }
 
 .input-wrapper-last {
-  padding: 30px 30px 30px 30px;
+  padding: 10;
 }
 
 .input {
@@ -442,12 +442,13 @@ export default {
 }
 
 .icon {
+  width: 25;
+  height: 25;
+  color: #fff;
+  font-size: 14;
   margin-right: 0;
   text-align: center;
-  height: 70px;
-  width: 70px;
-  border-radius: 15px;
-  color: #fff;
+  border-radius: 4;
   background-color: #590404;
 }
 

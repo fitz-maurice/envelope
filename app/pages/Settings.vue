@@ -469,7 +469,7 @@ export default {
 <style scoped>
 .name-input {
   width: 80%;
-  padding: 20px;
+  padding: 5;
   border-radius: 10px;
   border-bottom-width: 0;
   background-color: #f0eff4;
@@ -482,48 +482,48 @@ export default {
 .section-header {
   font-size: 12;
   color: #718096;
-  padding: 55px 30px 20px 50px;
+  padding: 15 10 10 10;
   border-bottom-width: 1px;
   border-bottom-color: #c6c6c8;
 }
 
 .input-wrapper {
-  padding: 23px 50px;
+  padding: 8 10;
   background-color: #ffffff;
   border-bottom-width: 1px;
   border-bottom-color: #c6c6c8;
 }
 
 .icon {
-  width: 85px;
-  height: 85px;
+  width: 25;
+  height: 25;
   color: #fff;
-  font-size: 14px;
+  font-size: 14;
   margin-right: 0;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 4;
   background-color: #590404;
 }
 
 .label {
   width: 100%;
-  font-size: 14px;
-  margin-left: 40px;
+  font-size: 14;
+  margin-left: 15;
 }
 
 .action {
   margin: 0;
-  padding: 30px 0;
+  padding: 10 0;
   font-weight: 700;
   border-bottom-color: #c6c6c8;
 }
 
 .caret {
-  font-size: 14px;
+  font-size: 14;
   color: #718096;
 }
 
 .footer {
-  font-size: 12px;
+  font-size: 12;
 }
 </style>

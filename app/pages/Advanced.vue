@@ -119,24 +119,24 @@ export default {
 .section-header {
   font-size: 12;
   color: #718096;
-  padding: 55px 30px 20px 50px;
+  padding: 15 10 10 10;
   border-bottom-width: 1px;
   border-bottom-color: #c6c6c8;
 }
 
 .icon {
-  width: 85px;
-  height: 85px;
+  width: 25;
+  height: 25;
   color: #fff;
-  font-size: 14px;
+  font-size: 14;
   margin-right: 0;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 4;
   background-color: #590404;
 }
 
 .input-wrapper {
-  padding: 23px 50px;
+  padding: 8 10;
   background-color: #ffffff;
   border-bottom-width: 1px;
   border-bottom-color: #c6c6c8;
@@ -144,7 +144,7 @@ export default {
 
 .label {
   width: 100%;
-  font-size: 14px;
-  margin-left: 40px;
+  font-size: 14;
+  margin-left: 15;
 }
 </style>
