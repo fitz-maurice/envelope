@@ -13,7 +13,11 @@ import routes from '~/router';
 import { mapActions } from 'vuex';
 import LoaderCustom from '@/components/LoaderCustom';
 import * as firebase from 'nativescript-plugin-firebase';
-import { systemAppearance } from 'tns-core-modules/application';
+import * as application from 'tns-core-modules/application';
+import { hasCameraPermissions } from 'nativescript-advanced-permissions/camera';
+import { hasFilePermissions } from 'nativescript-advanced-permissions/files';
+import { hasKey } from 'tns-core-modules/application-settings/application-settings';
+import { openAppSettings } from 'nativescript-advanced-permissions/core';
 
 export default {
   components: {
@@ -27,14 +31,16 @@ export default {
   methods: {
     ...mapActions(['loadCards', 'setHolidays']),
     // The application has loaded
-    loaded() {
-      this.$root.darkMode = systemAppearance() === 'dark' ? true : false;
+    async loaded() {
+      this.$root.darkMode =
+        application.systemAppearance() === 'dark' ? true : false;
 
       this.$root.nativeView.addEventListener(
         'traitCollectionColorAppearanceChanged',
         () => {
           this.$nextTick(() => {
-            this.$root.darkMode = systemAppearance() === 'dark' ? true : false;
+            this.$root.darkMode =
+              application.systemAppearance() === 'dark' ? true : false;
           });
         },
       );
@@ -83,7 +89,26 @@ export default {
       //   }
       // });
 
-      // application.on(application.resumeEvent, () => {});
+      application.on(application.resumeEvent, () => {
+        // Check if we have checked for permission already
+        // If we have and they are not set prompt to update
+        const keySet = hasKey('firstTimePermissions');
+        if (keySet) {
+          if (!hasCameraPermissions() || !hasFilePermissions()) {
+            confirm({
+              title: 'Missing Permissions',
+              message:
+                'Envelope requires access to both your camera and photos library to function properly. Please check application settings.',
+              okButtonText: 'Settings',
+              cancelButtonText: 'Dismiss',
+            }).then(result => {
+              if (result) {
+                openAppSettings();
+              }
+            });
+          }
+        }
+      });
 
       // application.on(application.uncaughtErrorEvent, args => {
       //   if (application.android) {

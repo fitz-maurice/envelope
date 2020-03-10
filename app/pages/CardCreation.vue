@@ -15,7 +15,7 @@
       </ActionBar>
 
       <!-- No Permission Access -->
-      <StackLayout v-if="keySet && !hasPermissions">
+      <StackLayout v-if="!hasPermissions">
         <Label text.decode="&#xf071;" class="far warning-icon" />
         <Label
           text="Envelope does not have access to your photos and camera"
@@ -133,7 +133,6 @@ export default {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      keySet: true,
       showErrors: false,
     };
   },
@@ -160,15 +159,17 @@ export default {
     loaded(args) {
       this.$adService.preloadInterstitial();
 
+      // Check if we have asked for permissions before
       const keySet = hasKey('firstTimePermissions');
-      this.keySet = keySet;
 
       if (!keySet) {
+        // Request camera permissions
         requestCameraPermissions();
-        requestFilePermissions();
-      }
 
-      if (this.hasPermissions) {
+        // Request files (photos) permission
+        requestFilePermissions();
+
+        // Set key for first time ask
         setBoolean('firstTimePermissions', true);
       }
     },
