@@ -35,71 +35,73 @@
       </StackLayout>
 
       <!-- Has Permission Access -->
-      <StackLayout v-else key="main" class="m-t-30">
-        <!-- From -->
-        <StackLayout>
-          <Label
-            text="Who was the card from?"
-            class="label"
-            :class="{ 'input-error': showErrors && !fromValid }"
-          />
-          <Label
-            @tap="selectPerson"
-            :text="card.from"
-            class="input"
-            :color="$root.darkMode ? 'white' : 'black'"
-            :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-          />
-        </StackLayout>
-
-        <!-- Tag type -->
-        <StackLayout class="m-t-15">
+      <ScrollView v-else key="main" class="m-t-30" height="100%">
+        <StackLayout height="100%">
+          <!-- From -->
           <StackLayout>
             <Label
-              text="What was the occassion?"
-              class="label m-b-5"
-              :class="{ 'input-error': showErrors && !tagValid }"
+              text="Who was the card from?"
+              class="label"
+              :class="{ 'input-error': showErrors && !fromValid }"
             />
             <Label
-              @tap="selectTag"
-              :text="card.tag"
+              @tap="selectPerson"
+              :text="card.from"
+              class="input"
+              :color="$root.darkMode ? 'white' : 'black'"
+              :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
+            />
+          </StackLayout>
+
+          <!-- Tag type -->
+          <StackLayout class="m-t-15">
+            <StackLayout>
+              <Label
+                text="What was the occassion?"
+                class="label m-b-5"
+                :class="{ 'input-error': showErrors && !tagValid }"
+              />
+              <Label
+                @tap="selectTag"
+                :text="card.tag"
+                class="input"
+                :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
+                :color="$root.darkMode ? 'white' : 'black'"
+              />
+            </StackLayout>
+          </StackLayout>
+
+          <!-- Date -->
+          <StackLayout class="m-t-15">
+            <Label
+              text="When did you receive the card?"
+              class="label"
+              :class="{ 'input-error': showErrors && !dateValid }"
+            />
+            <Label
+              @tap="selectDate"
+              :text="card.date"
               class="input"
               :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
               :color="$root.darkMode ? 'white' : 'black'"
             />
           </StackLayout>
-        </StackLayout>
 
-        <!-- Date -->
-        <StackLayout class="m-t-15">
-          <Label
-            text="When did you receive the card?"
-            class="label"
-            :class="{ 'input-error': showErrors && !dateValid }"
-          />
-          <Label
-            @tap="selectDate"
-            :text="card.date"
-            class="input"
-            :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-            :color="$root.darkMode ? 'white' : 'black'"
-          />
+          <!-- Notes -->
+          <StackLayout class="m-t-15">
+            <Label text="Notes (optional)" class="label" />
+            <TextView
+              v-model="card.notes"
+              @tap="closePicker"
+              class="input"
+              returnKeyType="done"
+              height="100%"
+              :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
+              :color="$root.darkMode ? 'white' : 'black'"
+            />
+          </StackLayout>
         </StackLayout>
-
-        <!-- Notes -->
-        <StackLayout class="m-t-15">
-          <Label text="Notes (optional)" class="label" />
-          <TextView
-            v-model="card.notes"
-            @tap="closePicker"
-            class="input"
-            returnKeyType="done"
-            height="75%"
-            :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-            :color="$root.darkMode ? 'white' : 'black'"
-          />
-        </StackLayout>
-      </StackLayout>
+      </ScrollView>
     </Page>
   </Frame>
 </template>
