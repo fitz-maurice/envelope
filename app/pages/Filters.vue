@@ -4,6 +4,7 @@
     <StackLayout class="root">
       <Label
         class="bar"
+        :marginTop="this.height > 800 ? -25 : 0"
         :backgroundColor="$root.darkMode ? 'white' : '#590404'"
       />
       <!-- Action buttons -->
@@ -97,6 +98,7 @@ const platformModule = require('tns-core-modules/platform');
 export default {
   data() {
     return {
+      height: platformModule.screen.mainScreen.heightDIPs,
       sortSelected: null,
       selectedTag: null,
       selectedPerson: null,
@@ -121,13 +123,26 @@ export default {
     peopleList() {
       return ['All'].concat(this.$userService.user.people.sort());
     },
+    scale() {
+      return platformModule.screen.mainScreen.scale;
+    },
   },
   methods: {
     ...mapActions(['setSort', 'setTag', 'setPerson', 'filter']),
     loaded(args) {
       const parent = ios.getParentWithViewController(args.object);
       const width = platformModule.screen.mainScreen.widthDIPs;
-      parent.ios.view.superview.frame = CGRectMake(0, 185, width, 300);
+      let y;
+
+      if (this.height > 650 && this.height < 730) {
+        y = 100;
+      } else if (this.height > 730 && this.height < 800) {
+        y = 125;
+      } else if (this.height > 800) {
+        y = 175;
+      }
+
+      parent.ios.view.superview.frame = CGRectMake(0, y, width, 300);
     },
     selectTag() {
       const picker = new Picker('Select an occassion', {
@@ -170,6 +185,7 @@ export default {
 
 <style lang="scss" scoped>
 Page {
+  padding-top: 0;
   border-top-left-radius: 20;
   border-top-right-radius: 20;
   background-color: #f0eff4;
@@ -177,13 +193,12 @@ Page {
 
 .bar {
   height: 5;
-  width: 95px;
-  margin-top: -25;
+  width: 30;
   border-radius: 9999;
 }
 
 .header {
-  padding: 30px;
+  padding: 10;
 }
 
 .title {
@@ -193,19 +208,20 @@ Page {
 }
 
 .input-wrapper {
-  padding: 30px;
-  font-size: 14px;
-  border-bottom-width: 2px;
+  padding: 10;
+  font-size: 14;
+  border-bottom-width: 0.5;
   border-bottom-color: #dfdfdf;
   background-color: white;
 }
+
 .input-wrapper-first {
-  border-top-width: 2px;
+  border-top-width: 0.5;
   border-top-color: #dfdfdf;
 }
 
 .value {
-  font-size: 14px;
+  font-size: 14;
 }
 
 .light-selected {
@@ -231,7 +247,7 @@ Page {
 }
 
 .apply {
-  margin-left: 30px;
+  margin-left: 10;
   color: white;
   padding: 8 12;
   border-radius: 5;
