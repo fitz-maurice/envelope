@@ -33,36 +33,30 @@ exports.deleteAccount = functions
   })
   .https.onCall(({ uid }, context) => {
     // Only allow users to delete their own data
-    if (!(context.auth.uid === uid)) {
+    if (context.auth.uid !== uid) {
       throw new functions.https.HttpsError('permission-denied');
     }
 
-    // admin
-    //   .auth()
-    //   .deleteUser(uid)
-    //   .then(() => {
-    //     console.log('Successfully deleted user');
-    //     return true;
-    //   })
-    //   .catch(error => {
-    //     console.log('Error deleting user:', error);
-    //   });
+    admin
+      .auth()
+      .deleteUser(uid)
+      .then(() => {
+        console.log('Successfully deleted user');
+        return true;
+      })
+      .catch(error => {
+        console.log('Error deleting user:', error);
+      });
 
     // Run a recursive delete on the given document or collection path.
     // The 'token' must be set in the functions config, and can be generated
     // at the command line by running 'firebase login:ci'.
-    return tools.firestore
-      .delete(uid, {
-        project: process.env.GCLOUD_PROJECT,
-        recursive: true,
-        yes: true,
-        token: functions.config().fb.token,
-      })
-      .then(() => {
-        return {
-          path: path,
-        };
-      });
+    return tools.firestore.delete(uid, {
+      project: process.env.GCLOUD_PROJECT,
+      recursive: true,
+      yes: true,
+      token: functions.config().fb.token,
+    });
   });
 
 /**

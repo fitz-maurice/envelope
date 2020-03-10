@@ -73,12 +73,12 @@ export default {
             const deleteFn = firebase.functions.httpsCallable('deleteAccount');
 
             deleteFn({ uid: this.$baseService.uid })
-              .then(function(result) {
+              .then(result => {
                 this.clearCards();
                 this.$userService.userRef = null;
                 this.$authService.logout();
               })
-              .catch(function(err) {
+              .catch(err => {
                 console.warn(err);
               });
           }
