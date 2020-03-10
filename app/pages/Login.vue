@@ -26,6 +26,8 @@
             autocapitalizationType="none"
             v-model="user.email"
             returnKeyType="next"
+            :backgroundColor="$root.darkMode ? '#313131' : '#f0eff4'"
+            :color="$root.darkMode ? 'white' : 'black'"
             @returnPress="$refs.password.nativeView.focus()"
           ></TextField>
 
@@ -40,6 +42,8 @@
             v-model="user.password"
             autocorrect="false"
             autocapitalizationType="none"
+            :backgroundColor="$root.darkMode ? '#313131' : '#f0eff4'"
+            :color="$root.darkMode ? 'white' : 'black'"
             :returnKeyType="isSigningIn ? 'done' : 'next'"
           ></TextField>
 
