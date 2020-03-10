@@ -77,6 +77,7 @@
               class="input-wrapper"
               orientation="horizontal"
               horizontalAlignment="stretch"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             >
               <Label
                 class="far icon"
@@ -99,6 +100,7 @@
               class="input-wrapper"
               orientation="horizontal"
               horizontalAlignment="stretch"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             >
               <Label
                 class="far icon"
@@ -121,6 +123,7 @@
               class="input-wrapper"
               orientation="horizontal"
               horizontalAlignment="stretch"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             >
               <Label
                 class="far icon"
@@ -143,6 +146,7 @@
               class="input-wrapper-last"
               orientation="horizontal"
               horizontalAlignment="stretch"
+              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
             >
               <Label
                 class="far icon m-t-8"
@@ -434,7 +438,8 @@ export default {
 }
 
 .light-edit {
-  background-color: white;
+  /* background-color: #f0eff4; */
+  background-color: #edf2f7;
 }
 
 .dark-edit {
