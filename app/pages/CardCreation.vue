@@ -95,7 +95,7 @@
               @tap="closePicker"
               class="input"
               returnKeyType="done"
-              height="100%"
+              height="65%"
               :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
               :color="$root.darkMode ? 'white' : 'black'"
             />
