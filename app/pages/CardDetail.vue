@@ -34,7 +34,7 @@
       <!-- Main Layout -->
       <StackLayout>
         <!-- The carousel -->
-        <GridLayout height="300">
+        <GridLayout id="grid" height="300">
           <Carousel
             ref="myCarousel"
             height="100%"
@@ -143,6 +143,7 @@
 
             <!-- NOTES: -->
             <StackLayout
+              id="notes"
               class="input-wrapper-last"
               orientation="horizontal"
               horizontalAlignment="stretch"
@@ -179,6 +180,7 @@ import moment from 'moment';
 import routes from '@/router';
 import { mapActions } from 'vuex';
 import { Frame } from 'tns-core-modules/ui/frame';
+import { AnimationCurve } from 'tns-core-modules/ui/enums';
 import { ImageSource } from 'tns-core-modules/image-source';
 import { PhotoViewer } from 'nativescript-photoviewer';
 import * as fs from 'file-system';
@@ -331,6 +333,21 @@ export default {
      * Convert modal to non-draggable
      */
     async edit() {
+      const view = this.$refs.page.nativeView.getViewById('grid');
+      view.animate({
+        translate: { x: 0, y: -340 },
+        height: 0,
+        duration: 250,
+        curve: AnimationCurve.easeInOut,
+      });
+
+      const notes = this.$refs.page.nativeView.getViewById('notes');
+      notes.animate({
+        height: 400,
+        duration: 250,
+        curve: AnimationCurve.easeInOut,
+      });
+
       this.secondary = JSON.parse(JSON.stringify(this.editCard));
       await this.$nextTick(() => {
         Frame.topmost().ios.controller.modalInPresentation = true;
@@ -352,6 +369,21 @@ export default {
           this.card = this.secondary;
           await this.$nextTick(() => {
             Frame.topmost().ios.controller.modalInPresentation = false;
+
+            const view = this.$refs.page.nativeView.getViewById('grid');
+            view.animate({
+              translate: { x: 0, y: 0 },
+              height: 300,
+              duration: 250,
+              curve: AnimationCurve.easeInOut,
+            });
+
+            const notes = this.$refs.page.nativeView.getViewById('notes');
+            notes.animate({
+              height: 200,
+              duration: 250,
+              curve: AnimationCurve.easeInOut,
+            });
           });
         }
       });
@@ -370,6 +402,21 @@ export default {
             title: 'Card saved!',
             message: 'Card was successfully updated.',
             okButtonText: 'Dismiss',
+          });
+
+          const view = this.$refs.page.nativeView.getViewById('grid');
+          view.animate({
+            translate: { x: 0, y: 0 },
+            height: 300,
+            duration: 250,
+            curve: AnimationCurve.easeInOut,
+          });
+
+          const notes = this.$refs.page.nativeView.getViewById('notes');
+          notes.animate({
+            height: 200,
+            duration: 250,
+            curve: AnimationCurve.easeInOut,
           });
         });
       });
@@ -438,7 +485,6 @@ export default {
 }
 
 .light-edit {
-  /* background-color: #f0eff4; */
   background-color: #edf2f7;
 }
 
