@@ -7,7 +7,7 @@
     <AbsoluteLayout>
       <RadListView
         ref="list"
-        for="card in cardList"
+        for="card in cards"
         pullToRefresh="true"
         loadOnDemandMode="Auto"
         layout="staggered"
@@ -23,9 +23,7 @@
       <!-- No cards view -->
       <StackLayout
         :visibility="
-          cardList.length === 0 && !$store.state.loading
-            ? 'visible'
-            : 'collapsed'
+          cards.length === 0 && loadingComplete ? 'visible' : 'collapsed'
         "
         height="100%"
         width="100%"
@@ -63,6 +61,7 @@
 
 <script>
 import routes from '@/router';
+import { mapState } from 'vuex';
 import { mapActions } from 'vuex';
 import Header from '@/components/Header';
 import FabButton from '@/components/FabButton';
@@ -79,16 +78,29 @@ export default {
   data() {
     return {
       routes,
+      loadingComplete: false,
     };
   },
-  computed: {
-    // List of cards from VueX
-    cardList() {
-      return this.$store.state.cards;
+  watch: {
+    loading(value) {
+      if (!value) {
+        this.loadingComplete = true;
+      }
     },
+  },
+  computed: {
+    ...mapState(['cards', 'loading', 'personFilter', 'tagFilter']),
     // Detect first application load
     firstLoad() {
-      return this.$store.state.firstLoad && this.cardList.length === 0;
+      return (
+        this.loadingComplete &&
+        this.cards.length === 0 &&
+        !this.hasUploadedCards
+      );
+    },
+    // Check if a user had uploaded cards
+    hasUploadedCards() {
+      return getBoolean('uploadedCards');
     },
     // No cards have been uploaded yet
     noCardText() {
@@ -182,7 +194,7 @@ export default {
      * Load more cards
      */
     loadMoreCards() {
-      if (this.cardList.length < 20) {
+      if (this.cards.length < 20) {
         this.$refs.list.nativeView.notifyLoadOnDemandFinished(true);
         return;
       }

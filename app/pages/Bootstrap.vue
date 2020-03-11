@@ -56,7 +56,7 @@ export default {
             this.$baseService.uid = data.user.uid;
             this.$userService.email = data.user.email;
             // Load the user's cards through Vuex
-            this.loadCards(true);
+            this.loadCards();
             // Fetch the user document
             this.$userService.getUserDocument();
 

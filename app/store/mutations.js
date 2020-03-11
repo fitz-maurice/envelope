@@ -1,13 +1,13 @@
 import * as types from './types';
+import { setBoolean } from 'tns-core-modules/application-settings';
 
 const mutations = {
-  [types.SET_CARDS](state, payload) {
-    const { cards, firstLoad } = payload;
+  [types.SET_CARDS](state, cards) {
     state.cards = cards;
-    if (firstLoad !== true) {
-      state.firstLoad = false;
-    }
     state.loading = false;
+    if (cards.length > 0) {
+      setBoolean('uploadedCards', true);
+    }
   },
   [types.CLEAR_CARDS](state) {
     state.cards = [];

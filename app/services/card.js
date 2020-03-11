@@ -1,6 +1,7 @@
 import Base from './base';
 import { cond } from '~/services/chain';
 import * as firebase from 'nativescript-plugin-firebase';
+import { setBoolean } from 'tns-core-modules/application-settings';
 
 export default class CardService extends Base {
   constructor() {
@@ -24,6 +25,8 @@ export default class CardService extends Base {
       .update({
         people: firebase.firestore.FieldValue.arrayUnion(card.from),
       });
+
+    setBoolean('uploadedCards', true);
 
     return firebase.firestore.collection(`${this.uid}/account/cards`).add(card);
   }
