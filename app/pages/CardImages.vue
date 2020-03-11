@@ -210,6 +210,13 @@ export default {
             okButtonText: 'Ok',
           }).then(() => {
             this.$modal.close('created');
+            // Reset status bar color
+            if (!this.$root.darkMode) {
+              UIApplication.sharedApplication.setStatusBarStyleAnimated(
+                UIStatusBarStyle.Default,
+                true,
+              );
+            }
           });
         })
         .catch(err => console.log(err));

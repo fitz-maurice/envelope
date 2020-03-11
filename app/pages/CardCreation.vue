@@ -122,6 +122,8 @@ import { mapGetters } from 'vuex';
 import Picker from '@/native/picker';
 import moment from 'moment';
 const dialogs = require('tns-core-modules/ui/dialogs');
+import { ios } from 'tns-core-modules/application';
+import { Frame } from 'tns-core-modules/ui/frame';
 
 export default {
   data() {
@@ -159,7 +161,15 @@ export default {
   },
   methods: {
     // Bootstrap the page
-    loaded(args) {
+    loaded({ object }) {
+      // Set the status bar color to white
+      if (!this.$root.darkMode) {
+        UIApplication.sharedApplication.setStatusBarStyleAnimated(
+          UIStatusBarStyle.LightContent,
+          true,
+        );
+      }
+
       this.$adService.preloadInterstitial();
 
       // Check if we have asked for permissions before
@@ -247,6 +257,13 @@ export default {
       }).then(result => {
         if (result) {
           this.$modal.close();
+          // Reset the status bar color
+          if (!this.$root.darkMode) {
+            UIApplication.sharedApplication.setStatusBarStyleAnimated(
+              UIStatusBarStyle.Default,
+              true,
+            );
+          }
         }
       });
     },
