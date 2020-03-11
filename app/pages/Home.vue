@@ -93,9 +93,7 @@ export default {
     // Detect first application load
     firstLoad() {
       return (
-        this.loadingComplete &&
-        this.cards.length === 0 &&
-        !this.hasUploadedCards
+        this.loadingComplete && this.cards.length === 0 && this.hasUploadedCards
       );
     },
     // Check if a user had uploaded cards
@@ -127,6 +125,11 @@ export default {
      * Filter the cards
      */
     filter() {
+      console.log(
+        this.loadingComplete,
+        this.cards.length === 0,
+        !this.hasUploadedCards,
+      );
       this.$showBottomSheet(routes.filters, {
         transparent: true,
       });
