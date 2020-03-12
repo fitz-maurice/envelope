@@ -29,9 +29,7 @@
 
       <!-- No cards view -->
       <StackLayout
-        :visibility="
-          cards.length === 0 && loadingComplete ? 'visible' : 'collapsed'
-        "
+        :visibility="noCards ? 'visible' : 'collapsed'"
         height="100%"
         width="100%"
         horizontalAlignment="center"
@@ -85,6 +83,7 @@ export default {
   data() {
     return {
       routes,
+      noCards: false,
       loadingComplete: false,
     };
   },
@@ -93,6 +92,11 @@ export default {
       if (!value) {
         this.loadingComplete = true;
       }
+    },
+    cards(value) {
+      setTimeout(() => {
+        this.noCards = value.length === 0 ? true : false;
+      }, 250);
     },
   },
   computed: {
