@@ -110,21 +110,21 @@ export default {
         }
       });
 
-      // application.on(application.uncaughtErrorEvent, args => {
-      //   if (application.android) {
-      //     // For Android applications, args.android is an NativeScriptError.
-      //     console.log(' *** NativeScriptError *** : ' + args.android);
-      //     console.log(' *** StackTrace *** : ' + args.android.stackTrace);
-      //     console.log(
-      //       ' *** nativeException *** : ' + args.android.nativeException,
-      //     );
-      //     // firebase.crashlytics.sendCrashLog(args.android.nativeException);
-      //   } else if (application.ios) {
-      //     // For iOS applications, args.ios is NativeScriptError.
-      //     console.log(' *** NativeScriptError  *** : ' + args.ios);
-      //     // firebase.crashlytics.sendCrashLog(args.ios);
-      //   }
-      // });
+      application.on(application.uncaughtErrorEvent, args => {
+        if (application.android) {
+          // For Android applications, args.android is an NativeScriptError.
+          console.log(' *** NativeScriptError *** : ' + args.android);
+          console.log(' *** StackTrace *** : ' + args.android.stackTrace);
+          console.log(
+            ' *** nativeException *** : ' + args.android.nativeException,
+          );
+          firebase.crashlytics.sendCrashLog(args.android.nativeException);
+        } else if (application.ios) {
+          // For iOS applications, args.ios is NativeScriptError.
+          console.log(' *** NativeScriptError  *** : ' + args.ios);
+          firebase.crashlytics.sendCrashLog(args.ios);
+        }
+      });
     },
   },
 };

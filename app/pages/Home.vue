@@ -125,11 +125,6 @@ export default {
      * Filter the cards
      */
     filter() {
-      console.log(
-        this.loadingComplete,
-        this.cards.length === 0,
-        !this.hasUploadedCards,
-      );
       this.$showBottomSheet(routes.filters, {
         transparent: true,
       });
