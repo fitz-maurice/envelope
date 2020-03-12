@@ -5,13 +5,14 @@ import mutations from './mutations';
 import * as actions from './actions';
 import * as getters from './getters';
 import { filter } from './plugins';
+import { ObservableArray } from 'tns-core-modules/data/observable-array';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
     loading: true,
-    cards: [],
+    cards: new ObservableArray([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]),
     holidays: [],
     currentSort: 'date',
     personFilter: 'All',

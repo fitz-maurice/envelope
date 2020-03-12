@@ -11,12 +11,19 @@
         pullToRefresh="true"
         loadOnDemandMode="Auto"
         layout="staggered"
+        :itemTemplateSelector="templateSelector"
         @itemTap="cardTapped"
         @pullToRefreshInitiated="onPullToRefresh"
         @loadMoreDataRequested="loadMoreCards"
       >
-        <v-template>
+        <v-template name="card">
           <CardPreview :card="card" />
+        </v-template>
+
+        <v-template name="skeleton">
+          <StackLayout>
+            <Label class="skeleton m-y-2" text=" " height="175" width="98%" />
+          </StackLayout>
         </v-template>
       </RadListView>
 
@@ -109,6 +116,10 @@ export default {
   },
   methods: {
     ...mapActions(['loadCards', 'fetchMoreCards']),
+
+    templateSelector(item) {
+      return item.from ? 'card' : 'skeleton';
+    },
 
     /**
      * Page is loading...
@@ -241,5 +252,24 @@ export default {
   color: #4a5568;
   width: 65%;
   border-radius: 5;
+}
+
+.skeleton {
+  animation-name: skeletonShimmer;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-color: #eeeeee;
+  }
+  50% {
+    background-color: #d1d1d1;
+  }
+  100% {
+    background-color: #eeeeee;
+  }
 }
 </style>
