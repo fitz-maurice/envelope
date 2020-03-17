@@ -15,7 +15,7 @@
       </ActionBar>
 
       <!-- No Permission Access -->
-      <!-- <StackLayout v-if="keySet && !hasPermissions">
+      <StackLayout v-if="keySet && !hasPermissions">
         <Label text.decode="&#xf071;" class="far warning-icon" />
         <Label
           text="Envelope does not have access to your photos and camera"
@@ -32,10 +32,10 @@
           text="Go To App Settings"
           class="app-settings"
         />
-      </StackLayout> -->
+      </StackLayout>
 
       <!-- Has Permission Access -->
-      <ScrollView key="main" class="m-t-30" height="100%">
+      <ScrollView v-else key="main" class="m-t-30" height="100%">
         <StackLayout height="100%">
           <!-- From -->
           <StackLayout>
