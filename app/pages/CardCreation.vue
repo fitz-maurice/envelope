@@ -15,7 +15,7 @@
       </ActionBar>
 
       <!-- No Permission Access -->
-      <StackLayout v-if="keySet && !hasPermissions">
+      <!-- <StackLayout v-if="keySet && !hasPermissions">
         <Label text.decode="&#xf071;" class="far warning-icon" />
         <Label
           text="Envelope does not have access to your photos and camera"
@@ -32,10 +32,10 @@
           text="Go To App Settings"
           class="app-settings"
         />
-      </StackLayout>
+      </StackLayout> -->
 
       <!-- Has Permission Access -->
-      <ScrollView v-else key="main" class="m-t-30" height="100%">
+      <ScrollView key="main" class="m-t-30" height="100%">
         <StackLayout height="100%">
           <!-- From -->
           <StackLayout>
@@ -48,7 +48,7 @@
               @tap="selectPerson"
               :text="card.from"
               class="input"
-              :color="$root.darkMode ? 'white' : 'black'"
+              :color="fromColor"
               :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
             />
           </StackLayout>
@@ -65,8 +65,8 @@
                 @tap="selectTag"
                 :text="card.tag"
                 class="input"
+                :color="tagColor"
                 :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-                :color="$root.darkMode ? 'white' : 'black'"
               />
             </StackLayout>
           </StackLayout>
@@ -82,8 +82,8 @@
               @tap="selectDate"
               :text="card.date"
               class="input"
+              :color="dateColor"
               :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-              :color="$root.darkMode ? 'white' : 'black'"
             />
           </StackLayout>
 
@@ -157,6 +157,27 @@ export default {
     },
     formValid() {
       return this.fromValid && this.tagValid && this.dateValid;
+    },
+    fromColor() {
+      return this.card.from === 'Name'
+        ? '#718096'
+        : this.$root.darkMode
+        ? 'white'
+        : 'black';
+    },
+    tagColor() {
+      return this.card.tag === 'Type of card'
+        ? '#718096'
+        : this.$root.darkMode
+        ? 'white'
+        : 'black';
+    },
+    dateColor() {
+      return this.card.date === 'Received date'
+        ? '#718096'
+        : this.$root.darkMode
+        ? 'white'
+        : 'black';
     },
   },
   methods: {
