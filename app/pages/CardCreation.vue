@@ -31,6 +31,7 @@
           @tap="goToAppSettings"
           text="Go To App Settings"
           class="app-settings"
+          backgroundColor="transparent"
         />
       </StackLayout>
 
