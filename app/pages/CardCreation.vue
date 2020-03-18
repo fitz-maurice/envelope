@@ -31,6 +31,7 @@
           @tap="goToAppSettings"
           text="Go To App Settings"
           class="app-settings"
+          backgroundColor="transparent"
         />
       </StackLayout>
 
@@ -48,7 +49,7 @@
               @tap="selectPerson"
               :text="card.from"
               class="input"
-              :color="$root.darkMode ? 'white' : 'black'"
+              :color="fromColor"
               :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
             />
           </StackLayout>
@@ -65,8 +66,8 @@
                 @tap="selectTag"
                 :text="card.tag"
                 class="input"
+                :color="tagColor"
                 :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-                :color="$root.darkMode ? 'white' : 'black'"
               />
             </StackLayout>
           </StackLayout>
@@ -82,8 +83,8 @@
               @tap="selectDate"
               :text="card.date"
               class="input"
+              :color="dateColor"
               :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-              :color="$root.darkMode ? 'white' : 'black'"
             />
           </StackLayout>
 
@@ -157,6 +158,27 @@ export default {
     },
     formValid() {
       return this.fromValid && this.tagValid && this.dateValid;
+    },
+    fromColor() {
+      return this.card.from === 'Name'
+        ? '#718096'
+        : this.$root.darkMode
+        ? 'white'
+        : 'black';
+    },
+    tagColor() {
+      return this.card.tag === 'Type of card'
+        ? '#718096'
+        : this.$root.darkMode
+        ? 'white'
+        : 'black';
+    },
+    dateColor() {
+      return this.card.date === 'Received date'
+        ? '#718096'
+        : this.$root.darkMode
+        ? 'white'
+        : 'black';
     },
   },
   methods: {

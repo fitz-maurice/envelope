@@ -1,5 +1,5 @@
 <template>
-  <AbsoluteLayout :marginTop="isPaying" marginLeft="79%">
+  <AbsoluteLayout :marginTop="marginTop" marginLeft="79%">
     <Button
       v-feedback
       v-shadow="shadow"
@@ -14,11 +14,28 @@
 <script>
 import { isIOS } from 'tns-core-modules/platform';
 import { getBoolean } from 'tns-core-modules/application-settings';
+const platformModule = require('tns-core-modules/platform');
 
 export default {
+  data() {
+    return {
+      scale: platformModule.screen.mainScreen.scale,
+    };
+  },
   computed: {
     isPaying() {
-      return getBoolean('isPaying') ? '92%' : '86%';
+      return getBoolean('isPaying');
+    },
+    marginTop() {
+      if (this.isPaying && this.scale === 3) {
+        return '92%';
+      } else if (this.isPaying && this.scale === 2) {
+        return '88%';
+      } else if (!this.isPaying && this.scale === 3) {
+        return '86%';
+      } else if (!this.isPaying && this.scale === 2) {
+        return '80%';
+      }
     },
     shadow() {
       return isIOS
@@ -37,11 +54,6 @@ export default {
             bgcolor: '#000000',
             cornerRadius: 15,
           };
-    },
-  },
-  methods: {
-    onButtonTouch(args) {
-      this.$emit('onButtonTouch', args);
     },
   },
 };
