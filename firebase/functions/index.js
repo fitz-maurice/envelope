@@ -1,11 +1,11 @@
-const functions = require('firebase-functions');
-const tools = require('firebase-tools');
-const nodemailer = require('nodemailer');
-const admin = require('firebase-admin');
 const serviceAccount = require('./admin.json');
-const fs = require('fs');
+const axios = require('axios');
 const JSZip = require('jszip');
 const moment = require('moment');
+const admin = require('firebase-admin');
+const tools = require('firebase-tools');
+const nodemailer = require('nodemailer');
+const functions = require('firebase-functions');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -139,4 +139,86 @@ exports.exportUserData = functions
     } catch (error) {
       console.error('There was an error while sending the email:', error);
     }
+  });
+
+/**
+ * Verify a receipt from Apple
+ * @param {object} req - The Base64 encoded receipt
+ */
+exports.verifyReceipt = functions
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '2GB',
+  })
+  .https.onRequest(async (req, res) => {
+    const body = {
+      'receipt-data': req.body.receipt,
+      'exclude-old-transactions': true,
+      password: '219aba5a7a5045b38c6505dc026c9f48',
+    };
+
+    const prod = await axios
+      .post('https://buy.itunes.apple.com/verifyReceipt', body)
+      .then(productionResponse => productionResponse.data)
+      .catch(error => console.log(error));
+
+    if (prod.status === 21007) {
+      const sandbox = await axios
+        .post('https://sandbox.itunes.apple.com/verifyReceipt', body)
+        .then(sandboxResponse => sandboxResponse.data);
+
+      res.send(sandbox);
+      return;
+    }
+
+    res.send(prod);
+    return;
+  });
+
+/**
+ * Accept Apple App Store Server Notifications
+ * @param {object} payload
+ */
+exports.appStoreServerNotifications = functions
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '2GB',
+  })
+  .https.onRequest(async (req, res) => {
+    // try {
+    //   await mailTransport.sendMail({
+    //     from: '"Envelope App" <noreply@envelope.app>',
+    //     to: 'colin@fitz-maurice.com',
+    //     subject: 'Post from Apple...',
+    //     text: req.rawBody,
+    //   });
+    // } catch (error) {
+    //   console.error('There was an error while sending the email:', error);
+    // }
+    // // Alert new purchase!
+    // if (req.body.notification_type === 'INITIAL_BUY') {
+    //   await axios.post(
+    //     'https://hooks.slack.com/services/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',
+    //     {
+    //       text: `Envelope Purchase!\n\n$Product: {req.auto_renew_product_id}`,
+    //     },
+    //   );
+    // }
+    // if (['RENEWAL', 'INTERACTIVE_RENEWAL', 'CANCEL'].includes(req.body.notification_type)) {
+    //   product: req.body.auto_renew_product_id,
+    //   originalTransactionId: req.body.unified_receipt.pending_renewal_info[0].original_transaction_id,
+    //   startDate: new Date(req.body.unified_receipt.latest_receipt_info[0].purchase_date_ms),
+    //   endDate: new Date(req.body.unified_receipt.latest_receipt_info[0].expires_date_ms),
+    //   latestReceipt: req.body.unified_receipt.latest_receipt
+    // }
+
+    const cardsRef = await admin
+      .firestore()
+      .collection('purchases')
+      .doc('1000000634907220')
+      .get()
+      .then(doc => doc.data());
+
+    res.send(cardsRef);
+    return;
   });

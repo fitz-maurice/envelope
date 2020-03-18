@@ -11,6 +11,7 @@ export default class UserService extends Base {
       displayName: null,
       birthday: null,
       people: [],
+      iap: {},
     };
   }
 
