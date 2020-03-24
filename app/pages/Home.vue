@@ -179,7 +179,7 @@ export default {
      * Show the Create Card Modal
      */
     createCard() {
-      this.$showModal(routes.cardCreation, { fullscreen: true }).then(data => {
+      this.$showModal(routes.cardImages, { fullscreen: true }).then(data => {
         if (data) {
           this.loadCards();
           if (!getBoolean('isPaying')) {

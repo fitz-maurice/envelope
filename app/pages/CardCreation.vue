@@ -1,132 +1,107 @@
 <template>
-  <Frame id="modal">
-    <Page
-      ref="page"
-      @loaded="loaded"
-      :backgroundColor="$root.darkMode ? 'black' : 'white'"
-    >
-      <ActionBar
-        title="Create New Card"
-        backgroundColor="#590404"
-        color="white"
-      >
-        <ActionItem text="Cancel" ios.position="left" @tap="cancel" />
-        <ActionItem text="Next" ios.position="right" @tap="next" />
-      </ActionBar>
+  <Page ref="page" :backgroundColor="$root.darkMode ? 'black' : 'white'">
+    <ActionBar title="Card Images" backgroundColor="#590404" color="white">
+      <NavigationButton
+        text=""
+        android.systemIcon="ic_menu_back"
+        @tap="$navigateBack()"
+      />
+      <ActionItem text="Save" ios.position="right" @tap="save" />
+    </ActionBar>
 
-      <!-- No Permission Access -->
-      <StackLayout v-if="keySet && !hasPermissions">
-        <Label text.decode="&#xf071;" class="far warning-icon" />
-        <Label
-          text="Envelope does not have access to your photos and camera"
-          class="warning-message"
-          textWrap="true"
-        />
-        <Label
-          text="Please enable access so you can continue using Envelope"
-          class="warning-message-sub"
-          textWrap="true"
-        />
-        <Button
-          @tap="goToAppSettings"
-          text="Go To App Settings"
-          class="app-settings"
-          backgroundColor="transparent"
-        />
-      </StackLayout>
+    <ScrollView key="main" class="m-t-30" height="100%">
+      <StackLayout height="100%">
+        <!-- From -->
+        <StackLayout>
+          <Label
+            text="Who was the card from?"
+            class="label"
+            :class="{ 'input-error': showErrors && !fromValid }"
+          />
+          <Label
+            @tap="selectPerson"
+            :text="card.from"
+            class="input"
+            :color="fromColor"
+            :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
+          />
+        </StackLayout>
 
-      <!-- Has Permission Access -->
-      <ScrollView v-else key="main" class="m-t-30" height="100%">
-        <StackLayout height="100%">
-          <!-- From -->
+        <!-- Tag type -->
+        <StackLayout class="m-t-15">
           <StackLayout>
             <Label
-              text="Who was the card from?"
-              class="label"
-              :class="{ 'input-error': showErrors && !fromValid }"
+              text="What was the occassion?"
+              class="label m-b-5"
+              :class="{ 'input-error': showErrors && !tagValid }"
             />
             <Label
-              @tap="selectPerson"
-              :text="card.from"
+              @tap="selectTag"
+              :text="card.tag"
               class="input"
-              :color="fromColor"
+              :color="tagColor"
               :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-            />
-          </StackLayout>
-
-          <!-- Tag type -->
-          <StackLayout class="m-t-15">
-            <StackLayout>
-              <Label
-                text="What was the occassion?"
-                class="label m-b-5"
-                :class="{ 'input-error': showErrors && !tagValid }"
-              />
-              <Label
-                @tap="selectTag"
-                :text="card.tag"
-                class="input"
-                :color="tagColor"
-                :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-              />
-            </StackLayout>
-          </StackLayout>
-
-          <!-- Date -->
-          <StackLayout class="m-t-15">
-            <Label
-              text="When did you receive the card?"
-              class="label"
-              :class="{ 'input-error': showErrors && !dateValid }"
-            />
-            <Label
-              @tap="selectDate"
-              :text="card.date"
-              class="input"
-              :color="dateColor"
-              :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-            />
-          </StackLayout>
-
-          <!-- Notes -->
-          <StackLayout class="m-t-15">
-            <Label text="Notes (optional)" class="label" />
-            <TextView
-              v-model="card.notes"
-              @tap="closePicker"
-              class="input"
-              returnKeyType="done"
-              height="65%"
-              :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
-              :color="$root.darkMode ? 'white' : 'black'"
             />
           </StackLayout>
         </StackLayout>
-      </ScrollView>
-    </Page>
-  </Frame>
+
+        <!-- Date -->
+        <StackLayout class="m-t-15">
+          <Label
+            text="When did you receive the card?"
+            class="label"
+            :class="{ 'input-error': showErrors && !dateValid }"
+          />
+          <Label
+            @tap="selectDate"
+            :text="card.date"
+            class="input"
+            :color="dateColor"
+            :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
+          />
+        </StackLayout>
+
+        <!-- Notes -->
+        <StackLayout class="m-t-15">
+          <Label text="Notes (optional)" class="label" />
+          <TextView
+            v-model="card.notes"
+            @tap="closePicker"
+            class="input"
+            returnKeyType="done"
+            height="65%"
+            :backgroundColor="$root.darkMode ? '#313131' : '#edf2f7'"
+            :color="$root.darkMode ? 'white' : 'black'"
+          />
+        </StackLayout>
+      </StackLayout>
+
+      <!-- Loading icon -->
+      <LoaderCustom v-show="creating" />
+    </ScrollView>
+  </Page>
 </template>
 
 <script>
-import routes from '~/router';
 import { openAppSettings } from 'nativescript-advanced-permissions/core';
-import { hasKey, setBoolean } from 'tns-core-modules/application-settings';
-import {
-  hasCameraPermissions,
-  requestCameraPermissions,
-} from 'nativescript-advanced-permissions/camera';
-import {
-  hasFilePermissions,
-  requestFilePermissions,
-} from 'nativescript-advanced-permissions/files';
+import moment from 'moment';
 import { mapGetters } from 'vuex';
 import Picker from '@/native/picker';
-import moment from 'moment';
-const dialogs = require('tns-core-modules/ui/dialogs');
-import { ios } from 'tns-core-modules/application';
+import CardService from '@/services/card';
 import { Frame } from 'tns-core-modules/ui/frame';
+import { ios } from 'tns-core-modules/application';
+import LoaderCustom from '@/components/LoaderCustom';
+const dialogs = require('tns-core-modules/ui/dialogs');
+
+const cardService = new CardService();
 
 export default {
+  components: {
+    LoaderCustom,
+  },
+  props: {
+    images: Array,
+  },
   data() {
     return {
       card: {
@@ -138,15 +113,12 @@ export default {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      keySet: false,
       showErrors: false,
+      creating: false,
     };
   },
   computed: {
     ...mapGetters(['tagList']),
-    hasPermissions() {
-      return hasCameraPermissions() && hasFilePermissions();
-    },
     fromValid() {
       return this.card.from !== '' && this.card.from !== 'Name';
     },
@@ -182,34 +154,6 @@ export default {
     },
   },
   methods: {
-    // Bootstrap the page
-    loaded({ object }) {
-      // Set the status bar color to white
-      if (!this.$root.darkMode) {
-        UIApplication.sharedApplication.setStatusBarStyleAnimated(
-          UIStatusBarStyle.LightContent,
-          true,
-        );
-      }
-
-      this.$adService.preloadInterstitial();
-
-      // Check if we have asked for permissions before
-      const keySet = hasKey('firstTimePermissions');
-      this.keySet = keySet;
-
-      if (!keySet) {
-        // Request camera permissions
-        requestCameraPermissions();
-
-        // Request files (photos) permission
-        requestFilePermissions();
-
-        // Set key for first time ask
-        setBoolean('firstTimePermissions', true);
-      }
-    },
-
     selectPerson() {
       const picker = new Picker('Select or enter new person', {
         items: [''].concat(this.$userService.user.people.sort()),
@@ -250,44 +194,43 @@ export default {
       });
     },
 
-    next() {
+    // Create the new card
+    save() {
       if (!this.formValid) {
         this.showErrors = true;
         return;
       }
 
-      this.$navigateTo(routes.cardImages, {
-        frame: 'modal',
-        props: {
-          card: this.card,
-        },
-      }).catch(err => console.log(err));
-    },
+      if (this.creating === true) return;
 
-    // Take user to app settings
-    goToAppSettings() {
-      openAppSettings();
-    },
+      this.creating = true;
 
-    // Cancel card creation
-    cancel() {
-      confirm({
-        title: 'Cancel New Card',
-        message: 'Are you sure you want to cancel? You changes will be lost.',
-        okButtonText: 'Yes',
-        cancelButtonText: 'Cancel',
-      }).then(result => {
-        if (result) {
-          this.$modal.close();
-          // Reset the status bar color
-          if (!this.$root.darkMode) {
-            UIApplication.sharedApplication.setStatusBarStyleAnimated(
-              UIStatusBarStyle.Default,
-              true,
-            );
-          }
-        }
-      });
+      this.card.images = this.images
+        .filter(image => image !== '')
+        .map(image => image.toBase64String('jpeg', 85));
+
+      cardService
+        .createCard(this.card)
+        .then(() => {
+          this.creating = false;
+          // Refetch user document to refresh people list
+          this.$userService.getUserDocument();
+
+          alert({
+            title: 'Your card was created!',
+            okButtonText: 'Ok',
+          }).then(() => {
+            this.$modal.close('created');
+            // Reset status bar color
+            if (!this.$root.darkMode) {
+              UIApplication.sharedApplication.setStatusBarStyleAnimated(
+                UIStatusBarStyle.Default,
+                true,
+              );
+            }
+          });
+        })
+        .catch(err => console.log(err));
     },
   },
 };
@@ -314,37 +257,5 @@ export default {
 
 .input-error {
   color: red;
-}
-
-.warning-icon {
-  margin-top: 300px;
-  margin-bottom: 125px;
-  font-size: 150px;
-  color: #edf2f7;
-  width: auto;
-  horizontal-align: center;
-}
-
-.warning-message {
-  text-align: center;
-  width: 85%;
-  font-size: 20;
-  font-weight: 500;
-  color: #718096;
-  horizontal-align: center;
-}
-
-.warning-message-sub {
-  text-align: center;
-  width: 85%;
-  font-size: 15px;
-  color: #718096;
-  margin-top: 50px;
-  horizontal-align: center;
-}
-
-.app-settings {
-  color: #0f6ca6;
-  margin-top: 75px;
 }
 </style>

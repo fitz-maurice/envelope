@@ -1,105 +1,166 @@
 <template>
-  <Page>
-    <!-- Action Bar -->
-    <ActionBar title="Card Images" backgroundColor="#590404" color="white">
-      <NavigationButton
-        text=""
-        android.systemIcon="ic_menu_back"
-        @tap="$navigateBack()"
-      />
-      <ActionItem text="Save" ios.position="right" @tap="save" />
-    </ActionBar>
+  <Frame id="modal">
+    <Page @loaded="loaded">
+      <!-- Action Bar -->
+      <ActionBar
+        title="Create New Card"
+        backgroundColor="#590404"
+        color="white"
+      >
+        <ActionItem text="Cancel" ios.position="left" @tap="cancel" />
+        <ActionItem text="Next" ios.position="right" @tap="next" />
+      </ActionBar>
 
-    <!-- Main View -->
-    <GridLayout>
-      <ScrollView>
-        <StackLayout>
-          <!-- Header text -->
+      <!-- Main View -->
+      <GridLayout>
+        <!-- No Permission Access -->
+        <StackLayout v-if="keySet && !hasPermissions">
+          <Label text.decode="&#xf071;" class="far warning-icon" />
           <Label
-            text="Select or take up 5 pictures"
+            text="Envelope does not have access to your photos and camera"
+            class="warning-message"
             textWrap="true"
-            class="header"
           />
-
-          <!-- Images -->
-          <GridLayout rows="auto, auto, auto" columns="*, *">
-            <StackLayout
-              v-for="(img, index) in images"
-              :key="index"
-              class="m-t-15"
-              :row="index / 2 < 1 ? 0 : index / 2 <= 1.5 ? 1 : 2"
-              :column="(index + 1) % 2 == 0 ? 1 : 0"
-            >
-              <Label
-                :text="`Picture ${index + 1}`"
-                textWrap="true"
-                class="label label-img"
-              />
-              <Image
-                v-if="img !== ''"
-                :src="img"
-                v-shadow="15"
-                @tap="imagePrompt(index)"
-                stretch="aspectFill"
-                class="img p-x-5"
-              />
-              <Label
-                v-else
-                class="placeholder fas"
-                text.decode="&#xf03e;"
-                @tap="imagePrompt"
-              />
-            </StackLayout>
-          </GridLayout>
+          <Label
+            text="Please enable access so you can continue using Envelope"
+            class="warning-message-sub"
+            textWrap="true"
+          />
+          <Button
+            @tap="goToAppSettings"
+            text="Go To App Settings"
+            class="app-settings"
+            backgroundColor="transparent"
+          />
         </StackLayout>
-      </ScrollView>
 
-      <!-- Loading icon -->
-      <LoaderCustom v-show="creating" />
-    </GridLayout>
-  </Page>
+        <!-- Has Permission Access -->
+
+        <ScrollView v-else>
+          <StackLayout>
+            <!-- Header text -->
+            <Label
+              text="Select or take up 5 pictures"
+              textWrap="true"
+              class="header"
+            />
+
+            <!-- Images -->
+            <GridLayout rows="auto, auto, auto" columns="*, *">
+              <StackLayout
+                v-for="(img, index) in images"
+                :key="index"
+                class="m-t-15"
+                :row="index / 2 < 1 ? 0 : index / 2 <= 1.5 ? 1 : 2"
+                :column="(index + 1) % 2 == 0 ? 1 : 0"
+              >
+                <Label
+                  :text="`Picture ${index + 1}`"
+                  textWrap="true"
+                  class="label label-img"
+                />
+                <Image
+                  v-if="img !== ''"
+                  :src="img"
+                  v-shadow="15"
+                  @tap="imagePrompt(index)"
+                  stretch="aspectFill"
+                  class="img p-x-5"
+                />
+                <Label
+                  v-else
+                  class="placeholder fas"
+                  text.decode="&#xf03e;"
+                  @tap="imagePrompt"
+                />
+              </StackLayout>
+            </GridLayout>
+          </StackLayout>
+        </ScrollView>
+      </GridLayout>
+    </Page>
+  </Frame>
 </template>
 
 <script>
-import CardService from '@/services/card';
+import routes from '~/router';
 import * as camera from 'nativescript-camera';
-import LoaderCustom from '@/components/LoaderCustom';
 import * as imagepicker from 'nativescript-imagepicker';
 import { ImageCropper } from 'nativescript-imagecropper';
 import { ImageSource } from 'tns-core-modules/image-source';
 import { toBase64String } from 'tns-core-modules/image-source';
-
-const cardService = new CardService();
+import { openAppSettings } from 'nativescript-advanced-permissions/core';
+import { hasKey, setBoolean } from 'tns-core-modules/application-settings';
+import {
+  hasCameraPermissions,
+  requestCameraPermissions,
+} from 'nativescript-advanced-permissions/camera';
+import {
+  hasFilePermissions,
+  requestFilePermissions,
+} from 'nativescript-advanced-permissions/files';
 
 export default {
-  components: {
-    LoaderCustom,
-  },
-  props: {
-    card: Object,
-  },
   data() {
     return {
-      creating: false,
+      keySet: false,
       images: ['', '', '', '', ''],
     };
   },
   computed: {
+    hasPermissions() {
+      return hasCameraPermissions() && hasFilePermissions();
+    },
     imagesValid() {
-      return this.images.length > 0;
+      return this.images.filter(image => image !== '').length > 0;
     },
   },
   methods: {
+    // Bootstrap the page
+    loaded({ object }) {
+      // Set the status bar color to white
+      if (!this.$root.darkMode) {
+        UIApplication.sharedApplication.setStatusBarStyleAnimated(
+          UIStatusBarStyle.LightContent,
+          true,
+        );
+      }
+
+      this.$adService.preloadInterstitial();
+
+      // Check if we have asked for permissions before
+      const keySet = hasKey('firstTimePermissions');
+      this.keySet = keySet;
+
+      if (!keySet) {
+        // Request camera permissions
+        requestCameraPermissions();
+
+        // Request files (photos) permission
+        requestFilePermissions();
+
+        // Set key for first time ask
+        setBoolean('firstTimePermissions', true);
+      }
+    },
+
+    // Take user to app settings
+    goToAppSettings() {
+      openAppSettings();
+    },
+
+    // Select image type
     imagePrompt(index = null) {
-      action('Select image source', 'Cancel', [
-        'Camera',
-        'Photo Library',
-      ]).then(result =>
-        result === 'Camera'
-          ? this.takePicture(index)
-          : this.selectPicture(index),
+      action('Select image source', 'Cancel', ['Camera', 'Photo Library']).then(
+        result => {
+          if (result === 'Camera') return this.takePicture(index);
+          if (result === 'Photo Library') return this.selectPicture(index);
+
+          return;
+        },
       );
     },
+
     // Take picture and pass to cropper
     takePicture(index = null) {
       let source = new ImageSource();
@@ -175,51 +236,44 @@ export default {
           });
       }, 100);
     },
-
-    // Create the new card
-    save() {
-      if (this.creating === true) return;
-
-      this.creating = true;
-
+    // Go to next page
+    next() {
       if (!this.imagesValid) {
-        this.creating = false;
-
         alert({
-          title: 'Missing images!',
-          message: 'At least 1 image is required.',
-          okButtonText: 'Ok',
+          title: '',
+          message: 'Please select or take at least one picture.',
+          okButtonText: 'Dismiss',
         });
-
         return;
       }
 
-      this.card.images = this.images
-        .filter(image => image !== '')
-        .map(image => image.toBase64String('jpeg', 85));
+      this.$navigateTo(routes.cardCreation, {
+        frame: 'modal',
+        props: {
+          images: this.images,
+        },
+      }).catch(err => console.log(err));
+    },
 
-      cardService
-        .createCard(this.card)
-        .then(() => {
-          this.creating = false;
-          // Refetch user document to refresh people list
-          this.$userService.getUserDocument();
-
-          alert({
-            title: 'Your card was created!',
-            okButtonText: 'Ok',
-          }).then(() => {
-            this.$modal.close('created');
-            // Reset status bar color
-            if (!this.$root.darkMode) {
-              UIApplication.sharedApplication.setStatusBarStyleAnimated(
-                UIStatusBarStyle.Default,
-                true,
-              );
-            }
-          });
-        })
-        .catch(err => console.log(err));
+    // Cancel card creation
+    cancel() {
+      confirm({
+        title: 'Cancel New Card',
+        message: 'Are you sure you want to cancel? You changes will be lost.',
+        okButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+      }).then(result => {
+        if (result) {
+          this.$modal.close();
+          // Reset the status bar color
+          if (!this.$root.darkMode) {
+            UIApplication.sharedApplication.setStatusBarStyleAnimated(
+              UIStatusBarStyle.Default,
+              true,
+            );
+          }
+        }
+      });
     },
 
     async restrictedAccess() {
@@ -271,5 +325,37 @@ export default {
 .img {
   width: 90%;
   height: 175;
+}
+
+.warning-icon {
+  margin-top: 300px;
+  margin-bottom: 125px;
+  font-size: 150px;
+  color: #edf2f7;
+  width: auto;
+  horizontal-align: center;
+}
+
+.warning-message {
+  text-align: center;
+  width: 85%;
+  font-size: 20;
+  font-weight: 500;
+  color: #718096;
+  horizontal-align: center;
+}
+
+.warning-message-sub {
+  text-align: center;
+  width: 85%;
+  font-size: 15px;
+  color: #718096;
+  margin-top: 50px;
+  horizontal-align: center;
+}
+
+.app-settings {
+  color: #0f6ca6;
+  margin-top: 75px;
 }
 </style>
