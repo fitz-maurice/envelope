@@ -195,30 +195,54 @@ exports.appStoreServerNotifications = functions
     // } catch (error) {
     //   console.error('There was an error while sending the email:', error);
     // }
-    // // Alert new purchase!
-    // if (req.body.notification_type === 'INITIAL_BUY') {
-    //   await axios.post(
-    //     'https://hooks.slack.com/services/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',
-    //     {
-    //       text: `Envelope Purchase!\n\n$Product: {req.auto_renew_product_id}`,
-    //     },
-    //   );
-    // }
-    // if (['RENEWAL', 'INTERACTIVE_RENEWAL', 'CANCEL'].includes(req.body.notification_type)) {
-    //   product: req.body.auto_renew_product_id,
-    //   originalTransactionId: req.body.unified_receipt.pending_renewal_info[0].original_transaction_id,
-    //   startDate: new Date(req.body.unified_receipt.latest_receipt_info[0].purchase_date_ms),
-    //   endDate: new Date(req.body.unified_receipt.latest_receipt_info[0].expires_date_ms),
-    //   latestReceipt: req.body.unified_receipt.latest_receipt
-    // }
 
-    const cardsRef = await admin
+    const userId = await admin
       .firestore()
       .collection('purchases')
       .doc('1000000634907220')
       .get()
       .then(doc => doc.data());
 
-    res.send(cardsRef);
+    // Alert new purchase!
+    if (req.body.notification_type === 'INITIAL_BUY') {
+      axios.post(
+        'https://hooks.slack.com/services/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',
+        {
+          text: `Envelope Purchase!\n\n*Product:* ${req.body.auto_renew_product_id}`,
+        },
+      );
+    }
+
+    // Update the user data
+    if (
+      ['RENEWAL', 'INTERACTIVE_RENEWAL', 'CANCEL'].includes(
+        req.body.notification_type,
+      )
+    ) {
+      console.log(req.body.unified_receipt.latest_receipt);
+      await admin
+        .firestore()
+        .collection(`${userId.user}`)
+        .doc('account')
+        .update({
+          iap: {
+            product: req.body.auto_renew_product_id,
+            originalTransactionId:
+              req.body.unified_receipt.pending_renewal_info[0]
+                .original_transaction_id,
+            startDate: req.body.unified_receipt.latest_receipt_info[0].purchase_date.slice(
+              0,
+              -8,
+            ),
+            endDate: req.body.unified_receipt.latest_receipt_info[0].expires_date.slice(
+              0,
+              -8,
+            ),
+            latestReceipt: req.body.unified_receipt.latest_receipt,
+          },
+        });
+    }
+
+    res.send('Okay');
     return;
   });
