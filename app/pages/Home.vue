@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import routes from '@/router';
 import { mapState } from 'vuex';
 import { mapActions } from 'vuex';
@@ -131,7 +132,7 @@ export default {
      * Detect if we should show ads
      */
     loaded() {
-      if (!getBoolean('isPaying')) {
+      if (moment().isAfter(this.$userService.user.iap.endDate)) {
         this.$adService.showBanner();
       }
     },
@@ -182,7 +183,7 @@ export default {
       this.$showModal(routes.cardImages, { fullscreen: true }).then(data => {
         if (data) {
           this.loadCards();
-          if (!getBoolean('isPaying')) {
+          if (moment().isAfter(this.$userService.user.iap.endDate)) {
             this.$adService.showInterstitial();
           }
         }

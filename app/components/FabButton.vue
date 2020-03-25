@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { isIOS } from 'tns-core-modules/platform';
 import { getBoolean } from 'tns-core-modules/application-settings';
 const platformModule = require('tns-core-modules/platform');
@@ -24,7 +25,7 @@ export default {
   },
   computed: {
     isPaying() {
-      return getBoolean('isPaying');
+      return moment().isAfter(this.$userService.user.iap.endDate);
     },
     marginTop() {
       if (this.isPaying && this.scale === 3) {
