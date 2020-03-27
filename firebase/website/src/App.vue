@@ -15,7 +15,7 @@
   <!-- /> -->
   <!-- </div> -->
   <div class="flex flex-col justify-between h-screen">
-    <nav class="w-full p-5 border-b shadow-md bg-white">
+    <nav class="w-full p-5 border-b shadow-md bg-white mb-5">
       <div class="flex justify-between items-center">
         <!-- Logo -->
         <router-link to="/" class="mr-3 flex flex-row items-center">
