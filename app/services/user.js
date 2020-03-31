@@ -1,6 +1,7 @@
 import Base from './base';
 import moment from 'moment';
 import * as firebase from 'nativescript-plugin-firebase';
+import store from '../store';
 
 export default class UserService extends Base {
   constructor() {
@@ -31,6 +32,8 @@ export default class UserService extends Base {
     return this.userRef.get().then(doc => {
       const data = doc.data();
       this.user = data;
+
+      store.dispatch('checkPaying', data);
 
       if (typeof this.user === 'undefined') {
         this.createInitalUser();

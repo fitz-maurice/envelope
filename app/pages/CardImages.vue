@@ -178,7 +178,7 @@ export default {
                 this.editPicture(source, index);
               });
             })
-            .catch(function(err) {
+            .catch(err => {
               console.log('Error -> ' + err.message);
             });
         },
@@ -206,7 +206,7 @@ export default {
         .then(selection => {
           selection.forEach(selected => {
             source.fromAsset(selected).then(source => {
-              setTimeout(async () => {
+              setTimeout(() => {
                 this.editPicture(source, index);
               }, 250);
             });
@@ -218,11 +218,11 @@ export default {
     },
 
     // Edit and crop the picture
-    async editPicture(source, index = null) {
+    editPicture(source, index = null) {
       const imageCropper = new ImageCropper();
 
-      setTimeout(async () => {
-        await imageCropper
+      setTimeout(() => {
+        imageCropper
           .show(source, { width: 500, height: 700, keepAspectRatio: true })
           .then(({ response, image }) => {
             if (response === 'Success') {
@@ -234,7 +234,7 @@ export default {
           .catch(function(e) {
             console.log('ERROR', e);
           });
-      }, 100);
+      }, 150);
     },
     // Go to next page
     next() {

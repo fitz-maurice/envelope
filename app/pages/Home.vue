@@ -1,5 +1,5 @@
 <template>
-  <Page @loaded="loaded()" @navigatingFrom="$adService.hideBanner()">
+  <Page @navigatingFrom="$adService.hideBanner()">
     <!-- Envelope Header -->
     <Header @filter="filter()" />
 
@@ -124,17 +124,6 @@ export default {
 
     templateSelector(item) {
       return item.from ? 'card' : 'skeleton';
-    },
-
-    /**
-     * Page is loading...
-     *
-     * Detect if we should show ads
-     */
-    loaded() {
-      if (moment().isAfter(this.$userService.user.iap.endDate)) {
-        this.$adService.showBanner();
-      }
     },
 
     /**

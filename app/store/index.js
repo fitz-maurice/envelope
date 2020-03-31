@@ -11,6 +11,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    isPaying: true,
     loading: true,
     cards: new ObservableArray([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]),
     holidays: [],

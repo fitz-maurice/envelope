@@ -95,3 +95,7 @@ export const setHolidays = async ({ commit }) => {
 export const filter = async ({ commit }) => {
   commit(types.FILTER);
 };
+
+export const checkPaying = async ({ commit }, user) => {
+  commit(types.PAYING, user);
+};

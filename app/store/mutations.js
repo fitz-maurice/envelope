@@ -1,5 +1,7 @@
 import * as types from './types';
 import { setBoolean } from 'tns-core-modules/application-settings';
+import moment from 'moment';
+import AdService from '../services/ads';
 
 const mutations = {
   [types.SET_CARDS](state, cards) {
@@ -25,6 +27,14 @@ const mutations = {
     state.personFilter = person;
   },
   [types.FILTER](state) {},
+  [types.PAYING](state, user) {
+    state.isPaying = moment().isAfter(user.iap.endDate);
+
+    if (!state.isPaying) {
+      const adService = new AdService();
+      adService.showBanner();
+    }
+  },
 };
 
 export default mutations;

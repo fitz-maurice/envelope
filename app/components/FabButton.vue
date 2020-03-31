@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     isPaying() {
-      return moment().isAfter(this.$userService.user.iap.endDate);
+      return this.$store.state.isPaying;
     },
     marginTop() {
       if (this.isPaying && this.scale === 3) {

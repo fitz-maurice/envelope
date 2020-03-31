@@ -43,7 +43,7 @@
     "nativescript-toasty": "^3.0.0-alpha.2",
     "nativescript-ui-dataform": "^6.0.0",
     "nativescript-ui-listview": "^8.1.0",
-    "nativescript-vue": "^2.5.0",
+    "nativescript-vue": "^2.5.1",
     "nativescript-vue-devtools": "^1.2.0",
     "nativescript-vue-shadow": "^0.1.0",
     "tns-core-modules": "^6.5.0",
@@ -54,7 +54,7 @@
     "@babel/preset-env": "^7.9.0",
     "babel-loader": "~8.1.0",
     "nativescript-dev-webpack": "^1.5.1",
-    "nativescript-vue-template-compiler": "^2.5.0",
+    "nativescript-vue-template-compiler": "^2.5.1",
     "node-sass": "^4.7.1",
     "vue-loader": "^15.9.1"
   },
