@@ -215,25 +215,7 @@
             :backgroundColor="$root.darkMode ? 'black' : '#f0eff4'"
             :color="$root.darkMode ? 'white' : '#718096'"
           />
-          <!-- Acknowledgements -->
-          <FlexboxLayout justifyContent="space-between" @tap="ack">
-            <StackLayout
-              v-tapped
-              class="input-wrapper"
-              orientation="horizontal"
-              horizontalAlignment="stretch"
-              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
-            >
-              <Label text.decode="&#xf14e;" class="far icon" />
-              <Label class="label" text="Acknowledgements" />
-            </StackLayout>
 
-            <Label
-              text.decode="&#xf105;"
-              class="far m-r-15 input-wrapper caret"
-              :backgroundColor="$root.darkMode ? '#212121' : 'white'"
-            />
-          </FlexboxLayout>
           <!-- Version -->
           <FlexboxLayout
             width="100%"
@@ -395,13 +377,6 @@ export default {
      */
     subscription() {
       this.$navigateTo(routes.subscription, { frame: 'main' });
-    },
-
-    /**
-     * Navigate to the acknowledgements page
-     */
-    ack() {
-      this.$navigateTo(routes.acknowledgements, { frame: 'main' });
     },
 
     /**
