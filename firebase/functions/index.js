@@ -246,3 +246,16 @@ exports.appStoreServerNotifications = functions
     res.send('Okay');
     return;
   });
+
+/**
+ * Trigger every time a person signs up
+ * @param {object} payload
+ */
+exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
+  axios.post(
+    'https://hooks.slack.com/services/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',
+    {
+      text: `New user sign up!\n\n*Email:* ${user.email}`,
+    },
+  );
+});
