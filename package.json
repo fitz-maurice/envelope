@@ -1,29 +1,63 @@
 {
-  "name": "envelope",
-  "version": "0.0.1",
-  "private": true,
+  "nativescript": {
+    "id": "com.fitzcreative.envelope",
+    "tns-android": {
+      "version": "6.3.1"
+    },
+    "tns-ios": {
+      "version": "6.3.0"
+    }
+  },
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "test": "jest",
-    "lint": "eslint ."
+    "tsc": "cd app && tsc --skipLibCheck --watch",
+    "ios-and-android": "tns run --bundle",
+    "ios": "tns run ios --bundle",
+    "ios.release": "tns build ios --bundle --release --forDevice --provision 56140ef2-ea59-483c-8fe9-8438fc8a892c",
+    "ios.emulator": "tns run ios --bundle --emulator",
+    "android": "tns run android --bundle",
+    "android.release": "tns build android --bundle --release --for-device --key-store-path ./keystore-footplr.jks --key-store-password xs4all --key-store-alias footplr --key-store-alias-password xs4all",
+    "colin": "tns run ios --bundle --device 'iPhone 11 Pro"
   },
   "dependencies": {
-    "react": "16.9.0",
-    "react-native": "0.61.5"
+    "@nativescript/theme": "^2.3.3",
+    "@proplugins/nativescript-purchase": "^4.1.0",
+    "@vue/devtools": "^5.3.3",
+    "moment": "^2.24.0",
+    "nativescript-advanced-permissions": "^1.2.0",
+    "nativescript-appversion": "^1.4.4",
+    "nativescript-camera": "^4.5.0",
+    "nativescript-carousel": "^6.1.1",
+    "nativescript-email": "^1.6.0",
+    "nativescript-imagecropper": "^3.0.0",
+    "nativescript-imagepicker": "^7.1.0",
+    "nativescript-inappbrowser": "^2.2.0",
+    "nativescript-iqkeyboardmanager": "^1.5.1",
+    "nativescript-material-bottomsheet": "^3.1.14",
+    "nativescript-open-app": "^0.3.0",
+    "nativescript-photoviewer": "^2.1.5",
+    "nativescript-plugin-firebase": "^10.5.0",
+    "nativescript-rater": "^2.1.1",
+    "nativescript-social-share": "^1.6.0",
+    "nativescript-socketio": "^3.3.1",
+    "nativescript-taptic-engine": "^2.1.0",
+    "nativescript-toasty": "^3.0.0-alpha.2",
+    "nativescript-ui-dataform": "^6.0.0",
+    "nativescript-ui-listview": "^8.1.0",
+    "nativescript-vue": "^2.5.1",
+    "nativescript-vue-devtools": "^1.2.0",
+    "nativescript-vue-shadow": "^0.1.0",
+    "tns-core-modules": "^6.5.0",
+    "vuex": "^3.1.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/runtime": "^7.7.7",
-    "@react-native-community/eslint-config": "^0.0.6",
-    "babel-jest": "^24.9.0",
-    "eslint": "^6.8.0",
-    "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.56.4",
-    "react-test-renderer": "16.9.0"
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "~8.1.0",
+    "nativescript-dev-webpack": "^1.5.1",
+    "nativescript-vue-template-compiler": "^2.5.1",
+    "node-sass": "^4.7.1",
+    "vue-loader": "^15.9.1"
   },
-  "jest": {
-    "preset": "react-native"
-  }
+  "description": "Store your holiday cards forever, without taking up any space on the fridge.",
+  "author": "Fitz Creative"
 }

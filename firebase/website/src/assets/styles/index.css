@@ -1,0 +1,13 @@
+@tailwind base;
+
+body {
+  height: 100vh;
+  background-color: #edf2f7;
+}
+
+.v--modal-overlay {
+  background: #0000009f;
+}
+
+@tailwind components;
+@tailwind utilities;

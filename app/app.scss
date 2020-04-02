@@ -1,0 +1,37 @@
+$bg-light: #f0eff4;
+$bg-dark: black;
+
+// Nativescript theme overrides
+$btn-height: 0;
+$btn-min-width: 0;
+$btn-margin-x: 0;
+$btn-margin-y: 0;
+$btn-padding-y: 8;
+$btn-padding-x: 0;
+
+@import '~@nativescript/theme/core';
+@import '~@nativescript/theme/index';
+
+.ns-dark Page {
+  background-color: $bg-dark;
+}
+
+.ns-light Page {
+  background-color: $bg-light;
+}
+
+// Font icon classes
+.fab {
+  font-family: 'Font Awesome 5 Brands', 'fa-brands-400';
+  font-weight: 400;
+}
+
+.fas {
+  font-family: 'Font Awesome 5 Free', 'fa-solid-900';
+  font-weight: 900;
+}
+
+.far {
+  font-family: 'Font Awesome 5 Free', 'fa-regular-400';
+  font-weight: 400;
+}
