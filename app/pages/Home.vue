@@ -139,7 +139,11 @@ export default {
      * Check if they can upload a card
      */
     cardGaurd() {
-      const product = getString('product');
+      let product = '';
+
+      if (this.$userService.user.iap && this.$userService.user.iap.product) {
+        product = this.$userService.user.iap.product;
+      }
 
       if (this.$store.state.cards.length <= 49) {
         this.createCard();
