@@ -1,6 +1,6 @@
 import * as types from './types';
 import CardService from '@/services/card';
-import { fetchHolidays } from '~/services/holidays';
+import { fetchHolidays } from '@/services/holidays';
 
 const cardService = new CardService();
 

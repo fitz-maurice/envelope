@@ -332,8 +332,6 @@ export default {
 }
 
 .social-login {
-  color: black;
-  background-color: white;
   border-radius: 9999;
   width: 60%;
   font-weight: 600;
