@@ -3,6 +3,7 @@ import * as firebase from 'nativescript-plugin-firebase';
 import * as purchase from '@proplugins/nativescript-purchase';
 import { request, HttpResponse } from 'tns-core-modules/http';
 import { TransactionState } from '@proplugins/nativescript-purchase/transaction';
+import { setString } from 'tns-core-modules/application-settings';
 
 const PREMIUM_MONTHLY = 'com.fitzcreative.envelope.premium.monthly';
 const PREMIUM_ANNUAL = 'com.fitzcreative.envelope.premium.annual';
