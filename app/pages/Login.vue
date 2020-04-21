@@ -81,7 +81,7 @@
           >
             <FormattedString>
               <Span text.decode="&#xf179;" class="fab" />
-              <Span text="    " />
+              <Span text="      " />
               <Span text="Continue with Apple" />
             </FormattedString>
           </Button>
@@ -96,7 +96,7 @@
           >
             <FormattedString>
               <Span text.decode="&#xf1a0;" class="fab" />
-              <Span text="  " />
+              <Span text="     " />
               <Span text="Continue with Google" />
             </FormattedString>
           </Button>
@@ -331,10 +331,23 @@ export default {
   font-size: 18;
 }
 
+.ns-dark .social-login {
+  background-color: black;
+  color: white;
+}
+
+.ns-light .social-login {
+  background-color: white;
+  color: black;
+}
+
 .social-login {
+  padding-left: 20;
+  text-align: left;
   border-radius: 9999;
-  width: 60%;
-  font-weight: 600;
+  width: 75%;
+  height: 44;
+  font-size: 19;
 }
 
 .forgot-password {
