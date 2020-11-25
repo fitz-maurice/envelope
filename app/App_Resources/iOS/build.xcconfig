@@ -1,7 +1,0 @@
-APP_NAME = Envelope;
-DEVELOPMENT_TEAM = 28K7PT56PF;
-PRODUCT_BUNDLE_IDENTIFIER = com.fitzcreative.envelope;
-ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-CODE_SIGN_ENTITLEMENTS = envelope/Envelope.entitlements;
-LAUNCH_SCREEN = envelope/LaunchScreen.xib;
-TARGETED_DEVICE_FAMILY = 1;

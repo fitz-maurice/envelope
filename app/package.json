@@ -1,9 +1,0 @@
-{
-  "discardUncaughtJsExceptions": false,
-  "main": "app.js",
-  "name": "Envelope",
-  "android": {
-    "v8Flags": "--expose_gc",
-    "markingMode": "none"
-  }
-}

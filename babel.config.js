@@ -1,7 +1,3 @@
-module.exports = function(api) {
-    api.cache(true);
-
-    return {
-        presets: [['@babel/env', { targets: { esmodules: true } }]],
-    };
+module.exports = {
+  presets: ['module:metro-react-native-babel-preset'],
 };
