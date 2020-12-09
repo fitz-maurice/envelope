@@ -5,7 +5,8 @@ const AuthTitle = ({text}) => <Text style={styles.title}>{text}</Text>;
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 25,
+    fontFamily: 'Castoro-Regular',
+    fontSize: 32,
     marginVertical: 20,
   },
 });
