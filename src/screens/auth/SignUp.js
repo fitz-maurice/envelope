@@ -13,7 +13,8 @@ import {
   KeyboardAccessoryView,
   KeyboardAccessoryNavigation,
 } from 'react-native-keyboard-accessory';
-import {Container} from '../../components';
+import {Container, AuthTitle, Paragraph} from '../../components';
+import {colors} from '../../config';
 
 const SignUp = () => {
   const fs = 17 * useWindowDimensions().fontScale;
@@ -21,8 +22,12 @@ const SignUp = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <Container>
+          <AuthTitle text="Sign up for Envelope" />
+
+          <Paragraph text="To create an account enter your email and a strong password." />
+
           <TextInput
             keyboardType="email-address"
             autoFocus={true}
@@ -46,7 +51,7 @@ const SignUp = () => {
         <TouchableOpacity
           style={styles.textInputButton}
           onPress={() => Alert.alert('Nailed it!', 'Wohooo')}>
-          <Text style={[styles.button, {fontSize: fs}]}>Sign up {fs}</Text>
+          <Text style={[styles.button, {fontSize: fs}]}>Sign up</Text>
         </TouchableOpacity>
       </KeyboardAccessoryView>
       <KeyboardAccessoryNavigation
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#cc0033',
+    backgroundColor: colors.green,
   },
   button: {
     color: '#ffffff',

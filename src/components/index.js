@@ -8,3 +8,6 @@ export * from './LoginGoogleButton';
 
 export * from './HeaderCamera';
 export * from './HeaderNext';
+
+export * from './AuthTitle';
+export * from './Paragraph';

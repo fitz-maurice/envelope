@@ -1,5 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {colors} from '../config';
 
 // Navigators
 const Auth = createStackNavigator();
@@ -18,9 +19,9 @@ const SignedOutNavigator = ({navigation}) => (
       name="SignUp"
       component={SignUp}
       options={{
-        title: 'Sign up to Envelope',
+        title: 'Register',
         headerBackTitleVisible: false,
-        headerTintColor: '#cc0033',
+        headerTintColor: colors.green,
       }}
     />
     <Auth.Screen
@@ -29,7 +30,7 @@ const SignedOutNavigator = ({navigation}) => (
       options={{
         title: 'Password Reset',
         headerBackTitleVisible: false,
-        headerTintColor: '#cc0033',
+        headerTintColor: colors.green,
       }}
     />
   </Auth.Navigator>
