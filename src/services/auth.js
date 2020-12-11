@@ -7,7 +7,6 @@ const signIn = (email, password) => {
 
 const signUp = (email, password) => {
   return auth().createUserWithEmailAndPassword(email, password);
-  // .catch((error) => Alert.alert('Error', errors.signIn[error.code]()));
 };
 
 const signOut = async () => {

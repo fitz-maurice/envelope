@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   Alert,
@@ -9,10 +9,39 @@ import {
   Text,
 } from 'react-native';
 import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
-import {Container} from '../../components';
+
+// Utils
 import {colors} from '../../config';
 
+// Services
+import {resetPassword, AppContext} from '../../services';
+
+// Components
+import {Container} from '../../components';
+
 const ForgotPassword = () => {
+  const context = useContext(AppContext);
+  const [email, setEmail] = useState(null);
+
+  /**
+   * _resetPassword
+   *
+   * @param _email {String} The user email
+   */
+  const _resetPassword = (_email) => {
+    Alert.alert('Nailed it!', 'Wohooo');
+    // context.setLoading(true);
+    // signUp(_email, _password)
+    //   .then((user) => {
+    //     context.setLoading(false);
+    //     context.setUser(user);
+    //   })
+    //   .catch((error) => {
+    //     context.setLoading(false);
+    //     Alert.alert('Error', errors.signUp[error.code]());
+    //   });
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -33,7 +62,7 @@ const ForgotPassword = () => {
         androidAdjustResize={true}>
         <TouchableOpacity
           style={styles.textInputButton}
-          onPress={() => Alert.alert('Nailed it!', 'Wohooo')}>
+          onPress={() => _resetPassword(email)}>
           <Text style={[styles.button]}>Send</Text>
         </TouchableOpacity>
       </KeyboardAccessoryView>

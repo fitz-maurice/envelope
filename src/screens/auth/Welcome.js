@@ -34,7 +34,7 @@ const ENVELOPE_WHITE = require('../../assets/envelope_white.png');
 const Welcome = ({navigation}) => {
   const context = useContext(AppContext);
   const [email, setEmail] = useState('admin@envelope.app');
-  const [password, setPassword] = useState('Envelope1989');
+  const [password, setPassword] = useState('Envelope198');
 
   /**
    * _signIn
@@ -49,7 +49,10 @@ const Welcome = ({navigation}) => {
         context.setLoading(false);
         context.setUser(user);
       })
-      .catch((error) => Alert.alert('Error', errors.signIn[error.code]()));
+      .catch((error) => {
+        context.setLoading(false);
+        Alert.alert('Error', errors.signIn[error.code]());
+      });
   };
 
   return (
