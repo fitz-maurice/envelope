@@ -20,7 +20,7 @@ const Clear = ({title, onPress}) => (
 const styles = StyleSheet.create({
   button: {
     height: 50,
-    borderRadius: 15,
+    borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.green,

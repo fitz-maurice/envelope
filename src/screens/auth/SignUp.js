@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, createRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -23,6 +23,8 @@ import {signUp, AppContext} from '../../services';
 import {Container, AuthTitle, Paragraph, Input} from '../../components';
 
 const SignUp = () => {
+  const emailRef = createRef();
+  const passwordRef = createRef();
   const context = useContext(AppContext);
   const fs = 17 * useWindowDimensions().fontScale;
   const [email, setEmail] = useState('admin@envelope.app');
@@ -56,8 +58,12 @@ const SignUp = () => {
 
           <Paragraph text="To create an account enter your email and a strong password." />
 
-          <Input.Email onChangeText={setEmail} />
-          <Input.Password onChangeText={setPassword} />
+          <Input.Email
+            ref={emailRef}
+            autoFocus={true}
+            onChangeText={setEmail}
+          />
+          <Input.Password ref={passwordRef} onChangeText={setPassword} />
 
           <Text>
             By signing up agree to Envelope's Terms and Conditions, and Privacy
@@ -79,7 +85,11 @@ const SignUp = () => {
       </KeyboardAccessoryView>
       <KeyboardAccessoryNavigation
         androidAdjustResize={true}
-        // onDone={this.onDone}
+        doneButtonTitle="Sign up"
+        tintColor={colors.green}
+        onDone={() => _signUp(email, password)}
+        onNext={() => console.log(emailRef)}
+        onPrevious={() => passwordRef.current.focus()}
       />
     </View>
   );

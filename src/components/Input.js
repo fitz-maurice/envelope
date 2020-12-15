@@ -1,34 +1,40 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import {TextInput, StyleSheet, useColorScheme} from 'react-native';
 import {colors, font} from '../config';
 
-const Input = ({
-  onChangeText,
-  placeholder = '',
-  autoFocus = false,
-  keyboardType = 'default',
-  autoCapitalize = 'sentences',
-  secureTextEntry = false,
-}) => {
-  const scheme = useColorScheme();
+const Input = forwardRef(
+  (
+    {
+      onChangeText,
+      placeholder = '',
+      autoFocus = false,
+      keyboardType = 'default',
+      autoCapitalize = 'sentences',
+      secureTextEntry = false,
+    },
+    ref,
+  ) => {
+    const scheme = useColorScheme();
 
-  return (
-    <TextInput
-      onChangeText={(text) => onChangeText(text)}
-      style={[
-        styles.input,
-        scheme === 'light' ? styles.inputLight : styles.inputDark,
-      ]}
-      placeholder={placeholder}
-      autoFocus={autoFocus}
-      keyboardType={keyboardType}
-      autoCapitalize={autoCapitalize}
-      secureTextEntry={secureTextEntry}
-      placeholderTextColor={scheme === 'light' ? colors.black : colors.white}
-      underlineColorAndroid="transparent"
-    />
-  );
-};
+    return (
+      <TextInput
+        ref={ref}
+        onChangeText={(text) => onChangeText(text)}
+        style={[
+          styles.input,
+          scheme === 'light' ? styles.inputLight : styles.inputDark,
+        ]}
+        placeholder={placeholder}
+        autoFocus={autoFocus}
+        keyboardType={keyboardType}
+        autoCapitalize={autoCapitalize}
+        secureTextEntry={secureTextEntry}
+        placeholderTextColor={scheme === 'light' ? colors.black : colors.white}
+        underlineColorAndroid="transparent"
+      />
+    );
+  },
+);
 
 const Email = (props) => {
   return (
@@ -58,7 +64,7 @@ const styles = StyleSheet.create({
     ...font.body,
     padding: 15,
     marginBottom: 15,
-    borderRadius: 10,
+    borderRadius: 30,
   },
   inputLight: {
     color: colors.black,

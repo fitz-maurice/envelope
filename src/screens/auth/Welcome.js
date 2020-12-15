@@ -34,7 +34,7 @@ const ENVELOPE_WHITE = require('../../assets/envelope_white.png');
 const Welcome = ({navigation}) => {
   const context = useContext(AppContext);
   const [email, setEmail] = useState('admin@envelope.app');
-  const [password, setPassword] = useState('Envelope198');
+  const [password, setPassword] = useState('Envelope1989');
 
   /**
    * _signIn

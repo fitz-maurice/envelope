@@ -4,6 +4,7 @@ import {GoogleSignin} from '@react-native-community/google-signin';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+// Utils
 import {colors, font} from '../config';
 
 const LoginGoogleButton = () => {
@@ -32,8 +33,8 @@ const LoginGoogleButton = () => {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.white,
-    padding: 10,
-    borderRadius: 25,
+    padding: 15,
+    borderRadius: 30,
     marginBottom: 15,
     flexDirection: 'row',
     justifyContent: 'center',
