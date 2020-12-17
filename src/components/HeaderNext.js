@@ -1,16 +1,16 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, StyleSheet, Pressable} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 
 const HeaderNext = ({navigation}) => (
   <HeaderButtons
     left={true}
     HeaderButtonComponent={(props) => (
-      <TouchableOpacity
+      <Pressable
         style={styles.margin}
         onPress={() => navigation.navigate('Upload')}>
         <Text>Next</Text>
-      </TouchableOpacity>
+      </Pressable>
     )}>
     <Item
       color={'#222222'}

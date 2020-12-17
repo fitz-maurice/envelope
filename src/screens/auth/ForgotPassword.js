@@ -5,7 +5,7 @@ import {
   StatusBar,
   TextInput,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   Text,
 } from 'react-native';
 import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
@@ -60,11 +60,11 @@ const ForgotPassword = () => {
         alwaysVisible={true}
         avoidKeyboard={true}
         androidAdjustResize={true}>
-        <TouchableOpacity
+        <Pressable
           style={styles.textInputButton}
           onPress={() => _resetPassword(email)}>
           <Text style={[styles.button]}>Send</Text>
-        </TouchableOpacity>
+        </Pressable>
       </KeyboardAccessoryView>
     </View>
   );

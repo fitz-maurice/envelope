@@ -5,7 +5,7 @@ import {
   Alert,
   StatusBar,
   Text,
-  TouchableOpacity,
+  Pressable,
   useWindowDimensions,
 } from 'react-native';
 import {
@@ -77,11 +77,11 @@ const SignUp = () => {
         alwaysVisible={true}
         avoidKeyboard={true}
         androidAdjustResize={true}>
-        <TouchableOpacity
+        <Pressable
           style={styles.textInputButton}
           onPress={() => _signUp(email, password)}>
           <Text style={[styles.button, {fontSize: fs}]}>Sign up</Text>
-        </TouchableOpacity>
+        </Pressable>
       </KeyboardAccessoryView>
       <KeyboardAccessoryNavigation
         androidAdjustResize={true}

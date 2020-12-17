@@ -1,20 +1,19 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {Pressable, Text, StyleSheet} from 'react-native';
+
+// Utils
 import {colors, font} from '../config';
 
 const Button = ({title, onPress}) => (
-  <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={onPress}>
+  <Pressable style={styles.button} onPress={onPress}>
     <Text style={styles.text}>{title}</Text>
-  </TouchableOpacity>
+  </Pressable>
 );
 
 const Clear = ({title, onPress}) => (
-  <TouchableOpacity
-    style={styles.buttonClear}
-    activeOpacity={0.9}
-    onPress={onPress}>
+  <Pressable style={styles.buttonClear} onPress={onPress}>
     <Text style={styles.textClear}>{title}</Text>
-  </TouchableOpacity>
+  </Pressable>
 );
 
 const styles = StyleSheet.create({

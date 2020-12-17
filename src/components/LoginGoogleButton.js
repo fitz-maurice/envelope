@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, Pressable, StyleSheet} from 'react-native';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,14 +19,14 @@ const LoginGoogleButton = () => {
   };
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={styles.button}
       onPress={() =>
         onGoogleButtonPress().then(() => console.log('Signed in with Google!'))
       }>
       <Icon name="google" size={20} color={colors.black} />
       <Text style={styles.text}>Continue with Google</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

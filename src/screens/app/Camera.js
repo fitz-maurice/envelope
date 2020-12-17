@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {Text, Pressable, View, StyleSheet} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
 const PendingView = () => (
@@ -46,11 +46,11 @@ const Camera = ({navigation}) => {
           }
 
           return (
-            <TouchableOpacity
+            <Pressable
               onPress={() => takePicture(camera)}
               style={styles.capture}>
               <Text style={{fontSize: 14}}> SNAP </Text>
-            </TouchableOpacity>
+            </Pressable>
           );
         }}
       </RNCamera>

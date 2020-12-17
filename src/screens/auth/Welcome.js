@@ -9,7 +9,6 @@ import {
   StyleSheet,
   SafeAreaView,
   ImageBackground,
-  TouchableOpacity,
 } from 'react-native';
 
 // Utils
@@ -34,7 +33,7 @@ const ENVELOPE_WHITE = require('../../assets/envelope_white.png');
 const Welcome = ({navigation}) => {
   const context = useContext(AppContext);
   const [email, setEmail] = useState('admin@envelope.app');
-  const [password, setPassword] = useState('Envelope1989');
+  const [password, setPassword] = useState('Envelope198');
 
   /**
    * _signIn
@@ -81,9 +80,10 @@ const Welcome = ({navigation}) => {
         <View>
           {Platform.OS === 'ios' && <LoginAppleButton />}
           <LoginGoogleButton />
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Text style={styles.signUp}>Don't have an account? Sign up</Text>
-          </TouchableOpacity>
+          <Button.Clear
+            onPress={() => navigation.navigate('SignUp')}
+            title="Don't have an account? Sign up"
+          />
         </View>
       </SafeAreaView>
     </ImageBackground>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, Pressable, StyleSheet} from 'react-native';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -29,12 +29,10 @@ const LoginAppleButton = () => {
   };
 
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={() => onAppleButtonPress()}>
+    <Pressable style={styles.button} onPress={() => onAppleButtonPress()}>
       <Icon name="apple" size={20} color={colors.black} />
       <Text style={styles.text}>Continue with Apple</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

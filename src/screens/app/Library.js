@@ -6,7 +6,7 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
-  TouchableOpacity,
+  Pressable,
   PermissionsAndroid,
 } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
@@ -70,7 +70,7 @@ const Library = ({navigation}) => {
       {/* First hero image */}
       {photo && (
         <View>
-          <TouchableOpacity onPress={() => alert('Selected')}>
+          <Pressable onPress={() => alert('Selected')}>
             <Image
               style={{
                 width: 300,
@@ -78,7 +78,7 @@ const Library = ({navigation}) => {
               }}
               source={{uri: photo.node.image.uri}}
             />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       )}
 
