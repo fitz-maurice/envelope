@@ -12,6 +12,7 @@ import {
   KeyboardAccessoryView,
   KeyboardAccessoryNavigation,
 } from 'react-native-keyboard-accessory';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 // Utils
 import {colors, errors} from '../../config';
@@ -49,6 +50,47 @@ const SignUp = () => {
       });
   };
 
+  /**
+   * _openLink
+   *
+   * @param url {String} The URL to visit
+   */
+  const _openLink = async (url) => {
+    try {
+      StatusBar.setBarStyle('light-content');
+      if (await InAppBrowser.isAvailable()) {
+        const result = await InAppBrowser.open(url, {
+          // iOS Properties
+          dismissButtonStyle: 'done',
+          //   preferredBarTintColor: '#453AA4',
+          //   preferredControlTintColor: 'white',
+          readerMode: false,
+          modalEnabled: true,
+          enableBarCollapsing: false,
+          // Android Properties
+          showTitle: true,
+          //   toolbarColor: '#6200EE',
+          //   secondaryToolbarColor: 'black',
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+          forceCloseOnRedirection: false,
+          // Animations
+          animations: {
+            startEnter: 'slide_in_right',
+            startExit: 'slide_out_left',
+            endEnter: 'slide_in_left',
+            endExit: 'slide_out_right',
+          },
+        });
+        StatusBar.setBarStyle('dark-content');
+      } else {
+        Linking.openURL(url);
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -65,9 +107,20 @@ const SignUp = () => {
           />
           <Input.Password ref={passwordRef} onChangeText={setPassword} />
 
-          <Text>
-            By signing up agree to Envelope's Terms and Conditions, and Privacy
-            Policy.
+          <Text style={styles.privacyContainer}>
+            By signing up agree to Envelope's{' '}
+            <Text
+              style={styles.privacyLink}
+              onPress={() => _openLink('https://envelope.app/terms')}>
+              Terms and Conditions
+            </Text>
+            , and{' '}
+            <Text
+              style={styles.privacyLink}
+              onPress={() => _openLink('https://envelope.app/privacy')}>
+              Privacy Policy
+            </Text>
+            .
           </Text>
         </Container>
       </View>
@@ -114,6 +167,14 @@ const styles = StyleSheet.create({
   },
   button: {
     color: '#ffffff',
+  },
+  privacyContainer: {
+    fontSize: 12,
+    lineHeight: 18,
+    marginHorizontal: 15,
+  },
+  privacyLink: {
+    textDecorationLine: 'underline',
   },
 });
 

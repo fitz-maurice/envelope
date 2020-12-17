@@ -3,25 +3,26 @@ import {
   View,
   Alert,
   StatusBar,
-  TextInput,
   StyleSheet,
   Pressable,
   Text,
+  useWindowDimensions,
 } from 'react-native';
 import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
 
 // Utils
-import {colors} from '../../config';
+import {colors, errors} from '../../config';
 
 // Services
 import {resetPassword, AppContext} from '../../services';
 
 // Components
-import {Container} from '../../components';
+import {Container, Input, AuthTitle, Paragraph} from '../../components';
 
 const ForgotPassword = () => {
   const context = useContext(AppContext);
-  const [email, setEmail] = useState(null);
+  const [email, setEmail] = useState('');
+  const fs = 17 * useWindowDimensions().fontScale;
 
   /**
    * _resetPassword
@@ -29,29 +30,32 @@ const ForgotPassword = () => {
    * @param _email {String} The user email
    */
   const _resetPassword = (_email) => {
-    Alert.alert('Nailed it!', 'Wohooo');
-    // context.setLoading(true);
-    // signUp(_email, _password)
-    //   .then((user) => {
-    //     context.setLoading(false);
-    //     context.setUser(user);
-    //   })
-    //   .catch((error) => {
-    //     context.setLoading(false);
-    //     Alert.alert('Error', errors.signUp[error.code]());
-    //   });
+    context.setLoading(true);
+    resetPassword(_email)
+      .then(() => {
+        context.setLoading(false);
+        Alert.alert(
+          'Success',
+          'Please check your email for a link to reset your password.',
+        );
+      })
+      .catch((error) => {
+        context.setLoading(false);
+        console.log(error.code);
+        Alert.alert('Error', errors.signIn[error.code]());
+      });
   };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <Container>
-          <TextInput
-            autoFocus={true}
-            style={styles.textInput}
-            underlineColorAndroid="transparent"
-          />
+          <AuthTitle text="Reset your password" />
+
+          <Paragraph text="Enter your Envelope email and we'll send you an email to follow." />
+
+          <Input.Email autoFocus={true} onChangeText={setEmail} />
         </Container>
       </View>
       <KeyboardAccessoryView
@@ -63,7 +67,7 @@ const ForgotPassword = () => {
         <Pressable
           style={styles.textInputButton}
           onPress={() => _resetPassword(email)}>
-          <Text style={[styles.button]}>Send</Text>
+          <Text style={[styles.button, {fontSize: fs}]}>Send</Text>
         </Pressable>
       </KeyboardAccessoryView>
     </View>

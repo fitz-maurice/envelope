@@ -9,14 +9,13 @@ const signUp = (email, password) => {
   return auth().createUserWithEmailAndPassword(email, password);
 };
 
+const resetPassword = (email) => {
+  return auth().sendPasswordResetEmail(email);
+};
+
 const signOut = async () => {
   AsyncStorage.removeItem('@user');
   await auth().signOut();
-};
-
-const resetPassword = async (email) => {
-  const result = await auth().sendPasswordResetEmail(email);
-  return JSON.stringify(result);
 };
 
 export {signIn, signUp, signOut, resetPassword};

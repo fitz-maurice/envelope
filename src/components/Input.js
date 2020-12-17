@@ -62,7 +62,8 @@ const Password = (props) => {
 const styles = StyleSheet.create({
   input: {
     ...font.body,
-    padding: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
     marginBottom: 15,
     borderRadius: 30,
   },

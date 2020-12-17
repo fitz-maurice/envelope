@@ -1,20 +1,26 @@
 import React from 'react';
-import {Pressable, Text, StyleSheet} from 'react-native';
+import {Pressable, Text, StyleSheet, useWindowDimensions} from 'react-native';
 
 // Utils
 import {colors, font} from '../config';
 
-const Button = ({title, onPress}) => (
-  <Pressable style={styles.button} onPress={onPress}>
-    <Text style={styles.text}>{title}</Text>
-  </Pressable>
-);
+const Button = ({title, onPress}) => {
+  const fs = 17 * useWindowDimensions().fontScale;
+  return (
+    <Pressable style={styles.button} onPress={onPress}>
+      <Text style={[styles.text, {fontSize: fs}]}>{title}</Text>
+    </Pressable>
+  );
+};
 
-const Clear = ({title, onPress}) => (
-  <Pressable style={styles.buttonClear} onPress={onPress}>
-    <Text style={styles.textClear}>{title}</Text>
-  </Pressable>
-);
+const Clear = ({title, onPress}) => {
+  const fs = 17 * useWindowDimensions().fontScale;
+  return (
+    <Pressable style={styles.buttonClear} onPress={onPress}>
+      <Text style={[styles.textClear, {fontSize: fs}]}>{title}</Text>
+    </Pressable>
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
