@@ -3,7 +3,7 @@ import {Image, View, StatusBar, StyleSheet} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {FlatGrid} from 'react-native-super-grid';
-
+import {Dimensions} from 'react-native';
 import {HeaderCamera} from '../../components';
 
 import {AppContext} from '../../services';
@@ -11,6 +11,7 @@ import {AppContext} from '../../services';
 const Home = ({navigation}) => {
   const context = useContext(AppContext);
   const [cards, setCards] = useState([]);
+  const imageWidth = Dimensions.get('window').width / 2;
 
   // Set header elements on focus
   useFocusEffect(
@@ -72,7 +73,7 @@ const Home = ({navigation}) => {
     <View style={styles.viewStyle}>
       <StatusBar barStyle="dark-content" />
       <FlatGrid
-        itemDimension={100}
+        itemDimension={imageWidth}
         spacing={0}
         data={cards}
         style={styles.gridView}
