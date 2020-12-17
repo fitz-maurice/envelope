@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Image, View, StatusBar, StyleSheet} from 'react-native';
+import {Image, View, StatusBar, StyleSheet, PlatformColor} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {FlatGrid} from 'react-native-super-grid';
@@ -65,6 +65,8 @@ const Home = ({navigation}) => {
     itemContainer: {
       justifyContent: 'flex-end',
       height: 150,
+      backgroundColor: PlatformColor('systemBackground'),
+      padding: 1,
     },
     cardStyles: {width: '100%', height: '100%'},
   });
