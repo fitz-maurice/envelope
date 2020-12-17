@@ -1,7 +1,8 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Text, View, StatusBar, Image, ScrollView} from 'react-native';
+import {Image, View, StatusBar, StyleSheet} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import {FlatGrid} from 'react-native-super-grid';
 
 import {HeaderCamera} from '../../components';
 
@@ -27,25 +28,25 @@ const Home = ({navigation}) => {
   );
 
   useEffect(() => {
-    // if (context.userRestored) {
-    //   context.setLoading(true);
-    //   const uid = context.user.user.uid;
-    //   const subscriber = firestore()
-    //     .collection(`${uid}/account/cards`)
-    //     .onSnapshot((querySnapshot) => {
-    //       const c = [];
-    //       querySnapshot.forEach((documentSnapshot) => {
-    //         c.push({
-    //           ...documentSnapshot.data(),
-    //           key: documentSnapshot.id,
-    //         });
-    //       });
-    //       setCards(c);
-    //       context.setLoading(false);
-    //     });
-    //   // Unsubscribe from events when no longer in use
-    //   return () => subscriber();
-    // }
+    if (context.userRestored) {
+      context.setLoading(true);
+      const uid = context.user.user.uid;
+      const subscriber = firestore()
+        .collection(`${uid}/account/cards`)
+        .onSnapshot((querySnapshot) => {
+          const c = [];
+          querySnapshot.forEach((documentSnapshot) => {
+            c.push({
+              ...documentSnapshot.data(),
+              key: documentSnapshot.id,
+            });
+          });
+          setCards(c);
+          context.setLoading(false);
+        });
+      // Unsubscribe from events when no longer in use
+      return () => subscriber();
+    }
   }, [context.userRestored]);
 
   // Has User data been rehydrated into the context
@@ -53,21 +54,39 @@ const Home = ({navigation}) => {
     return null;
   }
 
+  const styles = StyleSheet.create({
+    viewStyle: {
+      flex: 1,
+    },
+    gridView: {
+      flex: 1,
+    },
+    itemContainer: {
+      justifyContent: 'flex-end',
+      height: 150,
+    },
+    cardStyles: {width: '100%', height: '100%'},
+  });
+
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.viewStyle}>
       <StatusBar barStyle="dark-content" />
-      <ScrollView>
-        {cards.length > 0 &&
-          cards.map((card) => (
+      <FlatGrid
+        itemDimension={100}
+        spacing={0}
+        data={cards}
+        style={styles.gridView}
+        renderItem={({item}) => (
+          <View style={[styles.itemContainer]}>
             <Image
-              key={card.key}
-              style={{width: '100%', height: 100}}
+              style={styles.cardStyles}
               source={{
-                uri: `data:image/png;base64,${card.images[0]}`,
+                uri: `data:image/png;base64,${item.images[0]}`,
               }}
             />
-          ))}
-      </ScrollView>
+          </View>
+        )}
+      />
     </View>
   );
 };
