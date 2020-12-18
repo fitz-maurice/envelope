@@ -1,10 +1,10 @@
 import React, {useCallback} from 'react';
-import {Text, View, StatusBar, useColorScheme} from 'react-native';
-import {colors} from '../../../config/colors';
+import {Text, View, StatusBar} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
+import {useThemeColors} from '../../../services/hooks';
 
 const Advanced = ({navigation}) => {
-  const theme = useColorScheme();
+  const {colors} = useThemeColors();
 
   useFocusEffect(
     useCallback(() => {
@@ -14,9 +14,9 @@ const Advanced = ({navigation}) => {
         headerStyle: {
           backgroundColor: colors.gray,
         },
-        headerTintColor: colors.text(theme),
+        headerTintColor: colors.text,
       });
-    }, [navigation, theme]),
+    }, [navigation]),
   );
 
   const styles = {
@@ -26,12 +26,12 @@ const Advanced = ({navigation}) => {
       justifyContent: 'center',
       backgroundColor: colors.backgroundColor,
     },
-    text: {fontSize: 30, color: colors.text(theme)},
+    text: {fontSize: 30, color: colors.text},
   };
 
   return (
     <View style={styles.view}>
-      <StatusBar barStyle={colors.statusBar(theme)} />
+      <StatusBar barStyle={colors.statusBar} />
       <Text style={styles.text}>Advanced</Text>
     </View>
   );

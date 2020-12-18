@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 // Utils
-import {colors, errors} from '../../config';
+import {errors} from '../../config';
 
 // Services
 import {signIn, AppContext} from '../../services';
@@ -24,6 +24,7 @@ import {
   LoginAppleButton,
   LoginGoogleButton,
 } from '../../components';
+import {useThemeColors} from '../../services/hooks';
 
 // Images
 const LOGO = require('../../assets/envelope.png');
@@ -31,9 +32,46 @@ const BACKGROUND = require('../../assets/background.png');
 const ENVELOPE_WHITE = require('../../assets/envelope_white.png');
 
 const Welcome = ({navigation}) => {
+  const {colors} = useThemeColors();
   const context = useContext(AppContext);
   const [email, setEmail] = useState('admin@envelope.app');
   const [password, setPassword] = useState('Envelope1989');
+  const styles = StyleSheet.create({
+    imageBackground: {
+      flex: 1,
+    },
+    verticalContainer: {
+      flex: 1,
+      margin: 15,
+      marginTop: 60,
+      justifyContent: 'space-between',
+    },
+    seal: {
+      width: 125,
+      height: 125,
+      resizeMode: 'contain',
+      alignSelf: 'center',
+    },
+    logo: {
+      width: 300,
+      height: 150,
+      resizeMode: 'contain',
+      alignSelf: 'center',
+    },
+    or: {
+      marginBottom: 15,
+      textAlign: 'center',
+      color: colors.white,
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    signUp: {
+      marginTop: 15,
+      textAlign: 'center',
+      color: colors.white,
+      fontSize: 19,
+    },
+  });
 
   /**
    * _signIn
@@ -89,42 +127,5 @@ const Welcome = ({navigation}) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  imageBackground: {
-    flex: 1,
-  },
-  verticalContainer: {
-    flex: 1,
-    margin: 15,
-    marginTop: 60,
-    justifyContent: 'space-between',
-  },
-  seal: {
-    width: 125,
-    height: 125,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-  },
-  logo: {
-    width: 300,
-    height: 150,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-  },
-  or: {
-    marginBottom: 15,
-    textAlign: 'center',
-    color: colors.white,
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  signUp: {
-    marginTop: 15,
-    textAlign: 'center',
-    color: colors.white,
-    fontSize: 19,
-  },
-});
 
 export {Welcome};

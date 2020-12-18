@@ -1,22 +1,15 @@
 import React, {useCallback} from 'react';
-import {
-  View,
-  Text,
-  Button,
-  Linking,
-  Alert,
-  StatusBar,
-  useColorScheme,
-} from 'react-native';
+import {View, Text, Button, Linking, Alert, StatusBar} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import Rate, {AndroidMarket} from 'react-native-rate';
-import {colors} from '../../config/colors';
+import {useThemeColors} from '../../services/hooks';
 
 import {signOut} from '../../services';
 
 const Settings = ({navigation}) => {
-  const theme = useColorScheme();
+  const {colors} = useThemeColors();
+
   // Set header elements on focus
   useFocusEffect(
     useCallback(() => {
@@ -27,10 +20,13 @@ const Settings = ({navigation}) => {
           headerLeft: null,
           headerRight: null,
           title: 'Settings',
-          headerTintColor: colors.text(theme),
+          headerStyle: {
+            backgroundColor: colors.gray,
+          },
+          headerTintColor: colors.text,
         });
       }
-    }, [navigation, theme]),
+    }, [navigation, colors]),
   );
 
   const openLink = async () => {
@@ -53,7 +49,7 @@ const Settings = ({navigation}) => {
           enableDefaultShare: true,
           forceCloseOnRedirection: false,
         });
-        StatusBar.setBarStyle(colors.statusBar(theme));
+        StatusBar.setBarStyle(colors.statusBar);
       } else {
         Linking.openURL('https://envelope.app');
       }
@@ -76,23 +72,28 @@ const Settings = ({navigation}) => {
       <Text style={{fontSize: 30}}>Settings</Text>
       <Button
         title="Personal Info"
-        color={colors.text(theme)}
+        color={colors.text}
         onPress={() => navigation.navigate('PersonalInfo')}
       />
       <Button
+        title="Appearance"
+        color={colors.text}
+        onPress={() => navigation.navigate('Appearance')}
+      />
+      <Button
         title="Advanced"
-        color={colors.text(theme)}
+        color={colors.text}
         onPress={() => navigation.navigate('Advanced')}
       />
       <Button
         title="Premium"
-        color={colors.text(theme)}
+        color={colors.text}
         onPress={() => navigation.navigate('Premium')}
       />
 
       <Button
         title="Email Support"
-        color={colors.text(theme)}
+        color={colors.text}
         onPress={() =>
           Linking.openURL(
             'mailto:admin@envelope.app?subject=Envelope%20Support%20Ticket',
@@ -101,12 +102,12 @@ const Settings = ({navigation}) => {
       />
       <Button
         onPress={() => openLink()}
-        color={colors.text(theme)}
+        color={colors.text}
         title="www.google.com"
       />
       <Button
         title="Rate App"
-        color={colors.text(theme)}
+        color={colors.text}
         onPress={() => {
           const options = {
             AppleAppID: '2193813192',
@@ -125,11 +126,7 @@ const Settings = ({navigation}) => {
           });
         }}
       />
-      <Button
-        title="Log Out"
-        color={colors.text(theme)}
-        onPress={() => signOut()}
-      />
+      <Button title="Log Out" color={colors.text} onPress={() => signOut()} />
     </View>
   );
 };

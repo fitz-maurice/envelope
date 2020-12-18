@@ -3,11 +3,29 @@ import {Text, Pressable, StyleSheet} from 'react-native';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useThemeColors} from '../services/hooks';
 
 // Utils
-import {colors, font} from '../config';
+import {font} from '../config';
 
 const LoginGoogleButton = () => {
+  const {colors} = useThemeColors();
+  const styles = StyleSheet.create({
+    button: {
+      backgroundColor: colors.white,
+      padding: 15,
+      borderRadius: 30,
+      marginBottom: 15,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    text: {
+      ...font.button,
+      marginLeft: 10,
+    },
+  });
+
   const onGoogleButtonPress = async () => {
     GoogleSignin.configure({
       webClientId:
@@ -29,21 +47,5 @@ const LoginGoogleButton = () => {
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.white,
-    padding: 15,
-    borderRadius: 30,
-    marginBottom: 15,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    ...font.button,
-    marginLeft: 10,
-  },
-});
 
 export {LoginGoogleButton};

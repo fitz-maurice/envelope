@@ -1,10 +1,10 @@
 import React, {useCallback} from 'react';
-import {Text, View, StatusBar, useColorScheme} from 'react-native';
-import {colors} from '../../../config/colors';
+import {Text, View, StatusBar} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
+import {useThemeColors} from '../../../services/hooks';
 
 const Premium = ({navigation}) => {
-  const theme = useColorScheme();
+  const {colors} = useThemeColors();
 
   useFocusEffect(
     useCallback(() => {
@@ -14,9 +14,9 @@ const Premium = ({navigation}) => {
         headerStyle: {
           backgroundColor: colors.gray,
         },
-        headerTintColor: colors.text(theme),
+        headerTintColor: colors.text,
       });
-    }, [navigation, theme]),
+    }, [navigation]),
   );
 
   const styles = {
@@ -28,13 +28,13 @@ const Premium = ({navigation}) => {
     },
     text: {
       fontSize: 30,
-      color: colors.text(theme),
+      color: colors.text,
     },
   };
 
   return (
     <View style={styles.view}>
-      <StatusBar barStyle={colors.statusBar(theme)} />
+      <StatusBar barStyle={colors.statusBar} />
       <Text style={styles.text}>Premium</Text>
     </View>
   );

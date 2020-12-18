@@ -1,22 +1,22 @@
 import React, {useCallback} from 'react';
-import {Text, View, StatusBar} from 'react-native';
+import {Button, View, StatusBar, SectionList} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {useThemeColors} from '../../../services/hooks';
 
-const PersonalInfo = ({navigation}) => {
-  const {colors} = useThemeColors();
+const Appearance = ({navigation}) => {
+  const {colors, changeTheme} = useThemeColors();
 
   useFocusEffect(
     useCallback(() => {
       navigation.setOptions({
-        title: 'Personal Info',
+        title: 'Appearance',
         headerRight: null,
         headerStyle: {
           backgroundColor: colors.gray,
         },
         headerTintColor: colors.text,
       });
-    }, [navigation]),
+    }, [navigation, colors]),
   );
 
   const styles = {
@@ -26,18 +26,30 @@ const PersonalInfo = ({navigation}) => {
       justifyContent: 'center',
       backgroundColor: colors.backgroundColor,
     },
-    text: {
-      fontSize: 30,
-      color: colors.text,
-    },
+    text: {fontSize: 30, color: 'black'},
   };
+
+  const DATA = [
+    {
+      data: ['Automatic', 'Light', 'Dark'],
+    },
+  ];
 
   return (
     <View style={styles.view}>
       <StatusBar barStyle={colors.statusBar} />
-      <Text style={styles.text}>Personal Info</Text>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({item}) => (
+          <Button
+            title={item}
+            onPress={() => changeTheme(item.toLowerCase())}
+          />
+        )}
+      />
     </View>
   );
 };
 
-export {PersonalInfo};
+export {Appearance};

@@ -15,21 +15,52 @@ import {
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 // Utils
-import {colors, errors} from '../../config';
+import {errors} from '../../config';
 
 // Services
 import {signUp, AppContext} from '../../services';
 
 // Components
 import {Container, AuthTitle, Paragraph, Input} from '../../components';
+import {useThemeColors} from '../../services/hooks';
 
 const SignUp = () => {
+  const {colors} = useThemeColors();
   const emailRef = createRef();
   const passwordRef = createRef();
   const context = useContext(AppContext);
   const fs = 17 * useWindowDimensions().fontScale;
   const [email, setEmail] = useState('admin@envelope.app');
   const [password, setPassword] = useState('Envelope1989');
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    textInputView: {
+      padding: 8,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    textInputButton: {
+      flexShrink: 1,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.green,
+    },
+    button: {
+      color: '#ffffff',
+    },
+    privacyContainer: {
+      fontSize: 12,
+      lineHeight: 18,
+      marginHorizontal: 15,
+    },
+    privacyLink: {
+      textDecorationLine: 'underline',
+    },
+  });
 
   /**
    * _signUp
@@ -147,35 +178,5 @@ const SignUp = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  textInputView: {
-    padding: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  textInputButton: {
-    flexShrink: 1,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.green,
-  },
-  button: {
-    color: '#ffffff',
-  },
-  privacyContainer: {
-    fontSize: 12,
-    lineHeight: 18,
-    marginHorizontal: 15,
-  },
-  privacyLink: {
-    textDecorationLine: 'underline',
-  },
-});
 
 export {SignUp};

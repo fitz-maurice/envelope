@@ -1,21 +1,20 @@
 import React, {useCallback} from 'react';
-import {useColorScheme} from 'react-native';
 import {AnimatedTabBarNavigator} from 'react-native-animated-nav-tab-bar';
 import {useFocusEffect} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
+import {useThemeColors} from '../services/hooks';
 
 // Navigators
 const Tabs = AnimatedTabBarNavigator();
 
 // Screens
 import {Home, Library, Settings} from '../screens';
-import {colors} from '../config/colors';
 
 // Components
 import {HeaderCamera} from '../components';
 
 const TabsNavigator = ({navigation}) => {
-  const theme = useColorScheme();
+  const {colors} = useThemeColors();
 
   // On focus, insert camera icon
   useFocusEffect(
@@ -48,7 +47,7 @@ const TabsNavigator = ({navigation}) => {
             <Icon
               name="home"
               size={size ? size : 24}
-              color={focused ? color : colors.text(theme)}
+              color={focused ? color : colors.text}
               focused={focused}
             />
           ),
@@ -62,7 +61,7 @@ const TabsNavigator = ({navigation}) => {
             <Icon
               name="upload"
               size={size ? size : 24}
-              color={focused ? color : colors.text(theme)}
+              color={focused ? color : colors.text}
               focused={focused}
             />
           ),
@@ -76,7 +75,7 @@ const TabsNavigator = ({navigation}) => {
             <Icon
               name="settings"
               size={size ? size : 24}
-              color={focused ? color : colors.text(theme)}
+              color={focused ? color : colors.text}
               focused={focused}
             />
           ),

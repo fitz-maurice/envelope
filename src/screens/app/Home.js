@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Image, View, StatusBar, StyleSheet, useColorScheme} from 'react-native';
+import {Image, View, StatusBar, StyleSheet} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {FlatGrid} from 'react-native-super-grid';
@@ -7,14 +7,14 @@ import {Dimensions} from 'react-native';
 import {HeaderCamera} from '../../components';
 
 import {AppContext} from '../../services';
-import {colors} from '../../config';
+import {useThemeColors} from '../../services/hooks';
 
 const Home = ({navigation}) => {
   const context = useContext(AppContext);
   const [cards, setCards] = useState([]);
   const imageWidth = Dimensions.get('window').width / 2;
-  const theme = useColorScheme();
-
+  const {colors} = useThemeColors();
+  console.log('HOME!!!!!!!', colors);
   // Set header elements on focus
   useFocusEffect(
     useCallback(() => {
@@ -28,10 +28,10 @@ const Home = ({navigation}) => {
           headerStyle: {
             backgroundColor: colors.gray,
           },
-          headerTintColor: colors.text(theme),
+          headerTintColor: colors.text,
         });
       }
-    }, [navigation, theme]),
+    }, [navigation, colors]),
   );
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.viewStyle}>
-      <StatusBar barStyle={colors.statusBar(theme)} animated={true} />
+      <StatusBar barStyle={colors.statusBar} animated={true} />
       <FlatGrid
         itemDimension={imageWidth}
         spacing={0}
