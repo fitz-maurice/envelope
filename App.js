@@ -11,6 +11,7 @@ import React, {useState, useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useColorScheme} from 'react-native';
 
 // Screens
 import {
@@ -22,6 +23,7 @@ import {
   Advanced,
   PersonalInfo,
 } from './src/screens';
+import {colors} from './src/config/colors';
 
 // Components
 import {Loader} from './src/components';
@@ -36,6 +38,7 @@ import {SignedOutNavigator, TabsNavigator} from './src/navigators';
 export default function App() {
   const [user, setUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
+  const theme = useColorScheme();
 
   // Handle user state changes
   const onAuthStateChanged = (u) => {
@@ -74,7 +77,16 @@ export default function App() {
                     name="Envelope"
                     component={TabsNavigator}
                   />
-                  <SignedInNavigator.Screen name="Camera" component={Camera} />
+                  <SignedInNavigator.Screen
+                    name="Camera"
+                    component={Camera}
+                    options={{
+                      headerStyle: {
+                        backgroundColor: colors.gray,
+                      },
+                      headerTintColor: colors.text(theme),
+                    }}
+                  />
                   <SignedInNavigator.Screen
                     name="Advanced"
                     component={Advanced}

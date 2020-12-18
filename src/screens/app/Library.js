@@ -8,16 +8,18 @@ import {
   SafeAreaView,
   Pressable,
   PermissionsAndroid,
+  useColorScheme,
 } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
 import {useFocusEffect} from '@react-navigation/native';
 
 import {HeaderCamera, HeaderNext} from '../../components';
+import {colors} from '../../config/colors';
 
 const Library = ({navigation}) => {
   const [photo, setPhoto] = useState(null);
   const [photos, setPhotos] = useState([]);
-
+  const theme = useColorScheme();
   // Set header elements on focus
   useFocusEffect(
     useCallback(() => {
@@ -30,9 +32,10 @@ const Library = ({navigation}) => {
           title: 'Library',
           headerLeft: () => <HeaderCamera navigation={navigation} />,
           headerRight: () => <HeaderNext navigation={navigation} />,
+          headerTintColor: colors.text(theme),
         });
       }
-    }, [getPictures, navigation]),
+    }, [getPictures, navigation, theme]),
   );
 
   const hasAndroidPermission = async () => {
@@ -65,7 +68,7 @@ const Library = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle={colors.statusBar(theme)} animated={true} />
 
       {/* First hero image */}
       {photo && (
