@@ -5,7 +5,7 @@ import {useFocusEffect} from '@react-navigation/native';
 
 const PersonalInfo = ({navigation}) => {
   const theme = useColorScheme();
-  console.log(navigation);
+
   useFocusEffect(
     useCallback(() => {
       navigation.setOptions({
