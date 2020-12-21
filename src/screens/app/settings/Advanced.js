@@ -11,10 +11,6 @@ const Advanced = ({navigation}) => {
       navigation.setOptions({
         title: 'Advanced',
         headerRight: null,
-        headerStyle: {
-          backgroundColor: colors.gray,
-        },
-        headerTintColor: colors.text,
       });
     }, [navigation]),
   );

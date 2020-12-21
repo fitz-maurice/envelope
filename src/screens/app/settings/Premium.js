@@ -11,10 +11,6 @@ const Premium = ({navigation}) => {
       navigation.setOptions({
         title: 'Premium',
         headerRight: null,
-        headerStyle: {
-          backgroundColor: colors.gray,
-        },
-        headerTintColor: colors.text,
       });
     }, [navigation]),
   );

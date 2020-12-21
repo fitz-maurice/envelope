@@ -14,7 +14,7 @@ const Home = ({navigation}) => {
   const [cards, setCards] = useState([]);
   const imageWidth = Dimensions.get('window').width / 2;
   const {colors} = useThemeColors();
-  console.log('HOME!!!!!!!', colors);
+
   // Set header elements on focus
   useFocusEffect(
     useCallback(() => {
@@ -25,13 +25,9 @@ const Home = ({navigation}) => {
           title: 'Envelope',
           headerLeft: () => <HeaderCamera navigation={navigation} />,
           headerRight: null,
-          headerStyle: {
-            backgroundColor: colors.gray,
-          },
-          headerTintColor: colors.text,
         });
       }
-    }, [navigation, colors]),
+    }, [navigation]),
   );
 
   useEffect(() => {

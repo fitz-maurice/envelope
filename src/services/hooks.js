@@ -38,7 +38,6 @@ export function useThemeColors() {
       },
     };
   }, [currentTheme, userChoice]);
-  console.log(useSubscription(subscription));
 
   return {
     colors: useSubscription(subscription),

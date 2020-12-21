@@ -11,10 +11,6 @@ const PersonalInfo = ({navigation}) => {
       navigation.setOptions({
         title: 'Personal Info',
         headerRight: null,
-        headerStyle: {
-          backgroundColor: colors.gray,
-        },
-        headerTintColor: colors.text,
       });
     }, [navigation]),
   );

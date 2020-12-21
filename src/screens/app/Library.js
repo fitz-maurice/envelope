@@ -31,7 +31,6 @@ const Library = ({navigation}) => {
           title: 'Library',
           headerLeft: () => <HeaderCamera navigation={navigation} />,
           headerRight: () => <HeaderNext navigation={navigation} />,
-          headerTintColor: colors.text,
         });
       }
     }, [getPictures, navigation]),

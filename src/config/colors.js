@@ -15,25 +15,25 @@ const generateColors = (currentTheme, userChoice) => {
     // red2: '#8C2218',
     // beige: '#A6998A',
     gray:
-      currentTheme === 'automatic'
+      userChoice === 'automatic'
         ? PlatformColor('systemGray5')
         : theme === 'light'
         ? '#e5e5eaff'
-        : '#2c2ceff',
+        : '#2c2c2eff',
     backgroundColor:
-      currentTheme === 'automatic'
+      userChoice === 'automatic'
         ? PlatformColor('systemBackground')
         : theme === 'light'
         ? '#ffffff'
         : '#000000ff',
     text:
-      currentTheme === 'automatic'
+      userChoice === 'automatic'
         ? PlatformColor('label')
         : theme === 'light'
         ? PlatformColor('darkText')
         : PlatformColor('lightText'),
     statusBar:
-      currentTheme === 'automatic'
+      userChoice === 'automatic'
         ? 'default'
         : theme === 'light'
         ? 'dark-content'
