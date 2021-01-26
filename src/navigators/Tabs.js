@@ -2,7 +2,6 @@ import React, {useCallback} from 'react';
 import {AnimatedTabBarNavigator} from 'react-native-animated-nav-tab-bar';
 import {useFocusEffect} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
-import {useThemeColors} from '../services/hooks';
 
 // Navigators
 const Tabs = AnimatedTabBarNavigator();
@@ -12,6 +11,7 @@ import {Home, Library, Settings} from '../screens';
 
 // Components
 import {HeaderCamera} from '../components';
+import {useThemeColors} from '../services';
 
 const TabsNavigator = ({navigation}) => {
   const {colors} = useThemeColors();
@@ -38,7 +38,7 @@ const TabsNavigator = ({navigation}) => {
   };
 
   return (
-    <Tabs.Navigator tabBarOptions={options}>
+    <Tabs.Navigator tabBarOptions={options} appearence={{floating: true}}>
       <Tabs.Screen
         name="Home"
         component={Home}
@@ -59,7 +59,7 @@ const TabsNavigator = ({navigation}) => {
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <Icon
-              name="upload"
+              name="image"
               size={size ? size : 24}
               color={focused ? color : colors.text}
               focused={focused}

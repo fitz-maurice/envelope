@@ -24,7 +24,7 @@ import {
   LoginAppleButton,
   LoginGoogleButton,
 } from '../../components';
-import {useThemeColors} from '../../services/hooks';
+import {useThemeColors} from '../../services';
 
 // Images
 const LOGO = require('../../assets/envelope.png');

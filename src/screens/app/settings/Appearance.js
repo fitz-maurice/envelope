@@ -1,7 +1,8 @@
 import React, {useCallback} from 'react';
 import {Button, View, StatusBar, SectionList} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
-import {useThemeColors} from '../../../services/hooks';
+
+import {useThemeColors} from '../../../services';
 
 const Appearance = ({navigation}) => {
   const {colors, changeTheme} = useThemeColors();

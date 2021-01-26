@@ -18,7 +18,7 @@ import {resetPassword, AppContext} from '../../services';
 
 // Components
 import {Container, Input, AuthTitle, Paragraph} from '../../components';
-import {useThemeColors} from '../../services/hooks';
+import {useThemeColors} from '../../services';
 
 const ForgotPassword = () => {
   const {colors} = useThemeColors();

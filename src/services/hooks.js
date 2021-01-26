@@ -10,7 +10,7 @@ import {
   removeChangeListener,
 } from '../config/colors';
 
-export function useThemeColors() {
+const useThemeColors = () => {
   const [userChoice, setUserChoice] = useState('automatic');
   const {getItem, setItem} = useAsyncStorage('@theme');
   const currentTheme = useColorScheme();
@@ -43,4 +43,6 @@ export function useThemeColors() {
     colors: useSubscription(subscription),
     changeTheme,
   };
-}
+};
+
+export {useThemeColors};

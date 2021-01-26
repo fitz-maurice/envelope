@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pressable, Text, StyleSheet, useWindowDimensions} from 'react-native';
-import {useThemeColors} from '../services/hooks';
+import {useThemeColors} from '../services';
 
 // Utils
 import {font} from '../config';

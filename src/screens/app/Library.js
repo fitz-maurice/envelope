@@ -13,7 +13,7 @@ import CameraRoll from '@react-native-community/cameraroll';
 import {useFocusEffect} from '@react-navigation/native';
 
 import {HeaderCamera, HeaderNext} from '../../components';
-import {useThemeColors} from '../../services/hooks';
+import {useThemeColors} from '../../services';
 
 const Library = ({navigation}) => {
   const [photo, setPhoto] = useState(null);

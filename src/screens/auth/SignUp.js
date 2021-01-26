@@ -22,7 +22,7 @@ import {signUp, AppContext} from '../../services';
 
 // Components
 import {Container, AuthTitle, Paragraph, Input} from '../../components';
-import {useThemeColors} from '../../services/hooks';
+import {useThemeColors} from '../../services';
 
 const SignUp = () => {
   const {colors} = useThemeColors();

@@ -1,7 +1,8 @@
 import React, {useCallback} from 'react';
 import {Text, View, StatusBar} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
-import {useThemeColors} from '../../../services/hooks';
+
+import {useThemeColors} from '../../../services';
 
 const Advanced = ({navigation}) => {
   const {colors} = useThemeColors();

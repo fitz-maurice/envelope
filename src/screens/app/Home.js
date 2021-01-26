@@ -7,7 +7,7 @@ import {Dimensions} from 'react-native';
 import {HeaderCamera} from '../../components';
 
 import {AppContext} from '../../services';
-import {useThemeColors} from '../../services/hooks';
+import {useThemeColors} from '../../services';
 
 const Home = ({navigation}) => {
   const context = useContext(AppContext);

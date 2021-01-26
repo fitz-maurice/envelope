@@ -6,7 +6,8 @@ import {
   HeaderButton,
   Item,
 } from 'react-navigation-header-buttons';
-import {useThemeColors} from '../services/hooks';
+
+import {useThemeColors} from '../services';
 
 const HeaderCamera = ({navigation}) => {
   const {colors} = useThemeColors();

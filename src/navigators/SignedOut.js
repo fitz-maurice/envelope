@@ -1,6 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useThemeColors} from '../services/hooks';
+
+import {useThemeColors} from '../services';
 
 // Navigators
 const Auth = createStackNavigator();

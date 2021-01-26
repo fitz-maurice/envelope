@@ -3,10 +3,10 @@ import {Text, Pressable, StyleSheet} from 'react-native';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {useThemeColors} from '../services/hooks';
 
 // Utils
 import {font} from '../config';
+import {useThemeColors} from '../services';
 
 const LoginGoogleButton = () => {
   const {colors} = useThemeColors();

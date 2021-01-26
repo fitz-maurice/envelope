@@ -1,7 +1,8 @@
 import React, {forwardRef} from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 import {font} from '../config';
-import {useThemeColors} from '../services/hooks';
+
+import {useThemeColors} from '../services';
 
 const Input = forwardRef(
   (
