@@ -7,27 +7,33 @@ import {
   Item,
 } from 'react-navigation-header-buttons';
 
-const HeaderCamera = ({navigation}) => (
-  <HeaderButtons
-    left={true}
-    HeaderButtonComponent={(props) => (
-      <HeaderButton
-        IconComponent={() => (
-          <View style={styles.margin}>
-            <Icon size={24} name="camera" />
-          </View>
-        )}
-        {...props}
+import {useThemeColors} from '../services';
+
+const HeaderCamera = ({navigation}) => {
+  const {colors} = useThemeColors();
+
+  return (
+    <HeaderButtons
+      left={true}
+      HeaderButtonComponent={(props) => (
+        <HeaderButton
+          IconComponent={() => (
+            <View style={styles.margin}>
+              <Icon size={24} name="camera" color={colors.text} />
+            </View>
+          )}
+          {...props}
+        />
+      )}>
+      <Item
+        color={colors.text}
+        title="Take picture"
+        iconName="camera"
+        onPress={() => navigation.navigate('Camera')}
       />
-    )}>
-    <Item
-      color={'#222222'}
-      title="Take picture"
-      iconName="camera"
-      onPress={() => navigation.navigate('Camera')}
-    />
-  </HeaderButtons>
-);
+    </HeaderButtons>
+  );
+};
 
 const styles = StyleSheet.create({
   margin: {

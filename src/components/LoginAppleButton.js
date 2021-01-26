@@ -5,9 +5,27 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Utils
-import {colors, font} from '../config';
+import {font} from '../config';
+import {useThemeColors} from '../services';
 
 const LoginAppleButton = () => {
+  const {colors} = useThemeColors();
+  const styles = StyleSheet.create({
+    button: {
+      backgroundColor: colors.white,
+      padding: 15,
+      borderRadius: 30,
+      marginBottom: 15,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    text: {
+      ...font.button,
+      marginLeft: 10,
+    },
+  });
+
   const onAppleButtonPress = async () => {
     // Start the sign-in request
     const appleAuthRequestResponse = await appleAuth.performRequest({
@@ -35,21 +53,5 @@ const LoginAppleButton = () => {
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.white,
-    padding: 15,
-    borderRadius: 30,
-    marginBottom: 15,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    ...font.button,
-    marginLeft: 10,
-  },
-});
 
 export {LoginAppleButton};

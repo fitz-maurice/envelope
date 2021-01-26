@@ -13,11 +13,12 @@ import CameraRoll from '@react-native-community/cameraroll';
 import {useFocusEffect} from '@react-navigation/native';
 
 import {HeaderCamera, HeaderNext} from '../../components';
+import {useThemeColors} from '../../services';
 
 const Library = ({navigation}) => {
   const [photo, setPhoto] = useState(null);
   const [photos, setPhotos] = useState([]);
-
+  const {colors} = useThemeColors();
   // Set header elements on focus
   useFocusEffect(
     useCallback(() => {
@@ -65,7 +66,7 @@ const Library = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle={colors.statusBar} animated={true} />
 
       {/* First hero image */}
       {photo && (

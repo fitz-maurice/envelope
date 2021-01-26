@@ -11,3 +11,6 @@ export * from './HeaderNext';
 
 export * from './AuthTitle';
 export * from './Paragraph';
+
+export * from './SettingsGroup';
+export * from './SettingsButton';

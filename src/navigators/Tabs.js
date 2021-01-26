@@ -11,8 +11,11 @@ import {Home, Library, Settings} from '../screens';
 
 // Components
 import {HeaderCamera} from '../components';
+import {useThemeColors} from '../services';
 
 const TabsNavigator = ({navigation}) => {
+  const {colors} = useThemeColors();
+
   // On focus, insert camera icon
   useFocusEffect(
     useCallback(() => {
@@ -22,16 +25,20 @@ const TabsNavigator = ({navigation}) => {
     }, [navigation]),
   );
 
+  const options = {
+    activeTintColor: colors.red,
+    inactiveTintColor: 'green',
+    activeBackgroundColor: 'white',
+    labelStyle: {
+      color: 'black',
+    },
+    tabStyle: {
+      backgroundColor: colors.gray,
+    },
+  };
+
   return (
-    <Tabs.Navigator
-      tabBarOptions={{
-        activeTintColor: 'white',
-        inactiveTintColor: 'grey',
-        activeBackgroundColor: 'purple',
-        tabStyle: {
-          backgroundColor: 'white',
-        },
-      }}>
+    <Tabs.Navigator tabBarOptions={options} appearence={{floating: true}}>
       <Tabs.Screen
         name="Home"
         component={Home}
@@ -40,7 +47,7 @@ const TabsNavigator = ({navigation}) => {
             <Icon
               name="home"
               size={size ? size : 24}
-              color={focused ? color : '#222222'}
+              color={focused ? color : colors.text}
               focused={focused}
             />
           ),
@@ -52,9 +59,9 @@ const TabsNavigator = ({navigation}) => {
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <Icon
-              name="upload"
+              name="image"
               size={size ? size : 24}
-              color={focused ? color : '#222222'}
+              color={focused ? color : colors.text}
               focused={focused}
             />
           ),
@@ -68,7 +75,7 @@ const TabsNavigator = ({navigation}) => {
             <Icon
               name="settings"
               size={size ? size : 24}
-              color={focused ? color : '#222222'}
+              color={focused ? color : colors.text}
               focused={focused}
             />
           ),

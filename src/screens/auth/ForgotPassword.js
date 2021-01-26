@@ -11,18 +11,51 @@ import {
 import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
 
 // Utils
-import {colors, errors} from '../../config';
+import {errors} from '../../config';
 
 // Services
 import {resetPassword, AppContext} from '../../services';
 
 // Components
 import {Container, Input, AuthTitle, Paragraph} from '../../components';
+import {useThemeColors} from '../../services';
 
 const ForgotPassword = () => {
+  const {colors} = useThemeColors();
   const context = useContext(AppContext);
   const [email, setEmail] = useState('');
   const fs = 17 * useWindowDimensions().fontScale;
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    textInputView: {
+      padding: 8,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    textInput: {
+      flexGrow: 1,
+      borderWidth: 1,
+      borderRadius: 10,
+      borderColor: '#CCC',
+      padding: 10,
+      fontSize: 16,
+      marginRight: 10,
+      textAlignVertical: 'top',
+    },
+    textInputButton: {
+      flexShrink: 1,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.green,
+    },
+    button: {
+      color: '#ffffff',
+    },
+  });
 
   /**
    * _resetPassword
@@ -73,37 +106,5 @@ const ForgotPassword = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  textInputView: {
-    padding: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  textInput: {
-    flexGrow: 1,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#CCC',
-    padding: 10,
-    fontSize: 16,
-    marginRight: 10,
-    textAlignVertical: 'top',
-  },
-  textInputButton: {
-    flexShrink: 1,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.green,
-  },
-  button: {
-    color: '#ffffff',
-  },
-});
 
 export {ForgotPassword};

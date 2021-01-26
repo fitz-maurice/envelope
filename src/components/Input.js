@@ -1,6 +1,8 @@
 import React, {forwardRef} from 'react';
-import {TextInput, StyleSheet, useColorScheme} from 'react-native';
-import {colors, font} from '../config';
+import {TextInput, StyleSheet} from 'react-native';
+import {font} from '../config';
+
+import {useThemeColors} from '../services';
 
 const Input = forwardRef(
   (
@@ -14,7 +16,24 @@ const Input = forwardRef(
     },
     ref,
   ) => {
-    const scheme = useColorScheme();
+    const {colors} = useThemeColors();
+    const styles = StyleSheet.create({
+      input: {
+        ...font.body,
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        marginBottom: 15,
+        borderRadius: 30,
+      },
+      inputLight: {
+        color: colors.black,
+        backgroundColor: colors.white,
+      },
+      inputDark: {
+        color: colors.white,
+        backgroundColor: colors.black,
+      },
+    });
 
     return (
       <TextInput
@@ -22,14 +41,16 @@ const Input = forwardRef(
         onChangeText={(text) => onChangeText(text)}
         style={[
           styles.input,
-          scheme === 'light' ? styles.inputLight : styles.inputDark,
+          colors.scheme === 'light' ? styles.inputLight : styles.inputDark,
         ]}
         placeholder={placeholder}
         autoFocus={autoFocus}
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize}
         secureTextEntry={secureTextEntry}
-        placeholderTextColor={scheme === 'light' ? colors.black : colors.white}
+        placeholderTextColor={
+          colors.scheme === 'light' ? colors.black : colors.white
+        }
         underlineColorAndroid="transparent"
       />
     );
@@ -58,24 +79,6 @@ const Password = (props) => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    ...font.body,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    marginBottom: 15,
-    borderRadius: 30,
-  },
-  inputLight: {
-    color: colors.black,
-    backgroundColor: colors.white,
-  },
-  inputDark: {
-    color: colors.white,
-    backgroundColor: colors.black,
-  },
-});
 
 Input.Email = Email;
 Input.Password = Password;
