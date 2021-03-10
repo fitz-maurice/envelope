@@ -13,6 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		167E29F96B7F4ECFB4249204 /* Castoro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FD30A0B1019469F8CCD0BF3 /* Castoro-Regular.ttf */; };
 		19089E5C08D5164CD0247ADD /* libPods-envelope-envelopeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B768318D21ACB54982782C8 /* libPods-envelope-envelopeTests.a */; };
+		3B26F5BD25F8A22F003986FC /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B26F5BC25F8A22E003986FC /* AppCenter-Config.plist */; };
 		3B98B87824FDE75D00EDD113 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B98B87724FDE75D00EDD113 /* GoogleService-Info.plist */; };
 		517358E826BF7A12D964F82C /* libPods-envelope.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F75BF91A03ED8728B9396D9D /* libPods-envelope.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -50,6 +51,7 @@
 		2DC28B29A98F48DCBFA80DD3 /* OFLGoudyStM.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = OFLGoudyStM.otf; path = ../src/assets/OFLGoudyStM.otf; sourceTree = "<group>"; };
 		2E1B0BB9425D199DE35FC205 /* Pods-envelope.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-envelope.debug.xcconfig"; path = "Target Support Files/Pods-envelope/Pods-envelope.debug.xcconfig"; sourceTree = "<group>"; };
 		2F8DD7BB6E5E85A0504CE1A4 /* Pods-envelope-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-envelope-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-envelope-tvOSTests/Pods-envelope-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		3B26F5BC25F8A22E003986FC /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		3B768318D21ACB54982782C8 /* libPods-envelope-envelopeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-envelope-envelopeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B98B87724FDE75D00EDD113 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3BBBC54124FDF1F700914F91 /* Envelope.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Envelope.entitlements; path = envelope/Envelope.entitlements; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3B26F5BC25F8A22E003986FC /* AppCenter-Config.plist */,
 				3B98B87724FDE75D00EDD113 /* GoogleService-Info.plist */,
 				3BF7C01224FF454D008B2F8C /* Fonts */,
 				13B07FAE1A68108700A75B9A /* envelope */,
@@ -358,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				3B26F5BD25F8A22F003986FC /* AppCenter-Config.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3B98B87824FDE75D00EDD113 /* GoogleService-Info.plist in Resources */,
 				167E29F96B7F4ECFB4249204 /* Castoro-Regular.ttf in Resources */,
