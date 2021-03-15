@@ -35,7 +35,7 @@ import {AppContext, AppProvider} from './src/services';
 import {SignedOutNavigator, TabsNavigator} from './src/navigators';
 
 export default function App() {
-  const [user, setUser] = useState(null);
+  const [_user, setUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
   const {colors} = useThemeColors();
   const [Colors, setColors] = useState(colors);
@@ -67,11 +67,10 @@ export default function App() {
   return (
     <AppProvider>
       <AppContext.Consumer>
-        {({loading}) => (
+        {({loading, user}) => (
           <>
             {loading && <Loader />}
             <NavigationContainer>
-              {/* {context.user ? ( */}
               {user ? (
                 <SignedInNavigator.Navigator
                   screenOptions={() => ({
