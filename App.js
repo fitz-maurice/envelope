@@ -21,9 +21,7 @@ import {
   Premium,
   Advanced,
   PersonalInfo,
-  Appearance,
 } from './src/screens';
-import {useThemeColors} from './src/services/hooks';
 
 // Components
 import {Loader} from './src/components';
@@ -34,12 +32,15 @@ import {AppContext, AppProvider} from './src/services';
 // Navigators
 import {SignedOutNavigator, TabsNavigator} from './src/navigators';
 
+// Theme
+import {ThemeProvider, lightTheme, darkTheme, ThemeContext} from './src/theme';
+import {useColorScheme} from 'react-native';
+
 export default function App() {
   const [_user, setUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
-  const {colors} = useThemeColors();
-  const [Colors, setColors] = useState(colors);
   const SignedInNavigator = createStackNavigator();
+  const colorScheme = useColorScheme();
 
   // Handle user state changes
   const onAuthStateChanged = (u) => {
@@ -65,50 +66,59 @@ export default function App() {
   }
 
   return (
-    <AppProvider>
-      <AppContext.Consumer>
-        {({loading, user}) => (
-          <>
-            {loading && <Loader />}
-            <NavigationContainer>
-              {user ? (
-                <SignedInNavigator.Navigator
-                  screenOptions={() => ({
-                    headerStyle: {
-                      backgroundColor: Colors.gray,
-                    },
-                    headerTintColor: Colors.text,
-                  })}>
-                  <SignedInNavigator.Screen
-                    name="Envelope"
-                    component={TabsNavigator}
-                  />
-                  <SignedInNavigator.Screen name="Camera" component={Camera} />
-                  <SignedInNavigator.Screen
-                    name="Appearance"
-                    component={Appearance}
-                  />
-                  <SignedInNavigator.Screen
-                    name="Advanced"
-                    component={Advanced}
-                  />
-                  <SignedInNavigator.Screen
-                    name="Premium"
-                    component={Premium}
-                  />
-                  <SignedInNavigator.Screen name="Upload" component={Upload} />
-                  <SignedInNavigator.Screen
-                    name="PersonalInfo"
-                    component={PersonalInfo}
-                  />
-                </SignedInNavigator.Navigator>
-              ) : (
-                <SignedOutNavigator />
+    <ThemeProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
+      <ThemeContext.Consumer>
+        {({theme}) => (
+          <AppProvider>
+            <AppContext.Consumer>
+              {({loading, user}) => (
+                <>
+                  {loading && <Loader />}
+                  <NavigationContainer>
+                    {/* {context.user ? ( */}
+                    {user ? (
+                      <SignedInNavigator.Navigator
+                        screenOptions={() => ({
+                          headerStyle: {
+                            backgroundColor: theme.gray,
+                          },
+                          headerTintColor: theme.appbar.tintColor,
+                        })}>
+                        <SignedInNavigator.Screen
+                          name="Envelope"
+                          component={TabsNavigator}
+                        />
+                        <SignedInNavigator.Screen
+                          name="Camera"
+                          component={Camera}
+                        />
+                        <SignedInNavigator.Screen
+                          name="Advanced"
+                          component={Advanced}
+                        />
+                        <SignedInNavigator.Screen
+                          name="Premium"
+                          component={Premium}
+                        />
+                        <SignedInNavigator.Screen
+                          name="Upload"
+                          component={Upload}
+                        />
+                        <SignedInNavigator.Screen
+                          name="PersonalInfo"
+                          component={PersonalInfo}
+                        />
+                      </SignedInNavigator.Navigator>
+                    ) : (
+                      <SignedOutNavigator />
+                    )}
+                  </NavigationContainer>
+                </>
               )}
-            </NavigationContainer>
-          </>
+            </AppContext.Consumer>
+          </AppProvider>
         )}
-      </AppContext.Consumer>
-    </AppProvider>
+      </ThemeContext.Consumer>
+    </ThemeProvider>
   );
 }

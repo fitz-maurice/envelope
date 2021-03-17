@@ -1,24 +1,24 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Pressable, Text, StyleSheet, useWindowDimensions} from 'react-native';
-import {useThemeColors} from '../services';
+import {ThemeContext} from '../theme';
 
 // Utils
 import {font} from '../config';
 
 const Button = ({title, onPress}) => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
   const styles = StyleSheet.create({
     button: {
       height: 50,
       borderRadius: 30,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: colors.green,
+      backgroundColor: theme.green,
       marginBottom: 10,
     },
     text: {
       ...font.button,
-      color: colors.white,
+      color: theme.white,
     },
   });
 
@@ -31,7 +31,7 @@ const Button = ({title, onPress}) => {
 };
 
 const Clear = ({title, onPress}) => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
   const styles = StyleSheet.create({
     buttonClear: {
       height: 50,
@@ -42,7 +42,7 @@ const Clear = ({title, onPress}) => {
     },
     textClear: {
       ...font.buttonClear,
-      color: colors.white,
+      color: theme.white,
     },
   });
 

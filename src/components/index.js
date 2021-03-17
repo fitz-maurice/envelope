@@ -14,3 +14,5 @@ export * from './Paragraph';
 
 export * from './SettingsGroup';
 export * from './SettingsButton';
+export * from './DarkThemeOption';
+export * from './DarkToggle';

@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   ImageBackground,
 } from 'react-native';
+import {ThemeContext} from '../../theme';
 
 // Utils
 import {errors} from '../../config';
@@ -24,7 +25,6 @@ import {
   LoginAppleButton,
   LoginGoogleButton,
 } from '../../components';
-import {useThemeColors} from '../../services';
 
 // Images
 const LOGO = require('../../assets/envelope.png');
@@ -32,7 +32,7 @@ const BACKGROUND = require('../../assets/background.png');
 const ENVELOPE_WHITE = require('../../assets/envelope_white.png');
 
 const Welcome = ({navigation}) => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
   const context = useContext(AppContext);
   const [email, setEmail] = useState('admin@envelope.app');
   const [password, setPassword] = useState('Envelope1989');
@@ -61,14 +61,14 @@ const Welcome = ({navigation}) => {
     or: {
       marginBottom: 15,
       textAlign: 'center',
-      color: colors.white,
+      color: theme.white,
       fontSize: 18,
       fontWeight: 'bold',
     },
     signUp: {
       marginTop: 15,
       textAlign: 'center',
-      color: colors.white,
+      color: theme.white,
       fontSize: 19,
     },
   });

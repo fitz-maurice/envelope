@@ -1,11 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useContext} from 'react';
 import {Text, View, StatusBar} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 
-import {useThemeColors} from '../../../services';
+import {ThemeContext} from '../../../theme';
 
 const Advanced = ({navigation}) => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
 
   useFocusEffect(
     useCallback(() => {
@@ -21,14 +21,14 @@ const Advanced = ({navigation}) => {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: colors.backgroundColor,
+      backgroundColor: theme.backgroundColor,
     },
-    text: {fontSize: 30, color: colors.text},
+    text: {fontSize: 30, color: theme.bodyTextColor},
   };
 
   return (
     <View style={styles.view}>
-      <StatusBar barStyle={colors.statusBar} />
+      <StatusBar barStyle={theme.appbar.barStyle} />
       <Text style={styles.text}>Advanced</Text>
     </View>
   );

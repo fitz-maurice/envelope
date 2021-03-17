@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {useThemeColors} from '../services';
+import {ThemeContext} from '../theme';
 
 // Navigators
 const Auth = createStackNavigator();
@@ -10,7 +10,7 @@ const Auth = createStackNavigator();
 import {Welcome, SignUp, ForgotPassword} from '../screens';
 
 const SignedOutNavigator = ({navigation}) => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
   return (
     <Auth.Navigator>
       <Auth.Screen
@@ -24,7 +24,7 @@ const SignedOutNavigator = ({navigation}) => {
         options={{
           title: 'Register',
           headerBackTitleVisible: false,
-          headerTintColor: colors.green,
+          headerTintColor: theme.green,
         }}
       />
       <Auth.Screen
@@ -33,7 +33,7 @@ const SignedOutNavigator = ({navigation}) => {
         options={{
           title: 'Password Reset',
           headerBackTitleVisible: false,
-          headerTintColor: colors.green,
+          headerTintColor: theme.green,
         }}
       />
     </Auth.Navigator>

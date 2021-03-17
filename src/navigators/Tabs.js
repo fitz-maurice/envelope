@@ -1,7 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useContext} from 'react';
 import {AnimatedTabBarNavigator} from 'react-native-animated-nav-tab-bar';
 import {useFocusEffect} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
+import {ThemeContext} from '../theme';
 
 // Navigators
 const Tabs = AnimatedTabBarNavigator();
@@ -11,10 +12,9 @@ import {Home, Library, Settings} from '../screens';
 
 // Components
 import {HeaderCamera} from '../components';
-import {useThemeColors} from '../services';
 
 const TabsNavigator = ({navigation}) => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
 
   // On focus, insert camera icon
   useFocusEffect(
@@ -26,14 +26,14 @@ const TabsNavigator = ({navigation}) => {
   );
 
   const options = {
-    activeTintColor: colors.red,
+    activeTintColor: theme.red,
     inactiveTintColor: 'green',
-    activeBackgroundColor: 'white',
+    activeBackgroundColor: theme.white,
     labelStyle: {
-      color: 'black',
+      color: theme.black,
     },
     tabStyle: {
-      backgroundColor: colors.gray,
+      backgroundColor: theme.gray,
     },
   };
 
@@ -47,7 +47,7 @@ const TabsNavigator = ({navigation}) => {
             <Icon
               name="home"
               size={size ? size : 24}
-              color={focused ? color : colors.text}
+              color={focused ? color : theme.bodyTextColor}
               focused={focused}
             />
           ),
@@ -61,7 +61,7 @@ const TabsNavigator = ({navigation}) => {
             <Icon
               name="image"
               size={size ? size : 24}
-              color={focused ? color : colors.text}
+              color={focused ? color : theme.bodyTextColor}
               focused={focused}
             />
           ),
@@ -75,7 +75,7 @@ const TabsNavigator = ({navigation}) => {
             <Icon
               name="settings"
               size={size ? size : 24}
-              color={focused ? color : colors.text}
+              color={focused ? color : theme.bodyTextColor}
               focused={focused}
             />
           ),

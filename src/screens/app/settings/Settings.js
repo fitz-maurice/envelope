@@ -1,17 +1,21 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext} from 'react';
 import {View, Linking, Alert, StatusBar, StyleSheet, Text} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import Rate, {AndroidMarket} from 'react-native-rate';
 import {getBuildNumber, getVersion} from 'react-native-device-info';
 
-import {signOut, useThemeColors} from '../../../services';
+import {signOut} from '../../../services';
 
-import {SettingsGroup, SettingsButton} from '../../../components';
+import {
+  SettingsGroup,
+  SettingsButton,
+  DarkThemeOption,
+} from '../../../components';
+import {ThemeContext} from '../../../theme';
 
 const Settings = ({navigation}) => {
-  const {colors} = useThemeColors();
-
+  const {theme} = useContext(ThemeContext);
   // Set header elements on focus
   useFocusEffect(
     useCallback(() => {
@@ -23,12 +27,12 @@ const Settings = ({navigation}) => {
           headerRight: null,
           title: 'Settings',
           headerStyle: {
-            backgroundColor: colors.gray,
+            backgroundColor: theme.appbar.backgroundColor,
           },
-          headerTintColor: colors.text,
+          headerTintColor: theme.appbar.tintColor,
         });
       }
-    }, [navigation, colors]),
+    }, [navigation, theme]),
   );
 
   const openLink = async (page) => {
@@ -51,7 +55,7 @@ const Settings = ({navigation}) => {
           enableDefaultShare: true,
           forceCloseOnRedirection: false,
         });
-        StatusBar.setBarStyle(colors.statusBar);
+        StatusBar.setBarStyle(theme.appbar.barStyle);
       } else {
         Linking.openURL(`https://envelope.app/${page}`);
       }
@@ -64,9 +68,20 @@ const Settings = ({navigation}) => {
     view: {
       flex: 1,
       paddingTop: 10,
-      backgroundColor: colors.backgroundColor,
+      backgroundColor: theme.backgroundColor,
     },
   };
+
+  const styles = StyleSheet.create({
+    footnote: {
+      margin: 25,
+    },
+    fnText: {
+      lineHeight: 25,
+      textAlign: 'center',
+      color: theme.bodyTextColor,
+    },
+  });
 
   return (
     <View style={container.view}>
@@ -91,10 +106,7 @@ const Settings = ({navigation}) => {
       </SettingsGroup>
 
       <SettingsGroup>
-        <SettingsButton
-          title="Appearance"
-          onPress={() => navigation.navigate('Appearance')}
-        />
+        <DarkThemeOption />
         <SettingsButton
           title="Email Support"
           onPress={() =>
@@ -158,15 +170,5 @@ const Settings = ({navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  footnote: {
-    margin: 25,
-  },
-  fnText: {
-    lineHeight: 25,
-    textAlign: 'center',
-  },
-});
 
 export {Settings};

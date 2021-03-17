@@ -7,13 +7,13 @@ import {Dimensions} from 'react-native';
 import {HeaderCamera} from '../../components';
 
 import {AppContext} from '../../services';
-import {useThemeColors} from '../../services';
+import {ThemeContext} from '../../theme';
 
 const Home = ({navigation}) => {
   const context = useContext(AppContext);
   const [cards, setCards] = useState([]);
   const imageWidth = Dimensions.get('window').width / 2;
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
 
   // Set header elements on focus
   useFocusEffect(
@@ -60,7 +60,7 @@ const Home = ({navigation}) => {
   const styles = StyleSheet.create({
     viewStyle: {
       flex: 1,
-      backgroundColor: colors.backgroundColor,
+      backgroundColor: theme.backgroundColor,
     },
     gridView: {
       flex: 1,
@@ -68,7 +68,7 @@ const Home = ({navigation}) => {
     itemContainer: {
       justifyContent: 'flex-end',
       height: 150,
-      backgroundColor: colors.backgroundColor,
+      backgroundColor: theme.backgroundColor,
       padding: 1,
     },
     cardStyles: {width: '100%', height: '100%'},
@@ -76,7 +76,7 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.viewStyle}>
-      <StatusBar barStyle={colors.statusBar} animated={true} />
+      <StatusBar barStyle={theme.appbar.barStyle} animated={true} />
       <FlatGrid
         itemDimension={imageWidth}
         spacing={0}

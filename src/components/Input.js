@@ -1,8 +1,8 @@
-import React, {forwardRef} from 'react';
+import React, {forwardRef, useContext} from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 import {font} from '../config';
 
-import {useThemeColors} from '../services';
+import {ThemeContext} from '../theme';
 
 const Input = forwardRef(
   (
@@ -16,7 +16,7 @@ const Input = forwardRef(
     },
     ref,
   ) => {
-    const {colors} = useThemeColors();
+    const {theme} = useContext(ThemeContext);
     const styles = StyleSheet.create({
       input: {
         ...font.body,
@@ -24,14 +24,8 @@ const Input = forwardRef(
         paddingHorizontal: 20,
         marginBottom: 15,
         borderRadius: 30,
-      },
-      inputLight: {
-        color: colors.black,
-        backgroundColor: colors.white,
-      },
-      inputDark: {
-        color: colors.white,
-        backgroundColor: colors.black,
+        color: theme.bodyTextColor,
+        backgroundColor: theme.backgroundColor,
       },
     });
 
@@ -39,18 +33,13 @@ const Input = forwardRef(
       <TextInput
         ref={ref}
         onChangeText={(text) => onChangeText(text)}
-        style={[
-          styles.input,
-          colors.scheme === 'light' ? styles.inputLight : styles.inputDark,
-        ]}
+        style={[styles.input]}
         placeholder={placeholder}
         autoFocus={autoFocus}
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize}
         secureTextEntry={secureTextEntry}
-        placeholderTextColor={
-          colors.scheme === 'light' ? colors.black : colors.white
-        }
+        placeholderTextColor={theme.bodyTextColor}
         underlineColorAndroid="transparent"
       />
     );

@@ -12,4 +12,3 @@ export * from './app/settings/Settings';
 export * from './app/settings/PersonalInfo';
 export * from './app/settings/Advanced';
 export * from './app/settings/Premium';
-export * from './app/settings/Appearance';

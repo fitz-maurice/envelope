@@ -13,6 +13,7 @@ import {
   KeyboardAccessoryNavigation,
 } from 'react-native-keyboard-accessory';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {ThemeContext} from '../../theme';
 
 // Utils
 import {errors} from '../../config';
@@ -22,10 +23,9 @@ import {signUp, AppContext} from '../../services';
 
 // Components
 import {Container, AuthTitle, Paragraph, Input} from '../../components';
-import {useThemeColors} from '../../services';
 
 const SignUp = () => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
   const emailRef = createRef();
   const passwordRef = createRef();
   const context = useContext(AppContext);
@@ -47,7 +47,7 @@ const SignUp = () => {
       height: 50,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: colors.green,
+      backgroundColor: theme.green,
     },
     button: {
       color: '#ffffff',
@@ -170,7 +170,7 @@ const SignUp = () => {
       <KeyboardAccessoryNavigation
         androidAdjustResize={true}
         doneButtonTitle="Sign up"
-        tintColor={colors.green}
+        tintColor={theme.green}
         onDone={() => _signUp(email, password)}
         onNext={() => console.log(emailRef)}
         onPrevious={() => passwordRef.current.focus()}

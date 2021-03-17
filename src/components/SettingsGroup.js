@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
-
-import {useThemeColors} from '../services';
+import {ThemeContext} from '../theme';
 
 const SettingsGroup = ({children}) => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
+
   return (
-    <View style={[styles.container, {backgroundColor: colors.gray}]}>
+    <View style={[styles.container, {backgroundColor: theme.gray}]}>
       {children}
     </View>
   );

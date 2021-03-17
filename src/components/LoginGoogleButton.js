@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Text, Pressable, StyleSheet} from 'react-native';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import auth from '@react-native-firebase/auth';
@@ -6,13 +6,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Utils
 import {font} from '../config';
-import {useThemeColors} from '../services';
+import {ThemeContext} from '../theme';
 
 const LoginGoogleButton = () => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
   const styles = StyleSheet.create({
     button: {
-      backgroundColor: colors.white,
+      backgroundColor: theme.white,
       padding: 15,
       borderRadius: 30,
       marginBottom: 15,
@@ -42,7 +42,7 @@ const LoginGoogleButton = () => {
       onPress={() =>
         onGoogleButtonPress().then(() => console.log('Signed in with Google!'))
       }>
-      <Icon name="google" size={20} color={colors.black} />
+      <Icon name="google" size={20} color={theme.black} />
       <Text style={styles.text}>Continue with Google</Text>
     </Pressable>
   );

@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {Pressable, Text, StyleSheet, useWindowDimensions} from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 import {ThemeContext} from '../theme';
+import {DarkToggle} from './DarkToggle';
 
-const SettingsButton = ({border = true, title, onPress, logOut = false}) => {
+const DarkThemeOption = () => {
   const {theme} = useContext(ThemeContext);
   const fs = 17 * useWindowDimensions().fontScale;
 
@@ -26,19 +26,13 @@ const SettingsButton = ({border = true, title, onPress, logOut = false}) => {
   });
 
   return (
-    <Pressable
-      onPress={() => onPress()}
-      style={[styles.container, border ? styles.border : null]}>
-      <Text
-        style={[
-          styles.text,
-          {fontSize: fs, color: logOut ? 'red' : theme.bodyTextColor},
-        ]}>
-        {title}
+    <Pressable style={[styles.container, styles.border]}>
+      <Text style={[styles.text, {fontSize: fs, color: theme.bodyTextColor}]}>
+        Dark Theme
       </Text>
-      {logOut ? null : <Icon size={24} name="chevron-right" color={'black'} />}
+      <DarkToggle />
     </Pressable>
   );
 };
 
-export {SettingsButton};
+export {DarkThemeOption};

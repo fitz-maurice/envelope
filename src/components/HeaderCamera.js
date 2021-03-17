@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {
@@ -6,11 +6,10 @@ import {
   HeaderButton,
   Item,
 } from 'react-navigation-header-buttons';
-
-import {useThemeColors} from '../services';
+import {ThemeContext} from '../theme';
 
 const HeaderCamera = ({navigation}) => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
 
   return (
     <HeaderButtons
@@ -19,14 +18,14 @@ const HeaderCamera = ({navigation}) => {
         <HeaderButton
           IconComponent={() => (
             <View style={styles.margin}>
-              <Icon size={24} name="camera" color={colors.text} />
+              <Icon size={24} name="camera" color={theme.bodyTextColor} />
             </View>
           )}
           {...props}
         />
       )}>
       <Item
-        color={colors.text}
+        color={theme.bodyTextColor}
         title="Take picture"
         iconName="camera"
         onPress={() => navigation.navigate('Camera')}

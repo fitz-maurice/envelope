@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Text, Pressable, StyleSheet} from 'react-native';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
 import auth from '@react-native-firebase/auth';
@@ -6,13 +6,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Utils
 import {font} from '../config';
-import {useThemeColors} from '../services';
+import {ThemeContext} from '../theme';
 
 const LoginAppleButton = () => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
   const styles = StyleSheet.create({
     button: {
-      backgroundColor: colors.white,
+      backgroundColor: theme.white,
       padding: 15,
       borderRadius: 30,
       marginBottom: 15,
@@ -48,7 +48,7 @@ const LoginAppleButton = () => {
 
   return (
     <Pressable style={styles.button} onPress={() => onAppleButtonPress()}>
-      <Icon name="apple" size={20} color={colors.black} />
+      <Icon name="apple" size={20} color={theme.black} />
       <Text style={styles.text}>Continue with Apple</Text>
     </Pressable>
   );

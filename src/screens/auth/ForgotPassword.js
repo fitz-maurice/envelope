@@ -9,7 +9,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
-
+import {ThemeContext} from '../../theme';
 // Utils
 import {errors} from '../../config';
 
@@ -18,10 +18,9 @@ import {resetPassword, AppContext} from '../../services';
 
 // Components
 import {Container, Input, AuthTitle, Paragraph} from '../../components';
-import {useThemeColors} from '../../services';
 
 const ForgotPassword = () => {
-  const {colors} = useThemeColors();
+  const {theme} = useContext(ThemeContext);
   const context = useContext(AppContext);
   const [email, setEmail] = useState('');
   const fs = 17 * useWindowDimensions().fontScale;
@@ -50,7 +49,7 @@ const ForgotPassword = () => {
       height: 50,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: colors.green,
+      backgroundColor: theme.green,
     },
     button: {
       color: '#ffffff',
