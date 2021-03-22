@@ -5,13 +5,12 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
 import Rate, {AndroidMarket} from 'react-native-rate';
 import {getBuildNumber, getVersion} from 'react-native-device-info';
 
-import {signOut} from '../../../services';
-
 import {
   SettingsGroup,
   SettingsButton,
   DarkThemeOption,
 } from '../../../components';
+import {signOut} from '../../../services';
 import {ThemeContext} from '../../../theme';
 
 const Settings = ({navigation}) => {

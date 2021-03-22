@@ -13,6 +13,7 @@ const Input = forwardRef(
       keyboardType = 'default',
       autoCapitalize = 'sentences',
       secureTextEntry = false,
+      value = '',
     },
     ref,
   ) => {
@@ -32,6 +33,7 @@ const Input = forwardRef(
     return (
       <TextInput
         ref={ref}
+        value={value}
         onChangeText={(text) => onChangeText(text)}
         style={[styles.input]}
         placeholder={placeholder}
