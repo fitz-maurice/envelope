@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     borderRadius: 10,
     paddingLeft: 20,
+    overflow: 'hidden',
   },
   button: {
     fontSize: 16,
