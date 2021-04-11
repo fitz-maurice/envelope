@@ -1,7 +1,6 @@
 import React, {useState, useContext, createRef} from 'react';
 import {
   StyleSheet,
-  View,
   Alert,
   StatusBar,
   Text,
@@ -12,19 +11,14 @@ import {
   KeyboardAccessoryView,
   KeyboardAccessoryNavigation,
 } from 'react-native-keyboard-accessory';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
-import {ThemeContext} from '../../theme';
 
-// Utils
+import {browser} from '../../utils';
 import {errors} from '../../config';
-
-// Services
+import {ThemeContext} from '../../theme';
 import {signUp, AppContext} from '../../services';
+import {Page, Container, AuthTitle, Paragraph, Input} from '../../components';
 
-// Components
-import {Container, AuthTitle, Paragraph, Input} from '../../components';
-
-const SignUp = () => {
+const Register = () => {
   const {theme} = useContext(ThemeContext);
   const emailRef = createRef();
   const passwordRef = createRef();
@@ -32,10 +26,11 @@ const SignUp = () => {
   const fs = 17 * useWindowDimensions().fontScale;
   const [email, setEmail] = useState('admin@envelope.app');
   const [password, setPassword] = useState('Envelope1989');
+
+  /***************************************************************
+   * STYLES
+   **************************************************************/
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
     textInputView: {
       padding: 8,
       flexDirection: 'row',
@@ -71,61 +66,20 @@ const SignUp = () => {
   const _signUp = (_email, _password) => {
     context.setLoading(true);
     signUp(_email, _password)
-      .then((user) => {
+      .then(user => {
         context.setLoading(false);
         context.setUser(user);
       })
-      .catch((error) => {
+      .catch(error => {
         context.setLoading(false);
         Alert.alert('Error', errors.signUp[error.code]());
       });
   };
 
-  /**
-   * _openLink
-   *
-   * @param url {String} The URL to visit
-   */
-  const _openLink = async (url) => {
-    try {
-      StatusBar.setBarStyle('light-content');
-      if (await InAppBrowser.isAvailable()) {
-        const result = await InAppBrowser.open(url, {
-          // iOS Properties
-          dismissButtonStyle: 'done',
-          //   preferredBarTintColor: '#453AA4',
-          //   preferredControlTintColor: 'white',
-          readerMode: false,
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          // Android Properties
-          showTitle: true,
-          //   toolbarColor: '#6200EE',
-          //   secondaryToolbarColor: 'black',
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-          // Animations
-          animations: {
-            startEnter: 'slide_in_right',
-            startExit: 'slide_out_left',
-            endEnter: 'slide_in_left',
-            endExit: 'slide_out_right',
-          },
-        });
-        StatusBar.setBarStyle('dark-content');
-      } else {
-        Linking.openURL(url);
-      }
-    } catch (error) {
-      Alert.alert(error.message);
-    }
-  };
-
   return (
-    <View style={styles.container}>
+    <Page>
       <StatusBar barStyle="dark-content" />
-      <View style={styles.container}>
+      <Page>
         <Container>
           <AuthTitle text="Sign up for Envelope" />
 
@@ -142,19 +96,19 @@ const SignUp = () => {
             By signing up agree to Envelope's{' '}
             <Text
               style={styles.privacyLink}
-              onPress={() => _openLink('https://envelope.app/terms')}>
+              onPress={() => browser('https://envelope.app/terms')}>
               Terms and Conditions
             </Text>
             , and{' '}
             <Text
               style={styles.privacyLink}
-              onPress={() => _openLink('https://envelope.app/privacy')}>
+              onPress={() => browser('https://envelope.app/privacy')}>
               Privacy Policy
             </Text>
             .
           </Text>
         </Container>
-      </View>
+      </Page>
       <KeyboardAccessoryView
         animateOn="all"
         hideBorder={true}
@@ -175,8 +129,8 @@ const SignUp = () => {
         onNext={() => console.log(emailRef)}
         onPrevious={() => passwordRef.current.focus()}
       />
-    </View>
+    </Page>
   );
 };
 
-export {SignUp};
+export {Register};

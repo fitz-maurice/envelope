@@ -34,22 +34,27 @@ const Home = ({navigation}) => {
     if (context.userRestored) {
       context.setLoading(true);
       const uid = context.user.user.uid;
+      console.log('Hi');
       const subscriber = firestore()
         .collection(`${uid}/account/cards`)
-        .onSnapshot((querySnapshot) => {
+        .onSnapshot(querySnapshot => {
           const c = [];
-          querySnapshot.forEach((documentSnapshot) => {
-            c.push({
-              ...documentSnapshot.data(),
-              key: documentSnapshot.id,
+          if (querySnapshot) {
+            console.log('Hi m');
+            querySnapshot.forEach(documentSnapshot => {
+              c.push({
+                ...documentSnapshot.data(),
+                key: documentSnapshot.id,
+              });
             });
-          });
-          setCards(c);
+            setCards(c);
+          }
           context.setLoading(false);
         });
       // Unsubscribe from events when no longer in use
       return () => subscriber();
     }
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, [context.userRestored]);
 
   // Has User data been rehydrated into the context

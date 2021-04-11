@@ -26,7 +26,7 @@ const Input = forwardRef(
         marginBottom: 15,
         borderRadius: 30,
         color: theme.bodyTextColor,
-        backgroundColor: theme.backgroundColor,
+        backgroundColor: theme.gray,
       },
     });
 
@@ -34,7 +34,7 @@ const Input = forwardRef(
       <TextInput
         ref={ref}
         value={value}
-        onChangeText={(text) => onChangeText(text)}
+        onChangeText={text => onChangeText(text)}
         style={[styles.input]}
         placeholder={placeholder}
         autoFocus={autoFocus}
@@ -48,7 +48,7 @@ const Input = forwardRef(
   },
 );
 
-const Email = (props) => {
+const Email = props => {
   return (
     <Input
       {...props}
@@ -59,7 +59,7 @@ const Email = (props) => {
   );
 };
 
-const Password = (props) => {
+const Password = props => {
   return (
     <Input
       {...props}

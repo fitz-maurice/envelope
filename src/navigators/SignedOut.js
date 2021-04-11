@@ -1,41 +1,29 @@
 import React, {useContext} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {ThemeContext} from '../theme';
-
-// Navigators
 const Auth = createStackNavigator();
-
-// Screens
-import {Welcome, SignUp, ForgotPassword} from '../screens';
+import {ThemeContext} from '../theme';
+import {Welcome, Register, PasswordReset} from '../screens';
 
 const SignedOutNavigator = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
+
   return (
-    <Auth.Navigator>
+    <Auth.Navigator
+      screenOptions={{
+        headerBackTitleVisible: false,
+        headerTintColor: theme.header.tintColor,
+        headerStyle: {
+          backgroundColor: theme.header.backgroundColor,
+        },
+      }}>
       <Auth.Screen
         name="Welcome"
         component={Welcome}
         options={{headerShown: false}}
       />
-      <Auth.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{
-          title: 'Register',
-          headerBackTitleVisible: false,
-          headerTintColor: theme.green,
-        }}
-      />
-      <Auth.Screen
-        name="ForgotPassword"
-        component={ForgotPassword}
-        options={{
-          title: 'Password Reset',
-          headerBackTitleVisible: false,
-          headerTintColor: theme.green,
-        }}
-      />
+      <Auth.Screen name="Register" component={Register} />
+      <Auth.Screen name="PasswordReset" component={PasswordReset} />
     </Auth.Navigator>
   );
 };

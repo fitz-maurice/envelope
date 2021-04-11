@@ -7,7 +7,7 @@ import DatePicker, {getFormatedDate} from 'react-native-modern-datepicker';
 // Envelope
 import {ThemeContext} from '../../../theme';
 import {AppContext} from '../../../services';
-import {Input} from '../../../components';
+import {Input, AuthTitle, Paragraph} from '../../../components';
 
 const PersonalInfo = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -43,13 +43,12 @@ const PersonalInfo = ({navigation}) => {
       // Unsubscribe from events when no longer in use
       return () => subscriber();
     }
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, [context.userRestored]);
 
   const styles = {
     view: {
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
       backgroundColor: theme.backgroundColor,
     },
     text: {
@@ -65,10 +64,12 @@ const PersonalInfo = ({navigation}) => {
     <View style={styles.view}>
       <StatusBar barStyle={theme.appbar.barStyle} />
       <View style={styles.inputContainer}>
+        <AuthTitle text="A Few Details" />
+        <Paragraph text="Just a few thinks so we can better customize Evnelope for you." />
         <Input value={fullname} onChangeText={setFullname} />
-        <Pressable onPress={() => setModal(true)}>
+        {/* <Pressable onPress={() => setModal(true)}>
           <Text>{birthday}</Text>
-        </Pressable>
+        </Pressable> */}
       </View>
 
       <Modal
@@ -85,7 +86,7 @@ const PersonalInfo = ({navigation}) => {
           }}
           selected="2020-07-23"
           mode="calendar"
-          style={{borderRadius: 10}}
+          //   style={{borderRadius: 10}}
           options={{
             backgroundColor: '#090C08',
             textHeaderColor: '#FFA25B',

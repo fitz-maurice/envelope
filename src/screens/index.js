@@ -1,7 +1,7 @@
 // Auth screens
 export * from './auth/Welcome';
-export * from './auth/ForgotPassword';
-export * from './auth/SignUp';
+export * from './auth/PasswordReset';
+export * from './auth/Register';
 
 export * from './app/Home';
 export * from './app/Camera';

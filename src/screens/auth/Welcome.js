@@ -10,15 +10,10 @@ import {
   SafeAreaView,
   ImageBackground,
 } from 'react-native';
-import {ThemeContext} from '../../theme';
 
-// Utils
 import {errors} from '../../config';
-
-// Services
+import {ThemeContext} from '../../theme';
 import {signIn, AppContext} from '../../services';
-
-// Components
 import {
   Input,
   Button,
@@ -36,6 +31,10 @@ const Welcome = ({navigation}) => {
   const context = useContext(AppContext);
   const [email, setEmail] = useState('admin@envelope.app');
   const [password, setPassword] = useState('Envelope1989');
+
+  /***************************************************************
+   * STYLES
+   **************************************************************/
   const styles = StyleSheet.create({
     imageBackground: {
       flex: 1,
@@ -82,11 +81,11 @@ const Welcome = ({navigation}) => {
   const _signIn = (_email, _password) => {
     context.setLoading(true);
     signIn(_email, _password)
-      .then((user) => {
+      .then(user => {
         context.setLoading(false);
         context.setUser(user);
       })
-      .catch((error) => {
+      .catch(error => {
         context.setLoading(false);
         Alert.alert('Error', errors.signIn[error.code]());
       });

@@ -1,6 +1,5 @@
 import React, {useState, useContext} from 'react';
 import {
-  View,
   Alert,
   StatusBar,
   StyleSheet,
@@ -9,25 +8,18 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
+
 import {ThemeContext} from '../../theme';
-// Utils
 import {errors} from '../../config';
-
-// Services
 import {resetPassword, AppContext} from '../../services';
+import {Page, Container, Input, AuthTitle, Paragraph} from '../../components';
 
-// Components
-import {Container, Input, AuthTitle, Paragraph} from '../../components';
-
-const ForgotPassword = () => {
+const PasswordReset = () => {
   const {theme} = useContext(ThemeContext);
   const context = useContext(AppContext);
   const [email, setEmail] = useState('');
   const fs = 17 * useWindowDimensions().fontScale;
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
     textInputView: {
       padding: 8,
       flexDirection: 'row',
@@ -61,7 +53,7 @@ const ForgotPassword = () => {
    *
    * @param _email {String} The user email
    */
-  const _resetPassword = (_email) => {
+  const _resetPassword = _email => {
     context.setLoading(true);
     resetPassword(_email)
       .then(() => {
@@ -71,25 +63,22 @@ const ForgotPassword = () => {
           'Please check your email for a link to reset your password.',
         );
       })
-      .catch((error) => {
+      .catch(error => {
         context.setLoading(false);
-        console.log(error.code);
         Alert.alert('Error', errors.signIn[error.code]());
       });
   };
 
   return (
-    <View style={styles.container}>
+    <Page style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <View style={styles.container}>
+      <Page style={styles.container}>
         <Container>
           <AuthTitle text="Reset your password" />
-
           <Paragraph text="Enter your Envelope email and we'll send you an email to follow." />
-
           <Input.Email autoFocus={true} onChangeText={setEmail} />
         </Container>
-      </View>
+      </Page>
       <KeyboardAccessoryView
         animateOn="all"
         hideBorder={true}
@@ -102,8 +91,8 @@ const ForgotPassword = () => {
           <Text style={[styles.button, {fontSize: fs}]}>Send</Text>
         </Pressable>
       </KeyboardAccessoryView>
-    </View>
+    </Page>
   );
 };
 
-export {ForgotPassword};
+export {PasswordReset};

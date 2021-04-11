@@ -1,76 +1,46 @@
 import React, {useCallback, useContext} from 'react';
-import {View, Linking, Alert, StatusBar, StyleSheet, Text} from 'react-native';
+import {View, Linking, StyleSheet, Text} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
 import Rate, {AndroidMarket} from 'react-native-rate';
 import {getBuildNumber, getVersion} from 'react-native-device-info';
 
 import {
+  Page,
   SettingsGroup,
   SettingsButton,
   DarkThemeOption,
 } from '../../../components';
+import {browser} from '../../../utils';
 import {signOut} from '../../../services';
 import {ThemeContext} from '../../../theme';
 
 const Settings = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
-  // Set header elements on focus
+
   useFocusEffect(
+    // Set header elements on focus
     useCallback(() => {
       const stackNavigator = navigation.dangerouslyGetParent();
 
+      // ! try to move up to navigation file
       if (stackNavigator) {
         stackNavigator.setOptions({
           headerLeft: null,
           headerRight: null,
           title: 'Settings',
           headerStyle: {
-            backgroundColor: theme.appbar.backgroundColor,
+            // backgroundColor: theme.appbar.backgroundColor,
           },
-          headerTintColor: theme.appbar.tintColor,
+          headerTintColor: theme.green,
+          // headerTintColor: theme.appbar.tintColor,
         });
       }
     }, [navigation, theme]),
   );
 
-  const openLink = async (page) => {
-    try {
-      StatusBar.setBarStyle('light-content');
-      if (await InAppBrowser.isAvailable()) {
-        const result = await InAppBrowser.open(`https://envelope.app/${page}`, {
-          // iOS Properties
-          dismissButtonStyle: 'done',
-          preferredBarTintColor: '#453AA4',
-          preferredControlTintColor: 'white',
-          readerMode: false,
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          // Android Properties
-          showTitle: true,
-          toolbarColor: '#6200EE',
-          secondaryToolbarColor: 'black',
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-        });
-        StatusBar.setBarStyle(theme.appbar.barStyle);
-      } else {
-        Linking.openURL(`https://envelope.app/${page}`);
-      }
-    } catch (error) {
-      Alert.alert(error.message);
-    }
-  };
-
-  const container = {
-    view: {
-      flex: 1,
-      paddingTop: 10,
-      backgroundColor: theme.backgroundColor,
-    },
-  };
-
+  /***************************************************************
+   * STYLES
+   **************************************************************/
   const styles = StyleSheet.create({
     footnote: {
       margin: 25,
@@ -83,7 +53,7 @@ const Settings = ({navigation}) => {
   });
 
   return (
-    <View style={container.view}>
+    <Page>
       <SettingsGroup>
         <SettingsButton
           title="Personal Info"
@@ -119,18 +89,16 @@ const Settings = ({navigation}) => {
           title="Rate App"
           onPress={() => {
             const options = {
-              AppleAppID: '2193813192',
-              GooglePackageName: 'com.mywebsite.myapp',
-              OtherAndroidURL: 'http://www.randomappstore.com/app/47172391',
+              AppleAppID: '1494081818',
+              GooglePackageName: 'com.envelope.fitzcreative',
               preferredAndroidMarket: AndroidMarket.Google,
               preferInApp: true,
               openAppStoreIfInAppFails: true,
-              fallbackPlatformURL: 'http://www.mywebsite.com/myapp.html',
+              fallbackPlatformURL: 'https://envelope.app/',
             };
-            Rate.rate(options, (success) => {
+            Rate.rate(options, success => {
               if (success) {
-                // this technically only tells us if the user successfully went to the Review Page. Whether they actually did anything, we do not know.
-                // this.setState({rated: true});
+                this.setState({rated: true});
               }
             });
           }}
@@ -140,12 +108,12 @@ const Settings = ({navigation}) => {
       <SettingsGroup>
         <SettingsButton
           title="Privacy Policy"
-          onPress={() => openLink('privacy')}
+          onPress={() => browser('https://envelope.app/privacy')}
         />
         <SettingsButton
           border={false}
           title="Terms of Service"
-          onPress={() => openLink('terms')}
+          onPress={() => browser('https://envelope.app/terms')}
         />
       </SettingsGroup>
 
@@ -166,7 +134,7 @@ const Settings = ({navigation}) => {
           {getVersion()} ({getBuildNumber()})
         </Text>
       </View>
-    </View>
+    </Page>
   );
 };
 

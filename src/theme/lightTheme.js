@@ -24,6 +24,10 @@ export default {
     statusBarColor: '#e5e5eaff',
     barStyle: 'dark-content',
     backgroundColor: '#e5e5eaff',
-    tintColor: '#000',
+    tintColor: '#5C5F3E',
+  },
+  header: {
+    tintColor: '#5C5F3E',
+    backgroundColor: '#ffffff',
   },
 };
