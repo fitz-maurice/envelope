@@ -14,18 +14,11 @@ const SettingsGroup = ({children}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 20,
     marginVertical: 15,
     borderRadius: 10,
     paddingLeft: 20,
     overflow: 'hidden',
   },
-  button: {
-    fontSize: 16,
-    lineHeight: 20,
-    marginBottom: 15,
-  },
-  text: {},
 });
 
 export {SettingsGroup};

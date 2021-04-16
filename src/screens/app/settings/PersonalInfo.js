@@ -7,7 +7,13 @@ import DatePicker, {getFormatedDate} from 'react-native-modern-datepicker';
 // Envelope
 import {ThemeContext} from '../../../theme';
 import {AppContext} from '../../../services';
-import {Input, AuthTitle, Paragraph} from '../../../components';
+import {
+  Input,
+  AuthTitle,
+  Paragraph,
+  Page,
+  Container,
+} from '../../../components';
 
 const PersonalInfo = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -49,21 +55,20 @@ const PersonalInfo = ({navigation}) => {
   const styles = {
     view: {
       flex: 1,
+      padding: 15,
       backgroundColor: theme.backgroundColor,
     },
     text: {
       fontSize: 30,
       color: theme.bodyTextColor,
     },
-    inputContainer: {
-      padding: 20,
-    },
   };
 
   return (
-    <View style={styles.view}>
+    <Page>
       <StatusBar barStyle={theme.appbar.barStyle} />
-      <View style={styles.inputContainer}>
+      {/* <Container></Container> */}
+      <View style={styles.view}>
         <AuthTitle text="A Few Details" />
         <Paragraph text="Just a few thinks so we can better customize Evnelope for you." />
         <Input value={fullname} onChangeText={setFullname} />
@@ -98,7 +103,7 @@ const PersonalInfo = ({navigation}) => {
           }}
         />
       </Modal>
-    </View>
+    </Page>
   );
 };
 

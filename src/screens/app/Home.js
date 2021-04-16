@@ -1,19 +1,18 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Image, View, StatusBar, StyleSheet} from 'react-native';
+import {Image, View, StatusBar, StyleSheet, Dimensions} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {FlatGrid} from 'react-native-super-grid';
-import {Dimensions} from 'react-native';
-import {HeaderCamera} from '../../components';
 
-import {AppContext} from '../../services';
 import {ThemeContext} from '../../theme';
+import {AppContext} from '../../services';
+import {HeaderCamera, PageTitle} from '../../components';
 
 const Home = ({navigation}) => {
   const context = useContext(AppContext);
+  const {theme} = useContext(ThemeContext);
   const [cards, setCards] = useState([]);
   const imageWidth = Dimensions.get('window').width / 2;
-  const {theme} = useContext(ThemeContext);
 
   // Set header elements on focus
   useFocusEffect(
@@ -22,7 +21,7 @@ const Home = ({navigation}) => {
 
       if (stackNavigator) {
         stackNavigator.setOptions({
-          title: 'Envelope',
+          title: <PageTitle text="Envelope" />,
           headerLeft: () => <HeaderCamera navigation={navigation} />,
           headerRight: null,
         });

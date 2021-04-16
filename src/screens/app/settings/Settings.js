@@ -9,6 +9,8 @@ import {
   SettingsGroup,
   SettingsButton,
   DarkThemeOption,
+  Container,
+  PageTitle,
 } from '../../../components';
 import {browser} from '../../../utils';
 import {signOut} from '../../../services';
@@ -22,12 +24,11 @@ const Settings = ({navigation}) => {
     useCallback(() => {
       const stackNavigator = navigation.dangerouslyGetParent();
 
-      // ! try to move up to navigation file
       if (stackNavigator) {
         stackNavigator.setOptions({
           headerLeft: null,
           headerRight: null,
-          title: 'Settings',
+          title: <PageTitle text="Settings" />,
           headerStyle: {
             // backgroundColor: theme.appbar.backgroundColor,
           },
@@ -43,7 +44,7 @@ const Settings = ({navigation}) => {
    **************************************************************/
   const styles = StyleSheet.create({
     footnote: {
-      margin: 25,
+      margin: 15,
     },
     fnText: {
       lineHeight: 25,
@@ -54,86 +55,88 @@ const Settings = ({navigation}) => {
 
   return (
     <Page>
-      <SettingsGroup>
-        <SettingsButton
-          title="Personal Info"
-          onPress={() => navigation.navigate('PersonalInfo')}
-        />
-        <SettingsButton
-          border={false}
-          title="Advanced"
-          onPress={() => navigation.navigate('Advanced')}
-        />
-      </SettingsGroup>
+      <Container>
+        <SettingsGroup>
+          <SettingsButton
+            title="Personal Info"
+            onPress={() => navigation.navigate('PersonalInfo')}
+          />
+          <SettingsButton
+            border={false}
+            title="Advanced"
+            onPress={() => navigation.navigate('Advanced')}
+          />
+        </SettingsGroup>
 
-      <SettingsGroup>
-        <SettingsButton
-          border={false}
-          title="Premium"
-          onPress={() => navigation.navigate('Premium')}
-        />
-      </SettingsGroup>
+        <SettingsGroup>
+          <SettingsButton
+            border={false}
+            title="Premium"
+            onPress={() => navigation.navigate('Premium')}
+          />
+        </SettingsGroup>
 
-      <SettingsGroup>
-        <DarkThemeOption />
-        <SettingsButton
-          title="Email Support"
-          onPress={() =>
-            Linking.openURL(
-              'mailto:admin@envelope.app?subject=Envelope%20Support%20Ticket',
-            )
-          }
-        />
-        <SettingsButton
-          border={false}
-          title="Rate App"
-          onPress={() => {
-            const options = {
-              AppleAppID: '1494081818',
-              GooglePackageName: 'com.envelope.fitzcreative',
-              preferredAndroidMarket: AndroidMarket.Google,
-              preferInApp: true,
-              openAppStoreIfInAppFails: true,
-              fallbackPlatformURL: 'https://envelope.app/',
-            };
-            Rate.rate(options, success => {
-              if (success) {
-                this.setState({rated: true});
-              }
-            });
-          }}
-        />
-      </SettingsGroup>
+        <SettingsGroup>
+          <DarkThemeOption />
+          <SettingsButton
+            title="Email Support"
+            onPress={() =>
+              Linking.openURL(
+                'mailto:admin@envelope.app?subject=Envelope%20Support%20Ticket',
+              )
+            }
+          />
+          <SettingsButton
+            border={false}
+            title="Rate App"
+            onPress={() => {
+              const options = {
+                AppleAppID: '1494081818',
+                GooglePackageName: 'com.envelope.fitzcreative',
+                preferredAndroidMarket: AndroidMarket.Google,
+                preferInApp: true,
+                openAppStoreIfInAppFails: true,
+                fallbackPlatformURL: 'https://envelope.app/',
+              };
+              Rate.rate(options, success => {
+                if (success) {
+                  this.setState({rated: true});
+                }
+              });
+            }}
+          />
+        </SettingsGroup>
 
-      <SettingsGroup>
-        <SettingsButton
-          title="Privacy Policy"
-          onPress={() => browser('https://envelope.app/privacy')}
-        />
-        <SettingsButton
-          border={false}
-          title="Terms of Service"
-          onPress={() => browser('https://envelope.app/terms')}
-        />
-      </SettingsGroup>
+        <SettingsGroup>
+          <SettingsButton
+            title="Privacy Policy"
+            onPress={() => browser('https://envelope.app/privacy')}
+          />
+          <SettingsButton
+            border={false}
+            title="Terms of Service"
+            onPress={() => browser('https://envelope.app/terms')}
+          />
+        </SettingsGroup>
 
-      <SettingsGroup>
-        <SettingsButton
-          logOut={true}
-          border={false}
-          title="Log Out"
-          onPress={() => signOut()}
-        />
-      </SettingsGroup>
+        <SettingsGroup>
+          <SettingsButton
+            logOut={true}
+            border={false}
+            title="Log Out"
+            onPress={() => signOut()}
+          />
+        </SettingsGroup>
 
-      <View style={styles.footnote}>
-        <Text style={styles.fnText}>
-          Envelope App {'\u00A9'} {new Date().getFullYear()}
-        </Text>
-        <Text style={styles.fnText}>
-          {getVersion()} ({getBuildNumber()})
-        </Text>
-      </View>
+        <View style={styles.footnote}>
+          <Text style={styles.fnText}>
+            Envelope App {'\u00A9'} {new Date().getFullYear()}
+          </Text>
+          <Text style={styles.fnText}>
+            {getVersion()} ({getBuildNumber()})
+          </Text>
+        </View>
+      </Container>
     </Page>
   );
 };

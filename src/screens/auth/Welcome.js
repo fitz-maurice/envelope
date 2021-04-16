@@ -107,7 +107,7 @@ const Welcome = ({navigation}) => {
           <Input.Password onChangeText={setPassword} />
           <Button onPress={() => _signIn(email, password)} title="Sign in" />
           <Button.Clear
-            onPress={() => navigation.navigate('ForgotPassword')}
+            onPress={() => navigation.navigate('Reset')}
             title="Forgot password?"
           />
         </View>
@@ -118,7 +118,7 @@ const Welcome = ({navigation}) => {
           {Platform.OS === 'ios' && <LoginAppleButton />}
           <LoginGoogleButton />
           <Button.Clear
-            onPress={() => navigation.navigate('SignUp')}
+            onPress={() => navigation.navigate('Register')}
             title="Don't have an account? Sign up"
           />
         </View>

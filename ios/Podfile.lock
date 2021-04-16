@@ -554,13 +554,13 @@ PODS:
     - React-jsi (= 0.64.0)
     - React-perflogger (= 0.64.0)
   - React-jsinspector (0.64.0)
-  - react-native-camera (3.43.4):
+  - react-native-camera (3.43.5):
     - React-Core
-    - react-native-camera/RCT (= 3.43.4)
-    - react-native-camera/RN (= 3.43.4)
-  - react-native-camera/RCT (3.43.4):
+    - react-native-camera/RCT (= 3.43.5)
+    - react-native-camera/RN (= 3.43.5)
+  - react-native-camera/RCT (3.43.5):
     - React-Core
-  - react-native-camera/RN (3.43.4):
+  - react-native-camera/RN (3.43.5):
     - React-Core
   - react-native-cameraroll (4.0.4):
     - React-Core
@@ -642,7 +642,7 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNDeviceInfo (8.0.8):
+  - RNDeviceInfo (8.1.0):
     - React-Core
   - RNFBApp (11.2.0):
     - Firebase/CoreOnly (= 7.9.0)
@@ -693,7 +693,7 @@ PODS:
     - React-RCTVibration
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.1.0):
+  - RNScreens (3.1.1):
     - React-Core
   - RNVectorIcons (8.1.0):
     - React-Core
@@ -929,7 +929,7 @@ SPEC CHECKSUMS:
   React-jsi: 74341196d9547cbcbcfa4b3bbbf03af56431d5a1
   React-jsiexecutor: 06a9c77b56902ae7ffcdd7a4905f664adc5d237b
   React-jsinspector: 0ae35a37b20d5e031eb020a69cc5afdbd6406301
-  react-native-camera: eac02aced80238b4d4b7f982de205829bfe4690f
+  react-native-camera: 04a9a85b63d169094db5fd13a0c786101238e925
   react-native-cameraroll: 88f4e62d9ecd0e1f253abe4f685474f2ea14bfa2
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
@@ -950,7 +950,7 @@ SPEC CHECKSUMS:
   RNAppleAuthentication: f4cc93d710f1337f66550d04d84bf47553bc0eae
   RNCAsyncStorage: 9b7605e899f9acb2fba33e87952c529731265453
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNDeviceInfo: 41a8c8a41ae0e70d85cbe652cd5318150cb2cc40
+  RNDeviceInfo: 677a08eaafcfac4e85d2d2aab68a3708ff261c04
   RNFBApp: d9ab9f2e63c70a9974294bb44c749b728cd4028f
   RNFBAuth: 73ef569faa4618624313fbc969dfaba66bb6d0ed
   RNFBFirestore: 49898b75f0684b56f77b7464eb46c539b015a54c
@@ -959,7 +959,7 @@ SPEC CHECKSUMS:
   RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
   RNRate: 15b861025a7821730761fce7f44561ce7e0b2de0
   RNReanimated: b8c8004b43446e3c2709fe64b2b41072f87428ad
-  RNScreens: 3ba2198ca3179f77f6158425fc31ba3c90a0d49f
+  RNScreens: bd1523c3bde7069b8e958e5a16e1fc7722ad0bdd
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf
 

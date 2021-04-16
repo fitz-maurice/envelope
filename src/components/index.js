@@ -10,6 +10,7 @@ export * from './LoginGoogleButton';
 export * from './HeaderCamera';
 export * from './HeaderNext';
 
+export * from './PageTitle';
 export * from './AuthTitle';
 export * from './Paragraph';
 

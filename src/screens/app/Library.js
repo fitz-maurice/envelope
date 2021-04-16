@@ -12,7 +12,7 @@ import {
 import CameraRoll from '@react-native-community/cameraroll';
 import {useFocusEffect} from '@react-navigation/native';
 
-import {HeaderCamera, HeaderNext} from '../../components';
+import {HeaderCamera, HeaderNext, PageTitle} from '../../components';
 import {ThemeContext} from '../../theme';
 
 const Library = ({navigation}) => {
@@ -28,7 +28,7 @@ const Library = ({navigation}) => {
 
       if (stackNavigator) {
         stackNavigator.setOptions({
-          title: 'Library',
+          title: <PageTitle text="Library" />,
           headerLeft: () => <HeaderCamera navigation={navigation} />,
           headerRight: () => <HeaderNext navigation={navigation} />,
         });
@@ -56,7 +56,7 @@ const Library = ({navigation}) => {
     CameraRoll.getPhotos({
       first: 20,
       assetType: 'Photos',
-    }).then((r) => {
+    }).then(r => {
       let library = r.edges;
       let first = library.shift();
       setPhoto(first);

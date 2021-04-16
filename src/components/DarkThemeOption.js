@@ -9,7 +9,8 @@ const DarkThemeOption = () => {
 
   const styles = StyleSheet.create({
     container: {
-      padding: 10,
+      paddingVertical: 8,
+      paddingHorizontal: 10,
       paddingLeft: 0,
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -21,7 +22,7 @@ const DarkThemeOption = () => {
     },
     border: {
       borderBottomWidth: 1,
-      borderBottomColor: 'black',
+      borderBottomColor: 'gray',
     },
   });
 

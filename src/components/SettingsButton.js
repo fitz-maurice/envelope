@@ -9,7 +9,7 @@ const SettingsButton = ({border = true, title, onPress, logOut = false}) => {
 
   const styles = StyleSheet.create({
     container: {
-      paddingVertical: 10,
+      paddingVertical: 11,
       paddingLeft: 0,
       paddingRight: 5,
       flexDirection: 'row',
@@ -22,7 +22,7 @@ const SettingsButton = ({border = true, title, onPress, logOut = false}) => {
     },
     border: {
       borderBottomWidth: 1,
-      borderBottomColor: 'black',
+      borderBottomColor: 'gray',
     },
   });
 

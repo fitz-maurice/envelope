@@ -23,7 +23,7 @@ const SignedOutNavigator = ({navigation}) => {
         options={{headerShown: false}}
       />
       <Auth.Screen name="Register" component={Register} />
-      <Auth.Screen name="PasswordReset" component={PasswordReset} />
+      <Auth.Screen name="Reset" component={PasswordReset} />
     </Auth.Navigator>
   );
 };

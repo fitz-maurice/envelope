@@ -31,12 +31,6 @@ const Register = () => {
    * STYLES
    **************************************************************/
   const styles = StyleSheet.create({
-    textInputView: {
-      padding: 8,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
     textInputButton: {
       flexShrink: 1,
       height: 50,
