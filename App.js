@@ -21,7 +21,7 @@ import {AppContext, AppProvider} from './src/services';
 import {SignedInNavigator, SignedOutNavigator} from './src/navigators';
 
 // Theme
-import {ThemeProvider, ThemeContext, lightTheme, darkTheme} from './src/theme';
+import {ThemeProvider, lightTheme, darkTheme} from './src/theme';
 
 export default function App() {
   const colorScheme = useColorScheme();
@@ -48,22 +48,18 @@ export default function App() {
 
   return (
     <ThemeProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
-      <ThemeContext.Consumer>
-        {({theme}) => (
-          <AppProvider>
-            <AppContext.Consumer>
-              {({loading, user}) => (
-                <>
-                  {loading && <Loader />}
-                  <NavigationContainer>
-                    {user ? <SignedInNavigator /> : <SignedOutNavigator />}
-                  </NavigationContainer>
-                </>
-              )}
-            </AppContext.Consumer>
-          </AppProvider>
-        )}
-      </ThemeContext.Consumer>
+      <AppProvider>
+        <AppContext.Consumer>
+          {({loading, user}) => (
+            <>
+              {loading && <Loader />}
+              <NavigationContainer>
+                {user ? <SignedInNavigator /> : <SignedOutNavigator />}
+              </NavigationContainer>
+            </>
+          )}
+        </AppContext.Consumer>
+      </AppProvider>
     </ThemeProvider>
   );
 }
