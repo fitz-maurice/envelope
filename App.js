@@ -28,7 +28,7 @@ export default function App() {
   const [initializing, setInitializing] = useState(true);
 
   // Handle user state changes
-  const onAuthStateChanged = u => {
+  const onAuthStateChanged = () => {
     if (initializing) {
       setInitializing(false);
     }

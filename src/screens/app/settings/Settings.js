@@ -14,10 +14,11 @@ import {
   HeaderTitle,
 } from '../../../components';
 import {browser} from '../../../utils';
-import {signOut} from '../../../services';
 import {ThemeContext} from '../../../theme';
+import {signOut, AppContext} from '../../../services';
 
 const Settings = ({navigation}) => {
+  const context = useContext(AppContext);
   const {theme} = useContext(ThemeContext);
 
   useFocusEffect(
@@ -32,6 +33,17 @@ const Settings = ({navigation}) => {
       }
     }, [navigation]),
   );
+
+  /**
+   * _signOut
+   */
+  const _signOut = () => {
+    context.setLoading(true);
+    signOut().then(user => {
+      context.setLoading(false);
+      context.setUser(user);
+    });
+  };
 
   /***************************************************************
    * STYLES
@@ -118,7 +130,7 @@ const Settings = ({navigation}) => {
             logOut={true}
             border={false}
             title="Log Out"
-            onPress={() => signOut()}
+            onPress={() => _signOut()}
           />
         </SettingsGroup>
 

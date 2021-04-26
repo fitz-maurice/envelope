@@ -16,21 +16,22 @@ const AppProvider = ({children}) => {
     <AppContext.Provider
       value={{
         // Wait...
-        wait: (timeout) => {
-          return new Promise((resolve) => {
+        wait: timeout => {
+          return new Promise(resolve => {
             setTimeout(resolve, timeout);
           });
         },
         // User
         user: user,
         userRestored: userRestored,
-        setUser: (_user) => _setUser(_user),
+        setUser: _user => _setUser(_user),
+        clearUser: () => _setUser(null),
         // Loading
         loading: loading,
-        setLoading: (_loading) => _setLoading(_loading),
+        setLoading: _loading => _setLoading(_loading),
         // Photos to upload
         photosToUpload: photosToUpload,
-        setPhotosToUpload: (_photosToUpload) =>
+        setPhotosToUpload: _photosToUpload =>
           _setPhotosToUpload(_photosToUpload),
       }}>
       {children}

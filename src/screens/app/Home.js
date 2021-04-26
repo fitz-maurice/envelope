@@ -38,13 +38,11 @@ const Home = ({navigation}) => {
     if (context.userRestored) {
       context.setLoading(true);
       const uid = context.user.user.uid;
-      console.log('Hi');
       const subscriber = firestore()
         .collection(`${uid}/account/cards`)
         .onSnapshot(querySnapshot => {
           const c = [];
           if (querySnapshot) {
-            console.log('Hi m');
             querySnapshot.forEach(documentSnapshot => {
               c.push({
                 ...documentSnapshot.data(),
