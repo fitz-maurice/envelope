@@ -4,9 +4,10 @@ import {useFocusEffect} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {FlatGrid} from 'react-native-super-grid';
 
+// Envelope
 import {ThemeContext} from '../../theme';
 import {AppContext} from '../../services';
-import {HeaderCamera, PageTitle} from '../../components';
+import {HeaderCamera, HeaderTitle} from '../../components';
 
 const Home = ({navigation}) => {
   const context = useContext(AppContext);
@@ -21,7 +22,7 @@ const Home = ({navigation}) => {
 
       if (stackNavigator) {
         stackNavigator.setOptions({
-          title: <PageTitle text="Envelope" />,
+          title: <HeaderTitle text="Envelope" />,
           headerLeft: () => <HeaderCamera navigation={navigation} />,
           headerRight: null,
         });

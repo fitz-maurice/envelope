@@ -3,7 +3,7 @@ import {Text, View, StatusBar} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 
 import {ThemeContext} from '../../../theme';
-import {AuthTitle, Container, Page} from '../../../components';
+import {PageTitle, Container, Page} from '../../../components';
 
 const Premium = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -23,7 +23,7 @@ const Premium = ({navigation}) => {
     <Page>
       <StatusBar barStyle={theme.appbar.barStyle} />
       <Container>
-        <AuthTitle text="Get More from Envelope" />
+        <PageTitle text="Get More from Envelope" />
       </Container>
     </Page>
   );

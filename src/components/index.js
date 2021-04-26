@@ -1,20 +1,23 @@
-export * from './Page';
-export * from './Container';
-export * from './Button';
-export * from './Input';
-export * from './Loader';
+// Layout
+export * from './Layout/Loader';
+export * from './Layout/Page';
+export * from './Layout/Container';
+export * from './Layout/HeaderTitle';
+export * from './Layout/PageTitle';
+export * from './Layout/Paragraph';
 
-export * from './LoginAppleButton';
-export * from './LoginGoogleButton';
+// Forms
+export * from './Forms/Input';
+export * from './Forms/Button';
+export * from './Forms/LoginAppleButton';
+export * from './Forms/LoginGoogleButton';
 
-export * from './HeaderCamera';
-export * from './HeaderNext';
+// Settings
+export * from './Settings/DarkToggle';
+export * from './Settings/DarkThemeOption';
+export * from './Settings/SettingsGroup';
+export * from './Settings/SettingsButton';
 
-export * from './PageTitle';
-export * from './AuthTitle';
-export * from './Paragraph';
-
-export * from './SettingsGroup';
-export * from './SettingsButton';
-export * from './DarkThemeOption';
-export * from './DarkToggle';
+// Header
+export * from './Header/HeaderNext';
+export * from './Header/HeaderCamera';

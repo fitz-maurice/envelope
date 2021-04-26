@@ -9,11 +9,11 @@ const HeaderNext = ({navigation}) => {
   return (
     <HeaderButtons
       left={true}
-      HeaderButtonComponent={(props) => (
+      HeaderButtonComponent={props => (
         <Pressable
           style={styles.margin}
           onPress={() => navigation.navigate('Upload')}>
-          <Text style={{color: theme.bodyTextColor}}>Next</Text>
+          <Text style={{color: theme.green}}>Next</Text>
         </Pressable>
       )}>
       <Item

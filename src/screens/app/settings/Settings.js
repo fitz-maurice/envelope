@@ -4,13 +4,14 @@ import {useFocusEffect} from '@react-navigation/native';
 import Rate, {AndroidMarket} from 'react-native-rate';
 import {getBuildNumber, getVersion} from 'react-native-device-info';
 
+// Envelope
 import {
   Page,
   SettingsGroup,
   SettingsButton,
   DarkThemeOption,
   Container,
-  PageTitle,
+  HeaderTitle,
 } from '../../../components';
 import {browser} from '../../../utils';
 import {signOut} from '../../../services';
@@ -28,7 +29,7 @@ const Settings = ({navigation}) => {
         stackNavigator.setOptions({
           headerLeft: null,
           headerRight: null,
-          title: <PageTitle text="Settings" />,
+          title: <HeaderTitle text="Settings" />,
           headerStyle: {
             // backgroundColor: theme.appbar.backgroundColor,
           },

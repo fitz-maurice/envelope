@@ -6,7 +6,9 @@ const PageTitle = ({text}) => <Text style={styles.title}>{text}</Text>;
 const styles = StyleSheet.create({
   title: {
     fontFamily: 'Castoro-Regular',
-    fontSize: 24,
+    fontSize: 32,
+    lineHeight: 32,
+    marginTop: 20,
   },
 });
 

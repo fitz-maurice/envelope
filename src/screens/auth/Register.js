@@ -1,10 +1,11 @@
 import React, {useState, useContext, createRef} from 'react';
 import {
-  StyleSheet,
+  View,
+  Text,
   Alert,
   StatusBar,
-  Text,
   Pressable,
+  StyleSheet,
   useWindowDimensions,
 } from 'react-native';
 import {
@@ -16,7 +17,7 @@ import {browser} from '../../utils';
 import {errors} from '../../config';
 import {ThemeContext} from '../../theme';
 import {signUp, AppContext} from '../../services';
-import {Page, Container, AuthTitle, Paragraph, Input} from '../../components';
+import {Page, Container, PageTitle, Paragraph, Input} from '../../components';
 
 const Register = () => {
   const {theme} = useContext(ThemeContext);
@@ -31,6 +32,9 @@ const Register = () => {
    * STYLES
    **************************************************************/
   const styles = StyleSheet.create({
+    inputContainer: {
+      marginTop: 30,
+    },
     textInputButton: {
       flexShrink: 1,
       height: 50,
@@ -75,16 +79,18 @@ const Register = () => {
       <StatusBar barStyle="dark-content" />
       <Page>
         <Container>
-          <AuthTitle text="Sign up for Envelope" />
+          <PageTitle text="Sign up for Envelope" />
 
           <Paragraph text="To create an account enter your email and a strong password." />
 
-          <Input.Email
-            ref={emailRef}
-            autoFocus={true}
-            onChangeText={setEmail}
-          />
-          <Input.Password ref={passwordRef} onChangeText={setPassword} />
+          <View style={styles.inputContainer}>
+            <Input.Email
+              ref={emailRef}
+              autoFocus={true}
+              onChangeText={setEmail}
+            />
+            <Input.Password ref={passwordRef} onChangeText={setPassword} />
+          </View>
 
           <Text style={styles.privacyContainer}>
             By signing up agree to Envelope's{' '}

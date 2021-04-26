@@ -9,7 +9,7 @@ import {ThemeContext} from '../../../theme';
 import {AppContext} from '../../../services';
 import {
   Input,
-  AuthTitle,
+  PageTitle,
   Paragraph,
   Page,
   Container,
@@ -69,7 +69,7 @@ const PersonalInfo = ({navigation}) => {
       <StatusBar barStyle={theme.appbar.barStyle} />
       {/* <Container></Container> */}
       <View style={styles.view}>
-        <AuthTitle text="A Few Details" />
+        <PageTitle text="A Few Details" />
         <Paragraph text="Just a few thinks so we can better customize Evnelope for you." />
         <Input value={fullname} onChangeText={setFullname} />
         {/* <Pressable onPress={() => setModal(true)}>

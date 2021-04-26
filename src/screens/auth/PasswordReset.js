@@ -1,10 +1,11 @@
 import React, {useState, useContext} from 'react';
 import {
+  Text,
+  View,
   Alert,
+  Pressable,
   StatusBar,
   StyleSheet,
-  Pressable,
-  Text,
   useWindowDimensions,
 } from 'react-native';
 import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
@@ -12,7 +13,7 @@ import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
 import {ThemeContext} from '../../theme';
 import {errors} from '../../config';
 import {resetPassword, AppContext} from '../../services';
-import {Page, Container, Input, AuthTitle, Paragraph} from '../../components';
+import {Page, Container, Input, PageTitle, Paragraph} from '../../components';
 
 const PasswordReset = () => {
   const {theme} = useContext(ThemeContext);
@@ -20,6 +21,9 @@ const PasswordReset = () => {
   const [email, setEmail] = useState('');
   const fs = 17 * useWindowDimensions().fontScale;
   const styles = StyleSheet.create({
+    inputContainer: {
+      marginTop: 30,
+    },
     textInputView: {
       padding: 8,
       flexDirection: 'row',
@@ -74,9 +78,11 @@ const PasswordReset = () => {
       <StatusBar barStyle="dark-content" />
       <Page style={styles.container}>
         <Container>
-          <AuthTitle text="Reset your password" />
+          <PageTitle text="Reset your password" />
           <Paragraph text="Enter your Envelope email and we'll send you an email to follow." />
-          <Input.Email autoFocus={true} onChangeText={setEmail} />
+          <View style={styles.inputContainer}>
+            <Input.Email autoFocus={true} onChangeText={setEmail} />
+          </View>
         </Container>
       </Page>
       <KeyboardAccessoryView

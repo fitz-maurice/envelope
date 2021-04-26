@@ -4,9 +4,9 @@ import {appleAuth} from '@invertase/react-native-apple-authentication';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-// Utils
-import {font} from '../config';
-import {ThemeContext} from '../theme';
+// Envelope
+import {font} from '../../config';
+import {ThemeContext} from '../../theme';
 
 const LoginAppleButton = () => {
   const {theme} = useContext(ThemeContext);

@@ -4,9 +4,9 @@ import {GoogleSignin} from '@react-native-community/google-signin';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-// Utils
-import {font} from '../config';
-import {ThemeContext} from '../theme';
+// Envelope
+import {font} from '../../config';
+import {ThemeContext} from '../../theme';
 
 const LoginGoogleButton = () => {
   const {theme} = useContext(ThemeContext);

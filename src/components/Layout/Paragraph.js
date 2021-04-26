@@ -6,8 +6,8 @@ const Paragraph = ({text}) => <Text style={styles.text}>{text}</Text>;
 const styles = StyleSheet.create({
   text: {
     fontSize: 16,
-    lineHeight: 20,
-    marginBottom: 15,
+    lineHeight: 22,
+    marginTop: 30,
   },
 });
 

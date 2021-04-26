@@ -14,11 +14,11 @@ const HeaderCamera = ({navigation}) => {
   return (
     <HeaderButtons
       left={true}
-      HeaderButtonComponent={(props) => (
+      HeaderButtonComponent={props => (
         <HeaderButton
           IconComponent={() => (
             <View style={styles.margin}>
-              <Icon size={24} name="camera" color={theme.bodyTextColor} />
+              <Icon size={24} name="camera" color={theme.green} />
             </View>
           )}
           {...props}
