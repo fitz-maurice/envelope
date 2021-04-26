@@ -4,7 +4,7 @@ import {useFocusEffect} from '@react-navigation/native';
 
 // Envelope
 import {ThemeContext} from '../../theme';
-import {Page, Container, HeaderTitle} from '../../components';
+import {Page, Container} from '../../components';
 
 const Details = ({route, navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -13,11 +13,10 @@ const Details = ({route, navigation}) => {
 
   useFocusEffect(
     useCallback(() => {
-      // Set header elements on focus
       const stackNavigator = navigation.dangerouslyGetParent();
       if (stackNavigator) {
         stackNavigator.setOptions({
-          title: <HeaderTitle text="Card Details" />,
+          title: 'Card Details',
         });
       }
     }, [navigation]),

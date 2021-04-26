@@ -1,7 +1,7 @@
 import React, {useCallback, useContext} from 'react';
 import {View, Linking, StyleSheet, Text} from 'react-native';
-import {useFocusEffect} from '@react-navigation/native';
 import Rate, {AndroidMarket} from 'react-native-rate';
+import {useFocusEffect} from '@react-navigation/native';
 import {getBuildNumber, getVersion} from 'react-native-device-info';
 
 // Envelope
@@ -22,7 +22,6 @@ const Settings = ({navigation}) => {
 
   useFocusEffect(
     useCallback(() => {
-      // Set header elements on focus
       const stackNavigator = navigation.dangerouslyGetParent();
       if (stackNavigator) {
         stackNavigator.setOptions({

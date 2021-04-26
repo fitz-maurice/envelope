@@ -27,9 +27,6 @@ const Library = ({navigation}) => {
 
   useFocusEffect(
     useCallback(() => {
-      _getPictures();
-
-      // Set header elements on focus
       const stackNavigator = navigation.dangerouslyGetParent();
       if (stackNavigator) {
         stackNavigator.setOptions({
@@ -40,7 +37,21 @@ const Library = ({navigation}) => {
           ),
         });
       }
-    }, [_getPictures, navigation, selectedPhotos]),
+
+      if (Platform.OS === 'android' && !_hasAndroidPermission()) {
+        return;
+      }
+
+      CameraRoll.getPhotos({
+        first: 20,
+        assetType: 'Photos',
+      }).then(r => {
+        let library = r.edges;
+        let first = library.shift();
+        setPhoto(first);
+        setPhotos(library);
+      });
+    }, [navigation, selectedPhotos]),
   );
 
   /**
@@ -58,27 +69,6 @@ const Library = ({navigation}) => {
 
     const status = await PermissionsAndroid.request(permission);
     return status === 'granted';
-  };
-
-  /**
-   * _getPictures
-   *
-   * Get pictures from the Camera Roll of the device
-   */
-  const _getPictures = async () => {
-    if (Platform.OS === 'android' && !(await _hasAndroidPermission())) {
-      return;
-    }
-
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'Photos',
-    }).then(r => {
-      let library = r.edges;
-      let first = library.shift();
-      setPhoto(first);
-      setPhotos(library);
-    });
   };
 
   /***************************************************************

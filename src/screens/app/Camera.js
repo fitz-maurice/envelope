@@ -1,21 +1,9 @@
 import React from 'react';
-import {Text, Pressable, View, StyleSheet} from 'react-native';
+import {Text, Pressable, StyleSheet} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
 // Envelope
-import {Page} from '../../components';
-
-const PendingView = () => (
-  <View
-    style={{
-      flex: 1,
-      backgroundColor: 'black',
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}>
-    <Text>Waiting</Text>
-  </View>
-);
+import {Page, Loader} from '../../components';
 
 const Camera = ({navigation}) => {
   /**
@@ -76,14 +64,14 @@ const Camera = ({navigation}) => {
         }}>
         {({camera, status}) => {
           if (status !== 'READY') {
-            return <PendingView />;
+            return <Loader />;
           }
 
           return (
             <Pressable
               onPress={() => takePicture(camera)}
               style={styles.capture}>
-              <Text style={{fontSize: 14}}> SNAP </Text>
+              <Text>Make me an icon</Text>
             </Pressable>
           );
         }}

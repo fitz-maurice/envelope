@@ -1,12 +1,16 @@
-import React, {useCallback, useState, useContext, useEffect} from 'react';
-import {View, StatusBar, Modal, Pressable, Text} from 'react-native';
-import {useFocusEffect} from '@react-navigation/native';
+import React, {useState, useContext, useEffect} from 'react';
+import {
+  View,
+  StatusBar,
+  Modal,
+  StyleSheet,
+  Pressable,
+  Text,
+} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import DatePicker, {getFormatedDate} from 'react-native-modern-datepicker';
 
 // Envelope
-import {ThemeContext} from '../../../theme';
-import {AppContext} from '../../../services';
 import {
   Input,
   PageTitle,
@@ -14,6 +18,8 @@ import {
   Page,
   Container,
 } from '../../../components';
+import {ThemeContext} from '../../../theme';
+import {AppContext} from '../../../services';
 
 const PersonalInfo = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -21,15 +27,6 @@ const PersonalInfo = ({navigation}) => {
   const [fullname, setFullname] = useState('');
   const [birthday, setBirthday] = useState('');
   const [modal, setModal] = useState(true);
-
-  useFocusEffect(
-    useCallback(() => {
-      navigation.setOptions({
-        title: 'Personal Info',
-        headerRight: null,
-      });
-    }, [navigation]),
-  );
 
   useEffect(() => {
     if (context.userRestored) {
@@ -55,12 +52,12 @@ const PersonalInfo = ({navigation}) => {
   /***************************************************************
    * STYLES
    **************************************************************/
-  const styles = {
+  const styles = StyleSheet.create({
     text: {
       fontSize: 30,
       color: theme.bodyTextColor,
     },
-  };
+  });
 
   return (
     <Page>

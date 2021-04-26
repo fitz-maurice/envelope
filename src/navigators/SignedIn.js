@@ -1,11 +1,10 @@
 import React, {useContext} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
+// Envelope
 const SignedIn = createStackNavigator();
 import {ThemeContext} from '../theme';
 import {TabsNavigator} from '../navigators';
-
-// Screens
 import {
   // App
   Camera,

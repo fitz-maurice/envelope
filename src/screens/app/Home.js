@@ -23,7 +23,6 @@ const Home = ({navigation}) => {
 
   useFocusEffect(
     useCallback(() => {
-      // Set header elements on focus
       const stackNavigator = navigation.dangerouslyGetParent();
       if (stackNavigator) {
         stackNavigator.setOptions({

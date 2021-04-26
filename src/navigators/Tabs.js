@@ -14,7 +14,6 @@ const TabsNavigator = ({navigation}) => {
 
   useFocusEffect(
     useCallback(() => {
-      // On focus, insert camera icon
       navigation.setOptions({
         headerLeft: () => <HeaderCamera navigation={navigation} />,
       });
