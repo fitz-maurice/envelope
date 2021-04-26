@@ -2,6 +2,9 @@ import React from 'react';
 import {Text, Pressable, View, StyleSheet} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
+// Envelope
+import {Page} from '../../components';
+
 const PendingView = () => (
   <View
     style={{
@@ -15,15 +18,46 @@ const PendingView = () => (
 );
 
 const Camera = ({navigation}) => {
+  /**
+   * Take a photo and return Base64 string of it
+   *
+   * @param {RNCamera} camera The React Native Camera
+   */
   const takePicture = async function (camera) {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
-    /* eslint-disable-next-line */
     console.log(data);
   };
 
+  /***************************************************************
+   * STYLES
+   **************************************************************/
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      flexDirection: 'column',
+      backgroundColor: 'black',
+    },
+    preview: {
+      height: '100%',
+      width: '100%',
+    },
+    capture: {
+      position: 'absolute',
+      bottom: 100,
+      zIndex: 100,
+      flex: 0,
+      backgroundColor: '#fff',
+      borderRadius: 5,
+      padding: 15,
+      paddingHorizontal: 20,
+      alignSelf: 'center',
+      margin: 20,
+    },
+  });
+
   return (
-    <View style={{flex: 1}}>
+    <Page>
       <RNCamera
         style={styles.preview}
         type={RNCamera.Constants.Type.back}
@@ -54,32 +88,8 @@ const Camera = ({navigation}) => {
           );
         }}
       </RNCamera>
-    </View>
+    </Page>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'black',
-  },
-  preview: {
-    height: '100%',
-    width: '100%',
-  },
-  capture: {
-    position: 'absolute',
-    bottom: 100,
-    zIndex: 100,
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20,
-  },
-});
 
 export {Camera};

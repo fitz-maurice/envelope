@@ -19,6 +19,10 @@ const Input = forwardRef(
     ref,
   ) => {
     const {theme} = useContext(ThemeContext);
+
+    /***************************************************************
+     * STYLES
+     **************************************************************/
     const styles = StyleSheet.create({
       input: {
         ...font.body,

@@ -29,14 +29,9 @@ const Settings = ({navigation}) => {
           headerLeft: null,
           headerRight: null,
           title: <HeaderTitle text="Settings" />,
-          headerStyle: {
-            // backgroundColor: theme.appbar.backgroundColor,
-          },
-          headerTintColor: theme.green,
-          // headerTintColor: theme.appbar.tintColor,
         });
       }
-    }, [navigation, theme]),
+    }, [navigation]),
   );
 
   /***************************************************************

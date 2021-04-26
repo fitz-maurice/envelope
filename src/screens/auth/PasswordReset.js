@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {KeyboardAccessoryView} from 'react-native-keyboard-accessory';
 
+// Envelope
 import {ThemeContext} from '../../theme';
 import {errors} from '../../config';
 import {resetPassword, AppContext} from '../../services';
@@ -20,6 +21,10 @@ const PasswordReset = () => {
   const context = useContext(AppContext);
   const [email, setEmail] = useState('');
   const fs = 17 * useWindowDimensions().fontScale;
+
+  /***************************************************************
+   * STYLES
+   **************************************************************/
   const styles = StyleSheet.create({
     inputContainer: {
       marginTop: 30,
@@ -55,7 +60,7 @@ const PasswordReset = () => {
   /**
    * _resetPassword
    *
-   * @param _email {String} The user email
+   * @param {String} _email The user email
    */
   const _resetPassword = _email => {
     context.setLoading(true);

@@ -11,6 +11,7 @@ import {
   ImageBackground,
 } from 'react-native';
 
+// Envelope
 import {errors} from '../../config';
 import {ThemeContext} from '../../theme';
 import {signIn, AppContext} from '../../services';
@@ -27,8 +28,8 @@ const BACKGROUND = require('../../assets/background.png');
 const ENVELOPE_WHITE = require('../../assets/envelope_white.png');
 
 const Welcome = ({navigation}) => {
-  const {theme} = useContext(ThemeContext);
   const context = useContext(AppContext);
+  const {theme} = useContext(ThemeContext);
   const [email, setEmail] = useState('admin@envelope.app');
   const [password, setPassword] = useState('Envelope1989');
 
@@ -36,9 +37,7 @@ const Welcome = ({navigation}) => {
    * STYLES
    **************************************************************/
   const styles = StyleSheet.create({
-    imageBackground: {
-      flex: 1,
-    },
+    imageBackground: {flex: 1},
     verticalContainer: {
       flex: 1,
       margin: 15,
@@ -75,8 +74,8 @@ const Welcome = ({navigation}) => {
   /**
    * _signIn
    *
-   * @param _email {String} The user email
-   * @param _password {String} The user password
+   * @param {String} _email The user email
+   * @param {String} _password The user password
    */
   const _signIn = (_email, _password) => {
     context.setLoading(true);

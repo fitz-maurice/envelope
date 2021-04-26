@@ -13,6 +13,7 @@ import {
   KeyboardAccessoryNavigation,
 } from 'react-native-keyboard-accessory';
 
+// Envelope
 import {browser} from '../../utils';
 import {errors} from '../../config';
 import {ThemeContext} from '../../theme';
@@ -58,8 +59,8 @@ const Register = () => {
   /**
    * _signUp
    *
-   * @param _email {String} The user email
-   * @param _password {String} The user password
+   * @param {String} _email The user email
+   * @param {String} _password The user password
    */
   const _signUp = (_email, _password) => {
     context.setLoading(true);

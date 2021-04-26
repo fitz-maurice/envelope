@@ -67,6 +67,9 @@ const Home = ({navigation}) => {
     return null;
   }
 
+  /***************************************************************
+   * STYLES
+   **************************************************************/
   const styles = StyleSheet.create({
     gridView: {flex: 1},
     cardStyles: {

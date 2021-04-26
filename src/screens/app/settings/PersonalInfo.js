@@ -52,12 +52,10 @@ const PersonalInfo = ({navigation}) => {
     /* eslint-disable react-hooks/exhaustive-deps */
   }, [context.userRestored]);
 
+  /***************************************************************
+   * STYLES
+   **************************************************************/
   const styles = {
-    view: {
-      flex: 1,
-      padding: 15,
-      backgroundColor: theme.backgroundColor,
-    },
     text: {
       fontSize: 30,
       color: theme.bodyTextColor,
@@ -67,15 +65,14 @@ const PersonalInfo = ({navigation}) => {
   return (
     <Page>
       <StatusBar barStyle={theme.appbar.barStyle} />
-      {/* <Container></Container> */}
-      <View style={styles.view}>
+      <Container>
         <PageTitle text="A Few Details" />
         <Paragraph text="Just a few thinks so we can better customize Evnelope for you." />
         <Input value={fullname} onChangeText={setFullname} />
         {/* <Pressable onPress={() => setModal(true)}>
           <Text>{birthday}</Text>
         </Pressable> */}
-      </View>
+      </Container>
 
       <Modal
         animationType="slide"

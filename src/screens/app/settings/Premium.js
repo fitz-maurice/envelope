@@ -1,7 +1,8 @@
 import React, {useCallback, useContext} from 'react';
-import {Text, View, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 
+// Envelope
 import {ThemeContext} from '../../../theme';
 import {PageTitle, Container, Page} from '../../../components';
 
@@ -17,6 +18,9 @@ const Premium = ({navigation}) => {
     }, [navigation]),
   );
 
+  /***************************************************************
+   * STYLES
+   **************************************************************/
   // const styles = {};
 
   return (
