@@ -5,9 +5,8 @@ import {
   Platform,
   StatusBar,
   Pressable,
-  ScrollView,
+  StyleSheet,
   Dimensions,
-  SafeAreaView,
   PermissionsAndroid,
 } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
@@ -15,13 +14,16 @@ import {useFocusEffect} from '@react-navigation/native';
 
 // Envelope
 import {ThemeContext} from '../../theme';
-import {HeaderCamera, HeaderNext, HeaderTitle} from '../../components';
+import {Page, HeaderCamera, HeaderNext, HeaderTitle} from '../../components';
+import {FlatGrid} from 'react-native-super-grid';
 
 const Library = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
   const [photo, setPhoto] = useState(null);
   const [photos, setPhotos] = useState([]);
+  const [selectedPhotos] = useState([]);
   const firstImageSize = Dimensions.get('window').width;
+  const imageWidth = Dimensions.get('window').width / 2;
 
   useFocusEffect(
     useCallback(() => {
@@ -33,10 +35,12 @@ const Library = ({navigation}) => {
         stackNavigator.setOptions({
           title: <HeaderTitle text="Library" />,
           headerLeft: () => <HeaderCamera navigation={navigation} />,
-          headerRight: () => <HeaderNext navigation={navigation} />,
+          headerRight: () => (
+            <HeaderNext navigation={navigation} selected={selectedPhotos} />
+          ),
         });
       }
-    }, [_getPictures, navigation]),
+    }, [_getPictures, navigation, selectedPhotos]),
   );
 
   /**
@@ -77,14 +81,28 @@ const Library = ({navigation}) => {
     });
   };
 
+  const styles = StyleSheet.create({
+    gridView: {flex: 1},
+    cardStyles: {
+      width: '100%',
+      height: '100%',
+    },
+    itemContainer: {
+      padding: 1,
+      height: 150,
+      justifyContent: 'flex-end',
+      backgroundColor: theme.backgroundColor,
+    },
+  });
+
   return (
-    <SafeAreaView>
+    <Page>
       <StatusBar barStyle={theme.appbar.barStyle} animated={true} />
 
       {/* First hero image */}
       {photo && (
         <View>
-          <Pressable onPress={() => alert('Selected')}>
+          <Pressable onPress={() => selectedPhotos.push(photo.node.image.uri)}>
             <Image
               source={{uri: photo.node.image.uri}}
               style={{width: firstImageSize, height: firstImageSize}}
@@ -94,18 +112,23 @@ const Library = ({navigation}) => {
       )}
 
       {/* Everything else */}
-      <ScrollView>
-        {photos.map((p, i) => {
-          return (
+      <FlatGrid
+        spacing={0}
+        data={photos}
+        style={styles.gridView}
+        itemDimension={imageWidth}
+        renderItem={({item}) => (
+          <Pressable
+            style={styles.itemContainer}
+            onPress={() => selectedPhotos.push(item.node.image.uri)}>
             <Image
-              key={i}
-              style={{width: '100%', height: 100}}
-              source={{uri: p.node.image.uri}}
+              style={styles.cardStyles}
+              source={{uri: item.node.image.uri}}
             />
-          );
-        })}
-      </ScrollView>
-    </SafeAreaView>
+          </Pressable>
+        )}
+      />
+    </Page>
   );
 };
 

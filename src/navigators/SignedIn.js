@@ -10,6 +10,7 @@ import {
   // App
   Camera,
   Upload,
+  Details,
   // Settings
   Premium,
   Advanced,
@@ -33,6 +34,7 @@ const SignedInNavigator = ({navigation}) => {
       <SignedIn.Screen name="Advanced" component={Advanced} />
       <SignedIn.Screen name="Premium" component={Premium} />
       <SignedIn.Screen name="Upload" component={Upload} />
+      <SignedIn.Screen name="Details" component={Details} />
       <SignedIn.Screen name="PersonalInfo" component={PersonalInfo} />
     </SignedIn.Navigator>
   );

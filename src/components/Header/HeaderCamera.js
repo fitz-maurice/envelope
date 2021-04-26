@@ -27,7 +27,7 @@ const HeaderCamera = ({navigation}) => {
         />
       )}>
       <Item
-        color={theme.bodyTextColor}
+        color={theme.green}
         title="Take picture"
         iconName="camera"
         onPress={() => navigation.navigate('Camera')}

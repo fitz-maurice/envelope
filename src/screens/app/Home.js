@@ -1,5 +1,11 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Image, View, StatusBar, StyleSheet, Dimensions} from 'react-native';
+import {
+  Image,
+  StatusBar,
+  Pressable,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {FlatGrid} from 'react-native-super-grid';
@@ -79,19 +85,21 @@ const Home = ({navigation}) => {
     <Page>
       <StatusBar barStyle={theme.appbar.barStyle} animated={true} />
       <FlatGrid
-        itemDimension={imageWidth}
         spacing={0}
         data={cards}
         style={styles.gridView}
+        itemDimension={imageWidth}
         renderItem={({item}) => (
-          <View style={[styles.itemContainer]}>
+          <Pressable
+            style={styles.itemContainer}
+            onPress={() => navigation.navigate('Details', {item})}>
             <Image
               style={styles.cardStyles}
               source={{
                 uri: `data:image/png;base64,${item.images[0]}`,
               }}
             />
-          </View>
+          </Pressable>
         )}
       />
     </Page>

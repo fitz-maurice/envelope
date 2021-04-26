@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {useFocusEffect} from '@react-navigation/native';
 import {AnimatedTabBarNavigator} from 'react-native-animated-nav-tab-bar';
 
+// Envelope
 const Tabs = AnimatedTabBarNavigator();
 import {ThemeContext} from '../theme';
 import {HeaderCamera} from '../components';
@@ -13,8 +14,8 @@ const TabsNavigator = ({navigation}) => {
 
   useFocusEffect(
     useCallback(() => {
+      // On focus, insert camera icon
       navigation.setOptions({
-        // On focus, insert camera icon
         headerLeft: () => <HeaderCamera navigation={navigation} />,
       });
     }, [navigation]),

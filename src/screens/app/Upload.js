@@ -1,8 +1,13 @@
 import React, {useCallback} from 'react';
-import {Button, Text, View, StatusBar} from 'react-native';
+import {Text, StatusBar} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 
-const Upload = ({navigation}) => {
+// Envelope
+import {Page, Container} from '../../components';
+
+const Upload = ({route, navigation}) => {
+  const {selected} = route.params;
+
   // useFocusEffect(
   //   useCallback(() => {
   //     const stackNavigator = navigation.dangerouslyGetParent();
@@ -17,10 +22,15 @@ const Upload = ({navigation}) => {
   // );
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <Page>
       <StatusBar barStyle="dark-content" />
-      <Text style={{fontSize: 30}}>Upload</Text>
-    </View>
+      <Container>
+        <Text>Upload</Text>
+        {selected.map(s => (
+          <Text>{s}</Text>
+        ))}
+      </Container>
+    </Page>
   );
 };
 
