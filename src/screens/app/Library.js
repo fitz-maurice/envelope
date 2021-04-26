@@ -4,28 +4,31 @@ import {
   View,
   Platform,
   StatusBar,
-  ScrollView,
-  SafeAreaView,
   Pressable,
+  ScrollView,
+  Dimensions,
+  SafeAreaView,
   PermissionsAndroid,
 } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
 import {useFocusEffect} from '@react-navigation/native';
 
-import {HeaderCamera, HeaderNext, HeaderTitle} from '../../components';
+// Envelope
 import {ThemeContext} from '../../theme';
+import {HeaderCamera, HeaderNext, HeaderTitle} from '../../components';
 
 const Library = ({navigation}) => {
+  const {theme} = useContext(ThemeContext);
   const [photo, setPhoto] = useState(null);
   const [photos, setPhotos] = useState([]);
-  const {theme} = useContext(ThemeContext);
-  // Set header elements on focus
+  const firstImageSize = Dimensions.get('window').width;
+
   useFocusEffect(
     useCallback(() => {
-      getPictures();
+      _getPictures();
 
+      // Set header elements on focus
       const stackNavigator = navigation.dangerouslyGetParent();
-
       if (stackNavigator) {
         stackNavigator.setOptions({
           title: <HeaderTitle text="Library" />,
@@ -33,10 +36,15 @@ const Library = ({navigation}) => {
           headerRight: () => <HeaderNext navigation={navigation} />,
         });
       }
-    }, [getPictures, navigation]),
+    }, [_getPictures, navigation]),
   );
 
-  const hasAndroidPermission = async () => {
+  /**
+   * _hasAndroidPermission
+   *
+   * Check if Android phones have permission to write to storage on the phone
+   */
+  const _hasAndroidPermission = async () => {
     const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
     const hasPermission = await PermissionsAndroid.check(permission);
 
@@ -48,8 +56,13 @@ const Library = ({navigation}) => {
     return status === 'granted';
   };
 
-  const getPictures = async () => {
-    if (Platform.OS === 'android' && !(await hasAndroidPermission())) {
+  /**
+   * _getPictures
+   *
+   * Get pictures from the Camera Roll of the device
+   */
+  const _getPictures = async () => {
+    if (Platform.OS === 'android' && !(await _hasAndroidPermission())) {
       return;
     }
 
@@ -73,11 +86,8 @@ const Library = ({navigation}) => {
         <View>
           <Pressable onPress={() => alert('Selected')}>
             <Image
-              style={{
-                width: 300,
-                height: 100,
-              }}
               source={{uri: photo.node.image.uri}}
+              style={{width: firstImageSize, height: firstImageSize}}
             />
           </Pressable>
         </View>

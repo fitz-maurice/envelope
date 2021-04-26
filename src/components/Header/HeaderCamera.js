@@ -6,7 +6,9 @@ import {
   HeaderButton,
   Item,
 } from 'react-navigation-header-buttons';
-import {ThemeContext} from '../theme';
+
+// Envelope
+import {ThemeContext} from '../../theme';
 
 const HeaderCamera = ({navigation}) => {
   const {theme} = useContext(ThemeContext);

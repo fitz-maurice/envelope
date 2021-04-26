@@ -1,7 +1,9 @@
 import React, {useContext} from 'react';
 import {Pressable, Text, StyleSheet, useWindowDimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {ThemeContext} from '../theme';
+
+// Envelope
+import {ThemeContext} from '../../theme';
 
 const SettingsButton = ({border = true, title, onPress, logOut = false}) => {
   const {theme} = useContext(ThemeContext);
@@ -33,7 +35,7 @@ const SettingsButton = ({border = true, title, onPress, logOut = false}) => {
       <Text
         style={[
           styles.text,
-          {fontSize: fs, color: logOut ? 'red' : theme.bodyTextColor},
+          {fontSize: fs, color: logOut ? theme.red : theme.bodyTextColor},
         ]}>
         {title}
       </Text>

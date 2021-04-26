@@ -1,4 +1,4 @@
-import {Alert, StatusBar, Linking} from 'react-native';
+import {Alert, Linking} from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 /**
@@ -8,24 +8,22 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
  */
 export const browser = async url => {
   try {
-    StatusBar.setBarStyle('light-content');
     if (await InAppBrowser.isAvailable()) {
       await InAppBrowser.open(url, {
         // iOS Properties
+        animated: true,
         dismissButtonStyle: 'done',
-        //   preferredBarTintColor: '#453AA4',
-        //   preferredControlTintColor: 'white',
+        preferredControlTintColor: '#590404',
         readerMode: false,
-        modalEnabled: true,
-        enableBarCollapsing: false,
+        // modalEnabled: true,
+        enableBarCollapsing: true,
         // Android Properties
         showTitle: true,
-        //   toolbarColor: '#6200EE',
-        //   secondaryToolbarColor: 'black',
+        secondaryToolbarColor: '#590404',
         enableUrlBarHiding: true,
         enableDefaultShare: true,
         forceCloseOnRedirection: false,
-        // Animations
+        // Android Animations
         animations: {
           startEnter: 'slide_in_right',
           startExit: 'slide_out_left',
@@ -33,7 +31,6 @@ export const browser = async url => {
           endExit: 'slide_out_right',
         },
       });
-      StatusBar.setBarStyle('dark-content');
     } else {
       Linking.openURL(url);
     }

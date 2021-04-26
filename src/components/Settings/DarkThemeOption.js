@@ -1,7 +1,9 @@
 import React, {useContext} from 'react';
 import {Pressable, Text, StyleSheet, useWindowDimensions} from 'react-native';
-import {ThemeContext} from '../theme';
+
+// Envelope
 import {DarkToggle} from './DarkToggle';
+import {ThemeContext} from '../../theme';
 
 const DarkThemeOption = () => {
   const {theme} = useContext(ThemeContext);
@@ -9,13 +11,13 @@ const DarkThemeOption = () => {
 
   const styles = StyleSheet.create({
     container: {
+      paddingLeft: 0,
       paddingVertical: 8,
       paddingHorizontal: 10,
-      paddingLeft: 0,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
       alignItems: 'center',
+      flexDirection: 'row',
       backgroundColor: theme.gray,
+      justifyContent: 'space-between',
     },
     text: {
       color: theme.bodyTextColor,

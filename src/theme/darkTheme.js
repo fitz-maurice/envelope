@@ -26,4 +26,8 @@ export default {
     backgroundColor: '#2c2c2eff',
     tintColor: '#fff',
   },
+  header: {
+    tintColor: '#5C5F3E',
+    backgroundColor: '#ffffff',
+  },
 };

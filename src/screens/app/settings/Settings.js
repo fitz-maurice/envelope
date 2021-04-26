@@ -21,10 +21,9 @@ const Settings = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
 
   useFocusEffect(
-    // Set header elements on focus
     useCallback(() => {
+      // Set header elements on focus
       const stackNavigator = navigation.dangerouslyGetParent();
-
       if (stackNavigator) {
         stackNavigator.setOptions({
           headerLeft: null,

@@ -1,7 +1,9 @@
 import React, {useContext} from 'react';
 import {Text, StyleSheet, Pressable} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
-import {ThemeContext} from '../theme';
+
+// Envelope
+import {ThemeContext} from '../../theme';
 
 const HeaderNext = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -29,6 +31,8 @@ const HeaderNext = ({navigation}) => {
 const styles = StyleSheet.create({
   margin: {
     marginRight: 9,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

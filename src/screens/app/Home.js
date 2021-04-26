@@ -7,7 +7,7 @@ import {FlatGrid} from 'react-native-super-grid';
 // Envelope
 import {ThemeContext} from '../../theme';
 import {AppContext} from '../../services';
-import {HeaderCamera, HeaderTitle} from '../../components';
+import {HeaderCamera, HeaderTitle, Page} from '../../components';
 
 const Home = ({navigation}) => {
   const context = useContext(AppContext);
@@ -15,11 +15,10 @@ const Home = ({navigation}) => {
   const [cards, setCards] = useState([]);
   const imageWidth = Dimensions.get('window').width / 2;
 
-  // Set header elements on focus
   useFocusEffect(
     useCallback(() => {
+      // Set header elements on focus
       const stackNavigator = navigation.dangerouslyGetParent();
-
       if (stackNavigator) {
         stackNavigator.setOptions({
           title: <HeaderTitle text="Envelope" />,
@@ -63,24 +62,21 @@ const Home = ({navigation}) => {
   }
 
   const styles = StyleSheet.create({
-    viewStyle: {
-      flex: 1,
-      backgroundColor: theme.backgroundColor,
-    },
-    gridView: {
-      flex: 1,
+    gridView: {flex: 1},
+    cardStyles: {
+      width: '100%',
+      height: '100%',
     },
     itemContainer: {
-      justifyContent: 'flex-end',
-      height: 150,
-      backgroundColor: theme.backgroundColor,
       padding: 1,
+      height: 150,
+      justifyContent: 'flex-end',
+      backgroundColor: theme.backgroundColor,
     },
-    cardStyles: {width: '100%', height: '100%'},
   });
 
   return (
-    <View style={styles.viewStyle}>
+    <Page>
       <StatusBar barStyle={theme.appbar.barStyle} animated={true} />
       <FlatGrid
         itemDimension={imageWidth}
@@ -98,7 +94,7 @@ const Home = ({navigation}) => {
           </View>
         )}
       />
-    </View>
+    </Page>
   );
 };
 

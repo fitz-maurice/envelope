@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {Pressable, Text, StyleSheet, useWindowDimensions} from 'react-native';
-import {ThemeContext} from '../theme';
 
-// Utils
-import {font} from '../config';
+// Envelope
+import {font} from '../../config';
+import {ThemeContext} from '../../theme';
 
 const Button = ({title, onPress}) => {
   const {theme} = useContext(ThemeContext);

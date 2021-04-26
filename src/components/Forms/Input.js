@@ -1,8 +1,9 @@
 import React, {forwardRef, useContext} from 'react';
 import {TextInput, StyleSheet} from 'react-native';
-import {font} from '../config';
 
-import {ThemeContext} from '../theme';
+// Envelope
+import {font} from '../../config';
+import {ThemeContext} from '../../theme';
 
 const Input = forwardRef(
   (
