@@ -692,7 +692,7 @@
 				CODE_SIGN_ENTITLEMENTS = envelope/Envelope.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = 28K7PT56PF;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = envelope/Info.plist;
@@ -721,7 +721,7 @@
 				CODE_SIGN_ENTITLEMENTS = envelope/Envelope.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = 28K7PT56PF;
 				INFOPLIST_FILE = envelope/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
