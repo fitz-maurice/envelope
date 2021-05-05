@@ -1,15 +1,14 @@
 import React, {useCallback, useContext} from 'react';
-import {Text, StatusBar, Image, Dimensions} from 'react-native';
+import {Text, StatusBar} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 
 // Envelope
 import {ThemeContext} from '../../theme';
-import {Page, Container} from '../../components';
+import {Page, Container, Carousel} from '../../components';
 
 const Details = ({route, navigation}) => {
   const {theme} = useContext(ThemeContext);
   const {item} = route.params;
-  const firstImageSize = Dimensions.get('window').width;
 
   useFocusEffect(
     useCallback(() => {
@@ -25,12 +24,7 @@ const Details = ({route, navigation}) => {
   return (
     <Page>
       <StatusBar barStyle={theme.appbar.barStyle} animated={true} />
-      <Image
-        style={{width: firstImageSize, height: firstImageSize}}
-        source={{
-          uri: `data:image/png;base64,${item.images[0]}`,
-        }}
-      />
+      <Carousel images={item.images} />
       <Container>
         <Text>From: {item.from}</Text>
         <Text>Date: {item.date}</Text>
