@@ -35,7 +35,7 @@ const Clear = ({title, onPress}) => {
   const styles = StyleSheet.create({
     buttonClear: {
       height: 50,
-      borderRadius: 15,
+      borderRadius: 30,
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 10,
@@ -54,5 +54,31 @@ const Clear = ({title, onPress}) => {
   );
 };
 
+const Red = ({title, onPress}) => {
+  const {theme} = useContext(ThemeContext);
+  const styles = StyleSheet.create({
+    buttonClear: {
+      height: 50,
+      borderRadius: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 10,
+      backgroundColor: theme.red,
+    },
+    textClear: {
+      ...font.buttonClear,
+      color: theme.white,
+    },
+  });
+
+  const fs = 17 * useWindowDimensions().fontScale;
+  return (
+    <Pressable style={styles.buttonClear} onPress={onPress}>
+      <Text style={[styles.textClear, {fontSize: fs}]}>{title}</Text>
+    </Pressable>
+  );
+};
+
+Button.Red = Red;
 Button.Clear = Clear;
 export {Button};
