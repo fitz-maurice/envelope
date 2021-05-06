@@ -136,10 +136,16 @@ const Settings = ({navigation}) => {
           </SettingsGroup>
 
           <View style={styles.footnote}>
-            <Text style={styles.fnText}>
+            <Text
+              allowFontScaling={false}
+              suppressHighlighting={true}
+              style={styles.fnText}>
               Envelope App {'\u00A9'} {new Date().getFullYear()}
             </Text>
-            <Text style={styles.fnText}>
+            <Text
+              allowFontScaling={false}
+              suppressHighlighting={true}
+              style={styles.fnText}>
               {getVersion()} ({getBuildNumber()})
             </Text>
           </View>

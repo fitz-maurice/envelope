@@ -11,11 +11,11 @@ import {
 } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
 import {useFocusEffect} from '@react-navigation/native';
+import {FlatGrid} from 'react-native-super-grid';
 
 // Envelope
 import {ThemeContext} from '../../theme';
 import {Page, HeaderCamera, HeaderNext, HeaderTitle} from '../../components';
-import {FlatGrid} from 'react-native-super-grid';
 
 const Library = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -43,7 +43,7 @@ const Library = ({navigation}) => {
       }
 
       CameraRoll.getPhotos({
-        first: 20,
+        first: 101,
         assetType: 'Photos',
       }).then(r => {
         let library = r.edges;

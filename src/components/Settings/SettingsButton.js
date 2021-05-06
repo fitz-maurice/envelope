@@ -7,24 +7,36 @@ import {ThemeContext} from '../../theme';
 
 const SettingsButton = ({border = true, title, onPress, logOut = false}) => {
   const {theme} = useContext(ThemeContext);
-  const fs = 17 * useWindowDimensions().fontScale;
+  const fs = 14 * useWindowDimensions().fontScale;
 
+  /***************************************************************
+   * STYLES
+   **************************************************************/
   const styles = StyleSheet.create({
     container: {
-      paddingVertical: 11,
+      paddingVertical: 16,
       paddingLeft: 0,
-      paddingRight: 5,
+      paddingRight: 10,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: theme.gray,
     },
     text: {
+      fontSize: fs,
       color: theme.bodyTextColor,
     },
     border: {
       borderBottomWidth: 1,
       borderBottomColor: 'gray',
+    },
+    logOut: {
+      color: theme.red,
+      fontWeight: 'bold',
+    },
+    normal: {
+      color: theme.bodyTextColor,
+      fontWeight: 'normal',
     },
   });
 
@@ -33,13 +45,12 @@ const SettingsButton = ({border = true, title, onPress, logOut = false}) => {
       onPress={() => onPress()}
       style={[styles.container, border ? styles.border : null]}>
       <Text
-        style={[
-          styles.text,
-          {fontSize: fs, color: logOut ? theme.red : theme.bodyTextColor},
-        ]}>
+        allowFontScaling={false}
+        suppressHighlighting={true}
+        style={[styles.text, logOut ? styles.logOut : styles.normal]}>
         {title}
       </Text>
-      {logOut ? null : <Icon size={24} name="chevron-right" color={'black'} />}
+      {logOut ? null : <Icon size={18} name="chevron-right" color={'gray'} />}
     </Pressable>
   );
 };

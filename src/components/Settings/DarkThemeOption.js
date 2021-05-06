@@ -7,8 +7,11 @@ import {ThemeContext} from '../../theme';
 
 const DarkThemeOption = () => {
   const {theme} = useContext(ThemeContext);
-  const fs = 17 * useWindowDimensions().fontScale;
+  const fs = 14 * useWindowDimensions().fontScale;
 
+  /***************************************************************
+   * STYLES
+   **************************************************************/
   const styles = StyleSheet.create({
     container: {
       paddingLeft: 0,
@@ -30,7 +33,10 @@ const DarkThemeOption = () => {
 
   return (
     <Pressable style={[styles.container, styles.border]}>
-      <Text style={[styles.text, {fontSize: fs, color: theme.bodyTextColor}]}>
+      <Text
+        allowFontScaling={false}
+        suppressHighlighting={true}
+        style={[styles.text, {fontSize: fs, color: theme.bodyTextColor}]}>
         Dark Theme
       </Text>
       <DarkToggle />
