@@ -31,10 +31,22 @@ const SignedInNavigator = ({navigation}) => {
       <SignedIn.Screen name="Envelope" component={TabsNavigator} />
       <SignedIn.Screen name="Camera" component={Camera} />
       <SignedIn.Screen name="Advanced" component={Advanced} />
-      <SignedIn.Screen name="Premium" component={Premium} />
       <SignedIn.Screen name="Upload" component={Upload} />
-      <SignedIn.Screen name="Details" component={Details} />
-      <SignedIn.Screen name="PersonalInfo" component={PersonalInfo} />
+      <SignedIn.Screen
+        name="Premium"
+        component={Premium}
+        options={{title: 'Premium Envelope'}}
+      />
+      <SignedIn.Screen
+        name="Details"
+        component={Details}
+        options={{title: 'Card Details'}}
+      />
+      <SignedIn.Screen
+        name="PersonalInfo"
+        component={PersonalInfo}
+        options={{title: 'Personal Info'}}
+      />
     </SignedIn.Navigator>
   );
 };

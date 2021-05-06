@@ -2,13 +2,17 @@ import React, {useState, useContext, useEffect} from 'react';
 import {
   View,
   StatusBar,
-  Modal,
   StyleSheet,
   Pressable,
   Text,
+  useWindowDimensions,
+  Alert,
 } from 'react-native';
+import {
+  KeyboardAccessoryView,
+  KeyboardAccessoryNavigation,
+} from 'react-native-keyboard-accessory';
 import firestore from '@react-native-firebase/firestore';
-import DatePicker, {getFormatedDate} from 'react-native-modern-datepicker';
 
 // Envelope
 import {
@@ -26,7 +30,7 @@ const PersonalInfo = ({navigation}) => {
   const context = useContext(AppContext);
   const [fullname, setFullname] = useState('');
   const [birthday, setBirthday] = useState('');
-  const [modal, setModal] = useState(true);
+  const fs = 17 * useWindowDimensions().fontScale;
 
   useEffect(() => {
     if (context.userRestored) {
@@ -36,11 +40,7 @@ const PersonalInfo = ({navigation}) => {
         .doc(`${uid}/account`)
         .onSnapshot(querySnapshot => {
           setFullname(querySnapshot.data().displayName);
-          const bday = getFormatedDate(
-            querySnapshot.data().birthday,
-            'MM/DD/YYYY',
-          );
-          setBirthday(bday);
+          setBirthday(querySnapshot.data().birthday);
           context.setLoading(false);
         });
       // Unsubscribe from events when no longer in use
@@ -49,54 +49,101 @@ const PersonalInfo = ({navigation}) => {
     /* eslint-disable react-hooks/exhaustive-deps */
   }, [context.userRestored]);
 
+  /**
+   * _save()
+   *
+   * Save a user's updated to their profile
+   */
+  const _save = () => {
+    if (fullname.length === 0 || birthday.length === 0) {
+      Alert.alert('Please fill out all fields');
+      return;
+    }
+
+    // mm/dd/yyyy
+    if (
+      !birthday.match(
+        /^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20|21)\d\d$/,
+      )
+    ) {
+      Alert.alert('Please enter your birthday in mm/dd/yyyy format');
+      return;
+    }
+
+    context.setLoading(true);
+    const uid = context.user.user.uid;
+    firestore()
+      .doc(`${uid}/account`)
+      .update({
+        displayName: fullname,
+        birthday: birthday,
+      })
+      .then(() => {
+        context.setLoading(false);
+        Alert.alert('Saved!');
+      });
+  };
+
   /***************************************************************
    * STYLES
    **************************************************************/
   const styles = StyleSheet.create({
-    text: {
-      fontSize: 30,
-      color: theme.bodyTextColor,
+    inputContainer: {
+      marginTop: 30,
+    },
+    textInputButton: {
+      flexShrink: 1,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.green,
+    },
+    button: {
+      color: '#ffffff',
     },
   });
 
   return (
     <Page>
-      <StatusBar barStyle={theme.appbar.barStyle} />
-      <Container>
-        <PageTitle text="A Few Details" />
-        <Paragraph text="Just a few thinks so we can better customize Evnelope for you." />
-        <Input value={fullname} onChangeText={setFullname} />
-        {/* <Pressable onPress={() => setModal(true)}>
-          <Text>{birthday}</Text>
-        </Pressable> */}
-      </Container>
+      <Page>
+        <StatusBar barStyle={theme.appbar.barStyle} />
+        <Container>
+          <PageTitle text="A Few Details" />
+          <Paragraph text="Just a few thinks so we can better customize Evnelope for you." />
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modal}
-        onRequestClose={() => {
-          setModal(!modal);
-        }}>
-        <DatePicker
-          onSelectedChange={date => {
-            setBirthday(date);
-            setModal(false);
-          }}
-          selected="2020-07-23"
-          mode="calendar"
-          //   style={{borderRadius: 10}}
-          options={{
-            backgroundColor: '#090C08',
-            textHeaderColor: '#FFA25B',
-            textDefaultColor: '#F6E7C1',
-            selectedTextColor: '#fff',
-            mainColor: '#F4722B',
-            textSecondaryColor: '#D6C7A1',
-            borderColor: 'rgba(122, 146, 165, 0.1)',
-          }}
-        />
-      </Modal>
+          <View style={styles.inputContainer}>
+            <Input
+              value={fullname}
+              autoFocus={true}
+              placeholder="Full name"
+              onChangeText={setFullname}
+            />
+            <Input
+              value={birthday}
+              placeholder="mm/dd/yyyy"
+              onChangeText={setBirthday}
+            />
+          </View>
+        </Container>
+      </Page>
+      <KeyboardAccessoryView
+        animateOn="all"
+        hideBorder={true}
+        alwaysVisible={true}
+        avoidKeyboard={true}
+        androidAdjustResize={true}>
+        <Pressable style={styles.textInputButton} onPress={() => _save()}>
+          <Text style={[styles.button, {fontSize: fs}]}>Save</Text>
+        </Pressable>
+      </KeyboardAccessoryView>
+      <KeyboardAccessoryNavigation
+        androidAdjustResize={true}
+        doneButtonTitle="Save"
+        tintColor={theme.green}
+        onDone={() => _save()}
+        // onNext={() => console.log()}
+        // onPrevious={() => passwordRef.current.focus()}
+      />
     </Page>
   );
 };
