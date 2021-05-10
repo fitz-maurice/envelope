@@ -37,13 +37,14 @@ const Carousel = memo(({images}) => {
         pagingEnabled
         horizontal
         initialNumToRender={0}
+        scrollEnabled={images.length > 1 ? true : false}
         scrollEventThrottle={16}
         onScroll={onScroll}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => <Slide image={item} />}
         keyExtractor={() => Math.floor(Math.random() * 100 + 1)}
       />
-      <Pagination images={images} index={index} />
+      {images.length > 1 ? <Pagination images={images} index={index} /> : null}
     </>
   );
 });
