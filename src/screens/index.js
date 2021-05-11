@@ -9,6 +9,7 @@ export * from './app/Camera';
 export * from './app/Library';
 export * from './app/Upload';
 export * from './app/Details';
+export * from './app/Edit';
 
 // Settings
 export * from './app/settings/Settings';

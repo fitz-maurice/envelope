@@ -29,7 +29,10 @@ const Advanced = ({navigation}) => {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'Confirm', onPress: () => console.log('OK Pressed')},
+        {
+          text: 'Confirm',
+          onPress: () => console.log('OK Pressed'),
+        },
       ],
     );
   };
@@ -49,7 +52,7 @@ const Advanced = ({navigation}) => {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'Confirm', onPress: () => _realDelete()},
+        {text: 'Confirm', onPress: () => _realDelete(), style: 'destructive'},
       ],
     );
   };
@@ -69,7 +72,11 @@ const Advanced = ({navigation}) => {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'Confirm', onPress: () => console.log('OK Pressed')},
+        {
+          text: 'Confirm',
+          onPress: () => console.log('OK Pressed'),
+          style: 'destructive',
+        },
       ],
     );
   };

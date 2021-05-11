@@ -7,6 +7,7 @@ import {ThemeContext} from '../theme';
 import {TabsNavigator} from '../navigators';
 import {
   // App
+  Edit,
   Camera,
   Upload,
   Details,
@@ -32,6 +33,15 @@ const SignedInNavigator = ({navigation}) => {
       <SignedIn.Screen name="Camera" component={Camera} />
       <SignedIn.Screen name="Advanced" component={Advanced} />
       <SignedIn.Screen name="Upload" component={Upload} />
+      <SignedIn.Screen
+        name="Edit"
+        component={Edit}
+        options={{
+          title: 'Edit Card',
+          headerBackTitle: 'Cancel',
+          headerBackTitleVisible: true,
+        }}
+      />
       <SignedIn.Screen
         name="Premium"
         component={Premium}

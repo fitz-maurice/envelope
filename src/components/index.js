@@ -19,6 +19,7 @@ export * from './Settings/SettingsGroup';
 export * from './Settings/SettingsButton';
 
 // Header
+export * from './Header/HeaderEdit';
 export * from './Header/HeaderNext';
 export * from './Header/HeaderCamera';
 
