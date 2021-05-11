@@ -23,6 +23,7 @@ export * from './Header/HeaderNext';
 export * from './Header/HeaderCamera';
 
 // Carousel
+export * from './Carousel/Tag';
 export * from './Carousel/Slide';
 export * from './Carousel/Carousel';
 export * from './Carousel/Pagination';

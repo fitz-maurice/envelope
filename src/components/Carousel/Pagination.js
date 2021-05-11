@@ -19,6 +19,8 @@ const Pagination = memo(({images, index}) => {
 const styles = StyleSheet.create({
   pagination: {
     width: '100%',
+    marginTop: -28,
+    paddingVertical: 10,
     flexDirection: 'row',
     justifyContent: 'center',
   },
@@ -29,10 +31,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
   },
   active: {
-    backgroundColor: 'red',
+    backgroundColor: '#5C5F3E',
   },
   inactive: {
-    backgroundColor: 'gray',
+    backgroundColor: 'white',
   },
 });
 

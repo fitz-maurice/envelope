@@ -1,28 +1,51 @@
-import React, {memo} from 'react';
-import {View, StyleSheet, Image, Dimensions} from 'react-native';
+import React from 'react';
+import {Animated} from 'react-native';
+import {PinchGestureHandler, State} from 'react-native-gesture-handler';
 
-const Slide = memo(({image}) => {
-  const {width} = Dimensions.get('window');
+const Slide = ({image}) => {
+  const scale = new Animated.Value(1);
 
-  const styles = StyleSheet.create({
-    size: {
-      width,
-      height: width,
+  /**
+   * _onZoomEvent
+   */
+  const _onZoomEvent = Animated.event(
+    [
+      {
+        nativeEvent: {scale: scale},
+      },
+    ],
+    {
+      useNativeDriver: true,
     },
-    slide: {
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  });
+  );
+
+  /**
+   * _onZoomStateChange
+   */
+  const _onZoomStateChange = event => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      Animated.spring(scale, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
 
   return (
-    <View style={[styles.slide, styles.size]}>
-      <Image
-        style={styles.size}
-        source={{uri: `data:image/png;base64,${image}`}}
+    <PinchGestureHandler
+      onGestureEvent={_onZoomEvent}
+      onHandlerStateChange={_onZoomStateChange}>
+      <Animated.Image
+        resizeMode="contain"
+        source={{uri: image.image}}
+        style={{
+          width: image.width,
+          height: image.height,
+          transform: [{scale: 1}],
+        }}
       />
-    </View>
+    </PinchGestureHandler>
   );
-});
+};
 
 export {Slide};
