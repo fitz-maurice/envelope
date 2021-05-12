@@ -12,6 +12,7 @@ import {
 import CameraRoll from '@react-native-community/cameraroll';
 import {useFocusEffect} from '@react-navigation/native';
 import {FlatGrid} from 'react-native-super-grid';
+import Icon from 'react-native-vector-icons/Feather';
 
 // Envelope
 import {ThemeContext} from '../../theme';
@@ -21,9 +22,17 @@ const Library = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
   const [photo, setPhoto] = useState(null);
   const [photos, setPhotos] = useState([]);
-  const [selectedPhotos] = useState([]);
+  const [selectedPhotos, setSelectedPhotos] = useState([]);
   const firstImageSize = Dimensions.get('window').width;
   const imageWidth = Dimensions.get('window').width / 2;
+
+  const toggleSelection = uri => {
+    if (!selectedPhotos.includes(uri)) {
+      setSelectedPhotos(old => [...old, uri]);
+    } else {
+      setSelectedPhotos(selectedPhotos.filter(card => card !== uri));
+    }
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -86,6 +95,31 @@ const Library = ({navigation}) => {
       justifyContent: 'flex-end',
       backgroundColor: theme.backgroundColor,
     },
+    iconView: {
+      margin: 5,
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      width: 15,
+      height: 15,
+      color: 'white',
+      backgroundColor: 'deepskyblue',
+      borderRadius: 99,
+      borderColor: 'white',
+      borderWidth: 1,
+    },
+    iconOverlay: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      backgroundColor: 'black',
+      opacity: 0.3,
+    },
+    largeSelectedContainer: {
+      width: firstImageSize,
+      height: firstImageSize,
+      position: 'absolute',
+    },
   });
 
   return (
@@ -95,11 +129,28 @@ const Library = ({navigation}) => {
       {/* First hero image */}
       {photo && (
         <View>
-          <Pressable onPress={() => selectedPhotos.push(photo.node.image.uri)}>
+          <Pressable onPress={() => toggleSelection(photo.node.image.uri)}>
             <Image
               source={{uri: photo.node.image.uri}}
               style={{width: firstImageSize, height: firstImageSize}}
             />
+
+            <View style={styles.largeSelectedContainer}>
+              {selectedPhotos.includes(photo.node.image.uri) && (
+                <>
+                  <View
+                    style={{
+                      ...styles.iconOverlay,
+                      width: firstImageSize,
+                      height: firstImageSize,
+                    }}
+                  />
+                  <View style={styles.iconView}>
+                    <Icon size={13} name="check" color="white" />
+                  </View>
+                </>
+              )}
+            </View>
           </Pressable>
         </View>
       )}
@@ -113,11 +164,28 @@ const Library = ({navigation}) => {
         renderItem={({item}) => (
           <Pressable
             style={styles.itemContainer}
-            onPress={() => selectedPhotos.push(item.node.image.uri)}>
+            onPress={() => toggleSelection(item.node.image.uri)}>
             <Image
               style={styles.cardStyles}
               source={{uri: item.node.image.uri}}
             />
+
+            <View style={{width: '100%', height: '100%', position: 'absolute'}}>
+              {selectedPhotos.includes(item.node.image.uri) && (
+                <>
+                  <View
+                    style={{
+                      ...styles.iconOverlay,
+                      height: '100%',
+                      width: '100%',
+                    }}
+                  />
+                  <View style={styles.iconView}>
+                    <Icon size={13} name="check" color="white" />
+                  </View>
+                </>
+              )}
+            </View>
           </Pressable>
         )}
       />
