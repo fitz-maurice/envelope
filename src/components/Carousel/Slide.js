@@ -1,9 +1,9 @@
 import React from 'react';
-import {Animated} from 'react-native';
+import {View, Animated} from 'react-native';
 import {PinchGestureHandler, State} from 'react-native-gesture-handler';
 
 const Slide = ({image}) => {
-  const scale = new Animated.Value(1);
+  const _scale = new Animated.Value(1);
 
   /**
    * _onZoomEvent
@@ -11,7 +11,7 @@ const Slide = ({image}) => {
   const _onZoomEvent = Animated.event(
     [
       {
-        nativeEvent: {scale: scale},
+        nativeEvent: {scale: _scale},
       },
     ],
     {
@@ -24,7 +24,7 @@ const Slide = ({image}) => {
    */
   const _onZoomStateChange = event => {
     if (event.nativeEvent.oldState === State.ACTIVE) {
-      Animated.spring(scale, {
+      Animated.spring(_scale, {
         toValue: 1,
         useNativeDriver: true,
       }).start();
@@ -36,12 +36,12 @@ const Slide = ({image}) => {
       onGestureEvent={_onZoomEvent}
       onHandlerStateChange={_onZoomStateChange}>
       <Animated.Image
-        resizeMode="contain"
+        resizeMode="cover"
         source={{uri: image.image}}
         style={{
           width: image.width,
           height: image.height,
-          transform: [{scale: 1}],
+          transform: [{scale: _scale}],
         }}
       />
     </PinchGestureHandler>

@@ -85,22 +85,21 @@ const TextArea = props => {
   const styles = StyleSheet.create({
     input: {
       ...font.body,
-      paddingVertical: 15,
-      paddingHorizontal: 20,
-      marginBottom: 15,
+      padding: 20,
       borderRadius: 30,
       color: theme.bodyTextColor,
       backgroundColor: theme.gray,
-      height: 400,
+      height: 200,
+      lineHeight: 25,
     },
   });
   return (
-    <Input
+    <TextInput
       {...props}
       style={styles.input}
       placeholder="Notes"
       multiline={true}
-      numberOfLines={400}
+      numberOfLines={20}
     />
   );
 };

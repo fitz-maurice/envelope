@@ -1,16 +1,15 @@
 import React, {useEffect, useState, useContext, useCallback} from 'react';
-import {StatusBar, Alert, Pressable, View} from 'react-native';
+import {
+  StatusBar,
+  Alert,
+  Pressable,
+  View,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 
 // Envelope
-import {
-  Page,
-  Container,
-  Button,
-  Input,
-  Loader,
-  HeaderDelete,
-} from '../../components';
+import {Container, Button, Input, Loader, HeaderDelete} from '../../components';
 import {
   AppContext,
   editCard,
@@ -35,9 +34,11 @@ const Edit = ({route, navigation}) => {
       getPeople(context.user.user.uid).then(p => setPeople(p));
       if (newFrom) {
         setFrom(newFrom);
+        setChanged(true);
       }
       if (newTag) {
         setTag(newTag);
+        setChanged(true);
       }
 
       navigation.setOptions({
@@ -103,7 +104,7 @@ const Edit = ({route, navigation}) => {
   }
 
   return (
-    <Page>
+    <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={100}>
       <StatusBar barStyle="dark-content" />
       <Container>
         <Pressable
@@ -147,7 +148,7 @@ const Edit = ({route, navigation}) => {
       <Container>
         <Button title="Save" onPress={_updateCard} />
       </Container>
-    </Page>
+    </KeyboardAvoidingView>
   );
 };
 
