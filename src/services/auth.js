@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const signIn = (email, password) => {
@@ -18,4 +19,16 @@ const signOut = async () => {
   return auth().signOut();
 };
 
-export {signIn, signUp, signOut, resetPassword};
+const updateUser = (uid, fields) => {
+  return firestore().doc(`${uid}/account`).update(fields);
+};
+
+const getPeople = uid => {
+  return firestore()
+    .doc(`${uid}/account`)
+    .get()
+    .then(doc => doc.data())
+    .then(d => d.people);
+};
+
+export {signIn, signUp, signOut, resetPassword, updateUser, getPeople};

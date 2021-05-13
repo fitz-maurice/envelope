@@ -17,6 +17,9 @@ import {
   PersonalInfo,
 } from '../screens';
 
+// Not a screen, really?
+import {Picker} from '../components';
+
 const SignedInNavigator = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
 
@@ -33,6 +36,7 @@ const SignedInNavigator = ({navigation}) => {
       <SignedIn.Screen name="Camera" component={Camera} />
       <SignedIn.Screen name="Advanced" component={Advanced} />
       <SignedIn.Screen name="Upload" component={Upload} />
+      <SignedIn.Screen name="Picker" component={Picker} />
       <SignedIn.Screen
         name="Edit"
         component={Edit}

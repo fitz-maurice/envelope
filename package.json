@@ -30,6 +30,7 @@
         "react-native-camera": "^3.39.0",
         "react-native-device-info": "^8.0.1",
         "react-native-gesture-handler": "^1.7.0",
+        "react-native-haptic-feedback": "^1.11.0",
         "react-native-inappbrowser-reborn": "^3.4.0",
         "react-native-keyboard-accessory": "^0.1.12",
         "react-native-lightbox-v2": "^0.8.7",

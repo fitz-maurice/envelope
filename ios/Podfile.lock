@@ -647,6 +647,8 @@ PODS:
     - React-Core
   - RNRate (1.2.6):
     - React-Core
+  - RNReactNativeHapticFeedback (1.11.0):
+    - React-Core
   - RNReanimated (2.1.0):
     - DoubleConversion
     - FBLazyVector
@@ -732,6 +734,7 @@ DEPENDENCIES:
   - "RNGoogleSignin (from `../node_modules/@react-native-community/google-signin`)"
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNRate (from `../node_modules/react-native-rate`)
+  - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -856,6 +859,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-inappbrowser-reborn"
   RNRate:
     :path: "../node_modules/react-native-rate"
+  RNReactNativeHapticFeedback:
+    :path: "../node_modules/react-native-haptic-feedback"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -877,7 +882,7 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: 7b423f9e248eae65987838148c36eec1dbfe0b53
-  FBReactNativeSpec: 4df3de65ca51168a4893eac543cf8fce0d054f8c
+  FBReactNativeSpec: 65715525c3edc13fba48f8b0944c5e3689d94791
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
   FirebaseAuth: 5fe4585c2ed847319f0ea68bd1d82c77e49ff9a0
   FirebaseCore: 907447d8917a4d3eb0cce2829c5a0ad21d90b432
@@ -934,6 +939,7 @@ SPEC CHECKSUMS:
   RNGoogleSignin: ad866d4c4af2651e36801dd3b7771d7715353499
   RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
   RNRate: cb88d5a0aa7be8bfae67dafbbbba2c9cd5e6faf2
+  RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
   RNReanimated: b8c8004b43446e3c2709fe64b2b41072f87428ad
   RNScreens: c277bfc4b5bb7c2fe977d19635df6f974f95dfd6
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4

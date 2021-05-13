@@ -14,6 +14,7 @@ const Input = forwardRef(
       keyboardType = 'default',
       autoCapitalize = 'sentences',
       secureTextEntry = false,
+      editable = true,
       value = '',
     },
     ref,
@@ -48,6 +49,9 @@ const Input = forwardRef(
         secureTextEntry={secureTextEntry}
         placeholderTextColor={theme.bodyTextColor}
         underlineColorAndroid="transparent"
+        allowFontScaling={false}
+        minimumFontScale={0.5}
+        editable={editable}
       />
     );
   },
@@ -76,6 +80,32 @@ const Password = props => {
   );
 };
 
+const TextArea = props => {
+  const {theme} = useContext(ThemeContext);
+  const styles = StyleSheet.create({
+    input: {
+      ...font.body,
+      paddingVertical: 15,
+      paddingHorizontal: 20,
+      marginBottom: 15,
+      borderRadius: 30,
+      color: theme.bodyTextColor,
+      backgroundColor: theme.gray,
+      height: 400,
+    },
+  });
+  return (
+    <Input
+      {...props}
+      style={styles.input}
+      placeholder="Notes"
+      multiline={true}
+      numberOfLines={400}
+    />
+  );
+};
+
 Input.Email = Email;
 Input.Password = Password;
+Input.TextArea = TextArea;
 export {Input};

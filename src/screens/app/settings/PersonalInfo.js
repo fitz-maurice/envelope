@@ -23,7 +23,7 @@ import {
   Container,
 } from '../../../components';
 import {ThemeContext} from '../../../theme';
-import {AppContext} from '../../../services';
+import {AppContext, updateUser} from '../../../services';
 
 const PersonalInfo = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -71,17 +71,13 @@ const PersonalInfo = ({navigation}) => {
     }
 
     context.setLoading(true);
-    const uid = context.user.user.uid;
-    firestore()
-      .doc(`${uid}/account`)
-      .update({
-        displayName: fullname,
-        birthday: birthday,
-      })
-      .then(() => {
-        context.setLoading(false);
-        Alert.alert('Saved!');
-      });
+    updateUser(context.user.user.uid, {
+      displayName: fullname,
+      birthday: birthday,
+    }).then(() => {
+      context.setLoading(false);
+      Alert.alert('Saved!');
+    });
   };
 
   /***************************************************************

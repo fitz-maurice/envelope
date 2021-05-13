@@ -9,6 +9,7 @@ export * from './Layout/Paragraph';
 // Forms
 export * from './Forms/Input';
 export * from './Forms/Button';
+export * from './Forms/Picker';
 export * from './Forms/LoginAppleButton';
 export * from './Forms/LoginGoogleButton';
 
@@ -22,6 +23,8 @@ export * from './Settings/SettingsButton';
 export * from './Header/HeaderEdit';
 export * from './Header/HeaderNext';
 export * from './Header/HeaderCamera';
+export * from './Header/HeaderDelete';
+export * from './Header/HeaderAdd';
 
 // Carousel
 export * from './Carousel/Tag';
