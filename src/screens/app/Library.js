@@ -12,11 +12,17 @@ import {
 import CameraRoll from '@react-native-community/cameraroll';
 import {useFocusEffect} from '@react-navigation/native';
 import {FlatGrid} from 'react-native-super-grid';
-import Icon from 'react-native-vector-icons/Feather';
 
 // Envelope
 import {ThemeContext} from '../../theme';
-import {Page, HeaderCamera, HeaderNext, HeaderTitle} from '../../components';
+import {
+  Page,
+  HeaderCamera,
+  HeaderNext,
+  HeaderTitle,
+  Overlay,
+  Button,
+} from '../../components';
 
 const Library = ({navigation}) => {
   const {theme} = useContext(ThemeContext);
@@ -80,6 +86,28 @@ const Library = ({navigation}) => {
     return status === 'granted';
   };
 
+  /**
+   * _firstHeroImage
+   *
+   * Present first image from camera roll larger than grid
+   */
+  const _firstHeroImage = () => {
+    return (
+      <View>
+        <Pressable onPress={() => toggleSelection(photo?.node.image.uri)}>
+          <Image
+            source={{uri: photo?.node?.image.uri}}
+            style={{width: firstImageSize, height: firstImageSize}}
+          />
+
+          {selectedPhotos.includes(photo?.node?.image.uri) && (
+            <Overlay large={true} />
+          )}
+        </Pressable>
+      </View>
+    );
+  };
+
   /***************************************************************
    * STYLES
    **************************************************************/
@@ -95,65 +123,11 @@ const Library = ({navigation}) => {
       justifyContent: 'flex-end',
       backgroundColor: theme.backgroundColor,
     },
-    iconView: {
-      margin: 5,
-      position: 'absolute',
-      bottom: 0,
-      right: 0,
-      width: 15,
-      height: 15,
-      color: 'white',
-      backgroundColor: 'deepskyblue',
-      borderRadius: 99,
-      borderColor: 'white',
-      borderWidth: 1,
-    },
-    iconOverlay: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      backgroundColor: 'black',
-      opacity: 0.3,
-    },
-    largeSelectedContainer: {
-      width: firstImageSize,
-      height: firstImageSize,
-      position: 'absolute',
-    },
   });
 
   return (
     <Page>
       <StatusBar barStyle={theme.appbar.barStyle} animated={true} />
-
-      {/* First hero image */}
-      {photo && (
-        <View>
-          <Pressable onPress={() => toggleSelection(photo.node.image.uri)}>
-            <Image
-              source={{uri: photo.node.image.uri}}
-              style={{width: firstImageSize, height: firstImageSize}}
-            />
-
-            <View style={styles.largeSelectedContainer}>
-              {selectedPhotos.includes(photo.node.image.uri) && (
-                <>
-                  <View
-                    style={{
-                      ...styles.iconOverlay,
-                      width: firstImageSize,
-                      height: firstImageSize,
-                    }}
-                  />
-                  <View style={styles.iconView}>
-                    <Icon size={13} name="check" color="white" />
-                  </View>
-                </>
-              )}
-            </View>
-          </Pressable>
-        </View>
-      )}
 
       {/* Everything else */}
       <FlatGrid
@@ -161,6 +135,7 @@ const Library = ({navigation}) => {
         data={photos}
         style={styles.gridView}
         itemDimension={imageWidth}
+        ListHeaderComponent={_firstHeroImage()}
         renderItem={({item}) => (
           <Pressable
             style={styles.itemContainer}
@@ -170,25 +145,18 @@ const Library = ({navigation}) => {
               source={{uri: item.node.image.uri}}
             />
 
-            <View style={{width: '100%', height: '100%', position: 'absolute'}}>
-              {selectedPhotos.includes(item.node.image.uri) && (
-                <>
-                  <View
-                    style={{
-                      ...styles.iconOverlay,
-                      height: '100%',
-                      width: '100%',
-                    }}
-                  />
-                  <View style={styles.iconView}>
-                    <Icon size={13} name="check" color="white" />
-                  </View>
-                </>
-              )}
-            </View>
+            {selectedPhotos.includes(item.node.image.uri) && <Overlay />}
           </Pressable>
         )}
       />
+
+      {selectedPhotos.length > 0 && (
+        <Button.FAB
+          title="Clear Selection"
+          icon="x-circle"
+          onPress={() => setSelectedPhotos([])}
+        />
+      )}
     </Page>
   );
 };

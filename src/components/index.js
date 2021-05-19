@@ -5,6 +5,7 @@ export * from './Layout/Container';
 export * from './Layout/HeaderTitle';
 export * from './Layout/PageTitle';
 export * from './Layout/Paragraph';
+export * from './Layout/Overlay';
 
 // Forms
 export * from './Forms/Input';

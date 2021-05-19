@@ -1,5 +1,12 @@
 import React, {useContext} from 'react';
-import {Pressable, Text, StyleSheet, useWindowDimensions} from 'react-native';
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
 // Envelope
 import {font} from '../../config';
@@ -79,6 +86,48 @@ const Red = ({title, onPress}) => {
   );
 };
 
+const FAB = ({title, icon, onPress}) => {
+  const {theme} = useContext(ThemeContext);
+  const fs = 12 * useWindowDimensions().fontScale;
+  const styles = StyleSheet.create({
+    buttonFAB: {
+      height: 30,
+      borderRadius: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '33%',
+      backgroundColor: `${theme.red}BF`,
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    textFAB: {
+      color: theme.white,
+      marginBottom: 1,
+    },
+    icon: {
+      marginRight: 8,
+    },
+    view: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
+
+  return (
+    <View style={styles.view}>
+      <Pressable style={styles.buttonFAB} onPress={onPress}>
+        <Icon size={12} name={icon} color="white" style={styles.icon} />
+        <Text style={[styles.textFAB, {fontSize: fs}]}>{title}</Text>
+      </Pressable>
+    </View>
+  );
+};
+
+Button.FAB = FAB;
 Button.Red = Red;
 Button.Clear = Clear;
 export {Button};
